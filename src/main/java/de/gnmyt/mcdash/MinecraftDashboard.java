@@ -3,6 +3,7 @@ package de.gnmyt.mcdash;
 import com.sun.net.httpserver.HttpServer;
 import de.gnmyt.mcdash.api.config.ConfigurationManager;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
@@ -25,7 +26,10 @@ public class MinecraftDashboard extends JavaPlugin {
             server = HttpServer.create(new InetSocketAddress(config.getWrapperPort()), 0);
             server.setExecutor(null);
             server.start();
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            System.out.println("Could not open the port for the web server: " + e.getMessage());
+            Bukkit.getPluginManager().disablePlugin(Bukkit.getPluginManager().getPlugin(getName()));
+        }
 
         registerRoutes();
     }
@@ -36,6 +40,9 @@ public class MinecraftDashboard extends JavaPlugin {
         server = null;
     }
 
+    /**
+     * Registers all routes in the {@link de.gnmyt.mcdash.panel.routes} package
+     */
     public void registerRoutes() {
         Reflections reflections = new Reflections(getRoutePackageName());
         reflections.getSubTypesOf(DefaultHandler.class).forEach(clazz -> {
@@ -45,18 +52,35 @@ public class MinecraftDashboard extends JavaPlugin {
         });
     }
 
+    /**
+     * Gets the dashboard configuration
+     * @return the dashboard configuration
+     */
     public static ConfigurationManager getDashboardConfig() {
         return config;
     }
 
+    /**
+     * Gets the current {@link MinecraftDashboard} instance
+     * @return the current {@link MinecraftDashboard} instance
+     */
     public static MinecraftDashboard getInstance() {
         return instance;
     }
 
+    /**
+     * Gets the current http server
+     * @return the current http server
+     */
     public static HttpServer getHttpServer() {
         return server;
     }
 
+
+    /**
+     * Gets the name of the route package
+     * @return the name of the route package
+     */
     public static String getRoutePackageName() {
         return getInstance().getClass().getPackage().getName()+".panel.routes";
     }
