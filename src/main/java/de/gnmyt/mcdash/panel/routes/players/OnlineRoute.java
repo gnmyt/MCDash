@@ -1,0 +1,40 @@
+package de.gnmyt.mcdash.panel.routes.players;
+
+import de.gnmyt.mcdash.api.handler.DefaultHandler;
+import de.gnmyt.mcdash.api.http.ContentType;
+import de.gnmyt.mcdash.api.http.Request;
+import de.gnmyt.mcdash.api.http.ResponseController;
+import de.gnmyt.mcdash.api.json.ArrayBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+public class OnlineRoute extends DefaultHandler {
+
+    @Override
+    public String path() {
+        return "online";
+    }
+
+    /**
+     * Gets all current online players
+     * @param request The request object from the HttpExchange
+     * @param response The Response controller from the HttpExchange
+     */
+    @Override
+    public void get(Request request, ResponseController response) throws Exception {
+
+        ArrayBuilder builder = new ArrayBuilder();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            builder.addNode()
+                    .add("uuid", player.getUniqueId().toString())
+                    .add("name", player.getName())
+                    .add("player_time", player.getPlayerTime())
+                    .add("current_world", player.getWorld().getName())
+                    .add("address", player.getAddress().getHostName())
+                    .register();
+        }
+
+        response.type(ContentType.JSON).text(builder.toJSON());
+    }
+}
