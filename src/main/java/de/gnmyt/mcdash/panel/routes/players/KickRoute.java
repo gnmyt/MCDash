@@ -1,0 +1,37 @@
+package de.gnmyt.mcdash.panel.routes.players;
+
+import de.gnmyt.mcdash.api.handler.DefaultHandler;
+import de.gnmyt.mcdash.api.http.Request;
+import de.gnmyt.mcdash.api.http.ResponseController;
+import org.bukkit.Bukkit;
+
+public class KickRoute extends DefaultHandler {
+
+    @Override
+    public String path() {
+        return "kick";
+    }
+
+    /**
+     * Kicks a player from the server
+     * @param request The request object from the HttpExchange
+     * @param response The Response controller from the HttpExchange
+     */
+    @Override
+    public void post(Request request, ResponseController response) throws Exception {
+        if (!isStringInBody("username")) return;
+
+        String username = getStringFromBody("username");
+        String reason = getStringFromBody("reason") != null ? getStringFromBody("reason") : "";
+
+        if (Bukkit.getPlayer(username) != null) {
+            Bukkit.getPlayer(username).kickPlayer(reason);
+        } else {
+            response.code(404).message("Player not found");
+            return;
+        }
+
+        response.message("Successfully kicked the player");
+    }
+
+}
