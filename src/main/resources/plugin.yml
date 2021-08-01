@@ -1,4 +1,5 @@
 name: MinecraftDashboard
 main: de.gnmyt.mcdash.MinecraftDashboard
 version: 1.0-SNAPSHOT
+description: This is the official plugin (wrapper) for MCDash, a free and open-source minecraft dashboard.
 author: GNMYT
