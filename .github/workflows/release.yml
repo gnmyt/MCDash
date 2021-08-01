@@ -74,5 +74,5 @@ jobs:
         with:
           upload_url: ${{ steps.get_release_info.outputs.upload_url }}
           asset_path: ./target/${{ steps.get_artifact_id.outputs.name }}-${{ steps.get_version.outputs.version }}-jar-with-dependencies.jar
-          asset_name: ${{ steps.get_artifact_id.outputs.name }}${{ steps.get_artifact_version.outputs.version }}.jar
+          asset_name: ${{ steps.get_artifact_id.outputs.name }}-${{ steps.get_version.outputs.version }}.jar
           asset_content_type: application/java-archive
