@@ -19,7 +19,7 @@ public class BanRoute extends DefaultHandler {
     /**
      * Gets all banned players
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {
@@ -39,7 +39,7 @@ public class BanRoute extends DefaultHandler {
     /**
      * Bans a player
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void put(Request request, ResponseController response) throws Exception {
@@ -59,7 +59,7 @@ public class BanRoute extends DefaultHandler {
     /**
      * Unbans a player
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {

@@ -18,7 +18,7 @@ public class OnlineRoute extends DefaultHandler {
     /**
      * Gets all current online players
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {

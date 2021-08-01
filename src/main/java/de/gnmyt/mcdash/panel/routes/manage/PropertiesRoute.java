@@ -21,7 +21,7 @@ public class PropertiesRoute extends DefaultHandler {
     /**
      * Gets all properties from the <code>server.properties</code> file
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {
@@ -42,7 +42,7 @@ public class PropertiesRoute extends DefaultHandler {
     /**
      * Patches all provided values from the body to the <code>server.properties</code> file
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void patch(Request request, ResponseController response) throws Exception {

@@ -19,7 +19,7 @@ public class PropertyRoute extends DefaultHandler {
     /**
      * Gets the current value of a property from the <code>server.properties</code>
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {
@@ -39,7 +39,7 @@ public class PropertyRoute extends DefaultHandler {
     /**
      * Changes the value of a property from the <code>server.properties</code>
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void patch(Request request, ResponseController response) throws Exception {
