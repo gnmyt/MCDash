@@ -21,7 +21,7 @@ public class FileRoute extends MultipartHandler {
     /**
      * Gets the content of a file in a directory
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {
@@ -40,7 +40,7 @@ public class FileRoute extends MultipartHandler {
     /**
      * Updates the content of a file in a directory
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void patch(Request request, ResponseController response) throws Exception {
@@ -65,7 +65,7 @@ public class FileRoute extends MultipartHandler {
     /**
      * Uploads a file file to a directory
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void put(Request request, ResponseController response) throws Exception {
@@ -89,7 +89,7 @@ public class FileRoute extends MultipartHandler {
     /**
      * Deletes a file from a directory
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {

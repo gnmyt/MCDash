@@ -15,7 +15,7 @@ public class WhitelistRoute extends DefaultHandler {
     /**
      * Gets the current whitelist status
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {
@@ -25,7 +25,7 @@ public class WhitelistRoute extends DefaultHandler {
     /**
      * Updates the current whitelist status
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void patch(Request request, ResponseController response) throws Exception {

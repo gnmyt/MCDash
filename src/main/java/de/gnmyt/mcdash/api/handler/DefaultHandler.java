@@ -60,7 +60,7 @@ public abstract class DefaultHandler implements HttpHandler {
     /**
      * The default executor. Runs on every request
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     public void execute(Request request, ResponseController response) {
         try {
@@ -75,7 +75,7 @@ public abstract class DefaultHandler implements HttpHandler {
     /**
      * The default get executor. Runs on every 'GET'-request
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      * @throws Exception Every exception happening in the overridden function
      */
     public void get(Request request, ResponseController response) throws Exception {
@@ -85,7 +85,7 @@ public abstract class DefaultHandler implements HttpHandler {
     /**
      * The default post executor. Runs on every 'POST'-request
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      * @throws Exception Every exception happening in the overridden function
      */
     public void post(Request request, ResponseController response) throws Exception {
@@ -95,7 +95,7 @@ public abstract class DefaultHandler implements HttpHandler {
     /**
      * The default put executor. Runs on every 'PUT'-request
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      * @throws Exception Every exception happening in the overridden function
      */
     public void put(Request request, ResponseController response) throws Exception {
@@ -105,7 +105,7 @@ public abstract class DefaultHandler implements HttpHandler {
     /**
      * The default delete executor. Runs on every 'DELETE'-request
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      * @throws Exception Every exception happening in the overridden function
      */
     public void delete(Request request, ResponseController response) throws Exception {
@@ -115,7 +115,7 @@ public abstract class DefaultHandler implements HttpHandler {
     /**
      * The default patch executor. Runs on every 'PATCH'-request
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      * @throws Exception Every exception happening in the overridden function
      */
     public void patch(Request request, ResponseController response) throws Exception {

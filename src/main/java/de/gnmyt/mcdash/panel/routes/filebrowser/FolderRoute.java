@@ -23,7 +23,7 @@ public class FolderRoute extends DefaultHandler {
     /**
      * Gets all files and folders from a specific directory
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {
@@ -52,7 +52,7 @@ public class FolderRoute extends DefaultHandler {
     /**
      * Creates a specific folder
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void put(Request request, ResponseController response) throws Exception {
@@ -80,7 +80,7 @@ public class FolderRoute extends DefaultHandler {
     /**
      * Deletes a specific directory
      * @param request The request object from the HttpExchange
-     * @param response The Response controller from the HttpExchange
+     * @param response The response controller from the HttpExchange
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {
