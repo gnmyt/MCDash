@@ -27,8 +27,7 @@ public class MinecraftDashboard extends JavaPlugin {
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
-            System.out.println("Could not open the port for the web server: " + e.getMessage());
-            Bukkit.getPluginManager().disablePlugin(Bukkit.getPluginManager().getPlugin(getName()));
+            disablePlugin("Could not open the port for the web server: " + e.getMessage());
         }
 
         registerRoutes();
@@ -50,6 +49,16 @@ public class MinecraftDashboard extends JavaPlugin {
                 clazz.newInstance().register();
             } catch (Exception ignored) { }
         });
+    }
+
+
+    /**
+     * Disables the plugin
+     * @param message The reason why the plugin should be disabled
+     */
+    public static void disablePlugin(String message) {
+        System.out.println(getPrefix()+message);
+        Bukkit.getPluginManager().disablePlugin(Bukkit.getPluginManager().getPlugin(getInstance().getName()));
     }
 
     /**
@@ -83,5 +92,13 @@ public class MinecraftDashboard extends JavaPlugin {
      */
     public static String getRoutePackageName() {
         return getInstance().getClass().getPackage().getName()+".panel.routes";
+    }
+
+    /**
+     * Gets the prefix of the plugin
+     * @return the prefix
+     */
+    public static String getPrefix() {
+        return "["+getInstance().getName()+"] ";
     }
 }
