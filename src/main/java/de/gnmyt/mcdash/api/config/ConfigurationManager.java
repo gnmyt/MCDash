@@ -33,8 +33,12 @@ public class ConfigurationManager {
      * Generates a default configuration
      */
     public void generateDefault() {
+
+        // Server configuration
+        config.set("identifier", Integer.parseInt(String.format("%04d", new Random().nextInt(10000))));
+
         // Master configuration
-        config.set("masterIP", "localhost:5232");
+        config.set("masterIP", "http://localhost:5232");
         config.set("masterKey", "your-master-key");
 
         // Wrapper configuration
@@ -63,6 +67,15 @@ public class ConfigurationManager {
     }
 
     /**
+     * Checks if the configuration file contains an string
+     * @param path The path you want to check
+     * @return <code>true</code> if the provided path exists in the config, otherwise <code>false</code>
+     */
+    public boolean hasString(String path) {
+        return config.getString(path) != null;
+    }
+
+    /**
      * Gets the master ip from the configuration
      * @return the master ip
      */
@@ -74,7 +87,7 @@ public class ConfigurationManager {
      * Gets the master key from the configuration
      * @return the master key
      */
-    public String masterKey() {
+    public String getMasterKey() {
         return getString("masterKey");
     }
 
@@ -92,6 +105,15 @@ public class ConfigurationManager {
      */
     public String getWrapperKey() {
         return getString("wrapperKey");
+    }
+
+
+    /**
+     * Gets the server identifier
+     * @return the server identifier
+     */
+    public int getIdentifier() {
+        return getInt("identifier");
     }
 
     /**
