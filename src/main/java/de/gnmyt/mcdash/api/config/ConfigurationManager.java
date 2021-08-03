@@ -67,6 +67,15 @@ public class ConfigurationManager {
     }
 
     /**
+     * Checks if the configuration file contains an string
+     * @param path The path you want to check
+     * @return <code>true</code> if the provided path exists in the config, otherwise <code>false</code>
+     */
+    public boolean hasString(String path) {
+        return config.getString(path) != null;
+    }
+
+    /**
      * Gets the master ip from the configuration
      * @return the master ip
      */
