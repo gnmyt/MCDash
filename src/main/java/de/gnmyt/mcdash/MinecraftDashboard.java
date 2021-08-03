@@ -3,6 +3,7 @@ package de.gnmyt.mcdash;
 import com.sun.net.httpserver.HttpServer;
 import de.gnmyt.mcdash.api.config.ConfigurationManager;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
+import de.gnmyt.mcdash.connector.MasterConnector;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
@@ -31,6 +32,8 @@ public class MinecraftDashboard extends JavaPlugin {
         }
 
         registerRoutes();
+
+        new MasterConnector().register();
     }
 
     @Override
