@@ -10,8 +10,13 @@ public class StatsRoute extends DefaultHandler {
 
     private final StatsController STATS = new StatsController(MinecraftDashboard.getInstance());
 
+    /**
+     * Gets the current server statistics such as the tps, processors, memory and the space
+     * @param request The request object from the HttpExchange
+     * @param response The response controller from the HttpExchange
+     */
     @Override
-    public void get(Request request, ResponseController response) throws Exception {
+    public void get(Request request, ResponseController response) {
         response.json("tps="+STATS.getTPS(), "processors="+STATS.getAvailableProcessors(),
                 "free_memory="+STATS.getFreeMemory(), "total_memory="+STATS.getTotalMemory(), "used_memory="+STATS.getUsedMemory(),
                 "free_space="+STATS.getFreeSpace(), "total_space="+STATS.getTotalSpace(), "used_space="+STATS.getUsedSpace());
