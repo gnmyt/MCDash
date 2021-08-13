@@ -62,4 +62,28 @@ public class StatsController {
         return getTotalMemory() - getFreeMemory();
     }
 
+    /**
+     * Gets the total amount of space from the server
+     * @return the total amount space from the server
+     */
+    public long getTotalSpace() {
+        return SERVER_FOLDER.getTotalSpace();
+    }
+
+    /**
+     * Gets the free amount of space from the server
+     * @return the free amount of space from the server
+     */
+    public long getFreeSpace() {
+        return SERVER_FOLDER.getFreeSpace();
+    }
+
+    /**
+     * Gets the used amount of space from the server
+     * @return the used amount of space from the server
+     */
+    public long getUsedSpace() {
+        return getTotalSpace() - getFreeSpace();
+    }
+
 }
