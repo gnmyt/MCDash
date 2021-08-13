@@ -86,4 +86,12 @@ public class StatsController {
         return getTotalSpace() - getFreeSpace();
     }
 
+    /**
+     * Gets the total amount of processors available to the server
+     * @return the total amount of processors available to the server
+     */
+    public long getAvailableProcessors() {
+        return Runtime.getRuntime().availableProcessors();
+    }
+
 }
