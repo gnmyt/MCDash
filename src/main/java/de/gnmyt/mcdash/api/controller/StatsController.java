@@ -38,4 +38,28 @@ public class StatsController {
         return TPS_RUNNABLE.getCurrentRoundedTPS();
     }
 
+    /**
+     * Gets the amount of free memory in the jvm
+     * @return the amount of free memory in the jvm
+     */
+    public long getFreeMemory() {
+        return Runtime.getRuntime().freeMemory();
+    }
+
+    /**
+     * Gets the maximum amount of memory that the jvm will use
+     * @return the maximum amount of memory that the jvm will use
+     */
+    public long getTotalMemory() {
+        return Runtime.getRuntime().totalMemory();
+    }
+
+    /**
+     * Gets the used amount of memory from the jvm
+     * @return the used amount of memory from the jvm
+     */
+    public long getUsedMemory() {
+        return getTotalMemory() - getFreeMemory();
+    }
+
 }
