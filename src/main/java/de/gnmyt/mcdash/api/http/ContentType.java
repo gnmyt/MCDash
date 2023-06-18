@@ -44,10 +44,20 @@ public enum ContentType {
     /**
      * The svg content type
      */
-    SVG("image/svg+xml", "svg");
+    SVG("image/svg+xml", "svg"),
 
-    private String type;
-    private String fileEnding;
+    /**
+     * The ico content type
+     */
+    ICO("image/x-icon", "ico"),
+
+    /**
+     * The woff2 content type
+     */
+    WOFF2("font/woff2", "woff2");
+
+    private final String type;
+    private final String fileEnding;
 
     /**
      * The basic constructor of the {@link ContentType}
