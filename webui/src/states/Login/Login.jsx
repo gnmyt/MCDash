@@ -8,7 +8,8 @@ export const Login = () => {
     const [token, setToken] = useState("");
     const [loginFailed, setLoginFailed] = useState(false);
 
-    const login = () => {
+    const login = (e) => {
+        if (e) e.preventDefault();
         localStorage.setItem("token", token);
         checkToken().then((r) => setLoginFailed(!r));
     }
@@ -30,7 +31,7 @@ export const Login = () => {
                         {loginFailed && <Alert severity="error" sx={{mt: 1, width: "80%"}}>
                             The provided token is invalid.
                         </Alert>}
-                        <Box component="form" noValidate sx={{mt: 1}}>
+                        <Box component="form" noValidate sx={{mt: 1}} onSubmit={login}>
                             <TextField margin="normal" value={token} required fullWidth label="Your token"
                                        type="password" autoFocus onChange={(e) => setToken(e.target.value)}/>
                             <Button variant="contained" fullWidth sx={{mt: 3}} onClick={login}>
