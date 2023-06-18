@@ -7,7 +7,7 @@ export const TokenProvider = (props) => {
 
     const [tokenValid, setTokenValid] = useState(null);
 
-    const checkToken = () => request("/speedtests/status").then((r) => {
+    const checkToken = () => request("/").then((r) => {
         setTokenValid(r.status === 200);
         return r.status === 200;
     });
