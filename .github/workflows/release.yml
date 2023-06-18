@@ -2,7 +2,7 @@ name: Java CI
 
 on:
   push:
-    branches: [master]
+    tags: [ "v*" ]
 
 jobs:
   create_release:
