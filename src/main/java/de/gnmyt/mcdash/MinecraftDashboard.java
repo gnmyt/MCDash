@@ -56,7 +56,7 @@ public class MinecraftDashboard extends JavaPlugin {
         Reflections reflections = new Reflections(getRoutePackageName());
         reflections.getSubTypesOf(DefaultHandler.class).forEach(clazz -> {
             try {
-                clazz.newInstance().register();
+                clazz.getDeclaredConstructor().newInstance().register();
             } catch (Exception ignored) { }
         });
     }
