@@ -49,7 +49,7 @@ public abstract class DefaultHandler implements HttpHandler {
             return;
         }
 
-        if (!authHeader.get(0).equals("Bearer "+manager.getWrapperKey())) {
+        if (!authHeader.get(0).equals("Bearer "+manager.getToken())) {
             controller.code(401).message("The provided api key is wrong");
             return;
         }
@@ -138,7 +138,7 @@ public abstract class DefaultHandler implements HttpHandler {
                 .replace(MinecraftDashboard.getRoutePackageName(), "")
                 .replace(".", "/");
         contextPath += (path().isEmpty() ? "/" : "/"+path());
-        MinecraftDashboard.getHttpServer().createContext(contextPath, this);
+        MinecraftDashboard.getHttpServer().createContext("/api"+contextPath, this);
     }
 
     /**
