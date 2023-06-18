@@ -5,12 +5,11 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
-import java.util.Random;
 
 public class ConfigurationManager {
 
-    private MinecraftDashboard api;
-    private FileConfiguration config;
+    private final MinecraftDashboard api;
+    private final FileConfiguration config;
 
     /**
      * Basic constructor of the {@link ConfigurationManager}
@@ -33,17 +32,9 @@ public class ConfigurationManager {
      * Generates a default configuration
      */
     public void generateDefault() {
-
-        // Server configuration
-        config.set("identifier", Integer.parseInt(String.format("%04d", new Random().nextInt(10000))));
-
-        // Master configuration
-        config.set("masterIP", "http://localhost:5232");
-        config.set("masterKey", "your-master-key");
-
         // Wrapper configuration
-        config.set("wrapperPort", Integer.parseInt(String.format("%04d", new Random().nextInt(10000))));
-        config.set("wrapperKey", RandomStringUtils.randomAlphabetic(64));
+        config.set("port", 7867);
+        config.set("token", RandomStringUtils.randomAlphabetic(32));
 
         saveConfig();
     }
@@ -67,7 +58,7 @@ public class ConfigurationManager {
     }
 
     /**
-     * Checks if the configuration file contains an string
+     * Checks if the configuration file contains a string
      * @param path The path you want to check
      * @return <code>true</code> if the provided path exists in the config, otherwise <code>false</code>
      */
@@ -76,45 +67,21 @@ public class ConfigurationManager {
     }
 
     /**
-     * Gets the master ip from the configuration
-     * @return the master ip
+     * Gets the port from the configuration
+     * @return the port
      */
-    public String getMasterIP() {
-        return getString("masterIP");
+    public int getPort() {
+        return getInt("port");
     }
 
     /**
-     * Gets the master key from the configuration
-     * @return the master key
+     * Gets the token from the configuration
+     * @return the token
      */
-    public String getMasterKey() {
-        return getString("masterKey");
+    public String getToken() {
+        return getString("token");
     }
 
-    /**
-     * Gets the wrapper port from the configuration
-     * @return the wrapper port
-     */
-    public int getWrapperPort() {
-        return getInt("wrapperPort");
-    }
-
-    /**
-     * Gets the wrapper key from the configuration
-     * @return the wrapper key
-     */
-    public String getWrapperKey() {
-        return getString("wrapperKey");
-    }
-
-
-    /**
-     * Gets the server identifier
-     * @return the server identifier
-     */
-    public int getIdentifier() {
-        return getInt("identifier");
-    }
 
     /**
      * Saves the current configuration
@@ -122,6 +89,5 @@ public class ConfigurationManager {
     public void saveConfig() {
         api.saveConfig();
     }
-
 
 }
