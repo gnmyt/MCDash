@@ -3,7 +3,7 @@ package de.gnmyt.mcdash;
 import com.sun.net.httpserver.HttpServer;
 import de.gnmyt.mcdash.api.config.ConfigurationManager;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
-import de.gnmyt.mcdash.connector.MasterConnector;
+import de.gnmyt.mcdash.api.handler.StaticHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
@@ -24,7 +24,7 @@ public class MinecraftDashboard extends JavaPlugin {
         if (!config.configExists()) config.generateDefault();
 
         try {
-            server = HttpServer.create(new InetSocketAddress(config.getWrapperPort()), 0);
+            server = HttpServer.create(new InetSocketAddress(config.getPort()), 0);
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
@@ -32,14 +32,21 @@ public class MinecraftDashboard extends JavaPlugin {
         }
 
         registerRoutes();
-
-        new MasterConnector().register();
+        registerWebUI();
     }
 
     @Override
     public void onDisable() {
         server.stop(0);
         server = null;
+    }
+
+    public void registerWebUI() {
+        try {
+            server.createContext("/", new StaticHandler());
+        } catch (Exception e) {
+            disablePlugin("Could not register the web ui: " + e.getMessage());
+        }
     }
 
     /**
