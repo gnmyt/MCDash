@@ -8,6 +8,7 @@ const theme = createTheme({
         },
         background: {
             default: '#27232F',
+            darker: "#1A1722"
         }
     },
     components: {
@@ -24,10 +25,17 @@ const theme = createTheme({
                     backgroundColor: '#1A1722'
                 }
             }
+        },
+        MuiMenu: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: '#1A1722'
+                }
+            }
         }
     },
     shape: {
-        borderRadius: 5,
+        borderRadius: 4,
     }
 });
 
