@@ -9,7 +9,7 @@ import {
     Toolbar,
     Typography
 } from "@mui/material";
-import routes from "@/common/routes/server.jsx";
+import {sidebar} from "@/common/routes/server.jsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Favorite} from "@mui/icons-material";
 
@@ -19,6 +19,12 @@ const DONATION_URL = "https://ko-fi.com/gnmyt";
 export const Sidebar = () => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const isSelected = (path) => {
+        if (path === "/") return location.pathname === "/";
+
+        return location.pathname.startsWith(path);
+    }
 
     return (
         <Drawer sx={{width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': {width: drawerWidth,
@@ -34,9 +40,9 @@ export const Sidebar = () => {
             <Divider />
 
             <List>
-                {routes.map((route) => (
+                {sidebar.map((route) => (
                     <ListItem key={route.path} disablePadding>
-                        <ListItemButton selected={location.pathname === route.path} onClick={() => navigate(route.path)}>
+                        <ListItemButton selected={isSelected(route.path)} onClick={() => navigate(route.path.replace("/*", ""))}>
                             <ListItemIcon>{route.icon}</ListItemIcon>
                             <ListItemText primary={route.name} />
                         </ListItemButton>
