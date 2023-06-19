@@ -68,7 +68,8 @@ export const Files = () => {
             <FileHeader directory={directory} currentFile={currentFile} fileContentChanged={fileContentChanged}
                         setDirectory={setDirectory} saveFile={saveFile} setCurrentFile={setCurrentFile} />
 
-            {!currentFile && <FileView files={files} changeDirectory={changeDirectory} click={click} />}
+            {!currentFile && <FileView files={files} changeDirectory={changeDirectory} click={click}
+                                        handleContextMenu={handleContextMenu} />}
 
             {currentFile && <FileEditor currentFile={currentFile} setContentChanged={setFileContentChanged} directory={directory}
                                         fileContent={fileContent} setFileContent={setFileContent} />}

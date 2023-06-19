@@ -2,7 +2,7 @@ import {Box, Button, Stack, Typography} from "@mui/material";
 import {Folder, InsertDriveFile} from "@mui/icons-material";
 import {convertSize} from "./utils/FileUtil.js";
 
-export const FileView = ({files, changeDirectory, click}) => {
+export const FileView = ({files, changeDirectory, click, handleContextMenu}) => {
     return (
         <div style={{display: "flex", flexWrap: "wrap", gap: 10, marginTop: 10, flexDirection: "column"}}>
             {files.length === 0 &&
