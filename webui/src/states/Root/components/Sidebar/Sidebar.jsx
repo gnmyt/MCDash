@@ -11,8 +11,10 @@ import {
 } from "@mui/material";
 import routes from "@/common/routes/server.jsx";
 import {useLocation, useNavigate} from "react-router-dom";
+import {Favorite} from "@mui/icons-material";
 
 const drawerWidth = 240;
+const DONATION_URL = "https://ko-fi.com/gnmyt";
 
 export const Sidebar = () => {
     const location = useLocation();
@@ -40,6 +42,16 @@ export const Sidebar = () => {
                         </ListItemButton>
                     </ListItem>
                 ))}
+
+                <Divider />
+
+                <ListItem disablePadding>
+                    <ListItemButton onClick={() => window.open(DONATION_URL, "_blank")}>
+                        <ListItemIcon><Favorite color="error" /></ListItemIcon>
+                        <ListItemText primary="Support the project" />
+                    </ListItemButton>
+                </ListItem>
+
             </List>
         </Drawer>
     )
