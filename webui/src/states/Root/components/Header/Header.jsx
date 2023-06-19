@@ -2,7 +2,7 @@ import {AppBar, IconButton, Stack, Toolbar, Tooltip, Typography} from "@mui/mate
 import {ExitToApp} from "@mui/icons-material";
 import {useContext, useEffect} from "react";
 import {TokenContext} from "@contexts/Token/index.js";
-import routes from "@/common/routes/server.jsx";
+import {sidebar} from "@/common/routes/server.jsx";
 import {useLocation} from "react-router-dom";
 
 const drawerWidth = 240;
@@ -16,9 +16,9 @@ export const Header = () => {
     }, [location]);
 
     const getTitleByPath = () => {
-        const route = routes.find((route) => route.path === location.pathname);
+        const route = sidebar.find((route) => location.pathname.startsWith(route.path) && route.path !== "/");
         if (route) return route.name;
-        return "Home";
+        return "Overview";
     }
 
     const logout = () => {
