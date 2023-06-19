@@ -6,6 +6,7 @@ import de.gnmyt.mcdash.api.http.Request;
 import de.gnmyt.mcdash.api.http.ResponseController;
 import de.gnmyt.mcdash.api.json.ArrayBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
 public class OnlineRoute extends DefaultHandler {
@@ -29,9 +30,12 @@ public class OnlineRoute extends DefaultHandler {
             builder.addNode()
                     .add("uuid", player.getUniqueId().toString())
                     .add("name", player.getName())
-                    .add("player_time", player.getPlayerTime())
+                    .add("player_time", player.getStatistic(Statistic.PLAY_ONE_TICK))
                     .add("current_world", player.getWorld().getName())
                     .add("address", player.getAddress().getHostName())
+                    .add("health", player.getHealth())
+                    .add("food_level", player.getFoodLevel())
+                    .add("game_mode", player.getGameMode().name())
                     .register();
         }
 
