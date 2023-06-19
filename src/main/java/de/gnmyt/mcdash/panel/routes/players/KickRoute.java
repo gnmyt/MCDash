@@ -25,7 +25,7 @@ public class KickRoute extends DefaultHandler {
         String reason = getStringFromBody("reason") != null ? getStringFromBody("reason") : "";
 
         if (Bukkit.getPlayer(username) != null) {
-            Bukkit.getPlayer(username).kickPlayer(reason);
+            runSync(() -> Bukkit.getPlayer(username).kickPlayer(reason));
         } else {
             response.code(404).message("Player not found");
             return;
