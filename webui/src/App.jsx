@@ -5,6 +5,7 @@ import Login from "@/states/Login";
 import Root from "@/states/Root";
 import routes from "@/common/routes/server.jsx";
 import {TokenProvider} from "@contexts/Token";
+import {PlayerProvider} from "@contexts/Players/index.js";
 
 const App = () => {
     const router = createBrowserRouter([
@@ -16,7 +17,9 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <TokenProvider>
-                <RouterProvider router={router}/>
+                <PlayerProvider>
+                    <RouterProvider router={router}/>
+                </PlayerProvider>
             </TokenProvider>
         </ThemeProvider>
     )
