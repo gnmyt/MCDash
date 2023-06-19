@@ -1,5 +1,6 @@
 import {Dashboard, Extension, Folder, Group, Public, Settings, Terminal} from "@mui/icons-material";
 import Overview from "@/states/Root/pages/Overview";
+import {BanListProvider} from "@/states/Root/pages/Players/components/PlayerTable/contexts/BanList";
 
 export default [
     {
@@ -10,7 +11,7 @@ export default [
     },
     {
         path: "/players",
-        element: <h2>Players</h2>,
+        element: <BanListProvider><Players /></BanListProvider>,
         icon: <Group />,
         name: "Players"
     },
