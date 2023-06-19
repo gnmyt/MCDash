@@ -29,6 +29,7 @@ public class BanRoute extends DefaultHandler {
             builder.addNode()
                     .add("uuid", player.getUniqueId().toString())
                     .add("name", player.getName())
+                    .add("reason", Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getReason())
                     .add("last_seen", player.getLastPlayed())
                     .register();
         }
