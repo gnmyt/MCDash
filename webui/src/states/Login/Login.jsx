@@ -1,5 +1,5 @@
 import {useContext, useState} from "react";
-import {TokenContext} from "@contexts/Token/index.js";
+import {TokenContext} from "@contexts/Token";
 import {Navigate} from "react-router-dom";
 import {Alert, Box, Button, Container, Grid, Stack, TextField, Typography} from "@mui/material";
 import {Buffer} from "buffer";

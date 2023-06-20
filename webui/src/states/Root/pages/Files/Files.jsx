@@ -4,7 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import FileEditor from "@/states/Root/pages/Files/components/FileEditor";
 import FileDropdown from "@/states/Root/pages/Files/components/FileDropdown";
 import FileView from "@/states/Root/pages/Files/components/FileView";
-import FileHeader from "@/states/Root/pages/Files/components/FileHeader/index.js";
+import FileHeader from "@/states/Root/pages/Files/components/FileHeader";
 
 export const Files = () => {
     const location = useLocation();

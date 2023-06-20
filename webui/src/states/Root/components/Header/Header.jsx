@@ -1,7 +1,7 @@
 import {AppBar, IconButton, Stack, Toolbar, Tooltip, Typography} from "@mui/material";
 import {ExitToApp} from "@mui/icons-material";
 import {useContext, useEffect} from "react";
-import {TokenContext} from "@contexts/Token/index.js";
+import {TokenContext} from "@contexts/Token";
 import {sidebar} from "@/common/routes/server.jsx";
 import {useLocation} from "react-router-dom";
 
