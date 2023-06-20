@@ -18,9 +18,12 @@
     "@mui/x-data-grid": "^6.8.0",
     "@uiw/codemirror-theme-atomone": "^4.21.3",
     "@uiw/react-codemirror": "^4.21.3",
+    "buffer": "^6.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.13.0"
+    "react-router-dom": "^6.13.0",
+    "xterm": "^5.2.1",
+    "xterm-addon-fit": "^0.7.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
