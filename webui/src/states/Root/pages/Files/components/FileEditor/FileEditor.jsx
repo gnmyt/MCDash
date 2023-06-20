@@ -13,6 +13,10 @@ export const FileEditor = ({directory, currentFile, setContentChanged, fileConte
             .then(async (data) => setFileContent(await data.text()));
     }, [currentFile]);
 
+    useEffect(() => {
+        return () => setFileContent("");
+    }, []);
+
     const updateContent = (value) => {
         setContentChanged(true);
         setFileContent(value);
@@ -20,7 +24,7 @@ export const FileEditor = ({directory, currentFile, setContentChanged, fileConte
 
     return (
         <Box display="flex" flexDirection="column" gap={1} marginTop={2}><CodeMirror
-            value={fileContent}
+            value={fileContent || "Loading..."}
             onChange={updateContent}
             theme={atomone}
         /></Box>
