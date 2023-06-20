@@ -3,6 +3,7 @@ package de.gnmyt.mcdash.api.handler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import de.gnmyt.mcdash.MinecraftDashboard;
+import de.gnmyt.mcdash.api.config.AccountManager;
 import de.gnmyt.mcdash.api.config.ConfigurationManager;
 import de.gnmyt.mcdash.api.http.HTTPMethod;
 import de.gnmyt.mcdash.api.http.Request;
@@ -13,6 +14,7 @@ import org.bukkit.Bukkit;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -22,6 +24,7 @@ public abstract class DefaultHandler implements HttpHandler {
     private ResponseController controller = null;
 
     public ConfigurationManager manager = MinecraftDashboard.getDashboardConfig();
+    public AccountManager accountManager = MinecraftDashboard.getAccountManager();
 
     /**
      * Gets the current route path
@@ -45,12 +48,27 @@ public abstract class DefaultHandler implements HttpHandler {
         List<String> authHeader = request.getHeaders().get("Authorization");
 
         if (authHeader == null) {
-            controller.code(400).message("You need to provide an api key");
+            controller.code(400).message("You need to provide your credentials");
             return;
         }
 
-        if (!authHeader.get(0).equals("Bearer "+manager.getToken())) {
-            controller.code(401).message("The provided api key is wrong");
+        String[] authCredentials;
+
+        try {
+            authCredentials = new String(Base64.getDecoder().decode(authHeader.get(0)
+                    .replace("Basic ", ""))).split(":");
+        } catch (Exception e) {
+            controller.code(400).message("You need to provide your credentials");
+            return;
+        }
+
+        if (authCredentials.length != 2) {
+            controller.code(400).message("You need to provide your credentials");
+            return;
+        }
+
+        if (!accountManager.isValidPassword(authCredentials[0], authCredentials[1])) {
+            controller.code(401).message("The provided credentials are invalid");
             return;
         }
 
