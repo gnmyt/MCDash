@@ -66,8 +66,8 @@ export const Players = () => {
             <Stack spacing={3} direction="row" sx={{width: "100%", justifyContent: "space-between", mt: 2}} flexWrap="wrap">
                 <Stack spacing={2} direction="column" sx={{width: "48%"}}>
                     <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
-                        <Typography variant="h5" fontWeight={500}>Whitelisted Players
-                            <Chip label={whitelistedPlayers.length} color="secondary"/></Typography>
+                        <Typography variant="h5" fontWeight={500}>Whitelisted Players <Chip label={whitelistedPlayers.length}
+                                                                                            color="secondary"/></Typography>
 
                         <Stack direction="row" spacing={2}>
                             <Tooltip title={whitelistActive ? "Disable whitelist" : "Enable whitelist"}>
