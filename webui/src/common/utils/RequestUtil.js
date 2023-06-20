@@ -1,6 +1,6 @@
 // Get the default headers of the request
 const getHeaders = () => {
-    let headers = localStorage.getItem("token") ? {Authorization: "Bearer " + localStorage.getItem("token")} : {};
+    let headers = localStorage.getItem("token") ? {Authorization: "Basic " + localStorage.getItem("token")} : {};
     headers['content-type'] = 'application/x-www-form-urlencoded';
 
     return headers;
@@ -17,6 +17,11 @@ export const request = async (path, method = "GET", body = {}, headers = {}) => 
 // Run a GET request and get the json of the response
 export const jsonRequest = async (path, headers = {}) => {
     return (await request(path, "GET", null, headers)).json();
+}
+
+// Dispatches the provided command
+export const dispatchCommand = (command) => {
+    return postRequest("console", {command});
 }
 
 // Run a POST request and post some values
