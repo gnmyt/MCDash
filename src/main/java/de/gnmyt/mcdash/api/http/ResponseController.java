@@ -149,7 +149,6 @@ public class ResponseController {
             }
             os.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
