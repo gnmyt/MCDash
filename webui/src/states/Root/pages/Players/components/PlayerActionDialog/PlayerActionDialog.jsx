@@ -14,7 +14,7 @@ import {PlayerContext} from "@contexts/Players";
 import {useContext, useState} from "react";
 import {capitalizeFirst} from "@/common/utils/StringUtil.js";
 import {postRequest, putRequest} from "@/common/utils/RequestUtil.js";
-import {BanListContext} from "@/states/Root/pages/Players/components/PlayerTable/contexts/BanList/index.js";
+import {BanListContext} from "@/states/Root/pages/Players/contexts/BanList";
 
 export const PlayerActionDialog = ({open, action, setOpen, selected}) => {
     const {players, updatePlayers} = useContext(PlayerContext);
