@@ -1,5 +1,6 @@
 package de.gnmyt.mcdash.panel.routes.players;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
 import de.gnmyt.mcdash.api.http.ContentType;
@@ -10,6 +11,10 @@ import okhttp3.OkHttpClient;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 public class WhitelistRoute extends DefaultHandler {
@@ -55,7 +60,23 @@ public class WhitelistRoute extends DefaultHandler {
 
         if (uuid == null) return;
 
-        Bukkit.getOfflinePlayer(uuid).setWhitelisted(true);
+        try {
+            JsonNode node = mapper.readTree(new File("whitelist.json"));
+            ArrayBuilder builder = new ArrayBuilder();
+
+            for (JsonNode n : node)
+                builder.addNode().add("uuid", n.get("uuid").asText()).add("name", n.get("name").asText())
+                        .register();
+
+            builder.addNode().add("uuid", uuid.toString()).add("name", getStringFromBody("username"))
+                    .register();
+
+            Files.write(Paths.get("whitelist.json"), builder.toJSON().getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Bukkit.reloadWhitelist();
 
         response.message("Successfully added the player to the whitelist.");
     }
@@ -73,7 +94,19 @@ public class WhitelistRoute extends DefaultHandler {
 
         if (uuid == null) return;
 
-        Bukkit.getOfflinePlayer(uuid).setWhitelisted(false);
+        JsonNode node = mapper.readTree(new File("whitelist.json"));
+        ArrayBuilder builder = new ArrayBuilder();
+
+        for (JsonNode n : node) {
+            if (n.get("uuid").asText().equals(uuid.toString())) continue;
+
+            builder.addNode().add("uuid", n.get("uuid").asText()).add("name", n.get("name").asText())
+                    .register();
+        }
+
+        Files.write(Paths.get("whitelist.json"), builder.toJSON().getBytes());
+
+        Bukkit.reloadWhitelist();
 
         response.message("Successfully removed the player from the whitelist.");
     }
