@@ -1,16 +1,21 @@
 package de.gnmyt.mcdash.panel.routes.players;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
 import de.gnmyt.mcdash.api.http.ContentType;
 import de.gnmyt.mcdash.api.http.Request;
 import de.gnmyt.mcdash.api.http.ResponseController;
 import de.gnmyt.mcdash.api.json.ArrayBuilder;
+import okhttp3.OkHttpClient;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.UUID;
 
 public class WhitelistRoute extends DefaultHandler {
+
+    private final OkHttpClient client = new OkHttpClient();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public String path() {
@@ -44,7 +49,9 @@ public class WhitelistRoute extends DefaultHandler {
      */
     @Override
     public void put(Request request, ResponseController response) {
-        UUID uuid = checkUUID(response);
+        if (!isStringInBody("username")) return;
+
+        UUID uuid = getUUID(getStringFromBody("username"));
 
         if (uuid == null) return;
 
@@ -60,8 +67,9 @@ public class WhitelistRoute extends DefaultHandler {
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {
+        if (!isStringInBody("username")) return;
 
-        UUID uuid = checkUUID(response);
+        UUID uuid = getUUID(getStringFromBody("username"));
 
         if (uuid == null) return;
 
@@ -70,19 +78,22 @@ public class WhitelistRoute extends DefaultHandler {
         response.message("Successfully removed the player from the whitelist.");
     }
 
-    /**
-     * Checks the UUID of the player
-     * @param response The current response
-     * @return the uuid from the response
-     */
-    public UUID checkUUID(ResponseController response) {
-        if (!isStringInBody("uuid")) return null;
-
+    public UUID getUUID(String username) {
         try {
-            return UUID.fromString(getStringFromBody("uuid"));
+            okhttp3.Request request = new okhttp3.Request.Builder()
+                    .url("https://api.mojang.com/users/profiles/minecraft/" + username)
+                    .build();
+
+            okhttp3.Response response = client.newCall(request).execute();
+
+            if (response.code() != 200) return null;
+
+            return UUID.fromString(mapper.readTree(response.body().string()).get("id").asText().replaceFirst(
+                    "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5"
+            ));
         } catch (Exception e) {
-            response.code(401).message("Invalid UUID provided");
-            return null;
         }
+
+        return null;
     }
 }
