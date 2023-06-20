@@ -9,7 +9,7 @@ export const PlayerTable = ({setSelectedPlayers}) => {
     return (
         <div style={{ height: 500 }}>
             <DataGrid
-                rows={players.map((player) => ({...player, id: player.uuid}))}
+                rows={players.map((player) => ({...player, id: player?.uuid}))}
                 columns={columns}
                 initialState={{pagination: {paginationModel: { page: 0, pageSize: 10 }}}}
                 pageSizeOptions={[10, 25, 50]}
