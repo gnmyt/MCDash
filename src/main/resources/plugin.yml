@@ -4,3 +4,8 @@ version: 1.4
 api-version: 1.13
 description: This is the official plugin (wrapper) for MCDash, a free and open-source minecraft dashboard.
 author: GNMYT
+commands:
+  panel:
+    description: Changes the password of the current user
+    aliases: [password, passwd]
+    permission: mcdash.use
