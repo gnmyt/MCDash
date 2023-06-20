@@ -32,6 +32,7 @@ public class PluginListRoute extends DefaultHandler {
                     .add("description", plugin.getDescription().getDescription())
                     .add("path", plugin.getClass().getProtectionDomain().getCodeSource().getLocation().getFile())
                     .add("enabled", plugin.isEnabled())
+                    .add("version", plugin.getDescription().getVersion())
                     .register();
         }
 
