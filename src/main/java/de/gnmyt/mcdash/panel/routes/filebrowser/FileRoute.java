@@ -63,7 +63,7 @@ public class FileRoute extends MultipartHandler {
     }
 
     /**
-     * Uploads a file file to a directory
+     * Uploads a file to a directory
      * @param request The request object from the HttpExchange
      * @param response The response controller from the HttpExchange
      */
