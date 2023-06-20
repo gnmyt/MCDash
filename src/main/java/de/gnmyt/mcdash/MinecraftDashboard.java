@@ -1,31 +1,36 @@
 package de.gnmyt.mcdash;
 
 import com.sun.net.httpserver.HttpServer;
+import de.gnmyt.mcdash.api.config.AccountManager;
 import de.gnmyt.mcdash.api.config.ConfigurationManager;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
 import de.gnmyt.mcdash.api.handler.StaticHandler;
+import de.gnmyt.mcdash.commands.PasswordCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
 
 public class MinecraftDashboard extends JavaPlugin {
 
     private static ConfigurationManager config;
+    private static AccountManager accountManager;
     private static MinecraftDashboard instance;
     private static HttpServer server;
 
     @Override
     public void onEnable() {
         instance = this;
+        accountManager = new AccountManager(instance);
         config = new ConfigurationManager(instance);
         if (!config.configExists()) config.generateDefault();
 
         try {
             server = HttpServer.create(new InetSocketAddress(config.getPort()), 0);
-            server.setExecutor(null);
+            server.setExecutor(Executors.newCachedThreadPool());
             server.start();
         } catch (IOException e) {
             disablePlugin("Could not open the port for the web server: " + e.getMessage());
@@ -33,6 +38,8 @@ public class MinecraftDashboard extends JavaPlugin {
 
         registerRoutes();
         registerWebUI();
+
+        getCommand("panel").setExecutor(new PasswordCommand(accountManager));
     }
 
     @Override
@@ -110,5 +117,13 @@ public class MinecraftDashboard extends JavaPlugin {
      */
     public static String getPrefix() {
         return "["+getInstance().getName()+"] ";
+    }
+
+    /**
+     * Gets the account manager
+     * @return the account manager
+     */
+    public static AccountManager getAccountManager() {
+        return accountManager;
     }
 }
