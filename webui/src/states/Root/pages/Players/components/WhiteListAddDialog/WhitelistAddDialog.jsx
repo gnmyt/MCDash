@@ -12,7 +12,7 @@ import {WhiteListContext} from "@/states/Root/pages/Players/contexts/WhiteList";
 import {putRequest} from "@/common/utils/RequestUtil.js";
 
 export const WhitelistAddDialog = ({open, setOpen}) => {
-    const {whitelistedPlayers, updatePlayers} = useContext(WhiteListContext);
+    const {updatePlayers} = useContext(WhiteListContext);
 
     const [playerName, setPlayerName] = useState("");
 
