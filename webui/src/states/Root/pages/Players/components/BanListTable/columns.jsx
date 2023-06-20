@@ -2,7 +2,7 @@ import {Typography} from "@mui/material";
 
 const columns = [
     {
-        field: 'name', headerName: 'Username', minWidth: 200, flex: 1, renderCell: (params) => {
+        field: 'name', headerName: 'Username', minWidth: 150, flex: 1, renderCell: (params) => {
             return (
                 <div style={{display: "flex", alignItems: "center"}}>
                     <img src={`https://crafatar.com/avatars/${params.row.uuid}?size=25&overlay`} alt={params.row.name}
@@ -12,10 +12,10 @@ const columns = [
             )
         }
     },
-    {field: 'uuid', headerName: 'Player-ID', flex: 1, minWidth: 300},
-    {field: 'reason', headerName: 'Reason', flex: 1, minWidth: 300},
+    {field: 'uuid', headerName: 'Player-ID', flex: 1, minWidth: 200},
+    {field: 'reason', headerName: 'Reason', flex: 1, minWidth: 150},
     {
-        field: 'last_seen', headerName: 'Last seen', flex: 1, renderCell: (params) =>
+        field: 'last_seen', headerName: 'Last seen', flex: 1, minWidth: 100, renderCell: (params) =>
             (<Typography>{new Date(params.row.last_seen).toLocaleString()}</Typography>)
     }
 ];

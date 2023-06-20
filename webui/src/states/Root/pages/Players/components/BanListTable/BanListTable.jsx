@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {BanListContext} from "@/states/Root/pages/Players/components/PlayerTable/contexts/BanList/index.js";
+import {BanListContext} from "@/states/Root/pages/Players/contexts/BanList";
 import {DataGrid} from "@mui/x-data-grid";
 import columns from "./columns.jsx";
 
