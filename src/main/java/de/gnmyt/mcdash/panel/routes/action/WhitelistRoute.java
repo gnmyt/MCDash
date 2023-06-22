@@ -30,7 +30,10 @@ public class WhitelistRoute extends DefaultHandler {
     @Override
     public void patch(Request request, ResponseController response) throws Exception {
         if (!isBooleanInBody("status")) return;
-        Bukkit.setWhitelist(getBooleanFromBody("status"));
-        response.message("Whitelist successfully " + (getBooleanFromBody("status") ? "enabled" : "disabled"));
+
+        runSync(() -> {
+            Bukkit.setWhitelist(getBooleanFromBody("status"));
+            response.message("Whitelist successfully " + (getBooleanFromBody("status") ? "enabled" : "disabled"));
+        });
     }
 }
