@@ -2,6 +2,7 @@ package de.gnmyt.mcdash.api.controller;
 
 import de.gnmyt.mcdash.MinecraftDashboard;
 import de.gnmyt.mcdash.api.tasks.TPSRunnable;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 
 import java.io.File;
@@ -83,7 +84,7 @@ public class StatsController {
      * @return the used amount of space from the server
      */
     public long getUsedSpace() {
-        return getTotalSpace() - getFreeSpace();
+        return FileUtils.sizeOfDirectory(SERVER_FOLDER);
     }
 
     /**
