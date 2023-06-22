@@ -1,0 +1,1 @@
+export {ConfigurationItem as default} from "./ConfigurationItem.jsx";
