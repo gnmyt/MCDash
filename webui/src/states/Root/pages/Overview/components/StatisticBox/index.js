@@ -1,0 +1,1 @@
+export {StatisticBox as default} from "./StatisticBox.jsx";
