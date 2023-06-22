@@ -43,10 +43,10 @@ public class PropertyRoute extends DefaultHandler {
      */
     @Override
     public void patch(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("name") || !isStringInBody("value")) return;
+        if (!isStringInBody("name")) return;
 
         String name = getStringFromBody("name");
-        String value = getStringFromBody("value");
+        String value = getStringFromBody("value") == null ? "" : getStringFromBody("value");
 
         Properties properties = new Properties();
         properties.load(new BufferedReader(new FileReader("server.properties")));
