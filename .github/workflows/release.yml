@@ -32,18 +32,6 @@ jobs:
         id: get_artifact_id
         run: echo "::set-output name=name::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.artifactId}' exec:exec)"
 
-      - name: Load Release URL File from release job
-        uses: actions/download-artifact@v1
-        with:
-          name: release_url
-
-      - name: Get Release File Name & Upload URL
-        id: get_release_info
-        shell: bash
-        run: |
-          value=`cat release_url/release_url.txt`
-          echo ::set-output name=upload_url::$value
-
       - name: Rename artifact
         run: mv ./target/${{ steps.get_artifact_id.outputs.name }}-${{ steps.get_version.outputs.version }}-jar-with-dependencies.jar ./target/${{ steps.get_artifact_id.outputs.name }}-${{ steps.get_version.outputs.version }}.jar
 
