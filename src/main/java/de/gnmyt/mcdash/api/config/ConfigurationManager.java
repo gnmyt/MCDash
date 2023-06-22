@@ -34,7 +34,6 @@ public class ConfigurationManager {
     public void generateDefault() {
         // Wrapper configuration
         config.set("port", 7867);
-        config.set("token", RandomStringUtils.randomAlphabetic(32));
 
         saveConfig();
     }
@@ -72,14 +71,6 @@ public class ConfigurationManager {
      */
     public int getPort() {
         return getInt("port");
-    }
-
-    /**
-     * Gets the token from the configuration
-     * @return the token
-     */
-    public String getToken() {
-        return getString("token");
     }
 
 
