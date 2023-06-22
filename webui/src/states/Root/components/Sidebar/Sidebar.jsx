@@ -16,9 +16,11 @@ import {Favorite} from "@mui/icons-material";
 const drawerWidth = 240;
 const DONATION_URL = "https://ko-fi.com/gnmyt";
 
-export const Sidebar = () => {
+export const Sidebar = ({mobileOpen, toggleOpen, window}) => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const container = window !== undefined ? () => window().document.body : undefined;
 
     const isSelected = (path) => {
         if (path === "/") return location.pathname === "/";
@@ -26,10 +28,8 @@ export const Sidebar = () => {
         return location.pathname.startsWith(path);
     }
 
-    return (
-        <Drawer sx={{width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': {width: drawerWidth,
-                boxSizing: 'border-box'}}} variant="permanent" anchor="left">
-
+    const drawer = (
+        <>
             <Toolbar>
                 <Stack direction="row" alignItems="center" gap={1}>
                     <img src="/assets/img/favicon.png" alt="MCDash" width="40px" height="40px" />
@@ -59,6 +59,20 @@ export const Sidebar = () => {
                 </ListItem>
 
             </List>
-        </Drawer>
+        </>
+    );
+
+    return (
+        <>
+            <Drawer container={container} variant="temporary" open={mobileOpen} onClose={toggleOpen}
+                ModalProps={{keepMounted: true}} sx={{display: { xs: 'block', sm: 'none' },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }}}>
+                {drawer}
+            </Drawer>
+            <Drawer variant="permanent" sx={{display: { xs: 'none', sm: 'block' },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }}} open>
+                {drawer}
+            </Drawer>
+        </>
     )
 }
