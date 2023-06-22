@@ -19,6 +19,7 @@ export const BanListTable = ({setSelectedBannedPlayers}) => {
                 onRowSelectionModelChange={(newSelection) => {
                     setSelectedBannedPlayers(newSelection)
                 }}
+                sx={{width: {xs: "85vw", lg: "40vw"}}}
             />
         </div>
     );
