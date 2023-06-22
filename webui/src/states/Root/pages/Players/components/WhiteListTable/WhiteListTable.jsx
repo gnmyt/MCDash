@@ -19,6 +19,7 @@ export const WhiteListTable = ({setSelectedWhitelistedPlayers}) => {
                 onRowSelectionModelChange={(newSelection) => {
                     setSelectedWhitelistedPlayers(newSelection);
                 }}
+                sx={{width: {xs: "85vw", lg: "40vw"}}}
             />
         </div>
     );
