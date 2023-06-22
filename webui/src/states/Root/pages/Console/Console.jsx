@@ -1,10 +1,11 @@
-import { dispatchCommand, request } from "@/common/utils/RequestUtil";
-import React, {useRef, useEffect, useState} from "react";
-import { Terminal } from "xterm";
-import { FitAddon } from "xterm-addon-fit";
+import {dispatchCommand, request} from "@/common/utils/RequestUtil";
+import React, {useEffect, useRef, useState} from "react";
+import {Terminal} from "xterm";
+import {FitAddon} from "xterm-addon-fit";
 
 import "xterm/css/xterm.css";
-import {Chip, IconButton, Stack, TextField, Typography} from "@mui/material";
+import "./custom.css";
+import {Box, IconButton, Stack, TextField, Typography} from "@mui/material";
 import {Send} from "@mui/icons-material";
 
 export const Console = () => {
@@ -12,15 +13,16 @@ export const Console = () => {
     const [command, setCommand] = useState("");
 
     useEffect(() => {
-        const terminal = new Terminal({
-            theme: { background: "rgba(0,0,0,0.25)" },
-            fontSize: 14,
-        });
+        const terminal = new Terminal({theme: {background: "rgba(0,0,0,0.25)"}, fontSize: 14});
 
         let currentLine = 0;
 
         const fitAddon = new FitAddon();
         terminal.loadAddon(fitAddon);
+
+        const resize = () => fitAddon.fit();
+
+        window.addEventListener("resize", resize);
 
         terminal.open(terminalRef.current);
         fitAddon.fit();
@@ -47,28 +49,27 @@ export const Console = () => {
 
         return () => {
             terminal.dispose();
+            window.removeEventListener("resize", resize);
             clearInterval(interval);
         };
     }, []);
 
     return (
         <>
-            <Typography variant="h5" fontWeight={500}>Console <Chip label={"Test"}
-                                                                           color="secondary"/></Typography>
-            <div ref={terminalRef} style={{marginTop: "1rem"}}/>
+            <Typography variant="h5" fontWeight={500}>Console</Typography>
+
+            <Box ref={terminalRef} sx={{mt: 2, width: "85vw"}}/>
 
             <Stack component="form" direction="row" alignItems="center" gap={1} sx={{mt: 3}} onSubmit={(e) => {
                 e.preventDefault();
                 dispatchCommand(command).then(() => setCommand(""));
             }}>
                 <TextField value={command} required fullWidth label="Command"
-                            autoFocus onChange={(e) => setCommand(e.target.value)}/>
+                           autoFocus onChange={(e) => setCommand(e.target.value)}/>
                 <IconButton variant="contained" type="submit">
-                    <Send />
+                    <Send/>
                 </IconButton>
             </Stack>
-
-
         </>
     );
 };
