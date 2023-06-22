@@ -13,7 +13,12 @@ import {WhitelistAddDialog} from "@/states/Root/pages/Players/components/WhiteLi
 
 export const Players = () => {
     const {bannedPlayers, updatePlayers} = useContext(BanListContext);
-    const {whitelistActive, switchWhitelist, whitelistedPlayers, updatePlayers: updateWhitelisted} = useContext(WhiteListContext);
+    const {
+        whitelistActive,
+        switchWhitelist,
+        whitelistedPlayers,
+        updatePlayers: updateWhitelisted
+    } = useContext(WhiteListContext);
     const {players} = useContext(PlayerContext);
 
     const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -33,7 +38,7 @@ export const Players = () => {
 
     const removeWhitelistedPlayers = async () => {
         for (const playerId of selectedWhitelistedPlayers) await deleteRequest(`players/whitelist/`,
-                {username: whitelistedPlayers.find((player) => player?.uuid === playerId).name});
+            {username: whitelistedPlayers.find((player) => player?.uuid === playerId).name});
 
         setSelectedWhitelistedPlayers([]);
         updateWhitelisted();
@@ -41,7 +46,7 @@ export const Players = () => {
 
     const unbanPlayers = async () => {
         for (const playerId of selectedBannedPlayers) await deleteRequest(`players/banlist/`,
-                {username: bannedPlayers.find((p) => p.uuid === playerId).name});
+            {username: bannedPlayers.find((p) => p.uuid === playerId).name});
 
         setSelectedBannedPlayers([]);
         updatePlayers();
@@ -52,52 +57,58 @@ export const Players = () => {
             <PlayerActionDialog action={dialogAction} open={dialogOpen} setOpen={setDialogOpen}
                                 selected={selectedPlayers}/>
 
-            <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
-                <Typography variant="h5" fontWeight={500}>Online Players <Chip label={players.length}
-                                                                               color="secondary"/></Typography>
-                <ButtonGroup>
-                    <Button color="warning" onClick={() => handleAction("kick")} variant="contained">Kick</Button>
-                    <Button color="error" variant="contained" onClick={() => handleAction("ban")}>Ban</Button>
-                </ButtonGroup>
-            </Box>
+            <Stack sx={{mt: 2, width: {xs: "85vw", lg: "80vw"}}} gap={2}>
+                <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
+                    <Typography variant="h5" fontWeight={500}>Online Players <Chip label={players.length}
+                                                                                   color="secondary"/></Typography>
+                    <ButtonGroup>
+                        <Button color="warning" onClick={() => handleAction("kick")} variant="contained">Kick</Button>
+                        <Button color="error" variant="contained" onClick={() => handleAction("ban")}>Ban</Button>
+                    </ButtonGroup>
+                </Box>
 
-            <PlayerTable setSelectedPlayers={setSelectedPlayers}/>
+                <PlayerTable setSelectedPlayers={setSelectedPlayers}/>
 
-            <Stack spacing={3} direction="row" sx={{width: "100%", justifyContent: "space-between", mt: 2}} flexWrap="wrap">
-                <Stack spacing={2} direction="column" sx={{width: "48%"}}>
-                    <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
-                        <Typography variant="h5" fontWeight={500}>Whitelisted Players <Chip label={whitelistedPlayers.length}
-                                                                                            color="secondary"/></Typography>
+                <Stack sx={{mt: 2, flexDirection: {xs: "column", lg: "row"}, justifyContent: "space-between"}} gap={2}>
 
-                        <Stack direction="row" spacing={2}>
-                            <Tooltip title={whitelistActive ? "Disable whitelist" : "Enable whitelist"}>
-                                <IconButton color={whitelistActive ? "success" : "error"} onClick={switchWhitelist}>
-                                    <PowerSettingsNew/>
-                                </IconButton>
-                            </Tooltip>
-                            <ButtonGroup>
-                                <Button color="primary" variant="contained" onClick={() =>
-                                    setWhitelistDialogOpen(true)}>Add</Button>
-                                <Button color="error" variant="contained"
-                                        onClick={removeWhitelistedPlayers}>Remove</Button>
-                            </ButtonGroup>
-                        </Stack>
-                    </Box>
+                    <Stack spacing={2} direction="column">
+                        <Box
+                            sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
+                            <Typography variant="h5" fontWeight={500}>Whitelisted Players <Chip
+                                label={whitelistedPlayers.length}
+                                color="secondary"/></Typography>
 
-                    <WhitelistAddDialog open={whitelistDialogOpen} setOpen={setWhitelistDialogOpen}/>
+                            <Stack direction="row" spacing={2}>
+                                <Tooltip title={whitelistActive ? "Disable whitelist" : "Enable whitelist"}>
+                                    <IconButton color={whitelistActive ? "success" : "error"} onClick={switchWhitelist}>
+                                        <PowerSettingsNew/>
+                                    </IconButton>
+                                </Tooltip>
+                                <ButtonGroup>
+                                    <Button color="primary" variant="contained" onClick={() =>
+                                        setWhitelistDialogOpen(true)}>Add</Button>
+                                    <Button color="error" variant="contained"
+                                            onClick={removeWhitelistedPlayers}>Remove</Button>
+                                </ButtonGroup>
+                            </Stack>
+                        </Box>
 
-                    <WhiteListTable setSelectedWhitelistedPlayers={setSelectedWhitelistedPlayers}/>
-                </Stack>
+                        <WhitelistAddDialog open={whitelistDialogOpen} setOpen={setWhitelistDialogOpen}/>
+
+                        <WhiteListTable setSelectedWhitelistedPlayers={setSelectedWhitelistedPlayers}/>
+                    </Stack>
 
 
-                <Stack spacing={2} direction="column" sx={{width: "48%"}}>
-                    <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
-                        <Typography variant="h5" fontWeight={500}>Banned Players <Chip label={bannedPlayers.length}
-                                                                                       color="secondary"/></Typography>
-                        <Button color="primary" onClick={unbanPlayers} variant="contained">Unban</Button>
-                    </Box>
+                    <Stack spacing={2} direction="column">
+                        <Box
+                            sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
+                            <Typography variant="h5" fontWeight={500}>Banned Players <Chip label={bannedPlayers.length}
+                                                                                           color="secondary"/></Typography>
+                            <Button color="primary" onClick={unbanPlayers} variant="contained">Unban</Button>
+                        </Box>
 
-                    <BanListTable setSelectedBannedPlayers={setSelectedBannedPlayers}/>
+                        <BanListTable setSelectedBannedPlayers={setSelectedBannedPlayers}/>
+                    </Stack>
                 </Stack>
             </Stack>
         </>
