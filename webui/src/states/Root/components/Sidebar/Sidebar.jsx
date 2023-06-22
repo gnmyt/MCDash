@@ -16,11 +16,11 @@ import {Favorite} from "@mui/icons-material";
 const drawerWidth = 240;
 const DONATION_URL = "https://ko-fi.com/gnmyt";
 
-export const Sidebar = ({mobileOpen, toggleOpen, window}) => {
+export const Sidebar = ({mobileOpen, toggleOpen, window: containerWindow}) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const container = window !== undefined ? () => window().document.body : undefined;
+    const container = containerWindow !== undefined ? () => containerWindow().document.body : undefined;
 
     const isSelected = (path) => {
         if (path === "/") return location.pathname === "/";
