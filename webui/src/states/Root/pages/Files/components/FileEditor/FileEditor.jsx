@@ -7,14 +7,14 @@ import {request} from "@/common/utils/RequestUtil.js";
 export const FileEditor = ({directory, currentFile, setContentChanged, fileContent, setFileContent}) => {
 
     useEffect(() => {
-        if (currentFile === null) return setFileContent("");
+        if (currentFile === null) return setFileContent(null);
 
         request("filebrowser/file?path=." + directory + currentFile.name)
             .then(async (data) => setFileContent(await data.text()));
     }, [currentFile]);
 
     useEffect(() => {
-        return () => setFileContent("");
+        return () => setFileContent(null);
     }, []);
 
     const updateContent = (value) => {
@@ -23,7 +23,7 @@ export const FileEditor = ({directory, currentFile, setContentChanged, fileConte
     }
 
     return (
-        <Box display="flex" flexDirection="column" gap={1} marginTop={2}><CodeMirror
+        <Box display="flex" flexDirection="column" gap={1} marginTop={2} sx={{maxWidth: "85vw"}}><CodeMirror
             value={fileContent || "Loading..."}
             onChange={updateContent}
             theme={atomone}
