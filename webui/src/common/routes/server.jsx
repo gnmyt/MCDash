@@ -5,15 +5,19 @@ import Players from "@/states/Root/pages/Players";
 import Files from "@/states/Root/pages/Files";
 import { WhiteListProvider } from "@/states/Root/pages/Players/contexts/WhiteList";
 import Console from "@/states/Root/pages/Console";
+import Plugins from "@/states/Root/pages/Plugins";
+import {StatsProvider} from "@/states/Root/pages/Overview/contexts/StatsContext";
+import {PluginsProvider} from "@/states/Root/pages/Plugins/contexts/Plugins";
+import Configuration from "@/states/Root/pages/Configuration";
+import {PropertiesProvider} from "@/states/Root/pages/Configuration/contexts/Properties";
 
 export const routes = [
-    {path: "/", element: <Overview />},
+    {path: "/", element: <StatsProvider><Overview /></StatsProvider>},
     {path: "/players", element: <BanListProvider><WhiteListProvider><Players /></WhiteListProvider></BanListProvider>},
     {path: "/files/*", element: <Files />},
     {path: "/console", element: <Console />},
-    {path: "/plugins", element: <h2>Plugins</h2>},
-    {path: "/worlds", element: <h2>Worlds</h2>},
-    {path: "/configuration", element: <h2>Configuration</h2>}
+    {path: "/plugins", element: <PluginsProvider><Plugins /></PluginsProvider>},
+    {path: "/configuration", element: <PropertiesProvider><Configuration /></PropertiesProvider>}
 ]
 
 export const sidebar = [
@@ -41,11 +45,6 @@ export const sidebar = [
         path: "/plugins",
         icon: <Extension />,
         name: "Plugins"
-    },
-    {
-        path: "/worlds",
-        icon: <Public />,
-        name: "Worlds"
     },
     {
         path: "/configuration",
