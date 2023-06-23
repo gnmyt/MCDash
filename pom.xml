@@ -48,7 +48,7 @@
                     </execution>
                     <execution>
                         <id>npm run build</id>
-                        <phase>compile</phase>
+                        <phase>pre-clean</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
