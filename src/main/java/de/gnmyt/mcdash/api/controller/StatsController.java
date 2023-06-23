@@ -12,7 +12,7 @@ public class StatsController {
     private final File SERVER_FOLDER = new File(".");
     private final TPSRunnable TPS_RUNNABLE = new TPSRunnable();
 
-    private MinecraftDashboard instance;
+    private final MinecraftDashboard instance;
 
     /**
      * Basic constructor of the {@link StatsController}
@@ -52,7 +52,7 @@ public class StatsController {
      * @return the maximum amount of memory that the jvm will use
      */
     public long getTotalMemory() {
-        return Runtime.getRuntime().totalMemory();
+        return Runtime.getRuntime().maxMemory();
     }
 
     /**
