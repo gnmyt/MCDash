@@ -1,7 +1,7 @@
 import {Box, Button, Chip, Stack, Typography} from "@mui/material";
 import React, {useContext} from "react";
 import {deleteRequest, postRequest} from "@/common/utils/RequestUtil.js";
-import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins/index.js";
+import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
 
 export const PluginItem = ({name, version, author, description, enabled}) => {
     const {plugins, updatePlugins} = useContext(PluginsContext);
@@ -16,7 +16,7 @@ export const PluginItem = ({name, version, author, description, enabled}) => {
     }
 
     return (
-        <Box backgroundColor="background.darker" borderRadius={2} padding={2} width={320} sx={{mr: 1, mt: 1}}>
+        <Box backgroundColor="background.darker" borderRadius={2} padding={2} sx={{mr: 1, mt: 1, width: {xs: "100%", lg: 300}}}>
             <Typography variant="h6" fontWeight={500}>{name} <Chip label={version} size="small" color="secondary" /></Typography>
             <Typography variant="body2" color="text.secondary">by {author || "Unknown"}</Typography>
             <Typography variant="body1">{description || "No description provided"}</Typography>
