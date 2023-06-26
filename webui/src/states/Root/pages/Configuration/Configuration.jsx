@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {PropertiesContext} from "@/states/Root/pages/Configuration/contexts/Properties";
 import {Stack, Typography} from "@mui/material";
-import ConfigurationItem from "@/states/Root/pages/Configuration/components/ConfigurationItem/index.js";
+import ConfigurationItem from "@/states/Root/pages/Configuration/components/ConfigurationItem";
 
 export const Configuration = () => {
     const {properties, updateProperties} = useContext(PropertiesContext);
