@@ -7,9 +7,10 @@ const getHeaders = () => {
 }
 
 // Run a plain request with all default values
-export const request = async (path, method = "GET", body = {}, headers = {}) => {
+export const request = async (path, method = "GET", body = {}, headers = {}, abort = true) => {
     const controller = new AbortController();
-    setTimeout(() => {controller.abort()}, 5000);
+    if (abort) setTimeout(() => {controller.abort()}, 10000);
+
 
     return await fetch("/api/" + path, {
         headers: {...getHeaders(), ...headers}, method,
