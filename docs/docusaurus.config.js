@@ -16,7 +16,7 @@ const config = {
   presets: [
     ['classic', ({
         docs: {sidebarPath: require.resolve('./sidebars.js'),
-            editUrl: 'https://github.com/gnmyt/MCDash/tree/master/docs/docs/'},
+            editUrl: 'https://github.com/gnmyt/MCDash/tree/master/docs/'},
         theme: {customCss: require.resolve('./src/css/custom.css')},
       }),
     ],
