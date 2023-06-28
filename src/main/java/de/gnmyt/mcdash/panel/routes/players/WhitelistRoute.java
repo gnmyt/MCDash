@@ -54,9 +54,9 @@ public class WhitelistRoute extends DefaultHandler {
      */
     @Override
     public void put(Request request, ResponseController response) {
-        if (!isStringInBody("username")) return;
+        if (!isStringInBody(request, response, "username")) return;
 
-        UUID uuid = getUUID(getStringFromBody("username"));
+        UUID uuid = getUUID(getStringFromBody(request, "username"));
 
         if (uuid == null) return;
 
@@ -68,7 +68,7 @@ public class WhitelistRoute extends DefaultHandler {
                 builder.addNode().add("uuid", n.get("uuid").asText()).add("name", n.get("name").asText())
                         .register();
 
-            builder.addNode().add("uuid", uuid.toString()).add("name", getStringFromBody("username"))
+            builder.addNode().add("uuid", uuid.toString()).add("name", getStringFromBody(request, "username"))
                     .register();
 
             Files.write(Paths.get("whitelist.json"), builder.toJSON().getBytes());
@@ -88,9 +88,9 @@ public class WhitelistRoute extends DefaultHandler {
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("username")) return;
+        if (!isStringInBody(request, response, "username")) return;
 
-        UUID uuid = getUUID(getStringFromBody("username"));
+        UUID uuid = getUUID(getStringFromBody(request, "username"));
 
         if (uuid == null) return;
 
