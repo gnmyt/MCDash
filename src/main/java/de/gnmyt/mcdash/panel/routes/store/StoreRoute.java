@@ -31,8 +31,8 @@ public class StoreRoute extends DefaultHandler {
 
     @Override
     public void get(Request request, ResponseController response) throws Exception {
-        String query = request.getQuery().containsKey("query") ? getStringFromQuery("query") : "";
-        int page = request.getQuery().containsKey("page") ? getIntegerFromQuery("page") : 1;
+        String query = request.getQuery().containsKey("query") ? getStringFromQuery(request, "query") : "";
+        int page = request.getQuery().containsKey("page") ? getIntegerFromQuery(request, "page") : 1;
 
         String base = Objects.equals(query, "") ? "resources" : "search/resources/"
                 + URLEncoder.encode(query, StandardCharsets.UTF_8.toString());
@@ -67,7 +67,7 @@ public class StoreRoute extends DefaultHandler {
 
     @Override
     public void put(Request request, ResponseController response) throws Exception {
-        if (!isStringInQuery("id")) return;
+        if (!isStringInQuery(request, response, "id")) return;
 
         HttpUrl url = HttpUrl.parse(ROOT_URL + "resources/" + URLEncoder.encode(request.getQuery()
                         .get("id"), UTF_8.toString())).newBuilder().addQueryParameter("game_versions",
