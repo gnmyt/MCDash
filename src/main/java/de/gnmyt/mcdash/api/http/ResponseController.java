@@ -79,6 +79,15 @@ public class ResponseController {
     }
 
     /**
+     * Sends a byte response to the client
+     * @param bytes The bytes you want to send
+     */
+    public void bytes(byte[] bytes) {
+        response.setBinaryOutput(bytes);
+        send();
+    }
+
+    /**
      * Sends a json response to the client
      * @param values The values you want to send
      */
@@ -138,7 +147,8 @@ public class ResponseController {
 
         response.getHeaders().forEach((key, value) -> exchange.getResponseHeaders().put(key, Collections.singletonList(value)));
 
-        byte[] bs = response.getOutput().getBytes(StandardCharsets.UTF_8);
+        byte[] bs = response.getBinaryOutput() == null ? response.getOutput().getBytes(StandardCharsets.UTF_8)
+                : response.getBinaryOutput();
 
         try {
             if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
