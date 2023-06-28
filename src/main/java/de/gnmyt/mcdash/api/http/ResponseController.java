@@ -158,7 +158,7 @@ public class ResponseController {
                 os.write(bs);
             }
             os.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
