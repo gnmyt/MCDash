@@ -19,10 +19,10 @@ public class KickRoute extends DefaultHandler {
      */
     @Override
     public void post(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("username")) return;
+        if (!isStringInBody(request, response, "username")) return;
 
-        String username = getStringFromBody("username");
-        String reason = getStringFromBody("reason") != null ? getStringFromBody("reason") : "";
+        String username = getStringFromBody(request, "username");
+        String reason = getStringFromBody(request, "reason") != null ? getStringFromBody(request, "reason") : "";
 
         if (Bukkit.getPlayer(username) != null) {
             runSync(() -> Bukkit.getPlayer(username).kickPlayer(reason));
