@@ -44,10 +44,10 @@ public class BanRoute extends DefaultHandler {
      */
     @Override
     public void put(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("username")) return;
+        if (!isStringInBody(request, response, "username")) return;
 
-        String username = getStringFromBody("username");
-        String reason = getStringFromBody("reason") != null ? getStringFromBody("reason") : "";
+        String username = getStringFromBody(request,"username");
+        String reason = getStringFromBody(request, "reason") != null ? getStringFromBody(request, "reason") : "";
 
         Bukkit.getBanList(BanList.Type.NAME).addBan(username, reason, null, "MCDash");
 
@@ -64,9 +64,9 @@ public class BanRoute extends DefaultHandler {
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("username")) return;
+        if (!isStringInBody(request, response, "username")) return;
 
-        String username = getStringFromBody("username");
+        String username = getStringFromBody(request, "username");
 
         Bukkit.getBanList(BanList.Type.NAME).pardon(username);
 
