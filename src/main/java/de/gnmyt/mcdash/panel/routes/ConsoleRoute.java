@@ -24,8 +24,8 @@ public class ConsoleRoute extends DefaultHandler {
     @Override
     public void get(Request request, ResponseController response) throws Exception {
 
-        int startLine = getIntegerFromQuery("startLine") != null ? getIntegerFromQuery("startLine") : 1;
-        int limit = getIntegerFromQuery("limit") != null ? getIntegerFromQuery("limit") : 500;
+        int startLine = getIntegerFromQuery(request, "startLine") != null ? getIntegerFromQuery(request, "startLine") : 1;
+        int limit = getIntegerFromQuery(request, "limit") != null ? getIntegerFromQuery(request, "limit") : 500;
 
         Object[] lines = Files.lines(Paths.get("logs//latest.log"))
                 .skip(startLine)
@@ -47,11 +47,11 @@ public class ConsoleRoute extends DefaultHandler {
      */
     @Override
     public void post(Request request, ResponseController response) {
-        if (!isStringInBody("command")) return;
+        if (!isStringInBody(request, response, "command")) return;
 
-        Bukkit.getLogger().warning("Executing command \"" + getStringFromBody("command") + "\"..");
+        Bukkit.getLogger().warning("Executing command \"" + getStringFromBody(request, "command") + "\"..");
 
-        runSync(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getStringFromBody("command")));
+        runSync(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getStringFromBody(request, "command")));
 
         response.message("Action executed.");
     }
