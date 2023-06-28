@@ -24,9 +24,9 @@ public class PropertyRoute extends DefaultHandler {
     @Override
     public void get(Request request, ResponseController response) throws Exception {
 
-        if (!isStringInQuery("name")) return;
+        if (!isStringInQuery(request, response, "name")) return;
 
-        String name = getStringFromQuery("name");
+        String name = getStringFromQuery(request, "name");
 
         Properties properties = new Properties();
         properties.load(new BufferedReader(new FileReader("server.properties")));
@@ -43,10 +43,10 @@ public class PropertyRoute extends DefaultHandler {
      */
     @Override
     public void patch(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("name")) return;
+        if (!isStringInBody(request, response, "name")) return;
 
-        String name = getStringFromBody("name");
-        String value = getStringFromBody("value") == null ? "" : getStringFromBody("value");
+        String name = getStringFromBody(request, "name");
+        String value = getStringFromBody(request, "value") == null ? "" : getStringFromBody(request, "value");
 
         Properties properties = new Properties();
         properties.load(new BufferedReader(new FileReader("server.properties")));
