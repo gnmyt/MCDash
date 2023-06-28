@@ -53,9 +53,9 @@ public class BackupRoute extends DefaultHandler {
      */
     @Override
     public void put(Request request, ResponseController response) throws Exception {
-        if (!isIntegerInBody("mode")) return;
+        if (!isIntegerInBody(request, response, "mode")) return;
 
-        String mode = getStringFromBody("mode").contains("0") ? "0" : getStringFromBody("mode");
+        String mode = getStringFromBody(request, "mode").contains("0") ? "0" : getStringFromBody(request, "mode");
         String[] modes = mode.split("");
 
         for (int i = 0; i < modes.length; i++) {
@@ -108,9 +108,9 @@ public class BackupRoute extends DefaultHandler {
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("backup_id")) return;
+        if (!isStringInBody(request, response, "backup_id")) return;
 
-        String backupId = getStringFromBody("backup_id");
+        String backupId = getStringFromBody(request, "backup_id");
 
         if (!controller.backupExists(backupId)) {
             response.code(404).message("Backup not found");
