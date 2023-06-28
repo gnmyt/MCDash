@@ -35,10 +35,11 @@ export const RestoreDialog = ({open, setOpen, id}) => {
                     <DialogTitle>Restoring backup</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            For a seamless world restoration, it is recommended to gracefully stop the server.
-                            Failure to do so may result in the server saving the world from memory to disk, potentially
-                            causing chunk bugs. If you solely intend to restore configuration changes or logs, you can
-                            select the "Only Restore" option.
+                            MCDash will restore this backup while runtime. Since Minecraft automatically saves the
+                            worlds every few seconds from memory, your world might get corrupted. To prevent this, you
+                            can stop the server without saving the world from memory. Any unsaved changes made to the
+                            server while runtime will be lost. This does not apply if you want to restore logs or other
+                            files that are not getting automatically saved by Minecraft.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
