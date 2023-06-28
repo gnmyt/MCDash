@@ -1,5 +1,6 @@
 package de.gnmyt.mcdash.api.json;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.math.BigDecimal;
@@ -114,6 +115,20 @@ public class NodeBuilder {
      */
     public NodeBuilder add(String name, byte[] value) {
         node.put(name, value);
+        return this;
+    }
+
+    /**
+     * Adds an entry to the node
+     * @param name The name of the node entry
+     * @param value The value (string array) of the node entry
+     * @return the current {@link NodeBuilder} instance
+     */
+    public NodeBuilder add(String name, String[] value) {
+        ArrayNode array = builder.getMapper().createArrayNode();
+
+        for (String s : value) array.add(s);
+        node.set(name, array);
         return this;
     }
 
