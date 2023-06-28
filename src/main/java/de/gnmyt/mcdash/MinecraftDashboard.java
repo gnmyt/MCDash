@@ -3,6 +3,7 @@ package de.gnmyt.mcdash;
 import com.sun.net.httpserver.HttpServer;
 import de.gnmyt.mcdash.api.config.AccountManager;
 import de.gnmyt.mcdash.api.config.ConfigurationManager;
+import de.gnmyt.mcdash.api.controller.BackupController;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
 import de.gnmyt.mcdash.api.handler.StaticHandler;
 import de.gnmyt.mcdash.commands.PasswordCommand;
@@ -17,6 +18,7 @@ import java.util.concurrent.Executors;
 public class MinecraftDashboard extends JavaPlugin {
 
     private static ConfigurationManager config;
+    private static BackupController backupController;
     private static AccountManager accountManager;
     private static MinecraftDashboard instance;
     private static HttpServer server;
@@ -26,6 +28,7 @@ public class MinecraftDashboard extends JavaPlugin {
         instance = this;
         accountManager = new AccountManager(instance);
         config = new ConfigurationManager(instance);
+        backupController = new BackupController();
         if (!config.configExists()) config.generateDefault();
 
         try {
@@ -48,6 +51,9 @@ public class MinecraftDashboard extends JavaPlugin {
         server = null;
     }
 
+    /**
+     * Registers the static handler of the web ui
+     */
     public void registerWebUI() {
         try {
             server.createContext("/", new StaticHandler());
@@ -125,5 +131,13 @@ public class MinecraftDashboard extends JavaPlugin {
      */
     public static AccountManager getAccountManager() {
         return accountManager;
+    }
+
+    /**
+     * Gets the backup controller
+     * @return the backup controller
+     */
+    public static BackupController getBackupController() {
+        return backupController;
     }
 }
