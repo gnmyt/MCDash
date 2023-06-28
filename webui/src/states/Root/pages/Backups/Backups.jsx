@@ -38,6 +38,8 @@ export const Backups = () => {
                                                             created={new Date(backup.id)} tag={backups.length - index}
                                                             setDelete={setDeleteSnackbarOpen} id={backup.id}
                                                             latest={index === 0}/>)}
+
+                {backups.length === 0 && <Typography sx={{width: "100%"}} textAlign="center">No backups found</Typography>}
             </Stack>
         </>
     );
