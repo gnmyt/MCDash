@@ -14,6 +14,7 @@ import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BackupRoute extends DefaultHandler {
 
@@ -91,9 +92,9 @@ public class BackupRoute extends DefaultHandler {
             if (backupMode == BackupMode.CONFIGS)
                 directories.addAll(FileUtils.listFiles(new File("."), new String[]{"yml", "properties", "json"}, false));
 
-            if (backupMode == BackupMode.LOGS) directories.add(new File("logs"));
+            if (backupMode == BackupMode.LOGS)
+                directories.addAll(Arrays.asList(new File("logs"), new File("crash-reports")));
         }
-
         controller.createBackup(mode, directories.toArray(new File[0]));
 
         response.message("Backup created");
