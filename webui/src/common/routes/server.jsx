@@ -1,4 +1,4 @@
-import {Dashboard, Extension, Folder, Group, Public, Settings, Terminal} from "@mui/icons-material";
+import {Dashboard, Extension, Folder, Group, Save, Settings, Terminal} from "@mui/icons-material";
 import Overview from "@/states/Root/pages/Overview";
 import {BanListProvider} from "@/states/Root/pages/Players/contexts/BanList";
 import Players from "@/states/Root/pages/Players";
@@ -10,6 +10,8 @@ import {StatsProvider} from "@/states/Root/pages/Overview/contexts/StatsContext"
 import {PluginsProvider} from "@/states/Root/pages/Plugins/contexts/Plugins";
 import Configuration from "@/states/Root/pages/Configuration";
 import {PropertiesProvider} from "@/states/Root/pages/Configuration/contexts/Properties";
+import Backups from "@/states/Root/pages/Backups";
+import {BackupProvider} from "@/states/Root/pages/Backups/contexts/Backups";
 
 export const routes = [
     {path: "/", element: <StatsProvider><Overview /></StatsProvider>},
@@ -17,6 +19,7 @@ export const routes = [
     {path: "/files/*", element: <Files />},
     {path: "/console", element: <Console />},
     {path: "/plugins", element: <PluginsProvider><Plugins /></PluginsProvider>},
+    {path: "/backups", element: <BackupProvider><Backups/></BackupProvider>},
     {path: "/configuration", element: <PropertiesProvider><Configuration /></PropertiesProvider>}
 ]
 
@@ -45,6 +48,11 @@ export const sidebar = [
         path: "/plugins",
         icon: <Extension />,
         name: "Plugins"
+    },
+    {
+        path: "/backups",
+        icon: <Save />,
+        name: "Backups"
     },
     {
         path: "/configuration",
