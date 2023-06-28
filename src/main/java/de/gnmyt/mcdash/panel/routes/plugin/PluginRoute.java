@@ -15,9 +15,9 @@ public class PluginRoute extends DefaultHandler {
      * @return the plugin or <code>null</code> if the plugin does not exist
      */
     private Plugin getPlugin(Request request, ResponseController response) {
-        if (!isStringInQuery(request, response, "name")) return null;
+        if (!isStringInBody(request, response, "name")) return null;
 
-        String pluginName = getStringFromQuery(request, "name");
+        String pluginName = getStringFromBody(request, "name");
 
         Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
 
