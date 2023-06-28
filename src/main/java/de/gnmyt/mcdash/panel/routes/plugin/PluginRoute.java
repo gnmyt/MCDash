@@ -12,19 +12,32 @@ public class PluginRoute extends DefaultHandler {
      * Gets a plugin by name
      * @param request The request object from the HttpExchange
      * @param response The response controller from the HttpExchange
+     * @return the plugin or <code>null</code> if the plugin does not exist
      */
-    @Override
-    public void get(Request request, ResponseController response) throws Exception {
-        if (!isStringInQuery("name")) return;
+    private Plugin getPlugin(Request request, ResponseController response) {
+        if (!isStringInBody(request, response, "name")) return null;
 
-        String pluginName = getStringFromQuery("name");
+        String pluginName = getStringFromBody(request, "name");
 
         Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
 
         if (plugin == null) {
             response.code(404).message("Plugin not found");
-            return;
+            return null;
         }
+
+        return plugin;
+    }
+
+    /**
+     * Gets a plugin by name
+     * @param request The request object from the HttpExchange
+     * @param response The response controller from the HttpExchange
+     */
+    @Override
+    public void get(Request request, ResponseController response) throws Exception {
+        Plugin plugin = getPlugin(request, response);
+        if (plugin == null) return;
 
         String filePath = plugin.getClass().getProtectionDomain().getCodeSource().getLocation().getFile();
         String author = plugin.getDescription().getAuthors().size() == 0 ? null : plugin.getDescription().getAuthors().get(0);
@@ -40,16 +53,8 @@ public class PluginRoute extends DefaultHandler {
      */
     @Override
     public void post(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("name")) return;
-
-        String pluginName = getStringFromBody("name");
-
-        Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
-
-        if (plugin == null) {
-            response.code(404).message("Plugin not found");
-            return;
-        }
+        Plugin plugin = getPlugin(request, response);
+        if (plugin == null) return;
 
         runSync(() -> {
             try {
@@ -68,16 +73,8 @@ public class PluginRoute extends DefaultHandler {
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("name")) return;
-
-        String pluginName = getStringFromBody("name");
-
-        Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
-
-        if (plugin == null) {
-            response.code(404).message("Plugin not found");
-            return;
-        }
+        Plugin plugin = getPlugin(request, response);
+        if (plugin == null) return;
 
         runSync(() -> {
             try {

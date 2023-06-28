@@ -16,13 +16,8 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public abstract class DefaultHandler implements HttpHandler {
-
-    private Request request = null;
-    private ResponseController controller = null;
-
     public ConfigurationManager manager = MinecraftDashboard.getDashboardConfig();
     public AccountManager accountManager = MinecraftDashboard.getAccountManager();
 
@@ -40,39 +35,37 @@ public abstract class DefaultHandler implements HttpHandler {
      */
     @Override
     public void handle(HttpExchange exchange) {
+        MinecraftDashboard.getExecutor().execute(() -> {
+            Request request = prepareRequest(exchange, true);
+            ResponseController controller = new ResponseController(exchange);
 
-        request = prepareRequest(exchange, true);
+            List<String> authHeader = request.getHeaders().get("Authorization");
+            if (authHeader == null) {
+                controller.code(400).message("You need to provide your credentials");
+                return;
+            }
 
-        controller = new ResponseController(exchange);
+            String[] authCredentials;
+            try {
+                authCredentials = new String(Base64.getDecoder().decode(authHeader.get(0)
+                        .replace("Basic ", ""))).split(":");
+            } catch (Exception e) {
+                controller.code(400).message("You need to provide your credentials");
+                return;
+            }
 
-        List<String> authHeader = request.getHeaders().get("Authorization");
+            if (authCredentials.length != 2) {
+                controller.code(400).message("You need to provide your credentials");
+                return;
+            }
 
-        if (authHeader == null) {
-            controller.code(400).message("You need to provide your credentials");
-            return;
-        }
+            if (!accountManager.isValidPassword(authCredentials[0], authCredentials[1])) {
+                controller.code(401).message("The provided credentials are invalid");
+                return;
+            }
 
-        String[] authCredentials;
-
-        try {
-            authCredentials = new String(Base64.getDecoder().decode(authHeader.get(0)
-                    .replace("Basic ", ""))).split(":");
-        } catch (Exception e) {
-            controller.code(400).message("You need to provide your credentials");
-            return;
-        }
-
-        if (authCredentials.length != 2) {
-            controller.code(400).message("You need to provide your credentials");
-            return;
-        }
-
-        if (!accountManager.isValidPassword(authCredentials[0], authCredentials[1])) {
-            controller.code(401).message("The provided credentials are invalid");
-            return;
-        }
-
-        CompletableFuture.runAsync(() -> execute(request, controller));
+            execute(request, controller);
+        });
     }
 
     /**
@@ -166,7 +159,6 @@ public abstract class DefaultHandler implements HttpHandler {
      * @return The prepared request
      */
     protected Request prepareRequest(HttpExchange exchange, boolean writeBody) {
-
         StringWriter writer = new StringWriter();
 
         if (writeBody) {
@@ -204,21 +196,23 @@ public abstract class DefaultHandler implements HttpHandler {
     }
 
     /**
-     * Gets an string from the body
+     * Gets a string from the body
+     * @param request The request object from the HttpExchange
      * @param name The name of the value you want to get
      * @return the value (string)
      */
-    public String getStringFromBody(String name) {
+    public String getStringFromBody(Request request, String name) {
         return request.getBody().get(name);
     }
 
     /**
      * Gets an integer from the body
+     * @param request The request object from the HttpExchange
      * @param name The name of the value you want to get
      * @return the value (integer)
      */
-    public Integer getIntegerFromBody(String name) {
-        String value = getStringFromBody(name);
+    public Integer getIntegerFromBody(Request request, String name) {
+        String value = getStringFromBody(request, name);
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
@@ -227,30 +221,33 @@ public abstract class DefaultHandler implements HttpHandler {
     }
 
     /**
-     * Gets an boolean from the body
+     * Gets a boolean from the body
+     * @param request The request object from the HttpExchange
      * @param name The name of the value you want to get
      * @return the value (boolean)
      */
-    public Boolean getBooleanFromBody(String name) {
-        return Boolean.parseBoolean(getStringFromBody(name));
+    public Boolean getBooleanFromBody(Request request, String name) {
+        return Boolean.parseBoolean(getStringFromBody(request, name));
     }
 
     /**
-     * Gets an string from the query
+     * Gets a string from the query
+     * @param request The request object from the HttpExchange
      * @param name The name of the value you want to get
      * @return the value (string)
      */
-    public String getStringFromQuery(String name) {
+    public String getStringFromQuery(Request request, String name) {
         return request.getQuery().get(name);
     }
 
     /**
      * Gets an integer from the query
+     * @param request The request object from the HttpExchange
      * @param name The name of the value you want to get
      * @return the value (integer)
      */
-    public Integer getIntegerFromQuery(String name) {
-        String value = getStringFromQuery(name);
+    public Integer getIntegerFromQuery(Request request, String name) {
+        String value = getStringFromQuery(request, name);
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
@@ -259,21 +256,14 @@ public abstract class DefaultHandler implements HttpHandler {
     }
 
     /**
-     * Gets a boolean from the query
-     * @param name The name of the value you want to get
-     * @return the value (boolean)
-     */
-    public Boolean getBooleanFromQuery(String name) {
-        return Boolean.parseBoolean(getStringFromQuery(name));
-    }
-
-    /**
      * Checks if a string is in the body
+     * @param request The request object from the HttpExchange
+     * @param controller The response controller from the HttpExchange
      * @param name The name of the value you want to check
      * @return <code>true</code> if the string is in the body, otherwise <code>false</code>
      */
-    public boolean isStringInBody(String name) {
-        String value = getStringFromBody(name);
+    public boolean isStringInBody(Request request, ResponseController controller, String name) {
+        String value = getStringFromBody(request, name);
         if (value == null || value.isEmpty()) {
             controller.code(400).messageFormat("You need to provide %s in your request body", name);
             return false;
@@ -282,13 +272,15 @@ public abstract class DefaultHandler implements HttpHandler {
     }
 
     /**
-     * Checks if a integer is in the body
+     * Checks if an integer is in the body
+     * @param request The request object from the HttpExchange
+     * @param controller The response controller from the HttpExchange
      * @param name The name of the value you want to check
      * @return <code>true</code> if the integer is in the body, otherwise <code>false</code>
      */
-    public boolean isIntegerInBody(String name) {
-        if (!isStringInBody(name)) return false;
-        Integer value = getIntegerFromBody(name);
+    public boolean isIntegerInBody(Request request, ResponseController controller, String name) {
+        if (!isStringInBody(request, controller, name)) return false;
+        Integer value = getIntegerFromBody(request, name);
         if (value == null) {
             controller.code(400).messageFormat("%s must be an integer", name);
         }
@@ -297,12 +289,14 @@ public abstract class DefaultHandler implements HttpHandler {
 
     /**
      * Checks if a boolean is in the body
+     * @param request The request object from the HttpExchange
+     * @param controller The response controller from the HttpExchange
      * @param name The name of the value you want to check
      * @return <code>true</code> if the boolean is in the body, otherwise <code>false</code>
      */
-    public boolean isBooleanInBody(String name) {
-        if (!isStringInBody(name)) return false;
-        String value = getStringFromBody(name);
+    public boolean isBooleanInBody(Request request, ResponseController controller, String name) {
+        if (!isStringInBody(request, controller, name)) return false;
+        String value = getStringFromBody(request, name);
         try {
             if (value.equals("true") || value.equals("false")) return true;
             throw new Exception();
@@ -314,47 +308,18 @@ public abstract class DefaultHandler implements HttpHandler {
 
     /**
      * Checks if a string is in the query
+     * @param request The request object from the HttpExchange
+     * @param controller The response controller from the HttpExchange
      * @param name The name of the value you want to check
      * @return <code>true</code> if the string is in the query, otherwise <code>false</code>
      */
-    public boolean isStringInQuery(String name) {
-        String value = getStringFromQuery(name);
+    public boolean isStringInQuery(Request request, ResponseController controller, String name) {
+        String value = getStringFromQuery(request, name);
         if (value == null || value.isEmpty()) {
             controller.code(400).messageFormat("You need to provide %s in your request query", name);
             return false;
         }
         return true;
-    }
-
-    /**
-     * Checks if a integer is in the query
-     * @param name The name of the value you want to check
-     * @return <code>true</code> if the integer is in the query, otherwise <code>false</code>
-     */
-    public boolean isIntegerInQuery(String name) {
-        if (!isStringInQuery(name)) return false;
-        Integer value = getIntegerFromQuery(name);
-        if (value == null) {
-            controller.code(400).messageFormat("%s must be an integer", name);
-        }
-        return value != null;
-    }
-
-    /**
-     * Checks if a boolean is in the query
-     * @param name The name of the value you want to check
-     * @return <code>true</code> if the boolean is in the query, otherwise <code>false</code>
-     */
-    public Boolean isBooleanInQuery(String name) {
-        if (!isStringInQuery(name)) return false;
-        String value = getStringFromQuery(name);
-        try {
-            if (value.equals("true") || value.equals("false")) return true;
-            throw new Exception();
-        } catch (Exception e) {
-            controller.code(400).messageFormat("%s must be an boolean", name);
-            return false;
-        }
     }
 
 }

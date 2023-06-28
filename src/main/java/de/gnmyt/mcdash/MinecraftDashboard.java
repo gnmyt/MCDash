@@ -14,9 +14,11 @@ import org.reflections.Reflections;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class MinecraftDashboard extends JavaPlugin {
 
+    private static final ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
     private static ConfigurationManager config;
     private static BackupController backupController;
     private static AccountManager accountManager;
@@ -139,5 +141,13 @@ public class MinecraftDashboard extends JavaPlugin {
      */
     public static BackupController getBackupController() {
         return backupController;
+    }
+
+    /**
+     * Gets the executor
+     * @return the executor
+     */
+    public static ScheduledExecutorService getExecutor() {
+        return executor;
     }
 }

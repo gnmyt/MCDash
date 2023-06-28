@@ -23,11 +23,11 @@ public class BackupRestoreRoute extends DefaultHandler {
      */
     @Override
     public void post(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("backup_id")) return;
-        if (!isBooleanInBody("halt")) return;
+        if (!isStringInBody(request, response, "backup_id")) return;
+        if (!isBooleanInBody(request, response, "halt")) return;
 
-        String backupId = getStringFromBody("backup_id");
-        boolean restart = getBooleanFromBody("halt");
+        String backupId = getStringFromBody(request, "backup_id");
+        boolean restart = getBooleanFromBody(request, "halt");
 
         if (!controller.backupExists(backupId)) {
             response.code(404).message("Backup not found");

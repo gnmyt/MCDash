@@ -28,7 +28,7 @@ public class FolderRoute extends DefaultHandler {
     @Override
     public void get(Request request, ResponseController response) throws Exception {
 
-        String path = getStringFromQuery("path") != null ? getStringFromQuery("path") : ".";
+        String path = getStringFromQuery(request, "path") != null ? getStringFromQuery(request, "path") : ".";
 
         if (!isValidExitingFolder(path)) {
             response.code(404).message("Folder not found");
@@ -56,9 +56,9 @@ public class FolderRoute extends DefaultHandler {
      */
     @Override
     public void put(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("path")) return;
+        if (!isStringInBody(request, response, "path")) return;
 
-        String path = getStringFromBody("path");
+        String path = getStringFromBody(request, "path");
 
         if (!isValidFilePath(path)) {
             response.code(404).message("Could not create the folder.");
@@ -84,9 +84,9 @@ public class FolderRoute extends DefaultHandler {
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("path")) return;
+        if (!isStringInBody(request, response, "path")) return;
 
-        String path = getStringFromBody("path");
+        String path = getStringFromBody(request, "path");
 
         if (!isValidExitingFolder(path)) {
             response.code(404).message("Folder not found");
