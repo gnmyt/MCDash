@@ -25,9 +25,9 @@ public class FileRoute extends MultipartHandler {
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {
-        if (!isStringInQuery("path")) return;
+        if (!isStringInQuery(request, response, "path")) return;
 
-        String path = getStringFromQuery("path");
+        String path = getStringFromQuery(request, "path");
 
         if (!isValidExitingFile(path)) {
             response.code(404).message("File not found.");
@@ -44,10 +44,10 @@ public class FileRoute extends MultipartHandler {
      */
     @Override
     public void patch(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("path")) return;
+        if (!isStringInBody(request, response, "path")) return;
 
-        String path = getStringFromBody("path");
-        String fileContent = getStringFromBody("content") != null ? getStringFromBody("content") : "\n";
+        String path = getStringFromBody(request, "path");
+        String fileContent = getStringFromBody(request, "content") != null ? getStringFromBody(request, "content") : "\n";
 
         if (!isValidFilePath(path)) {
             response.code(404).message("Could not create file.");
@@ -70,7 +70,7 @@ public class FileRoute extends MultipartHandler {
     @Override
     public void put(Request request, ResponseController response) throws Exception {
 
-        String path = getStringFromQuery("path") != null ? getStringFromQuery("path") : ".";
+        String path = getStringFromQuery(request, "path") != null ? getStringFromQuery(request, "path") : ".";
 
         if (!FolderRoute.isValidExitingFolder(path)) {
             response.code(404).message("Folder does not exist");
@@ -93,9 +93,9 @@ public class FileRoute extends MultipartHandler {
      */
     @Override
     public void delete(Request request, ResponseController response) throws Exception {
-        if (!isStringInBody("path")) return;
+        if (!isStringInBody(request, response, "path")) return;
 
-        String path = getStringFromBody("path");
+        String path = getStringFromBody(request, "path");
 
         if (!isValidExitingFile(path)) {
             response.code(404).message("File not found.");
