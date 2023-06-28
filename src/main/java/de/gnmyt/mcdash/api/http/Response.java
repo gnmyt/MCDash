@@ -7,6 +7,7 @@ public class Response {
     private int code = 200;
     private ContentType contentType = ContentType.TEXT;
     private String output = "";
+    private byte[] binaryOutput = null;
     private HashMap<String, String> headers = new HashMap<>();
 
     /**
@@ -44,6 +45,14 @@ public class Response {
      */
     public String getOutput() {
         return output;
+    }
+
+    /**
+     * Gets the binary response output
+     * @return the binary response output
+     */
+    public byte[] getBinaryOutput() {
+        return binaryOutput;
     }
 
     /**
@@ -99,6 +108,16 @@ public class Response {
      */
     public Response setHeaders(HashMap<String, String> headers) {
         this.headers = headers;
+        return this;
+    }
+
+    /**
+     * Sets the binary response output
+     * @param binaryOutput The new binary response output
+     * @return the current {@link Response} instance
+     */
+    public Response setBinaryOutput(byte[] binaryOutput) {
+        this.binaryOutput = binaryOutput;
         return this;
     }
 
