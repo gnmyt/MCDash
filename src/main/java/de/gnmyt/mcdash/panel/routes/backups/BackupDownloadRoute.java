@@ -24,9 +24,9 @@ public class BackupDownloadRoute extends DefaultHandler {
      */
     @Override
     public void get(Request request, ResponseController response) throws Exception {
-        if (!isStringInQuery("backup_id")) return;
+        if (!isStringInQuery(request, response, "backup_id")) return;
 
-        String backupId = getStringFromQuery("backup_id");
+        String backupId = getStringFromQuery(request, "backup_id");
 
         if (!controller.backupExists(backupId)) {
             response.code(404).message("Backup not found");
