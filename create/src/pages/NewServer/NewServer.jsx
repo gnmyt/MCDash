@@ -1,6 +1,9 @@
 import {useState} from "react";
-import {Alert, Box, Button, Step, StepLabel, Stepper} from "@mui/material";
+import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
 import Server from "./components/Server";
+import Game from "./components/Game";
+import Account from "./components/Account";
+import Finished from "./components/Finished";
 
 const steps = ["Server", "Game", "Account"];
 
@@ -9,7 +12,7 @@ export const NewServer = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const [software, setSoftware] = useState("spigot");
-    const [version, setVersion] = useState("1.17.1");
+    const [version, setVersion] = useState("1.20.1");
     const [serverName, setServerName] = useState("My server");
     const [instanceId, setInstanceId] = useState(Math.random().toString(36).substring(2, 7));
 
@@ -35,8 +38,10 @@ export const NewServer = () => {
                 {currentStep === 0 && <Server software={software} setSoftware={setSoftware} serverName={serverName}
                                               version={version} setVersion={setVersion} setServerName={setServerName}
                                               instanceId={instanceId} setInstanceId={setInstanceId}/>}
+                {currentStep === 1 && <Game />}
+                {currentStep === 2 && <Account />}
 
-                {currentStep !== 0 && <Alert severity="error">Still WIP! Please come back later.</Alert>}
+                {currentStep === steps.length && <Finished />}
             </Box>
 
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
