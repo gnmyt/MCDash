@@ -11,8 +11,12 @@ PANEL_PORT=$5
 VERSION=$6
 NAME=$7
 
+function say() {
+    echo -e "MCDash | $1"
+}
+
 function quit() {
-    echo Error: $1
+    say Error: $1
     exit 1
 }
 
@@ -21,6 +25,8 @@ function download() {
     wget -qO "$2" "$1"
   fi
 }
+
+say "parameter check"
 
 if [ -z "${SOFTWARE}" ]; then
     quit "Software not specified"
@@ -69,6 +75,8 @@ if [ ! -d "${ROOT}" ]; then
     mkdir -p "${ROOT}"
 fi
 
+say "dependencies"
+
 if [ ! -f "/usr/bin/wget" ]; then
     apt update > /dev/null 2>&1
     apt install -y wget > /dev/null 2>&1
@@ -78,6 +86,8 @@ if [ ! -f "/usr/bin/jq" ]; then
     apt update > /dev/null 2>&1
     apt install -y jq > /dev/null 2>&1
 fi
+
+say "installation"
 
 mkdir -p "${INSTALLATION_PATH}" || quit "Unable to create root directory"
 
@@ -101,6 +111,8 @@ if [ ! -f "server.jar" ]; then
     quit "Unable to download server jar"
 fi
 
+say "configuration"
+
 echo "eula=true" > eula.txt
 
 cat > server.properties <<EOF
@@ -123,6 +135,8 @@ if [ ! -d "${ROOT}/java/" ]; then
   mv jdk-17*/* .
 fi
 
+say "plugin"
+
 mkdir -p "${INSTALLATION_PATH}/plugins" || quit "Unable to create plugins directory"
 cd "${INSTALLATION_PATH}/plugins" || quit "Unable to change directory"
 
@@ -142,6 +156,8 @@ cat > "${INSTALLATION_PATH}/plugins/MinecraftDashboard/accounts.yml" <<EOF
 accounts:
   $USER
 EOF
+
+say "service"
 
 useradd minecraft-${ID} -d "${INSTALLATION_PATH}" -s /bin/bash || quit "Unable to create user"
 chown -R minecraft-${ID}:minecraft-${ID} "${INSTALLATION_PATH}" || quit "Unable to change owner"
@@ -167,15 +183,17 @@ systemctl start "minecraft-${ID}"
 
 # Wait until bukkit.yml is created, break after 100 tries
 
+say "waiting"
+
 for i in {1..60}; do
-  if [ -f "${INSTALLATION_PATH}/bukkit.yml" ]; then
+  if journalctl --no-pager -u minecraft-${ID}.service | grep "Enabling MinecraftDashboard" &> /dev/null; then
     break
   fi
   sleep 1
 done
 
-if [ ! -f "${INSTALLATION_PATH}/bukkit.yml" ]; then
-  quit "Could not start server"
+if ! journalctl --no-pager -u minecraft-${ID}.service | grep "Enabling MinecraftDashboard" &> /dev/null; then
+  quit "Unable to start server"
 fi
 
-echo "Server started"
+say "finished"
