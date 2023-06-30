@@ -4,6 +4,7 @@ import {useState} from "react";
 import Icon from "/assets/img/favicon.png";
 import ExistingServer from "./pages/ExistingServer";
 import NewServer from "./pages/NewServer";
+import {SocketProvider} from "./pages/NewServer/contexts/SocketContext";
 
 const App = () => {
     const [tab, setTab] = useState(0);
@@ -25,7 +26,7 @@ const App = () => {
                         <Tab label="Use existing server"/>
                     </Tabs>
 
-                    {tab === 0 && <NewServer />}
+                    {tab === 0 && <SocketProvider><NewServer /></SocketProvider>}
                     {tab === 1 && <ExistingServer />}
                 </Box>
             </Stack>
