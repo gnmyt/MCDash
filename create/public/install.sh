@@ -108,6 +108,7 @@ if [ ! -f "/usr/bin/java" ]; then
     apt update && apt install -y default-jdk
 fi
 
+mkdir -p "${INSTALLATION_PATH}/plugins" || quit "Unable to create plugins directory"
 cd "${INSTALLATION_PATH}/plugins" || quit "Unable to change directory"
 
 download "https://api.spiget.org/v2/resources/110687/download" "MCDash.jar"
