@@ -107,7 +107,7 @@ cat > server.properties <<EOF
 server-port=${MC_PORT}
 EOF
 
-if [ ! -f "${ROOT}/java/" ]; then
+if [ ! -d "${ROOT}/java/" ]; then
   mkdir -p "${ROOT}/java/"
   cd "${ROOT}/java/" || quit "Unable to change directory"
 
