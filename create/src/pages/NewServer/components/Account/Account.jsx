@@ -1,7 +1,21 @@
-import {Alert} from "@mui/material";
+import {IconButton, Stack, TextField} from "@mui/material";
+import {useState} from "react";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
-export const Account = () => {
+export const Account = ({username, setUsername, password, setPassword}) => {
+    const [passwordShown, setPasswordShown] = useState(false);
+
     return (
-        <Alert severity="error">Still WIP! Please come back later.</Alert>
+        <Stack direction="column" justifyContent="space-between" spacing={2}>
+            <TextField fullWidth label="Your Minecraft name" variant="outlined" value={username} placeholder="Steve"
+                       onChange={(e) => setUsername(e.target.value)} />
+            <TextField fullWidth label="Your password" variant="outlined" value={password}
+                       onChange={(e) => setPassword(e.target.value)} type={passwordShown ? "text" : "password"}
+                          InputProps={{
+                                endAdornment: <IconButton onClick={() => setPasswordShown(!passwordShown)}>{passwordShown
+                                    ? <VisibilityOff/> : <Visibility/>}</IconButton>
+                          }}
+            />
+        </Stack>
     )
 }
