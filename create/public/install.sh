@@ -167,7 +167,7 @@ systemctl start "minecraft-${ID}"
 
 # Wait until bukkit.yml is created, break after 100 tries
 
-for i in {1..30}; do
+for i in {1..60}; do
   if [ -f "${INSTALLATION_PATH}/bukkit.yml" ]; then
     break
   fi
