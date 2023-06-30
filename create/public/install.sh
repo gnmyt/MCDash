@@ -70,13 +70,13 @@ if [ ! -d "${ROOT}" ]; then
 fi
 
 if [ ! -f "/usr/bin/wget" ]; then
-    apt update > /dev/null
-    apt install -y wget > /dev/null
+    apt update &> /dev/null
+    apt install -y wget &> /dev/null
 fi
 
 if [ ! -f "/usr/bin/jq" ]; then
-    apt update > /dev/null
-    apt install -y jq > /dev/null
+    apt update &> /dev/null
+    apt install -y jq &> /dev/null
 fi
 
 mkdir -p "${INSTALLATION_PATH}" || quit "Unable to create root directory"
@@ -107,9 +107,20 @@ cat > server.properties <<EOF
 server-port=${MC_PORT}
 EOF
 
-if [ ! -f "/usr/bin/java" ]; then
-    apt update > /dev/null
-    apt install -y default-jdk > /dev/null
+if [ ! -f "${ROOT}/java/" ]; then
+  mkdir -p "${ROOT}/java/"
+  cd "${ROOT}/java/" || quit "Unable to change directory"
+
+  download "https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz" "java.tar.gz"
+
+  if [ ! -f "java.tar.gz" ]; then
+    quit "Unable to download java"
+  fi
+
+  tar -xzf java.tar.gz
+  rm java.tar.gz
+
+  mv jdk-17*/* .
 fi
 
 mkdir -p "${INSTALLATION_PATH}/plugins" || quit "Unable to create plugins directory"
@@ -145,8 +156,7 @@ WorkingDirectory=${INSTALLATION_PATH}
 User=minecraft-${ID}
 Restart=on-failure
 RestartSec=5
-ExecStart=/usr/bin/java -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -jar server.jar nogui
-
+ExecStart=${ROOT}/java/bin/java -jar server.jar nogui
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -154,3 +164,18 @@ EOF
 systemctl daemon-reload
 systemctl enable "minecraft-${ID}"
 systemctl start "minecraft-${ID}"
+
+# Wait until bukkit.yml is created, break after 100 tries
+
+for i in {1..10}; do
+  if [ -f "${INSTALLATION_PATH}/bukkit.yml" ]; then
+    break
+  fi
+  sleep 1
+done
+
+if [ ! -f "${INSTALLATION_PATH}/bukkit.yml" ]; then
+  quit "Could not start server"
+fi
+
+echo "Server started"
