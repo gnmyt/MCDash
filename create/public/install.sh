@@ -70,13 +70,13 @@ if [ ! -d "${ROOT}" ]; then
 fi
 
 if [ ! -f "/usr/bin/wget" ]; then
-    apt update &> /dev/null
-    apt install -y wget &> /dev/null
+    apt update > /dev/null 2>&1
+    apt install -y wget > /dev/null 2>&1
 fi
 
 if [ ! -f "/usr/bin/jq" ]; then
-    apt update &> /dev/null
-    apt install -y jq &> /dev/null
+    apt update > /dev/null 2>&1
+    apt install -y jq > /dev/null 2>&1
 fi
 
 mkdir -p "${INSTALLATION_PATH}" || quit "Unable to create root directory"
