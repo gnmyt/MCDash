@@ -13,13 +13,13 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
 
     const generateCommand = () => {
         return command_boilerplate + [
-            `--software \"${software}\"`,
-            `--user \"${username+":"+bcrypt.hashSync(password, 10)}\"`,
-            `--instanceId \"${instanceId}\"`,
-            `--mcPort \"${mcPort}\"`,
-            `--panelPort \"${panelPort}\"`,
-            `--version \"${version}\"`,
-            `--serverName \"${serverName}\"`
+            `\"${software}\"`,
+            `\"${username+":"+bcrypt.hashSync(password, 10)}\"`,
+            `\"${instanceId}\"`,
+            `\"${mcPort}\"`,
+            `\"${panelPort}\"`,
+            `\"${version}\"`,
+            `\"${serverName}\"`
         ].join(" ");
     }
 
