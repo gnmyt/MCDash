@@ -23,7 +23,7 @@ export const Server = ({software, setSoftware, version, setVersion, instanceId,
                                 onChange={(e) => setSoftware(e.target.value)}>
                             <MenuItem value="spigot">Spigot</MenuItem>
                             <MenuItem value="paper">Paper</MenuItem>
-                            <MenuItem value="purpur">PurPur</MenuItem>
+                            <MenuItem value="purpur">Purpur</MenuItem>
                         </Select>
                     </FormControl>
 
