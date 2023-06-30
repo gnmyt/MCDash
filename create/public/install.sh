@@ -49,12 +49,13 @@ if [ -z "${NAME}" ]; then
     quit "Name not specified"
 fi
 
-if [ lsof -Pi :${MC_PORT} -sTCP:LISTEN -t >/dev/null ]; then
-    quit "Port already in use"
+# Check if ports are used (lsof)
+if lsof -Pi :${MC_PORT} -sTCP:LISTEN -t >/dev/null ; then
+    quit "Minecraft port already in use"
 fi
 
-if [ lsof -Pi :${PANEL_PORT} -sTCP:LISTEN -t >/dev/null ]; then
-    quit "Port already in use"
+if lsof -Pi :${PANEL_PORT} -sTCP:LISTEN -t >/dev/null ; then
+    quit "Panel port already in use"
 fi
 
 INSTALLATION_PATH="${ROOT}/${ID}"
@@ -71,12 +72,17 @@ if [ ! -f "/usr/bin/wget" ]; then
     apt update && apt install -y wget
 fi
 
+if [ ! -f "/usr/bin/jq" ]; then
+    apt update && apt install -y jq
+fi
+
 mkdir -p "${INSTALLATION_PATH}" || quit "Unable to create root directory"
 
 cd "${INSTALLATION_PATH}" || quit "Unable to change directory"
 
 if [ "${SOFTWARE}" == "paper" ]; then
-  download "https://papermc.io/api/v1/paper/${VERSION}/latest/download" "server.jar"
+  BUILD=$(curl -s "https://papermc.io/api/v2/projects/paper/versions/${VERSION}" | jq -r '.builds[-1]')
+  download "https://papermc.io/api/v2/projects/paper/versions/${VERSION}/builds/${BUILD}/downloads/paper-${VERSION}-${BUILD}.jar" "server.jar"
 elif [ "${SOFTWARE}" == "spigot" ]; then
   download "https://download.getbukkit.org/spigot/spigot-${VERSION}.jar" "server.jar"
     if [ ! -f "server.jar" ]; then
@@ -116,10 +122,13 @@ cat > "${INSTALLATION_PATH}/plugins/MinecraftDashboard/config.yml" <<EOF
 port: ${PANEL_PORT}
 EOF
 
-cat > "${INSTALLATION_PATH}/plugins/MinecraftDashboard/accounst.yml" <<EOF
+cat > "${INSTALLATION_PATH}/plugins/MinecraftDashboard/accounts.yml" <<EOF
 accounts:
   $USER
 EOF
+
+useradd minecraft-${ID} -d "${INSTALLATION_PATH}" -s /bin/bash || quit "Unable to create user"
+chown -R minecraft-${ID}:minecraft-${ID} "${INSTALLATION_PATH}" || quit "Unable to change owner"
 
 cat > "/etc/systemd/system/minecraft-${ID}.service" <<EOF
 [Unit]
@@ -128,8 +137,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=${INSTALLATION_PATH}
-User=${USER}
-Group=${USER}
+User=minecraft-${ID}
 Restart=on-failure
 RestartSec=5
 ExecStart=/usr/bin/java -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -jar server.jar nogui
