@@ -1,4 +1,5 @@
 #!/bin/bash
+export DEBIAN_FRONTEND=noninteractive
 
 ROOT="/opt/minecraft"
 
@@ -69,11 +70,13 @@ if [ ! -d "${ROOT}" ]; then
 fi
 
 if [ ! -f "/usr/bin/wget" ]; then
-    apt update && apt install -y wget
+    apt update > /dev/null
+    apt install -y wget > /dev/null
 fi
 
 if [ ! -f "/usr/bin/jq" ]; then
-    apt update && apt install -y jq
+    apt update > /dev/null
+    apt install -y jq > /dev/null
 fi
 
 mkdir -p "${INSTALLATION_PATH}" || quit "Unable to create root directory"
@@ -105,7 +108,8 @@ server-port=${MC_PORT}
 EOF
 
 if [ ! -f "/usr/bin/java" ]; then
-    apt update && apt install -y default-jdk
+    apt update > /dev/null
+    apt install -y default-jdk > /dev/null
 fi
 
 mkdir -p "${INSTALLATION_PATH}/plugins" || quit "Unable to create plugins directory"
