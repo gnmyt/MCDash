@@ -14,7 +14,7 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
     const generateCommand = () => {
         return command_boilerplate + [
             `\"${software}\"`,
-            `\"${username+":"+bcrypt.hashSync(password, 10).replace(/\$/g, "\\$")}\"`,
+            `\"${username+": "+bcrypt.hashSync(password, 10).replace(/\$/g, "\\$")}\"`,
             `\"${instanceId}\"`,
             `\"${mcPort}\"`,
             `\"${panelPort}\"`,
