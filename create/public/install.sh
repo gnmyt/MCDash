@@ -185,7 +185,18 @@ systemctl start "minecraft-${ID}"
 
 say "waiting"
 
-for i in {1..60}; do
+for i in {1..80}; do
+  if [ -f "${INSTALLATION_PATH}/bukkit.yml" ]; then
+    break
+  fi
+  sleep 1
+done
+
+if [ ! -f "${INSTALLATION_PATH}/bukkit.yml" ]; then
+  quit "Unable to start server"
+fi
+
+for i in {1..240}; do
   if journalctl --no-pager -u minecraft-${ID}.service | grep "Enabling MinecraftDashboard" &> /dev/null; then
     break
   fi
