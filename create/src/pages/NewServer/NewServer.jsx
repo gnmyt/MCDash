@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Box, Button, Step, StepLabel, Stepper} from "@mui/material";
+import {Alert, Box, Button, Step, StepLabel, Stepper} from "@mui/material";
 import Server from "./components/Server";
 import Game from "./components/Game";
 import Account from "./components/Account";
@@ -16,32 +16,70 @@ export const NewServer = () => {
     const [serverName, setServerName] = useState("My server");
     const [instanceId, setInstanceId] = useState(Math.random().toString(36).substring(2, 7));
 
+    const [eula, setEula] = useState(false);
+    const [mcPort, setMcPort] = useState(25565);
+    const [panelPort, setPanelPort] = useState(7867);
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState(Math.random().toString(36).substring(2, 8));
+
+    const [error, setError] = useState(null);
+
     const handleNext = () => {
         if (currentStep === steps.length) return;
+
+        if (currentStep === 0 && (!software || !version || !serverName || !instanceId)) {
+            setError("You must fill in all fields to continue");
+            return;
+        }
+
+        if (currentStep === 1 && (!mcPort || !panelPort)) {
+            setError("You must fill in all fields to continue");
+            return;
+        }
+
+        if (currentStep === 1 && !eula) {
+            setError("You must accept the EULA to continue");
+            return;
+        }
+
+        if (currentStep === 2 && (!username || !password)) {
+            setError("You must fill in all fields to continue");
+            return;
+        }
+
         setCurrentStep((prevActiveStep) => prevActiveStep + 1);
+        setError(null);
     }
 
     const handleBack = () => {
         setCurrentStep((prevActiveStep) => prevActiveStep - 1);
+        setError(null);
     }
 
     return (
         <>
-            <Stepper activeStep={currentStep}>
+            <Stepper activeStep={currentStep} sx={{mb: 2}}>
                 {steps.map((label, index) => <Step key={index} completed={index < currentStep} color={"secondary"}>
                         <StepLabel>{label}</StepLabel>
                     </Step>
                 )}
             </Stepper>
 
-            <Box sx={{mb: 2, mt: 2}}>
+            {error && <Alert severity="error">{error}</Alert>}
+
+            <Box sx={{mt: 2, mb: 2}}>
                 {currentStep === 0 && <Server software={software} setSoftware={setSoftware} serverName={serverName}
                                               version={version} setVersion={setVersion} setServerName={setServerName}
                                               instanceId={instanceId} setInstanceId={setInstanceId}/>}
-                {currentStep === 1 && <Game />}
-                {currentStep === 2 && <Account />}
+                {currentStep === 1 && <Game eula={eula} setEula={setEula} mcPort={mcPort} setMcPort={setMcPort}
+                                            panelPort={panelPort} setPanelPort={setPanelPort}/>}
+                {currentStep === 2 && <Account username={username} setUsername={setUsername} password={password}
+                                               setPassword={setPassword}/>}
 
-                {currentStep === steps.length && <Finished />}
+                {currentStep === steps.length && <Finished software={software} version={version} serverName={serverName}
+                                                           instanceId={instanceId} mcPort={mcPort} panelPort={panelPort}
+                                                           username={username} password={password}/>}
             </Box>
 
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
