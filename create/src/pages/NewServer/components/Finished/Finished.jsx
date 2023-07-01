@@ -69,7 +69,7 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
                 </Stack>
             </Stack>}
 
-            {address === "" && <Stack spacing={2} sx={{mt: 3}}>
+            {address === "" && installationError === "" && <Stack spacing={2} sx={{mt: 3}}>
                 <TextField multiline fullWidth label="Run this command on your server" value={generateCommand()}
                            InputProps={{
                                readOnly: true, endAdornment: <IconButton onClick={copyCommand}><CopyAll/></IconButton>
