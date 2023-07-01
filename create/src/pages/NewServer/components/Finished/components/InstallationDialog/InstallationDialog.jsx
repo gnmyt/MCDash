@@ -13,7 +13,7 @@ import {
     Typography
 } from "@mui/material";
 import {useContext, useEffect, useState} from "react";
-import {SocketContext} from "../../../../contexts/SocketContext";
+import {SocketContext} from "@/common/contexts/SocketContext";
 
 export const InstallationDialog = ({open, setOpen, command, setAddress, setInstallationError}) => {
 

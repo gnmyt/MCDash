@@ -4,7 +4,7 @@ import {useState} from "react";
 import Icon from "/assets/img/favicon.png";
 import ExistingServer from "./pages/ExistingServer";
 import NewServer from "./pages/NewServer";
-import {SocketProvider} from "./pages/NewServer/contexts/SocketContext";
+import {SocketProvider} from "@/common/contexts/SocketContext";
 
 const App = () => {
     const [tab, setTab] = useState(0);
