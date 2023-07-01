@@ -16,7 +16,7 @@ function say() {
 }
 
 function quit() {
-    say "Error: $1"
+    say "Error: >$1<"
     exit 1
 }
 
