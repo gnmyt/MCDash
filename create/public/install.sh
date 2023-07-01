@@ -16,7 +16,7 @@ function say() {
 }
 
 function quit() {
-    say Error: $1
+    say "Error: $1"
     exit 1
 }
 
@@ -56,7 +56,23 @@ if [ -z "${NAME}" ]; then
     quit "Name not specified"
 fi
 
-# Check if ports are used (lsof)
+say "dependencies"
+
+if [ ! -f "/usr/bin/wget" ]; then
+    apt update > /dev/null 2>&1
+    apt install -y wget > /dev/null 2>&1
+fi
+
+if [ ! -f "/usr/bin/jq" ]; then
+    apt update > /dev/null 2>&1
+    apt install -y jq > /dev/null 2>&1
+fi
+
+if [ ! -f "/usr/bin/lsof" ]; then
+    apt update > /dev/null 2>&1
+    apt install -y lsof > /dev/null 2>&1
+fi
+
 if lsof -Pi :${MC_PORT} -sTCP:LISTEN -t >/dev/null ; then
     quit "Minecraft port already in use"
 fi
@@ -75,18 +91,6 @@ if [ ! -d "${ROOT}" ]; then
     mkdir -p "${ROOT}"
 fi
 
-say "dependencies"
-
-if [ ! -f "/usr/bin/wget" ]; then
-    apt update > /dev/null 2>&1
-    apt install -y wget > /dev/null 2>&1
-fi
-
-if [ ! -f "/usr/bin/jq" ]; then
-    apt update > /dev/null 2>&1
-    apt install -y jq > /dev/null 2>&1
-fi
-
 say "installation"
 
 mkdir -p "${INSTALLATION_PATH}" || quit "Unable to create root directory"
@@ -98,9 +102,14 @@ if [ "${SOFTWARE}" == "paper" ]; then
   download "https://papermc.io/api/v2/projects/paper/versions/${VERSION}/builds/${BUILD}/downloads/paper-${VERSION}-${BUILD}.jar" "server.jar"
 elif [ "${SOFTWARE}" == "spigot" ]; then
   download "https://download.getbukkit.org/spigot/spigot-${VERSION}.jar" "server.jar"
-    if [ ! -f "server.jar" ]; then
-      download "https://download.getbukkit.org/spigot/spigot-${VERSION}-R0.1-SNAPSHOT.jar" "server.jar"
-    fi
+
+  if [ ! -f "server.jar" ]; then
+      download "https://cdn.getbukkit.org/spigot/spigot-${VERSION}.jar" "server.jar"
+  fi
+
+  if [ ! -f "server.jar" ]; then
+    download "https://cdn.getbukkit.org/spigot/spigot-${VERSION}-R0.1-SNAPSHOT-latest.jar" "server.jar"
+  fi
 elif [ "${SOFTWARE}" == "purpur" ]; then
   download "https://api.purpurmc.org/v2/purpur/${VERSION}/latest/download" "server.jar"
 else
@@ -170,9 +179,9 @@ After=network.target
 [Service]
 WorkingDirectory=${INSTALLATION_PATH}
 User=minecraft-${ID}
-Restart=on-failure
-RestartSec=5
+Restart=always
 ExecStart=${ROOT}/java/bin/java -jar server.jar nogui
+
 [Install]
 WantedBy=multi-user.target
 EOF
