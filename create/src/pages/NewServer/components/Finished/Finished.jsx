@@ -1,8 +1,8 @@
 import {Button, IconButton, Link, Stack, TextField, Typography} from "@mui/material";
-import {Bolt, CopyAll} from "@mui/icons-material";
+import {Bolt, CopyAll, OpenInNew} from "@mui/icons-material";
 import InstallationDialog from "./components/InstallationDialog";
-import {useState} from "react";
-import bcrypt from "bcryptjs";
+import {useEffect, useState} from "react";
+import {hashSync} from "bcryptjs";
 
 const command_boilerplate = "curl -sSL https://create.mcdash.gnmyt.dev/install.sh | bash -s -- ";
 
@@ -11,10 +11,12 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
 
     const [open, setOpen] = useState(false);
 
+    const [address, setAddress] = useState("");
+
     const generateCommand = () => {
         return command_boilerplate + [
             `\"${software}\"`,
-            `\"${username+": "+bcrypt.hashSync(password, 10).replace(/\$/g, "\\$")}\"`,
+            `\"${username + ": " + hashSync(password, 10).replace(/\$/g, "\\$")}\"`,
             `\"${instanceId}\"`,
             `\"${mcPort}\"`,
             `\"${panelPort}\"`,
@@ -23,13 +25,40 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
         ].join(" ");
     }
 
+    useEffect(() => {
+        return () => {
+            setAddress("");
+        }
+    }, []);
+
     return (
         <>
-            <InstallationDialog open={open} setOpen={setOpen}/>
+            <InstallationDialog open={open} setOpen={setOpen} command={generateCommand()} setAddress={setAddress}/>
 
-            <Stack spacing={2} sx={{mt: 3}}>
-                <TextField multiline fullWidth label="Run this command on your server" value={generateCommand()} InputProps={{
-                    readOnly: true, endAdornment: <IconButton onClick={copyCommand}><CopyAll/></IconButton>}}/>
+            {address !== "" && <Stack justifyContent="center" textAlign="center">
+                <Typography variant="body2" color="text.secondary">Your web panel is now accessible at</Typography>
+                <Stack direction="row" alignItems="center" justifyContent="center">
+                    <Link href={`http://${address}:${panelPort}`} target="_blank" rel="noopener noreferrer"
+                          color="#ce93d8" underline="hover" variant="h6">{address}:{panelPort}</Link>
+                    <IconButton href={`http://${address}:${panelPort}`} target="_blank" rel="noopener noreferrer">
+                        <OpenInNew/>
+                    </IconButton>
+                </Stack>
+
+                <Typography variant="body2" color="text.secondary">Or join the minecraft server</Typography>
+                <Stack direction="row" alignItems="center" justifyContent="center">
+                    <Typography color="primary" underline="hover" variant="h6">{address}:{mcPort}</Typography>
+                    <IconButton onClick={() => navigator.clipboard.writeText(`${address}:${mcPort}`)}>
+                        <CopyAll />
+                    </IconButton>
+                </Stack>
+            </Stack>}
+
+            {address === "" && <Stack spacing={2} sx={{mt: 3}}>
+                <TextField multiline fullWidth label="Run this command on your server" value={generateCommand()}
+                           InputProps={{
+                               readOnly: true, endAdornment: <IconButton onClick={copyCommand}><CopyAll/></IconButton>
+                }}/>
 
                 <Typography variant="body2" color="text.secondary" justifyContent="center" textAlign="center">
                     OR
@@ -44,7 +73,7 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
                               color="#ffa726" underline="hover" variant="body2">PowerTools API</Link>
                     </Stack>
                 </Stack>
-            </Stack>
+            </Stack>}
         </>
     )
 }
