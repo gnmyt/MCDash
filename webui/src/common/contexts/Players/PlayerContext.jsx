@@ -8,7 +8,10 @@ export const PlayerProvider = (props) => {
     const [players, setPlayers] = useState([]);
 
     const updatePlayers = () => {
-        jsonRequest("players/online").then(r => setPlayers(r));
+        jsonRequest("players/online").then(r => {
+            if (!Array.isArray(r)) return;
+            setPlayers(r)
+        });
     }
 
     useEffect(() => {
