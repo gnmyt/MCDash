@@ -15,7 +15,7 @@ import {
 import {useContext, useEffect, useState} from "react";
 import {SocketContext} from "../../../../contexts/SocketContext";
 
-export const InstallationDialog = ({open, setOpen, command, setAddress}) => {
+export const InstallationDialog = ({open, setOpen, command, setAddress, setInstallationError}) => {
 
     const {loginSuccess, connect, commands, setLoginSuccess, sendCommand, disconnect} = useContext(SocketContext);
 
@@ -42,6 +42,9 @@ export const InstallationDialog = ({open, setOpen, command, setAddress}) => {
             setProcessing(false);
             setLoginSuccess(null);
             disconnect();
+            setInstallationError(currentCommand.substring(currentCommand.indexOf(">") + 1,
+                currentCommand.lastIndexOf("<")));
+            setOpen(false);
         }
 
         if (currentCommand.startsWith("parameter check")) setProgress(20);
