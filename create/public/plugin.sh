@@ -3,6 +3,11 @@ function install_plugin() {
   echo "Plugin installed. Restart your server to complete the installation."
 }
 
+if [[ -n $1 ]]; then
+  install_plugin "$1"
+  exit
+fi
+
 echo "Available Minecraft servers:"
 IFS=$'\n'
 
