@@ -26,8 +26,10 @@ const App = () => {
                         <Tab label="Use existing server"/>
                     </Tabs>
 
-                    {tab === 0 && <SocketProvider><NewServer /></SocketProvider>}
-                    {tab === 1 && <ExistingServer />}
+                    <SocketProvider>
+                        {tab === 0 && <NewServer />}
+                        {tab === 1 && <ExistingServer />}
+                    </SocketProvider>
                 </Box>
             </Stack>
         </>
