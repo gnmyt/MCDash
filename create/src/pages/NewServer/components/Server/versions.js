@@ -25,3 +25,11 @@ export const getVersions = (server) => {
 
     return versions;
 }
+
+export const getJavaVersion = (version) => {
+    const versionNumber = version.split(".")[1];
+    if (versionNumber >= 17) return 17;
+    if (versionNumber >= 16) return 16;
+    if (versionNumber >= 12) return 11;
+    return 8;
+}
