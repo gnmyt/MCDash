@@ -18,6 +18,12 @@ export const SocketProvider = ({children}) => {
         });
     }
 
+    const sendCommand = (command) => {
+        if (!socket.connected) return;
+
+        socket.emit("command", command + "\n");
+    }
+
     const disconnect = () => {
         if (socket.connected) socket.disconnect();
         socket.off("type");
@@ -37,7 +43,10 @@ export const SocketProvider = ({children}) => {
 
         const onCommand = ({data}) => {
             if (!data) return;
-            setCommands(prevCommands => [...prevCommands, data]);
+            if (!data.toString().startsWith("MCDash | ")) return;
+            if (data.toString().includes("\n")) return data.toString().split("\n").forEach(line => onCommand({data: line}));
+
+            setCommands(prevCommands => [...prevCommands, data.toString().replace("MCDash | ", "")]);
         }
 
         socket.on("connect", onConnect);
@@ -55,7 +64,7 @@ export const SocketProvider = ({children}) => {
 
 
     return (
-        <SocketContext.Provider value={{loginSuccess, connect, commands, setLoginSuccess}}>
+        <SocketContext.Provider value={{loginSuccess, connect, commands, setLoginSuccess, sendCommand, disconnect}}>
             {children}
         </SocketContext.Provider>
     )
