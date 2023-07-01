@@ -1,5 +1,15 @@
 import {useContext, useEffect, useState} from "react";
-import {Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Stack, TextField, Typography} from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    Checkbox,
+    CircularProgress,
+    FormControlLabel,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import {Download, Search} from "@mui/icons-material";
 import {SocketContext} from "@/common/contexts/SocketContext/index.js";
 
@@ -21,6 +31,8 @@ export const PluginInstaller = ({setOpen, setInstalled}) => {
 
     const [folders, setFolders] = useState([]);
     const [finished, setFinished] = useState(false);
+
+    const [installing, setInstalling] = useState(false);
 
     useEffect(() => {
         const currentCommand = commands[commands.length - 1];
@@ -61,7 +73,8 @@ export const PluginInstaller = ({setOpen, setInstalled}) => {
     }
 
     const install = () => {
-        if (!selectedFolder) return;
+        if (installing || !selectedFolder) return;
+        setInstalling(true);
         sendCommand(getCommand(selectedFolder));
     }
 
@@ -115,9 +128,11 @@ export const PluginInstaller = ({setOpen, setInstalled}) => {
 
                 <Box sx={{flex: '1 1 auto'}}/>
 
-                <Button variant="contained" startIcon={loginSuccess ? <Download /> : <Search/>} onClick={loginSuccess ? install : lookup}>
+                {installing && <CircularProgress sx={{mr: 1}}/>}
+                {!installing && <Button variant="contained" startIcon={loginSuccess ? <Download /> : <Search/>}
+                                        onClick={loginSuccess ? install : lookup}>
                     {loginSuccess ? "Install" : "Lookup"}
-                </Button>
+                </Button>}
             </Box>
         </Stack>
     )
