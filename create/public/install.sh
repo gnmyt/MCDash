@@ -10,6 +10,9 @@ MC_PORT=$4
 PANEL_PORT=$5
 VERSION=$6
 NAME=$7
+JAVA_VERSION=$8
+
+JAVA_ROOT="${ROOT}/java/${JAVA_VERSION}"
 
 function say() {
     echo -e "MCDash | $1"
@@ -54,6 +57,10 @@ fi
 
 if [ -z "${NAME}" ]; then
     quit "Name not specified"
+fi
+
+if [ -z "${JAVA_VERSION}" ]; then
+    quit "Java version not specified"
 fi
 
 say "dependencies"
@@ -128,11 +135,17 @@ cat > server.properties <<EOF
 server-port=${MC_PORT}
 EOF
 
-if [ ! -d "${ROOT}/java/" ]; then
-  mkdir -p "${ROOT}/java/"
-  cd "${ROOT}/java/" || quit "Unable to change directory"
+if [ ! -d "${JAVA_ROOT}" ]; then
+  mkdir -p "${JAVA_ROOT}" || quit "Unable to create java directory"
+  cd "${JAVA_ROOT}" || quit "Unable to change directory"
 
-  download "https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz" "java.tar.gz"
+  if [ "$(uname -m)" == "x86_64" ]; then
+    ARCH="x64"
+  else
+    ARCH="x32"
+  fi
+
+  download "https://api.adoptium.net/v3/binary/latest/${JAVA_VERSION}/ga/linux/${ARCH}/jre/hotspot/normal/adoptium" "java.tar.gz"
 
   if [ ! -f "java.tar.gz" ]; then
     quit "Unable to download java"
@@ -141,7 +154,12 @@ if [ ! -d "${ROOT}/java/" ]; then
   tar -xzf java.tar.gz
   rm java.tar.gz
 
-  mv jdk-17*/* .
+  mv jdk*/* .
+  rm -rf jdk*
+
+  if [ ! -f "bin/java" ]; then
+    quit "Unable to find java"
+  fi
 fi
 
 say "plugin"
@@ -180,7 +198,7 @@ After=network.target
 WorkingDirectory=${INSTALLATION_PATH}
 User=minecraft-${ID}
 Restart=always
-ExecStart=${ROOT}/java/bin/java -jar server.jar nogui
+ExecStart=${JAVA_ROOT}/bin/java -jar server.jar nogui
 
 [Install]
 WantedBy=multi-user.target
