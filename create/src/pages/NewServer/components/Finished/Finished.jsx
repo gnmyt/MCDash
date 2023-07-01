@@ -12,6 +12,7 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
     const [open, setOpen] = useState(false);
 
     const [address, setAddress] = useState("");
+    const [installationError, setInstallationError] = useState("");
 
     const generateCommand = () => {
         return command_boilerplate + [
@@ -27,13 +28,27 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
 
     useEffect(() => {
         return () => {
+            setInstallationError("");
             setAddress("");
         }
     }, []);
 
     return (
         <>
-            <InstallationDialog open={open} setOpen={setOpen} command={generateCommand()} setAddress={setAddress}/>
+            <InstallationDialog open={open} setOpen={setOpen} command={generateCommand()} setAddress={setAddress}
+                                setInstallationError={setInstallationError}/>
+
+            {installationError !== "" && <Stack spacing={2} sx={{mt: 3}}>
+                <Typography variant="body2" color="text.secondary" justifyContent="center" textAlign="center">
+                    An error occurred while installing your server
+                </Typography>
+
+                <Typography variant="body2" color="text.secondary" justifyContent="center" textAlign="center">
+                    {installationError}
+                </Typography>
+
+                <Button variant="contained" onClick={() => setOpen(true)}>Try again</Button>
+            </Stack>}
 
             {address !== "" && <Stack justifyContent="center" textAlign="center">
                 <Typography variant="body2" color="text.secondary">Your web panel is now accessible at</Typography>
