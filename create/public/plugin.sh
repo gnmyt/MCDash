@@ -5,6 +5,7 @@ function install_plugin() {
 
 if [[ -n $1 ]]; then
   install_plugin "$1"
+  echo "MCDash | [IDONE]"
   exit
 fi
 
