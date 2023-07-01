@@ -70,6 +70,10 @@ export const PluginInstaller = ({setOpen, setInstalled}) => {
     const disconnectSocket = () => {
         disconnect();
         setLoginSuccess(null);
+        setLoginFailed(false);
+        setFolders([]);
+        setFinished(false);
+        setInstalling(false);
     }
 
     const install = () => {
