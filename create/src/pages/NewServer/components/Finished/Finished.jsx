@@ -3,6 +3,7 @@ import {Bolt, CopyAll, OpenInNew} from "@mui/icons-material";
 import InstallationDialog from "./components/InstallationDialog";
 import {useEffect, useState} from "react";
 import {hashSync} from "bcryptjs";
+import {getJavaVersion} from "../Server/versions.js";
 
 const command_boilerplate = "curl -sSL https://create.mcdash.gnmyt.dev/install.sh | bash -s -- ";
 
@@ -22,7 +23,8 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
             `\"${mcPort}\"`,
             `\"${panelPort}\"`,
             `\"${version}\"`,
-            `\"${serverName}\"`
+            `\"${serverName}\"`,
+            `"${getJavaVersion(version)}"`
         ].join(" ");
     }
 
