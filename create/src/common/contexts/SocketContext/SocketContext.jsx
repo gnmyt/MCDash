@@ -43,7 +43,7 @@ export const SocketProvider = ({children}) => {
 
         const onCommand = ({data}) => {
             if (!data) return;
-            if (!data.toString().startsWith("MCDash | ")) return;
+            if (!data.toString().includes("MCDash | ")) return;
             if (data.toString().includes("\n")) return data.toString().split("\n").forEach(line => onCommand({data: line}));
 
             setCommands(prevCommands => [...prevCommands, data.toString().replace("MCDash | ", "")]);
