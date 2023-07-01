@@ -35,15 +35,21 @@ export const PluginInstaller = ({setOpen, setInstalled}) => {
     const [installing, setInstalling] = useState(false);
 
     useEffect(() => {
-        const currentCommand = commands[commands.length - 1];
-        if (!currentCommand) return;
 
-        if (currentCommand.includes("[SERVER]"))
-            setFolders(prevFolders => [...prevFolders, currentCommand.split("[SERVER]")[1].split("[/SERVER]")[0]]);
+        const folders = [];
+        for (const command of commands) {
+            if (command.includes("[SERVER]"))
+                folders.push(command.split("[SERVER]")[1].split("[/SERVER]")[0]);
+        }
 
-        if (currentCommand.includes("[DONE]")) setFinished(true);
+        setFolders(folders);
 
-        if (currentCommand.includes("[IDONE]")) {
+        const latestCommand = commands[commands.length - 1];
+        if (!latestCommand) return;
+
+        if (latestCommand.includes("[DONE]")) setFinished(true);
+
+        if (latestCommand.includes("[IDONE]")) {
             setInstalled(true);
             setOpen(false);
             disconnectSocket();
