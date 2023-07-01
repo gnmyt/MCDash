@@ -15,9 +15,9 @@ import {
 import {useContext, useEffect, useState} from "react";
 import {SocketContext} from "../../../../contexts/SocketContext";
 
-export const InstallationDialog = ({open, setOpen}) => {
+export const InstallationDialog = ({open, setOpen, command, setAddress}) => {
 
-    const {loginSuccess, connect, commands, setLoginSuccess} = useContext(SocketContext);
+    const {loginSuccess, connect, commands, setLoginSuccess, sendCommand, disconnect} = useContext(SocketContext);
 
     const [hostname, setHostname] = useState("");
     const [port, setPort] = useState(22);
@@ -27,14 +27,48 @@ export const InstallationDialog = ({open, setOpen}) => {
     const [loginFailed, setLoginFailed] = useState(false);
 
     const [processing, setProcessing] = useState(false);
+    const [installationRunning, setInstallationRunning] = useState(false);
 
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
+        const currentCommand = commands[commands.length - 1]?.toString();
+
+        if (currentCommand === undefined) return;
+
+        if (currentCommand.includes("error")) {
+            setProgress(0);
+            setInstallationRunning(false);
+            setProcessing(false);
+            setLoginSuccess(null);
+            disconnect();
+        }
+
+        if (currentCommand.startsWith("parameter check")) setProgress(20);
+        if (currentCommand.startsWith("dependencies")) setProgress(30);
+        if (currentCommand.startsWith("installation")) setProgress(40);
+        if (currentCommand.startsWith("configuration")) setProgress(70);
+        if (currentCommand.startsWith("plugin")) setProgress(80);
+        if (currentCommand.startsWith("service")) setProgress(90);
+        if (currentCommand.startsWith("waiting")) setProgress(0);
+
+        if (currentCommand.startsWith("finished")) {
+            setProgress(100);
+            setInstallationRunning(false);
+            disconnect();
+            setAddress(hostname);
+            setOpen(false);
+        }
+    }, [commands]);
+
+    useEffect(() => {
         if (loginSuccess === null) return;
+        if (installationRunning) return;
 
         if (loginSuccess) {
-            setProgress(50);
+            setProgress(10);
+            setInstallationRunning(true);
+            setTimeout(() => sendCommand(command), 3000);
         } else {
             setProcessing(false);
             setLoginFailed(true);
