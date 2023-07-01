@@ -36,7 +36,7 @@ export const InstallationDialog = ({open, setOpen, command, setAddress}) => {
 
         if (currentCommand === undefined) return;
 
-        if (currentCommand.includes("error")) {
+        if (currentCommand.includes("Error")) {
             setProgress(0);
             setInstallationRunning(false);
             setProcessing(false);
