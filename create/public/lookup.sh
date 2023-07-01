@@ -14,3 +14,5 @@ find_minecraft_servers() {
 }
 
 find_minecraft_servers "/"
+
+echo "[DONE]"
