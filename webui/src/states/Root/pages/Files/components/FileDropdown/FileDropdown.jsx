@@ -1,6 +1,6 @@
 import {Menu, MenuItem} from "@mui/material";
-import {Delete} from "@mui/icons-material";
-import {deleteRequest} from "@/common/utils/RequestUtil.js";
+import {Delete, Download} from "@mui/icons-material";
+import {deleteRequest, downloadRequest} from "@/common/utils/RequestUtil.js";
 
 export const FileDropdown = ({contextMenu, setContextMenu, directory, setFiles}) => {
 
@@ -28,11 +28,23 @@ export const FileDropdown = ({contextMenu, setContextMenu, directory, setFiles})
         handleClose();
     }
 
+    const downloadFile = () => {
+        if (!contextMenu.file || contextMenu?.file?.is_folder) return;
+
+        downloadRequest("filebrowser/file?path=." + directory + contextMenu.file.name);
+
+        handleClose();
+    }
+
     return (
         <Menu open={contextMenu !== null} onClose={handleClose} anchorReference="anchorPosition"
               anchorPosition={contextMenu !== null
                   ? {top: contextMenu.mouseY, left: contextMenu.mouseX} : undefined}>
-            <MenuItem onClick={handleDelete} disableRipple>
+            {!contextMenu?.file?.is_folder && <MenuItem onClick={downloadFile}>
+                <Download/>
+                Download
+            </MenuItem>}
+            <MenuItem onClick={handleDelete}>
                 <Delete/>
                 Delete
             </MenuItem>
