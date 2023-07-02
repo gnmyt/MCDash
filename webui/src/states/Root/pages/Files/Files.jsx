@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
-import {jsonRequest, patchRequest} from "@/common/utils/RequestUtil.js";
+import React, {useEffect, useState} from "react";
+import {downloadRequest, jsonRequest} from "@/common/utils/RequestUtil.js";
 import {useLocation, useNavigate} from "react-router-dom";
 import FileEditor from "@/states/Root/pages/Files/components/FileEditor";
 import FileDropdown from "@/states/Root/pages/Files/components/FileDropdown";
 import FileView from "@/states/Root/pages/Files/components/FileView";
 import FileHeader from "@/states/Root/pages/Files/components/FileHeader";
+import {Alert, Snackbar} from "@mui/material";
 
 export const Files = () => {
     const location = useLocation();
@@ -15,9 +16,9 @@ export const Files = () => {
     const [files, setFiles] = useState([]);
     const [directory, setDirectory] = useState(location.pathname.substring(6));
 
-    const [fileContent, setFileContent] = useState("");
     const [currentFile, setCurrentFile] = useState(null);
-    const [fileContentChanged, setFileContentChanged] = useState(false);
+
+    const [snackbar, setSnackbar] = useState("");
 
     const handleContextMenu = (event, file) => {
         event.preventDefault();
@@ -36,13 +37,10 @@ export const Files = () => {
     }
 
     const click = (file) => {
-        if (file.is_folder) changeDirectory(file.name);
-        else setCurrentFile(file);
-    }
+        if (file.is_folder) return changeDirectory(file.name);
+        if (file.size > 1000000) return downloadRequest("filebrowser/file?path=." + directory + file.name, file.name);
 
-    const saveFile = () => {
-        patchRequest("filebrowser/file", {path: "." + directory + currentFile.name, content: fileContent})
-            .then(() => setFileContentChanged(false));
+        setCurrentFile(file);
     }
 
     useEffect(() => {
@@ -61,18 +59,25 @@ export const Files = () => {
 
     return (
         <>
+            <Snackbar open={snackbar !== ""} autoHideDuration={3000} onClose={() => setSnackbar("")}
+                      anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
+                <Alert onClose={() => setSnackbar("")} severity="success" sx={{width: '100%'}}>
+                    {snackbar}
+                </Alert>
+            </Snackbar>
 
             <FileDropdown setFiles={setFiles} setContextMenu={setContextMenu} contextMenu={contextMenu}
-                          directory={directory} />
+                          directory={directory} setSnackbar={setSnackbar} />
 
-            <FileHeader directory={directory} currentFile={currentFile} fileContentChanged={fileContentChanged}
-                        setDirectory={setDirectory} saveFile={saveFile} setCurrentFile={setCurrentFile} />
+            <FileHeader directory={directory} currentFile={currentFile} setDirectory={setDirectory}
+                        setCurrentFile={setCurrentFile} />
 
             {!currentFile && <FileView files={files} changeDirectory={changeDirectory} click={click}
                                         handleContextMenu={handleContextMenu} />}
 
-            {currentFile && <FileEditor currentFile={currentFile} setContentChanged={setFileContentChanged} directory={directory}
-                                        fileContent={fileContent} setFileContent={setFileContent} />}
+            {currentFile && <FileEditor currentFile={currentFile} directory={directory}
+                                        setSnackbar={setSnackbar} />}
+
         </>
 
     )
