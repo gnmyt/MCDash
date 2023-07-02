@@ -1,4 +1,4 @@
-import {Box, Chip, CircularProgress, IconButton, Stack, Typography} from "@mui/material";
+import {Box, Chip, CircularProgress, IconButton, Stack, Tooltip, Typography} from "@mui/material";
 import {Close, CreateNewFolder, UploadFile} from "@mui/icons-material";
 import NewFolderDialog from "@/states/Root/pages/Files/components/FileHeader/components/NewFolderDialog";
 import React, {useState} from "react";
@@ -37,11 +37,14 @@ export const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile
                 {loading && <CircularProgress size={20} sx={{marginLeft: 2}} color="secondary"/>}
             </Typography>
 
-            {currentFile !== null && <IconButton color="secondary" onClick={() => setCurrentFile(null)}><Close /></IconButton>}
+            {currentFile !== null &&
+                <IconButton color="secondary" onClick={() => setCurrentFile(null)}><Close/></IconButton>}
 
             {currentFile === null && <Stack direction="row" spacing={1}>
-               <IconButton color="secondary" onClick={upload}><UploadFile/></IconButton>
-                    <IconButton color="secondary" onClick={() => setDialogOpen(true)}><CreateNewFolder/></IconButton>
+                <Tooltip title="Upload a file"><IconButton color="secondary" onClick={upload}>
+                    <UploadFile/></IconButton></Tooltip>
+                <Tooltip title="Create a directory"><IconButton color="secondary" onClick={() => setDialogOpen(true)}>
+                    <CreateNewFolder/></IconButton></Tooltip>
             </Stack>}
         </Box>
     );
