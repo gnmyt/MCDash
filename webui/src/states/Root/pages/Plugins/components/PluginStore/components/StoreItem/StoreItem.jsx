@@ -3,6 +3,7 @@ import React, {useContext, useState} from "react";
 import {Download, Error, Warning} from "@mui/icons-material";
 import {request} from "@/common/utils/RequestUtil.js";
 import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
+import ResourceIcon from "@/common/assets/images/resource.webp";
 
 export const StoreItem = ({id, name, description, icon, downloads, closeStore, installed}) => {
     const {updatePlugins} = useContext(PluginsContext);
@@ -28,7 +29,7 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
             <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                 <Typography variant="h6" fontWeight={500}>{name}</Typography>
                 <Box component="img" sx={{width: 40, height: 40, borderRadius: 50}}
-                     src={"https://spigotmc.org/" + icon}/>
+                     src={icon ? ("data:image/png;base64," + icon) : ResourceIcon} alt="icon"/>
             </Box>
 
             <Typography variant="body1">{description || "No description provided"}</Typography>
@@ -44,7 +45,7 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
                     {alreadyInstalled && <Tooltip title="Plugin already installed"><Error color="warning" /></Tooltip>}
 
                     <Button variant="contained" color="secondary" size="small" onClick={install}
-                            disabled={installing || installed}>Install</Button>
+                            disabled={installing || installed !== undefined}>Install</Button>
                 </Stack>
             </Stack>
         </Box>
