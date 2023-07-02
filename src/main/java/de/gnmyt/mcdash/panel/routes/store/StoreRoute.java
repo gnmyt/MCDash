@@ -71,8 +71,7 @@ public class StoreRoute extends DefaultHandler {
         if (!isStringInQuery(request, response, "id")) return;
 
         HttpUrl url = HttpUrl.parse(ROOT_URL + "resources/" + URLEncoder.encode(request.getQuery()
-                        .get("id"), UTF_8.toString())).newBuilder().addQueryParameter("game_versions",
-                "[\"" + Bukkit.getServer().getBukkitVersion().split("-")[0] + "\"]").build();
+                .get("id"), UTF_8.toString())).newBuilder().build();
 
         okhttp3.Response httpResponse = client.newCall(new okhttp3.Request.Builder().url(url).build()).execute();
 
@@ -89,7 +88,7 @@ public class StoreRoute extends DefaultHandler {
             return;
         }
 
-        String fileUrl = ROOT_URL + "resources/"+ URLEncoder.encode(request.getQuery().get("id"), UTF_8.toString())
+        String fileUrl = ROOT_URL + "resources/" + URLEncoder.encode(request.getQuery().get("id"), UTF_8.toString())
                 + "/download";
 
         if (new File("plugins//Managed-" + projectId + ".jar").exists()) {
@@ -103,9 +102,10 @@ public class StoreRoute extends DefaultHandler {
         runSync(() -> {
             try {
                 Bukkit.getPluginManager().loadPlugin(new File("plugins//Managed-" + projectId + ".jar"));
-            } catch (InvalidPluginException | InvalidDescriptionException e) {
+            } catch (Exception e) {
                 FileUtils.deleteQuietly(new File("plugins//Managed-" + projectId + ".jar"));
-                response.code(400).message("The item with the id '" + projectId + "' is not a valid plugin");
+                response.code(400).json("message=\"The item with the id '" + projectId
+                                + "' is not a valid plugin\"", "error=\"" + e.getMessage() + "\"");
                 return;
             }
             response.message("The item with the id '" + projectId + "' has been installed");
