@@ -1,4 +1,4 @@
-import {Box, Button, Chip, IconButton, Stack, Typography} from "@mui/material";
+import {Box, Button, Chip, IconButton, Stack, Tooltip, Typography} from "@mui/material";
 import React, {useContext, useState} from "react";
 import {deleteRequest, postRequest} from "@/common/utils/RequestUtil.js";
 import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
@@ -40,9 +40,10 @@ export const PluginItem = ({name, version, author, description, enabled, path}) 
 
             <Stack direction="row" justifyContent="flex-end" sx={{mt: 1, alignItems: "center"}} gap={1}>
 
-                {name !== "MinecraftDashboard" && <IconButton size="small" color="error" onClick={() => setDeleteDialogOpen(true)}>
-                    <Delete />
-                </IconButton>}
+                {name !== "MinecraftDashboard" && <Tooltip title="Delete plugin">
+                    <IconButton size="small" color="error" onClick={() => setDeleteDialogOpen(true)}>
+                        <Delete/>
+                    </IconButton></Tooltip>}
 
                 <Button variant="contained" size="small" color={enabled ? "error" : "success"} disabled={name === "MinecraftDashboard"}
                         onClick={togglePlugin}>{enabled ? "Disable" : "Enable"}</Button>
