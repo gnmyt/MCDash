@@ -1,7 +1,7 @@
 import {Box, Chip, IconButton, Typography} from "@mui/material";
-import {Close, Save} from "@mui/icons-material";
+import {Close} from "@mui/icons-material";
 
-export const FileHeader = ({currentFile, directory, setDirectory, fileContentChanged, saveFile, setCurrentFile}) => {
+export const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile}) => {
     return (
         <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
             <Typography variant="h5" fontWeight={500}>File Manager
@@ -11,11 +11,7 @@ export const FileHeader = ({currentFile, directory, setDirectory, fileContentCha
                 ))}
             </Typography>
 
-            {currentFile !== null && fileContentChanged &&
-                <IconButton color="secondary" onClick={() => saveFile()}><Save /></IconButton>}
-
-            {currentFile !== null && !fileContentChanged &&
-                <IconButton color="secondary" onClick={() => setCurrentFile(null)}><Close /></IconButton>}
+            {currentFile !== null && <IconButton color="secondary" onClick={() => setCurrentFile(null)}><Close /></IconButton>}
         </Box>
     );
 }
