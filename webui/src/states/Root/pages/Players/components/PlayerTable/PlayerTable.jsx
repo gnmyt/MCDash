@@ -37,7 +37,7 @@ export const PlayerTable = ({setSelectedPlayers}) => {
     }
 
     return (
-        <div style={{ height: 500 }}>
+        <>
             <ActionConfirmDialog open={opWarning} setOpen={setOPWarning} title={"Warning"} onClick={confirm}
                                  description={"The player will be granted operator permissions. Are you sure?"} />
 
@@ -57,7 +57,9 @@ export const PlayerTable = ({setSelectedPlayers}) => {
                 disableColumnFilter={true}
                 disableColumnMenu={true}
                 onRowSelectionModelChange={(newSelection) => {setSelectedPlayers(newSelection)}}
+                sx={{display: 'grid', gridTemplateRows: 'auto 1f auto'}}
+                autoHeight={true}
             />
-        </div>
+        </>
     );
 }
