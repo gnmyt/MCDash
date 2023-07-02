@@ -7,7 +7,7 @@ export const WhiteListTable = ({setSelectedWhitelistedPlayers}) => {
     const {whitelistedPlayers} = useContext(WhiteListContext);
 
     return (
-        <div style={{height: 500}}>
+        <>
             <DataGrid
                 rows={whitelistedPlayers.map((player) => ({id: player?.uuid, ...player}))}
                 columns={columns}
@@ -19,8 +19,9 @@ export const WhiteListTable = ({setSelectedWhitelistedPlayers}) => {
                 onRowSelectionModelChange={(newSelection) => {
                     setSelectedWhitelistedPlayers(newSelection);
                 }}
-                sx={{width: {xs: "85vw", lg: "40vw"}}}
+                sx={{display: 'grid', gridTemplateRows: 'auto 1f auto'}}
+                autoHeight={true}
             />
-        </div>
+        </>
     );
 }
