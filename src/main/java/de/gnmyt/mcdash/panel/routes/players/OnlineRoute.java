@@ -35,6 +35,7 @@ public class OnlineRoute extends DefaultHandler {
                     .add("health", Math.round(player.getHealth()))
                     .add("food_level", Math.round(player.getFoodLevel()))
                     .add("game_mode", player.getGameMode().name())
+                    .add("is_op", player.isOp())
                     .register();
         }
 

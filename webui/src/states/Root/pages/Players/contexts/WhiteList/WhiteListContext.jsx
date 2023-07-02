@@ -9,7 +9,11 @@ export const WhiteListProvider = (props) => {
     const [whitelistActive, setWhitelistActive] = useState(false);
 
     const updatePlayers = () => {
-        jsonRequest("players/whitelist").then(r => setWhitelistedPlayers(r));
+        jsonRequest("players/whitelist").then(r => {
+            if (!Array.isArray(r)) return;
+            setWhitelistedPlayers(r)
+        });
+
         jsonRequest("action/whitelist").then(r => setWhitelistActive(r.status));
     }
 

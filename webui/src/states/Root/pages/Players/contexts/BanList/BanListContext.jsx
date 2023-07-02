@@ -8,7 +8,10 @@ export const BanListProvider = (props) => {
     const [bannedPlayers, setBannedPlayers] = useState([]);
 
     const updatePlayers = () => {
-        jsonRequest("players/banlist").then(r => setBannedPlayers(r));
+        jsonRequest("players/banlist").then(r => {
+            if (!Array.isArray(r)) return;
+            setBannedPlayers(r)
+        });
     }
 
     useEffect(() => {

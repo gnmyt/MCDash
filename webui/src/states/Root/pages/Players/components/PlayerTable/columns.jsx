@@ -1,10 +1,10 @@
-import {Typography} from "@mui/material";
+import {Checkbox, Typography} from "@mui/material";
 import HealthImage from "@/common/assets/images/health.webp";
 import FoodImage from "@/common/assets/images/food.webp";
 import {capitalizeFirst} from "@/common/utils/StringUtil.js";
 import {formatTime, formatWorld} from "./utils/formatter.jsx";
 
-const columns = [
+const columns = ({setOP}) => [
     {
         field: 'name', headerName: 'Username', minWidth: 200, flex: 1, renderCell: (params) => {
             return (
@@ -40,6 +40,11 @@ const columns = [
                 <Typography>{params.row.food_level / 2}</Typography>
                 <img src={FoodImage} alt="Food" style={{marginLeft: 5}} width={20} height={20}/>
             </div>)
+    },
+    {
+        field: 'is_op', headerName: 'OP', type: "boolean", minWidth: 70, flex: 0.5, renderCell: (params) => (
+            <Checkbox checked={params.row.is_op} onChange={() => setOP(params.row)}/>
+        )
     },
     {
         field: 'game_mode', headerName: 'Gamemode', flex: 1, renderCell: (params) => (

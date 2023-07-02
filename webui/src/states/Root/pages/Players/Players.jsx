@@ -57,7 +57,7 @@ export const Players = () => {
             <PlayerActionDialog action={dialogAction} open={dialogOpen} setOpen={setDialogOpen}
                                 selected={selectedPlayers}/>
 
-            <Stack sx={{mt: 2, width: {xs: "85vw", lg: "80vw"}}} gap={2}>
+            <Stack sx={{mt: 2, maxWidth: "100%"}} spacing={2}>
                 <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
                     <Typography variant="h5" fontWeight={500}>Online Players <Chip label={players.length}
                                                                                    color="secondary"/></Typography>
@@ -71,7 +71,7 @@ export const Players = () => {
 
                 <Stack sx={{mt: 2, flexDirection: {xs: "column", lg: "row"}, justifyContent: "space-between"}} gap={2}>
 
-                    <Stack spacing={2} direction="column">
+                    <Stack spacing={2} direction="column" sx={{width: {xs: "100%", lg: "48%"}}}>
                         <Box
                             sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
                             <Typography variant="h5" fontWeight={500}>Whitelisted Players <Chip
@@ -99,7 +99,7 @@ export const Players = () => {
                     </Stack>
 
 
-                    <Stack spacing={2} direction="column">
+                    <Stack spacing={2} direction="column" sx={{width: {xs: "100%", lg: "48%"}}}>
                         <Box
                             sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
                             <Typography variant="h5" fontWeight={500}>Banned Players <Chip label={bannedPlayers.length}
