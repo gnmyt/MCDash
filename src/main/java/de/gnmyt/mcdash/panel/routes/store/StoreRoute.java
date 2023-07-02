@@ -40,6 +40,7 @@ public class StoreRoute extends DefaultHandler {
         HttpUrl url = HttpUrl.parse(ROOT_URL + base).newBuilder()
                 .addQueryParameter("size", "35")
                 .addQueryParameter("page", String.valueOf(page))
+                .addQueryParameter("sort", "-downloads")
                 .build();
 
         okhttp3.Response httpResponse = client.newCall(new okhttp3.Request.Builder().url(url).build()).execute();
