@@ -7,7 +7,7 @@ export const BanListTable = ({setSelectedBannedPlayers}) => {
     const {bannedPlayers} = useContext(BanListContext);
 
     return (
-        <div style={{height: 500}}>
+        <>
             <DataGrid
                 rows={bannedPlayers.map((player) => ({id: player.uuid, ...player}))}
                 columns={columns}
@@ -19,8 +19,9 @@ export const BanListTable = ({setSelectedBannedPlayers}) => {
                 onRowSelectionModelChange={(newSelection) => {
                     setSelectedBannedPlayers(newSelection)
                 }}
-                sx={{width: {xs: "85vw", lg: "40vw"}}}
+                sx={{display: 'grid', gridTemplateRows: 'auto 1f auto'}}
+                autoHeight={true}
             />
-        </div>
+        </>
     );
 }
