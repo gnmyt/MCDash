@@ -1,7 +1,6 @@
 // Get the default headers of the request
 const getHeaders = () => {
-    let headers = localStorage.getItem("token") ? {Authorization: "Basic " + localStorage.getItem("token")} : {};
-    return headers;
+    return localStorage.getItem("token") ? {Authorization: "Basic " + localStorage.getItem("token")} : {};
 }
 
 // Run a plain request with all default values
