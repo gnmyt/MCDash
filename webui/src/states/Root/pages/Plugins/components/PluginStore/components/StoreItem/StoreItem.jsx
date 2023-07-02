@@ -1,9 +1,10 @@
-import {Box, Button, CircularProgress, Stack, Tooltip, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, Link, Stack, Tooltip, Typography} from "@mui/material";
 import React, {useContext, useState} from "react";
 import {Download, Error, Warning} from "@mui/icons-material";
 import {request} from "@/common/utils/RequestUtil.js";
 import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
 import ResourceIcon from "@/common/assets/images/resource.webp";
+import {prettyDownloadCount} from "@/states/Root/pages/Plugins/components/PluginStore/components/StoreItem/utils.js";
 
 export const StoreItem = ({id, name, description, icon, downloads, closeStore, installed}) => {
     const {updatePlugins} = useContext(PluginsContext);
@@ -28,8 +29,13 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
         <Box backgroundColor="background.darker" borderRadius={2} padding={2} sx={{mr: 1, mt: 1, width: {xs: "100%", lg: 300}}}>
             <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                 <Typography variant="h6" fontWeight={500}>{name}</Typography>
-                <Box component="img" sx={{width: 40, height: 40, borderRadius: 50}}
-                     src={icon ? ("data:image/png;base64," + icon) : ResourceIcon} alt="icon"/>
+
+                <Tooltip title="View resource">
+                    <Link href={"https://www.spigotmc.org/resources/" + id} alt="icon" target="_blank">
+                        <Box component="img" sx={{width: 40, height: 40, borderRadius: 50}}
+                             src={icon ? ("data:image/png;base64," + icon) : ResourceIcon} rel="noreferrer"/>
+                    </Link>
+                </Tooltip>
             </Box>
 
             <Typography variant="body1">{description || "No description provided"}</Typography>
@@ -37,11 +43,12 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
             <Stack direction="row" justifyContent="space-between" sx={{mt: 1}}>
                 <Stack direction="row" alignItems="center" gap={0.5}>
                     <Download color="secondary"/>
-                    <Typography variant="h6" fontWeight={500}>{downloads}</Typography>
+                    <Typography variant="h6" fontWeight={500}>{prettyDownloadCount(downloads)}</Typography>
                 </Stack>
                 <Stack direction="row" alignItems="center" gap={1.5}>
                     {installing && <CircularProgress size={20} color="secondary" />}
                     {error && <Tooltip title="Plugin not supported"><Warning color="error" /></Tooltip>}
+
                     {alreadyInstalled && <Tooltip title="Plugin already installed"><Error color="warning" /></Tooltip>}
 
                     <Button variant="contained" color="secondary" size="small" onClick={install}
