@@ -8,6 +8,8 @@ import de.gnmyt.mcdash.api.json.ArrayBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
+import java.io.File;
+
 public class PluginListRoute extends DefaultHandler {
 
     @Override
@@ -26,11 +28,17 @@ public class PluginListRoute extends DefaultHandler {
         ArrayBuilder builder = new ArrayBuilder();
 
         for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+            if (plugin.getClass().getProtectionDomain().getCodeSource() == null) continue;
+            String pluginJar = plugin.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+            String pluginJarNoPath = pluginJar.substring(pluginJar.lastIndexOf(File.separator) + 1);
+            
+            if (!new File("./plugins/" + pluginJarNoPath).exists()) continue;
+
             builder.addNode()
                     .add("name", plugin.getName())
                     .add("author", plugin.getDescription().getAuthors().size() == 0 ? null : plugin.getDescription().getAuthors().get(0))
                     .add("description", plugin.getDescription().getDescription())
-                    .add("path", plugin.getClass().getProtectionDomain().getCodeSource().getLocation().getFile())
+                    .add("path", pluginJarNoPath)
                     .add("enabled", plugin.isEnabled())
                     .add("version", plugin.getDescription().getVersion())
                     .register();
