@@ -35,7 +35,7 @@ public class StoreRoute extends DefaultHandler {
         int page = request.getQuery().containsKey("page") ? getIntegerFromQuery(request, "page") : 1;
 
         String base = Objects.equals(query, "") ? "resources" : "search/resources/"
-                + URLEncoder.encode(query, StandardCharsets.UTF_8.toString());
+                + URLEncoder.encode(query, StandardCharsets.UTF_8.toString()).replace("+", "%20");
 
         HttpUrl url = HttpUrl.parse(ROOT_URL + base).newBuilder()
                 .addQueryParameter("size", "35")
@@ -52,13 +52,14 @@ public class StoreRoute extends DefaultHandler {
         ArrayBuilder items = new ArrayBuilder();
 
         mapper.readTree(httpResponse.body().string()).forEach(item -> {
-            if (!item.get("external").asBoolean()) new NodeBuilder(items)
-                    .add("id", item.get("id").asInt())
-                    .add("name", item.get("name").asText())
-                    .add("description", item.get("tag").asText())
-                    .add("icon", !item.get("icon").get("data").asText().isEmpty() ? item.get("icon").get("data").asText() : null)
-                    .add("downloads", item.get("downloads").asInt())
-                    .register();
+            if (!item.get("external").asBoolean() && item.get("file").get("type").asText().equals(".jar"))
+                new NodeBuilder(items).add("id", item.get("id").asInt())
+                        .add("name", item.get("name").asText())
+                        .add("description", item.get("tag").asText())
+                        .add("icon", !item.get("icon").get("data").asText().isEmpty()
+                                ? item.get("icon").get("data").asText() : null)
+                        .add("downloads", item.get("downloads").asInt())
+                        .register();
         });
 
         response.type(ContentType.JSON).text(items.toJSON());
