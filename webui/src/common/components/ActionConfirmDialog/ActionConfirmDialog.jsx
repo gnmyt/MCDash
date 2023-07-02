@@ -25,13 +25,14 @@ export const ActionConfirmDialog = ({open, setOpen, title, description, buttonTe
 
     return (
         <>
-            <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={() => setSnackbarOpen(false)}
-                      anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
-                <Alert onClose={() => setSnackbarOpen(false)} severity={actionFailed ? "error" : "success"}
-                       sx={{width: '100%'}}>
-                    {actionFailed ? "Could not execute action" : (successMessage || "Action executed successfully")}
-                </Alert>
-            </Snackbar>
+            {successMessage !== "none" &&
+                <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={() => setSnackbarOpen(false)}
+                          anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
+                    <Alert onClose={() => setSnackbarOpen(false)} severity={actionFailed ? "error" : "success"}
+                           sx={{width: '100%'}}>
+                        {actionFailed ? "Could not execute action" : (successMessage || "Action executed successfully")}
+                    </Alert>
+                </Snackbar>}
             <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description">
                 <DialogTitle id="alert-dialog-title">

@@ -1,4 +1,4 @@
-import {Box, Button, Stack, TextField, Typography} from "@mui/material";
+import {Box, Button, Chip, Stack, TextField, Typography} from "@mui/material";
 import React, {useContext, useState} from "react";
 import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
 import {PluginItem} from "@/states/Root/pages/Plugins/components/PluginItem/PluginItem.jsx";
@@ -15,7 +15,8 @@ export const Plugins = () => {
     return (
         <>
             <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
-                <Typography variant="h5" fontWeight={500}>Plugins</Typography>
+                <Typography variant="h5" fontWeight={500}>Plugins <Chip label={plugins.length}
+                                                                        color="secondary"/></Typography>
 
                 <Stack direction="row" spacing={1}>
                     {storeOpen && <TextField label="Search" variant="outlined" size={"small"} sx={{width: {xs: 150, lg: 300}}}
@@ -28,7 +29,7 @@ export const Plugins = () => {
             </Box>
 
             {!storeOpen && <Stack direction="row" sx={{my: 1, alignItems: "baseline"}} flexWrap="wrap">
-                {plugins.map((plugin) => <PluginItem key={plugin.name} {...plugin} />)}
+                {plugins.map((plugin) => <PluginItem key={plugin.path} {...plugin} />)}
             </Stack>}
 
             {storeOpen && <PluginStore search={currentSearch} closeStore={() => setStoreOpen(false)} />}
