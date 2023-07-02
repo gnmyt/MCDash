@@ -45,10 +45,14 @@ export const Files = () => {
 
     useEffect(() => {
         navigate("/files" + directory);
+        updateFiles();
+    }, [directory]);
+
+    const updateFiles = () => {
         jsonRequest("filebrowser/folder?path=." + directory)
             .then((data) => setFiles(data.sort((a, b) => b.is_folder - a.is_folder)))
             .catch(() => changeDirectory(".."));
-    }, [directory]);
+    }
 
     useEffect(() => {
         if (location.pathname === "/files") {
@@ -70,7 +74,7 @@ export const Files = () => {
                           directory={directory} setSnackbar={setSnackbar} />
 
             <FileHeader directory={directory} currentFile={currentFile} setDirectory={setDirectory}
-                        setCurrentFile={setCurrentFile} />
+                        setCurrentFile={setCurrentFile} updateFiles={updateFiles} setSnackbar={setSnackbar} />
 
             {!currentFile && <FileView files={files} changeDirectory={changeDirectory} click={click}
                                         handleContextMenu={handleContextMenu} />}
