@@ -21,7 +21,7 @@ export const FileView = ({files, changeDirectory, click, handleContextMenu}) => 
                     <Typography>{file.name}</Typography>
 
                     <Stack direction="row" alignItems="center" gap={1} marginLeft="auto">
-                        <Typography>{convertSize(file.size)}</Typography>
+                        {!file.is_folder && <Typography>{convertSize(file.size)}</Typography>}
                         <Typography>{new Date(file.last_modified).toLocaleString()}</Typography>
                     </Stack>
                 </Box>
