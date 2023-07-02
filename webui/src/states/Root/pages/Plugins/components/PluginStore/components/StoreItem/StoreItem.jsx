@@ -9,16 +9,16 @@ import {prettyDownloadCount} from "@/states/Root/pages/Plugins/components/Plugin
 export const StoreItem = ({id, name, description, icon, downloads, closeStore, installed}) => {
     const {updatePlugins} = useContext(PluginsContext);
     const [installing, setInstalling] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [alreadyInstalled, setAlreadyInstalled] = useState(installed);
 
     const install = () => {
         setInstalling(true);
-        request("store/?id=" + id, "PUT", {}, {}, false).then((r) => {
+        request("store/?id=" + id, "PUT", {}, {}, false).then(async (r) => {
             setInstalling(false);
 
             if (r.status === 409) return setAlreadyInstalled(true);
-            if (!r.ok) return setError(true);
+            if (!r.ok) return setError((await r.json()).error || "Plugin not supported");
 
             updatePlugins();
             closeStore();
@@ -47,7 +47,7 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
                 </Stack>
                 <Stack direction="row" alignItems="center" gap={1.5}>
                     {installing && <CircularProgress size={20} color="secondary" />}
-                    {error && <Tooltip title="Plugin not supported"><Warning color="error" /></Tooltip>}
+                    {error !== "" && <Tooltip title={error}><Warning color="error" /></Tooltip>}
 
                     {alreadyInstalled && <Tooltip title="Plugin already installed"><Error color="warning" /></Tooltip>}
 
