@@ -1,9 +1,6 @@
 // Get the default headers of the request
 const getHeaders = () => {
-    let headers = localStorage.getItem("token") ? {Authorization: "Basic " + localStorage.getItem("token")} : {};
-    headers['content-type'] = 'application/x-www-form-urlencoded';
-
-    return headers;
+    return localStorage.getItem("token") ? {Authorization: "Basic " + localStorage.getItem("token")} : {};
 }
 
 // Run a plain request with all default values
@@ -61,4 +58,15 @@ export const downloadRequest = async (path, body = {}, headers = {}) => {
     document.body.appendChild(element);
     element.click();
     element.remove();
+}
+
+// Upload a file to the server
+export const uploadRequest = async (path, file, headers = {}) => {
+    let formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return await fetch("/api/" + path, {
+        headers: {...getHeaders(true), ...headers}, method: "PUT",
+        body: formData
+    });
 }

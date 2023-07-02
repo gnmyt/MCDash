@@ -28,13 +28,16 @@ public class FileRoute extends MultipartHandler {
         if (!isStringInQuery(request, response, "path")) return;
 
         String path = getStringFromQuery(request, "path");
+        File file = new File(path);
 
         if (!isValidExitingFile(path)) {
             response.code(404).message("File not found.");
             return;
         }
 
-        response.text(FileUtils.readFileToString(new File(path), StandardCharsets.UTF_8));
+        response.header("Content-Disposition", "attachment; filename=" + file.getName());
+
+        response.bytes(FileUtils.readFileToByteArray(file));
     }
 
     /**
