@@ -56,8 +56,7 @@ public class StoreRoute extends DefaultHandler {
                     .add("id", item.get("id").asInt())
                     .add("name", item.get("name").asText())
                     .add("description", item.get("tag").asText())
-                    .add("icon", !item.get("icon").get("url").asText().isEmpty() ? item.get("icon").get("url").asText()
-                            : "styles/spigot/xenresource/resource_icon.png")
+                    .add("icon", !item.get("icon").get("data").asText().isEmpty() ? item.get("icon").get("data").asText() : null)
                     .add("downloads", item.get("downloads").asInt())
                     .register();
         });
