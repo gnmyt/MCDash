@@ -9,7 +9,7 @@ export const Configuration = () => {
     const {properties, updateProperties} = useContext(PropertiesContext);
     const {sshPort, sshStatus, updateSshPort, updateSshStatus} = useContext(SSHStatusContext);
 
-    const [sshPortState, setSshPortState] = useState(22);
+    const [sshPortState, setSshPortState] = useState(5174);
 
     useEffect(() => {
         setSshPortState(sshPort);
