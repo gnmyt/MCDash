@@ -3,6 +3,7 @@ package de.gnmyt.mcdash;
 import com.sun.net.httpserver.HttpServer;
 import de.gnmyt.mcdash.api.config.AccountManager;
 import de.gnmyt.mcdash.api.config.ConfigurationManager;
+import de.gnmyt.mcdash.api.config.Metrics;
 import de.gnmyt.mcdash.api.config.SSHManager;
 import de.gnmyt.mcdash.api.controller.BackupController;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
@@ -21,6 +22,7 @@ public class MinecraftDashboard extends JavaPlugin {
 
     private static final ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
     private static ConfigurationManager config;
+    private static Metrics metrics;
     private static BackupController backupController;
     private static AccountManager accountManager;
     private static SSHManager sshManager;
@@ -35,6 +37,7 @@ public class MinecraftDashboard extends JavaPlugin {
         config = new ConfigurationManager(instance);
         backupController = new BackupController();
         if (!config.configExists()) config.generateDefault();
+        metrics = new Metrics(this, 18915);
 
         try {
             server = HttpServer.create(new InetSocketAddress(config.getPort()), 0);
