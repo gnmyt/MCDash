@@ -149,6 +149,20 @@
             <version>0.4</version>
         </dependency>
 
+        <!-- SSHD API -->
+        <dependency>
+            <groupId>org.apache.sshd</groupId>
+            <artifactId>sshd-core</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+
+        <!-- SSHD SFTP API -->
+        <dependency>
+            <groupId>org.apache.sshd</groupId>
+            <artifactId>sshd-sftp</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -3,6 +3,7 @@ package de.gnmyt.mcdash;
 import com.sun.net.httpserver.HttpServer;
 import de.gnmyt.mcdash.api.config.AccountManager;
 import de.gnmyt.mcdash.api.config.ConfigurationManager;
+import de.gnmyt.mcdash.api.config.SSHManager;
 import de.gnmyt.mcdash.api.controller.BackupController;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
 import de.gnmyt.mcdash.api.handler.StaticHandler;
@@ -22,6 +23,7 @@ public class MinecraftDashboard extends JavaPlugin {
     private static ConfigurationManager config;
     private static BackupController backupController;
     private static AccountManager accountManager;
+    private static SSHManager sshManager;
     private static MinecraftDashboard instance;
     private static HttpServer server;
 
@@ -29,6 +31,7 @@ public class MinecraftDashboard extends JavaPlugin {
     public void onEnable() {
         instance = this;
         accountManager = new AccountManager(instance);
+        sshManager = new SSHManager(instance);
         config = new ConfigurationManager(instance);
         backupController = new BackupController();
         if (!config.configExists()) config.generateDefault();
@@ -49,7 +52,7 @@ public class MinecraftDashboard extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        server.stop(0);
+        if (server != null) server.stop(0);
         server = null;
     }
 
@@ -133,6 +136,14 @@ public class MinecraftDashboard extends JavaPlugin {
      */
     public static AccountManager getAccountManager() {
         return accountManager;
+    }
+
+    /**
+     * Gets the ssh manager
+     * @return the ssh manager
+     */
+    public static SSHManager getSSHManager() {
+        return sshManager;
     }
 
     /**

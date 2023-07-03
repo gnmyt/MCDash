@@ -12,6 +12,7 @@ import Configuration from "@/states/Root/pages/Configuration";
 import {PropertiesProvider} from "@/states/Root/pages/Configuration/contexts/Properties";
 import Backups from "@/states/Root/pages/Backups";
 import {BackupProvider} from "@/states/Root/pages/Backups/contexts/Backups";
+import {SSHStatusProvider} from "@/states/Root/pages/Configuration/contexts/SSHStatus/index.js";
 
 export const routes = [
     {path: "/", element: <StatsProvider><Overview /></StatsProvider>},
@@ -20,7 +21,7 @@ export const routes = [
     {path: "/console", element: <Console />},
     {path: "/plugins", element: <PluginsProvider><Plugins /></PluginsProvider>},
     {path: "/backups", element: <BackupProvider><Backups/></BackupProvider>},
-    {path: "/configuration", element: <PropertiesProvider><Configuration /></PropertiesProvider>}
+    {path: "/configuration", element: <PropertiesProvider><SSHStatusProvider><Configuration /></SSHStatusProvider></PropertiesProvider>}
 ]
 
 export const sidebar = [
