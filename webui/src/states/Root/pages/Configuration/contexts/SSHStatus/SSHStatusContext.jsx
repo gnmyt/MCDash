@@ -6,7 +6,7 @@ export const SSHStatusContext = createContext({});
 
 export const SSHStatusProvider = (props) => {
 
-    const [sshPort, setSshPort] = useState(22);
+    const [sshPort, setSshPort] = useState(5174);
     const [sshStatus, setSshStatus] = useState(false);
 
     const [changesSaved, setChangesSaved] = useState(false);
