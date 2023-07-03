@@ -22,7 +22,7 @@ export const SSHStatusProvider = (props) => {
     }, []);
 
     return (
-        <SSHStatusContext.Provider value={{sshPort, sshStatus, updateStatus}}>
+        <SSHStatusContext.Provider value={{sshPort, sshStatus, setSshPort, updateStatus}}>
             {props.children}
         </SSHStatusContext.Provider>
     );
