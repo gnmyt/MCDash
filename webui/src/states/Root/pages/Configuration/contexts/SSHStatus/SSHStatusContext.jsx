@@ -32,6 +32,7 @@ export const SSHStatusProvider = (props) => {
     }
 
     const updateSshPort = (event) => {
+        if (parseInt(event.target.value) === sshPort) return;
         setSshPort(event.target.value);
         patchRequest("services/ssh", {port: event.target.value}).then(() => {
             updateStatus().then((r) => {
