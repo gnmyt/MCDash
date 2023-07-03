@@ -28,6 +28,8 @@ public class SSHManager {
         if (!config.contains("ssh_enabled")) config.set("ssh_enabled", false);
         if (!config.contains("ssh_port")) config.set("ssh_port", 5174);
 
+        saveConfig();
+
         if (isSSHEnabled()) {
             try {
                 controller.start(getSSHPort());
@@ -35,8 +37,6 @@ public class SSHManager {
                 e.printStackTrace();
             }
         }
-
-        saveConfig();
     }
 
     /**
