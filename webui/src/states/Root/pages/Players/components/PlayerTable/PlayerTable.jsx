@@ -25,7 +25,7 @@ export const PlayerTable = ({setSelectedPlayers}) => {
     }
 
     const updateOpStatus = (player) => {
-        (player.is_op ? deleteRequest : putRequest)("/players/op/", {username: player.name})
+        (player.is_op ? deleteRequest : putRequest)("players/op/", {username: player.name})
             .then(() => updatePlayers());
     }
 
