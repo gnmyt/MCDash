@@ -63,8 +63,8 @@ public class WorldsRoute extends DefaultHandler {
         }
 
         if (!environment.equalsIgnoreCase("normal") && !environment.equalsIgnoreCase("nether")
-                && !environment.equalsIgnoreCase("end")) {
-            response.code(400).message("The environment must be 'normal', 'nether' or 'end'");
+                && !environment.equalsIgnoreCase("the_end")) {
+            response.code(400).message("The environment must be 'normal', 'nether' or 'the_end'");
             return;
         }
 
