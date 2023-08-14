@@ -42,17 +42,18 @@ public class BackupController {
      * @param directory The directory to zip
      * @param parent The parent of the directory
      * @param zipOutputStream The zip output stream
-     * @throws IOException An exception that will be thrown if the directory could not be zipped
      */
-    private void zipDirectory(File directory, String parent, ZipOutputStream zipOutputStream) throws IOException {
+    private void zipDirectory(File directory, String parent, ZipOutputStream zipOutputStream) {
         if (directory.getName().equals(backupFolder.getName())) return;
         for (File file : Objects.requireNonNull(directory.listFiles())) {
             if (file.isDirectory()) {
                 zipDirectory(file, parent + "/" + file.getName(), zipOutputStream);
             } else {
-                zipOutputStream.putNextEntry(new ZipEntry(parent + "/" + file.getName()));
-                zipOutputStream.write(IOUtils.toByteArray(Files.newInputStream(file.toPath())));
-                zipOutputStream.closeEntry();
+                try {
+                    zipOutputStream.putNextEntry(new ZipEntry(parent + "/" + file.getName()));
+                    zipOutputStream.write(IOUtils.toByteArray(Files.newInputStream(file.toPath())));
+                    zipOutputStream.closeEntry();
+                } catch (Exception ignored) { }
             }
         }
     }
@@ -61,12 +62,13 @@ public class BackupController {
      * Writes a file to a zip output stream
      * @param file The file to write
      * @param zipOutputStream The zip output stream
-     * @throws IOException An exception that will be thrown if the file could not be written
      */
-    private void zipFile(File file, ZipOutputStream zipOutputStream) throws IOException {
-        zipOutputStream.putNextEntry(new ZipEntry(file.getName()));
-        zipOutputStream.write(IOUtils.toByteArray(Files.newInputStream(file.toPath())));
-        zipOutputStream.closeEntry();
+    private void zipFile(File file, ZipOutputStream zipOutputStream) {
+        try {
+            zipOutputStream.putNextEntry(new ZipEntry(file.getName()));
+            zipOutputStream.write(IOUtils.toByteArray(Files.newInputStream(file.toPath())));
+            zipOutputStream.closeEntry();
+        } catch (Exception ignored) { }
     }
 
     /**
