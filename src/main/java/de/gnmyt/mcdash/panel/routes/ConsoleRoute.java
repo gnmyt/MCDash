@@ -29,6 +29,16 @@ public class ConsoleRoute extends DefaultHandler {
         int startLine = getIntegerFromQuery(request, "startLine") != null ? getIntegerFromQuery(request, "startLine") : 1;
         int limit = getIntegerFromQuery(request, "limit") != null ? getIntegerFromQuery(request, "limit") : 500;
 
+        if (startLine < 1) {
+            response.code(400).message("The start line must be greater than 0");
+            return;
+        }
+
+        if (limit < 1) {
+            response.code(400).message("The limit must be greater than 0");
+            return;
+        }
+
         Path path = Paths.get("logs/latest.log");
         if (!Files.exists(path)) {
             response.code(500).message("The log file does not exist");
