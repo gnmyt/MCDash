@@ -15,7 +15,7 @@ export const Console = () => {
     useEffect(() => {
         const terminal = new Terminal({theme: {background: "rgba(0,0,0,0.25)"}, fontSize: 14});
 
-        let currentLine = 0;
+        let currentLine = 1;
 
         const fitAddon = new FitAddon();
         terminal.loadAddon(fitAddon);
