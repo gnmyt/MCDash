@@ -1,10 +1,11 @@
-import {Checkbox, Typography} from "@mui/material";
+import {Checkbox, IconButton, Stack, Tooltip, Typography} from "@mui/material";
 import HealthImage from "@/common/assets/images/health.webp";
 import FoodImage from "@/common/assets/images/food.webp";
 import {capitalizeFirst} from "@/common/utils/StringUtil.js";
 import {formatTime, formatWorld} from "./utils/formatter.jsx";
+import {Send} from "@mui/icons-material";
 
-const columns = ({setOP}) => [
+const columns = ({setOP, teleportPlayer}) => [
     {
         field: 'name', headerName: 'Username', minWidth: 200, flex: 1, renderCell: (params) => {
             return (
@@ -20,9 +21,13 @@ const columns = ({setOP}) => [
     {
         field: 'current_world', headerName: 'Current world', minWidth: 150, flex: 1, renderCell: (params) => {
             return (
-                <div style={{display: "flex", alignItems: "center"}}>
+                <Stack direction="row" alignItems="center" gap={0.5}>
                     {formatWorld(params.row.current_world)}
-                </div>
+                    <Tooltip title="Send to world"><IconButton size="small" onClick={(e) => {
+                        e.stopPropagation();
+                        teleportPlayer(params.row);
+                    }}><Send/></IconButton></Tooltip>
+                </Stack>
             )
         }
     },
@@ -43,7 +48,8 @@ const columns = ({setOP}) => [
     },
     {
         field: 'is_op', headerName: 'OP', type: "boolean", minWidth: 70, flex: 0.5, renderCell: (params) => (
-            <Checkbox checked={params.row.is_op} onChange={() => setOP(params.row)}/>
+            <Checkbox checked={params.row.is_op} onChange={() => setOP(params.row)}
+                      onClick={(e) => e.stopPropagation()}/>
         )
     },
     {

@@ -1,10 +1,7 @@
 package de.gnmyt.mcdash;
 
 import com.sun.net.httpserver.HttpServer;
-import de.gnmyt.mcdash.api.config.AccountManager;
-import de.gnmyt.mcdash.api.config.ConfigurationManager;
-import de.gnmyt.mcdash.api.config.Metrics;
-import de.gnmyt.mcdash.api.config.SSHManager;
+import de.gnmyt.mcdash.api.config.*;
 import de.gnmyt.mcdash.api.controller.BackupController;
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
 import de.gnmyt.mcdash.api.handler.StaticHandler;
@@ -25,6 +22,7 @@ public class MinecraftDashboard extends JavaPlugin {
     private static Metrics metrics;
     private static BackupController backupController;
     private static AccountManager accountManager;
+    private static WorldManager worldManager;
     private static SSHManager sshManager;
     private static MinecraftDashboard instance;
     private static HttpServer server;
@@ -34,6 +32,7 @@ public class MinecraftDashboard extends JavaPlugin {
         instance = this;
         accountManager = new AccountManager(instance);
         sshManager = new SSHManager(instance);
+        worldManager = new WorldManager(instance);
         config = new ConfigurationManager(instance);
         backupController = new BackupController();
         if (!config.configExists()) config.generateDefault();
@@ -155,6 +154,14 @@ public class MinecraftDashboard extends JavaPlugin {
      */
     public static BackupController getBackupController() {
         return backupController;
+    }
+
+    /**
+     * Gets the world manager
+     * @return the world manager
+     */
+    public static WorldManager getWorldManager() {
+        return worldManager;
     }
 
     /**

@@ -3,8 +3,8 @@ import React, {useContext, useState} from "react";
 import {convertSize} from "@/states/Root/pages/Files/components/FileView/utils/FileUtil.js";
 import {Delete, Download, Restore} from "@mui/icons-material";
 import {deleteRequest, downloadRequest} from "@/common/utils/RequestUtil.js";
-import {BackupContext} from "@/states/Root/pages/Backups/contexts/Backups/index.js";
-import ActionConfirmDialog from "@components/ActionConfirmDialog/index.js";
+import {BackupContext} from "@/states/Root/pages/Backups/contexts/Backups";
+import ActionConfirmDialog from "@components/ActionConfirmDialog";
 import RestoreDialog from "@/states/Root/pages/Backups/components/BackupItem/components/RestoreDialog";
 import mappings from "./mappings.jsx";
 
