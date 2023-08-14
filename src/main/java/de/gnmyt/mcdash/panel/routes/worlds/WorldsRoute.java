@@ -33,7 +33,7 @@ public class WorldsRoute extends DefaultHandler {
                     .add("seed", world.getSeed())
                     .add("difficulty", world.getDifficulty().name())
                     .add("time", world.getTime())
-                    .add("weather", world.hasStorm() ? "rain" : world.isThundering() ? "thunder" : "clear")
+                    .add("weather", world.isThundering() ? "thunder" : world.hasStorm() ? "rain" : "clear")
                     .add("players", world.getPlayers().size())
                     .add("chunks", world.getLoadedChunks().length)
                     .register();
@@ -92,6 +92,11 @@ public class WorldsRoute extends DefaultHandler {
 
         if (Bukkit.getWorld(name) == null || name.equalsIgnoreCase("world")) {
             response.code(400).message("The world does not exist");
+            return;
+        }
+
+        if (Bukkit.getWorld(name).getPlayers().size() > 0) {
+            response.code(400).message("The world is not empty");
             return;
         }
 
