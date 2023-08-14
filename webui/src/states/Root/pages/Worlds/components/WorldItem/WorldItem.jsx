@@ -49,7 +49,7 @@ export const WorldItem = ({name, environment, time, weather, difficulty, players
                     <Button onClick={() => setOpenDialog("difficulty")} startIcon={<Gavel/>}>Difficulty</Button>
                 </ButtonGroup>
                 <IconButton size="small" color="error" onClick={() => setOpenDialog("delete")}
-                            disabled={players !== 0}><Delete/></IconButton>
+                            disabled={players !== 0 || name === "world"}><Delete/></IconButton>
             </Stack>
 
         </Box>
