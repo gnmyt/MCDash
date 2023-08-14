@@ -5,13 +5,23 @@ import {PlayerContext} from "@contexts/Players";
 import {deleteRequest, putRequest} from "@/common/utils/RequestUtil.js";
 import ActionConfirmDialog from "@components/ActionConfirmDialog";
 import {Alert, Snackbar} from "@mui/material";
+import PlayerTeleportDialog
+    from "@/states/Root/pages/Players/components/PlayerTable/components/PlayerTeleportDialog";
 
 export const PlayerTable = ({setSelectedPlayers}) => {
     const {players, updatePlayers} = useContext(PlayerContext);
 
     const [actionFinished, setActionFinished] = useState(false);
+
     const [opWarning, setOPWarning] = useState(false);
-    const [opPlayer, setOPPlayer] = useState(null);
+    const [teleportDialog, setTeleportDialog] = useState(false);
+
+    const [currentPlayer, setCurrentPlayer] = useState(null);
+
+    const teleportPlayer = (player) => {
+        setCurrentPlayer(player);
+        setTeleportDialog(true);
+    }
 
     const setOP = async (player) => {
         if (player.is_op) {
@@ -20,7 +30,7 @@ export const PlayerTable = ({setSelectedPlayers}) => {
             return;
         }
 
-        setOPPlayer(player);
+        setCurrentPlayer(player);
         setOPWarning(true);
     }
 
@@ -31,7 +41,7 @@ export const PlayerTable = ({setSelectedPlayers}) => {
 
     const confirm = () => {
         setOPWarning(false);
-        updateOpStatus(opPlayer);
+        updateOpStatus(currentPlayer);
 
         return true;
     }
@@ -40,6 +50,8 @@ export const PlayerTable = ({setSelectedPlayers}) => {
         <>
             <ActionConfirmDialog open={opWarning} setOpen={setOPWarning} title={"Warning"} onClick={confirm}
                                  description={"The player will be granted operator permissions. Are you sure?"} />
+
+            <PlayerTeleportDialog open={teleportDialog} setOpen={setTeleportDialog} player={currentPlayer} />
 
             <Snackbar open={actionFinished} autoHideDuration={3000} onClose={() => setActionFinished(false)}
                       anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
@@ -50,7 +62,7 @@ export const PlayerTable = ({setSelectedPlayers}) => {
 
             <DataGrid
                 rows={players?.map((player) => ({...player, id: player?.uuid}))}
-                columns={columns({setOP})}
+                columns={columns({setOP, teleportPlayer})}
                 initialState={{pagination: {paginationModel: { page: 0, pageSize: 10 }}}}
                 pageSizeOptions={[10, 25, 50]}
                 checkboxSelection
