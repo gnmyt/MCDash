@@ -78,7 +78,8 @@ public class BackupRoute extends DefaultHandler {
             }
 
             if (backupMode == BackupMode.SERVER) {
-                directories.add(new File("."));
+                File[] serverFolder = new File(".").listFiles();
+                directories.addAll(Arrays.asList(serverFolder != null ? serverFolder : new File[0]));
                 break;
             }
 

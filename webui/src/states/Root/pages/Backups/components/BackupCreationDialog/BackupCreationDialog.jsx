@@ -12,7 +12,7 @@ import {
     Stack
 } from "@mui/material";
 import React, {useContext, useEffect, useState} from "react";
-import {putRequest} from "@/common/utils/RequestUtil.js";
+import {request} from "@/common/utils/RequestUtil.js";
 import {BackupContext} from "@/states/Root/pages/Backups/contexts/Backups";
 
 export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
@@ -34,7 +34,7 @@ export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
     const executeAction = () => {
         setOpen(false);
         setLoading(true);
-        putRequest("backups/", {mode: modes.join("")}).then(() => {
+        request("backups/", "PUT", {mode: modes.join("")}, {}, false).then(() => {
             setFinished(true);
             setLoading(false);
             updateBackups();
