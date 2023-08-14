@@ -46,7 +46,7 @@ export const CreateWorldDialog = ({open, setOpen}) => {
                                 onChange={(e) => setEnvironment(e.target.value)}>
                             <MenuItem value="normal">Overworld</MenuItem>
                             <MenuItem value="nether">Nether</MenuItem>
-                            <MenuItem value="end">End</MenuItem>
+                            <MenuItem value="the_end">End</MenuItem>
                         </Select>
                     </Stack>
                 </DialogContent>
