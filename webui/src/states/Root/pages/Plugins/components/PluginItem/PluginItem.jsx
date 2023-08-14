@@ -3,7 +3,7 @@ import React, {useContext, useState} from "react";
 import {deleteRequest, postRequest} from "@/common/utils/RequestUtil.js";
 import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
 import {Delete} from "@mui/icons-material";
-import ActionConfirmDialog from "@components/ActionConfirmDialog/index.js";
+import ActionConfirmDialog from "@components/ActionConfirmDialog";
 
 export const PluginItem = ({name, version, author, description, enabled, path}) => {
     const {plugins, updatePlugins} = useContext(PluginsContext);

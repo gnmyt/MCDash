@@ -3,7 +3,7 @@ import columns from "./columns.jsx";
 import {useContext, useState} from "react";
 import {PlayerContext} from "@contexts/Players";
 import {deleteRequest, putRequest} from "@/common/utils/RequestUtil.js";
-import ActionConfirmDialog from "@components/ActionConfirmDialog/index.js";
+import ActionConfirmDialog from "@components/ActionConfirmDialog";
 import {Alert, Snackbar} from "@mui/material";
 
 export const PlayerTable = ({setSelectedPlayers}) => {
