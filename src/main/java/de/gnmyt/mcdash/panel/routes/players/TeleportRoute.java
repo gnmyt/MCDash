@@ -1,4 +1,4 @@
-package de.gnmyt.mcdash.panel.routes.worlds;
+package de.gnmyt.mcdash.panel.routes.players;
 
 import de.gnmyt.mcdash.api.handler.DefaultHandler;
 import de.gnmyt.mcdash.api.http.Request;
