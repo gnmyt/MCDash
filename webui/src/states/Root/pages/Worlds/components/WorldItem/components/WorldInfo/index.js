@@ -1,0 +1,1 @@
+export {WorldInfo as default} from "./WorldInfo.jsx";
