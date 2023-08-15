@@ -4,6 +4,7 @@
     "success": "Action executed successfully",
     "cancel": "Cancel",
     "add": "Add",
+    "save": "Save",
     "remove": "Remove",
     "continue": "Yes, continue",
     "confirm": "Confirm action",
@@ -35,6 +36,8 @@
     "support_me": "Support me",
     "dark_theme": "Dark theme",
     "light_theme": "Light theme",
+    "update_language": "Update language",
+    "language": "Language",
     "logout": "Logout"
   },
   "time": {
