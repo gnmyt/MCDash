@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {sidebar} from "@/common/routes/server.jsx";
 import {useLocation} from "react-router-dom";
 import AccountMenu from "@/states/Root/components/Header/components/AccountMenu";
+import {t} from "i18next";
 
 const drawerWidth = 240;
 
@@ -18,8 +19,8 @@ export const Header = ({toggleOpen}) => {
 
     const getTitleByPath = () => {
         const route = sidebar.find((route) => location.pathname.startsWith(route.path) && route.path !== "/");
-        if (route) return route.name;
-        return "Overview";
+        if (route) return route.name();
+        return t("nav.overview");
     }
 
 
