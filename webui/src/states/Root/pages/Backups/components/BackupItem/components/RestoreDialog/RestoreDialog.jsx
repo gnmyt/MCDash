@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React, {useState} from "react";
 import {postRequest} from "@/common/utils/RequestUtil.js";
+import {t} from "i18next";
 
 export const RestoreDialog = ({open, setOpen, id}) => {
 
@@ -26,26 +27,22 @@ export const RestoreDialog = ({open, setOpen, id}) => {
             <Snackbar open={actionFinished} autoHideDuration={5000} onClose={() => setActionFinished(false)}
                       anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
                 <Alert onClose={() => setActionFinished(false)} severity="success" sx={{width: '100%'}}>
-                    Backup successfully restored
+                    {t("backup.restored")}
                 </Alert>
             </Snackbar>
 
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <Box component="form" noValidate>
-                    <DialogTitle>Restoring backup</DialogTitle>
+                    <DialogTitle>{t("backup.restoring")}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            MCDash will restore this backup while runtime. Since Minecraft automatically saves the
-                            worlds every few seconds from memory, your world might get corrupted. To prevent this, you
-                            can stop the server without saving the world from memory. Any unsaved changes made to the
-                            server while runtime will be lost. This does not apply if you want to restore logs or other
-                            files that are not getting automatically saved by Minecraft.
+                            {t("backup.restore_text")}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => setOpen(false)}>Cancel</Button>
-                        <Button onClick={() => executeAction(true)}>Restore & Stop</Button>
-                        <Button onClick={() => executeAction(false)} color="error">Only Restore</Button>
+                        <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
+                        <Button onClick={() => executeAction(true)}>{t("backup.restore_and_stop")}</Button>
+                        <Button onClick={() => executeAction(false)} color="error">{t("backup.only_restore")}</Button>
                     </DialogActions>
                 </Box>
             </Dialog>
