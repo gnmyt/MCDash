@@ -15,6 +15,7 @@ import {BackupProvider} from "@/states/Root/pages/Backups/contexts/Backups";
 import {SSHStatusProvider} from "@/states/Root/pages/Configuration/contexts/SSHStatus";
 import Worlds from "@/states/Root/pages/Worlds";
 import {WorldsProvider} from "@/states/Root/pages/Worlds/contexts/Worlds";
+import {t} from "i18next";
 
 export const routes = [
     {path: "/", element: <StatsProvider><Overview /></StatsProvider>},
@@ -31,41 +32,41 @@ export const sidebar = [
     {
         path: "/",
         icon: <Dashboard />,
-        name: "Overview"
+        name: () => t("nav.overview")
     },
     {
         path: "/players",
         icon: <Group />,
-        name: "Players"
+        name: () => t("nav.players")
     },
     {
         path: "/files",
         icon: <Folder />,
-        name: "File Manager"
+        name: () => t("nav.files")
     },
     {
         path: "/console",
         icon: <Terminal />,
-        name: "Console"
+        name: () => t("nav.console")
     },
     {
         path: "/worlds",
         icon: <Public />,
-        name: "Worlds"
+        name: () => t("nav.worlds")
     },
     {
         path: "/plugins",
         icon: <Extension />,
-        name: "Plugins"
+        name: () => t("nav.plugins")
     },
     {
         path: "/backups",
         icon: <Save />,
-        name: "Backups"
+        name: () => t("nav.backups")
     },
     {
         path: "/configuration",
         icon: <Settings />,
-        name: "Configuration"
+        name: () => t("nav.configuration")
     }
 ]

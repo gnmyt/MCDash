@@ -9,6 +9,7 @@ import {
     Snackbar
 } from "@mui/material";
 import {useState} from "react";
+import {t} from "i18next";
 
 export const ActionConfirmDialog = ({open, setOpen, title, description, buttonText, onClick = () => {},
                                         successMessage}) => {
@@ -30,23 +31,23 @@ export const ActionConfirmDialog = ({open, setOpen, title, description, buttonTe
                           anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
                     <Alert onClose={() => setSnackbarOpen(false)} severity={actionFailed ? "error" : "success"}
                            sx={{width: '100%'}}>
-                        {actionFailed ? "Could not execute action" : (successMessage || "Action executed successfully")}
+                        {actionFailed ? t("action.failed") : (successMessage || t("action.success"))}
                     </Alert>
                 </Snackbar>}
             <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description">
                 <DialogTitle id="alert-dialog-title">
-                    {title || "Confirm action"}
+                    {title || t("action.confirm")}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {description || "Are you sure you want to confirm this action?"}
+                        {description || t("action.sure")}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpen(false)}>Cancel</Button>
+                    <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
                     <Button onClick={confirm} autoFocus>
-                        {buttonText || "Yes, continue"}
+                        {buttonText || t("action.continue")}
                     </Button>
                 </DialogActions>
             </Dialog>
