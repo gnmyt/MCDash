@@ -49,7 +49,7 @@ public class ConsoleRoute extends DefaultHandler {
 
         StringBuilder log = new StringBuilder();
         for (int i = startLine - 1; i < lines.length; i++) {
-            if (i >= limit) break;
+            if (i >= startLine + limit - 1) break;
             if (i != startLine - 1) log.append("\n");
             log.append(lines[i]);
         }
