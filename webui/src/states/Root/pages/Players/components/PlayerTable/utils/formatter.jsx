@@ -1,10 +1,11 @@
 import {Typography} from "@mui/material";
 import {capitalizeFirst} from "@/common/utils/StringUtil.js";
+import {t} from "i18next";
 
 export const formatWorld = (world) => {
-    if (world === "world") return <Typography>Overworld</Typography>;
-    if (world === "world_nether") return <Typography color="error">Nether</Typography>;
-    if (world === "world_the_end") return <Typography color="indigo">The End</Typography>;
+    if (world === "world") return <Typography>{t("worlds.overworld")}</Typography>;
+    if (world === "world_nether") return <Typography color="error">{t("worlds.nether")}</Typography>;
+    if (world === "world_the_end") return <Typography color="indigo">{t("worlds.end")}</Typography>;
     return <Typography>{capitalizeFirst(world)}</Typography>;
 }
 

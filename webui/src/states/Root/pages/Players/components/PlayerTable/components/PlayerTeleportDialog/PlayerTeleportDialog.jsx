@@ -6,6 +6,7 @@ import {PlayerContext} from "@contexts/Players";
 import OverworldImage from "@/common/assets/images/overworld.webp";
 import NetherImage from "@/common/assets/images/nether.webp";
 import EndImage from "@/common/assets/images/end.webp";
+import {t} from "i18next";
 
 export const PlayerTeleportDialog = ({open, setOpen, player}) => {
 
@@ -33,7 +34,7 @@ export const PlayerTeleportDialog = ({open, setOpen, player}) => {
 
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
-            <DialogTitle>Teleport player to world</DialogTitle>
+            <DialogTitle>{t("players.teleport_title")}</DialogTitle>
             <DialogContent>
                 <Select value={value} onChange={(e) => setValue(e.target.value)} fullWidth>
                     {worlds.map((world) => (
@@ -47,8 +48,8 @@ export const PlayerTeleportDialog = ({open, setOpen, player}) => {
                 </Select>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => setOpen(false)}>Cancel</Button>
-                <Button onClick={execute}>Teleport</Button>
+                <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
+                <Button onClick={execute}>{t("players.teleport")}</Button>
             </DialogActions>
         </Dialog>
     )

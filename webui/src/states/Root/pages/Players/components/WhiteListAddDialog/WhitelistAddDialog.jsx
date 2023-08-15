@@ -10,6 +10,7 @@ import {
 import {useContext, useEffect, useState} from "react";
 import {WhiteListContext} from "@/states/Root/pages/Players/contexts/WhiteList";
 import {putRequest} from "@/common/utils/RequestUtil.js";
+import {t} from "i18next";
 
 export const WhitelistAddDialog = ({open, setOpen}) => {
     const {updatePlayers} = useContext(WhiteListContext);
@@ -32,14 +33,14 @@ export const WhitelistAddDialog = ({open, setOpen}) => {
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
             <Box component="form" noValidate onSubmit={executeAction}>
-                <DialogTitle>Add player to whitelist</DialogTitle>
+                <DialogTitle>{t("players.whitelist_title")}</DialogTitle>
                 <DialogContent>
-                    <TextField autoFocus label="Name" fullWidth variant="standard" value={playerName}
+                    <TextField autoFocus label={t("players.name")} fullWidth variant="standard" value={playerName}
                                onChange={(e) => setPlayerName(e.target.value)}/>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button type="submit" onClick={executeAction}>Add</Button>
+                    <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
+                    <Button type="submit" onClick={executeAction}>{"action.add"}</Button>
                 </DialogActions>
             </Box>
         </Dialog>

@@ -10,7 +10,7 @@ export const BanListTable = ({setSelectedBannedPlayers}) => {
         <>
             <DataGrid
                 rows={bannedPlayers.map((player) => ({id: player.uuid, ...player}))}
-                columns={columns}
+                columns={columns()}
                 initialState={{pagination: {paginationModel: {page: 0, pageSize: 10}}}}
                 pageSizeOptions={[10, 25, 50]}
                 checkboxSelection
