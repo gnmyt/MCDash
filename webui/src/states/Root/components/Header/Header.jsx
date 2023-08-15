@@ -1,15 +1,16 @@
-import {AppBar, IconButton, Menu, Stack, Toolbar, Tooltip, Typography} from "@mui/material";
-import {ExitToApp, Menu as MenuIcon} from "@mui/icons-material";
-import {useContext, useEffect} from "react";
-import {TokenContext} from "@contexts/Token";
+import {AppBar, IconButton, Stack, Toolbar, Typography} from "@mui/material";
+import {AccountCircle, Menu as MenuIcon,} from "@mui/icons-material";
+import {useEffect, useState} from "react";
 import {sidebar} from "@/common/routes/server.jsx";
 import {useLocation} from "react-router-dom";
+import AccountMenu from "@/states/Root/components/Header/components/AccountMenu";
 
 const drawerWidth = 240;
 
 export const Header = ({toggleOpen}) => {
-    const {checkToken} = useContext(TokenContext);
     const location = useLocation();
+
+    const [menuOpen, setMenuOpen] = useState(false);
 
     useEffect(() => {
         document.title = "MCDash - " + getTitleByPath();
@@ -21,26 +22,22 @@ export const Header = ({toggleOpen}) => {
         return "Overview";
     }
 
-    const logout = () => {
-        localStorage.removeItem("token");
-        checkToken();
-    }
 
     return (
-        <AppBar position="fixed" sx={{width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }}}>
+        <AppBar position="fixed" sx={{width: {sm: `calc(100% - ${drawerWidth}px)`}, ml: {sm: `${drawerWidth}px`}}}>
+            <AccountMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
+
             <Toolbar>
-                <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={toggleOpen}
-                    sx={{ mr: 2, display: { sm: 'none' } }}>
-                    <MenuIcon />
+                <IconButton aria-label="open drawer" edge="start" onClick={toggleOpen}
+                            sx={{mr: 2, display: {sm: 'none'}}}>
+                    <MenuIcon/>
                 </IconButton>
                 <Typography variant="h6" noWrap>{getTitleByPath()}</Typography>
 
                 <Stack sx={{ml: "auto"}}>
-                    <Tooltip title="Log out">
-                        <IconButton onClick={logout}>
-                            <ExitToApp />
-                        </IconButton>
-                    </Tooltip>
+                    <IconButton id="menu" onClick={() => setMenuOpen(true)}>
+                        <AccountCircle/>
+                    </IconButton>
                 </Stack>
             </Toolbar>
         </AppBar>

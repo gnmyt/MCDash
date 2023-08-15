@@ -30,7 +30,7 @@ export const TimeDialog = ({open, setOpen, time, name}) => {
             <Dialog open={open} onClose={() => setOpen(null)}>
                 <Box component="form" noValidate>
                     <DialogTitle>Change time</DialogTitle>
-                    <DialogContent sx={{width: 400}}>
+                    <DialogContent sx={{width: {xs: 300, sm: 400}}}>
                         <Slider defaultValue={time} value={value} onChange={(e, v) => setValue(v)} min={0} max={24000}
                                 sx={{mt: 2}}
                                 step={100} marks={timeMarks}/>

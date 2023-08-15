@@ -13,7 +13,7 @@ export const Console = () => {
     const [command, setCommand] = useState("");
 
     useEffect(() => {
-        const terminal = new Terminal({theme: {background: "rgba(0,0,0,0.25)"}, fontSize: 14});
+        const terminal = new Terminal({fontSize: 14});
 
         let currentLine = 1;
 
@@ -58,7 +58,7 @@ export const Console = () => {
         <>
             <Typography variant="h5" fontWeight={500}>Console</Typography>
 
-            <Box ref={terminalRef} sx={{mt: 2, width: "85vw"}}/>
+            <Box ref={terminalRef} sx={{mt: 2, width: "85vw", borderRadius: 1.5, overflow: "hidden"}}/>
 
             <Stack component="form" direction="row" alignItems="center" gap={1} sx={{mt: 3}} onSubmit={(e) => {
                 e.preventDefault();

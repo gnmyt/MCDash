@@ -11,7 +11,7 @@ export const FileView = ({files, changeDirectory, click, handleContextMenu}) => 
             {files.map((file) => (
                 <Box key={file.name} display="flex" gap={1} padding={2}
                      onClick={(event) => click(file, event)}
-                     backgroundColor={"background.darker"} borderRadius={5} style={{cursor: "pointer"}}
+                     backgroundColor={"background.darker"} borderRadius={2.5} style={{cursor: "pointer"}}
                      alignItems="center"
                      onContextMenu={(e) => handleContextMenu(e, file)}>
                     {file.is_folder && <Folder color="primary" style={{cursor: "pointer"}}/>}

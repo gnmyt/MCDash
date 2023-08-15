@@ -2,34 +2,27 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
     palette: {
-        mode: 'dark',
+        mode: 'light',
         primary: {
             main: '#556cd6',
         },
         background: {
-            default: '#27232F',
-            darker: "#1A1722"
+            default: '#F4F6F8',
+            darker: "#e5e5e5"
         }
     },
     components: {
-        MuiDrawer: {
-            styleOverrides: {
-                paper: {
-                    backgroundColor: '#1A1722'
-                }
-            }
-        },
         MuiAppBar: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#1A1722'
+                    backgroundColor: '#ffffff'
                 }
             }
         },
-        MuiMenu: {
+        MuiTypography: {
             styleOverrides: {
-                paper: {
-                    backgroundColor: '#1A1722'
+                root: {
+                    color: '#000000'
                 }
             }
         },
@@ -52,7 +45,8 @@ const theme = createTheme({
                     "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
                         borderRadius: 8,
                         minHeight: 24,
-                        backgroundColor: "#34333e",
+
+                        backgroundColor: "#adadb0",
                     },
                     "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
                         backgroundColor: "#3B3A4A"
