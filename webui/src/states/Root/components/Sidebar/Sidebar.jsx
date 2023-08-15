@@ -42,7 +42,7 @@ export const Sidebar = ({mobileOpen, toggleOpen, window: containerWindow}) => {
                     <ListItem key={route.path} disablePadding>
                         <ListItemButton selected={isSelected(route.path)} onClick={() => navigate(route.path.replace("/*", ""))}>
                             <ListItemIcon>{route.icon}</ListItemIcon>
-                            <ListItemText primary={route.name} />
+                            <ListItemText primary={route.name()} />
                         </ListItemButton>
                     </ListItem>
                 ))}
