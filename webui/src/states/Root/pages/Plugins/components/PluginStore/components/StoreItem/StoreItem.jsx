@@ -1,10 +1,11 @@
 import {Box, Button, CircularProgress, Link, Stack, Tooltip, Typography} from "@mui/material";
 import React, {useContext, useState} from "react";
-import {Download, Error, Warning} from "@mui/icons-material";
+import {Check, Download, Warning} from "@mui/icons-material";
 import {request} from "@/common/utils/RequestUtil.js";
 import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
 import ResourceIcon from "@/common/assets/images/resource.webp";
 import {prettyDownloadCount} from "@/states/Root/pages/Plugins/components/PluginStore/components/StoreItem/utils.js";
+import {t} from "i18next";
 
 export const StoreItem = ({id, name, description, icon, downloads, closeStore, installed}) => {
     const {updatePlugins} = useContext(PluginsContext);
@@ -18,7 +19,7 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
             setInstalling(false);
 
             if (r.status === 409) return setAlreadyInstalled(true);
-            if (!r.ok) return setError((await r.json()).error || "Plugin not supported");
+            if (!r.ok) return setError((await r.json()).error || t("plugins.not_supported"));
 
             updatePlugins();
             closeStore();
@@ -30,7 +31,7 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
             <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                 <Typography variant="h6" fontWeight={500}>{name}</Typography>
 
-                <Tooltip title="View resource">
+                <Tooltip title={t("plugins.view_resource")}>
                     <Link href={"https://www.spigotmc.org/resources/" + id} alt="icon" target="_blank">
                         <Box component="img" sx={{width: 40, height: 40, borderRadius: 50}}
                              src={icon ? ("data:image/png;base64," + icon) : ResourceIcon} rel="noreferrer"/>
@@ -38,7 +39,7 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
                 </Tooltip>
             </Box>
 
-            <Typography variant="body1">{description || "No description provided"}</Typography>
+            <Typography variant="body1">{description || t("plugins.no_description")}</Typography>
 
             <Stack direction="row" justifyContent="space-between" sx={{mt: 1}}>
                 <Stack direction="row" alignItems="center" gap={0.5}>
@@ -49,10 +50,10 @@ export const StoreItem = ({id, name, description, icon, downloads, closeStore, i
                     {installing && <CircularProgress size={20} color="secondary" />}
                     {error !== "" && <Tooltip title={error}><Warning color="error" /></Tooltip>}
 
-                    {alreadyInstalled && <Tooltip title="Plugin already installed"><Error color="warning" /></Tooltip>}
+                    {alreadyInstalled && <Tooltip title={t("plugins.already_installed")}><Check color="success" /></Tooltip>}
 
                     <Button variant="contained" color="secondary" size="small" onClick={install}
-                            disabled={installing || installed !== undefined}>Install</Button>
+                            disabled={installing || installed !== undefined}>{t("plugins.install")}</Button>
                 </Stack>
             </Stack>
         </Box>
