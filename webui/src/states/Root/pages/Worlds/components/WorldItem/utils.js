@@ -1,3 +1,5 @@
+import {t} from "i18next";
+
 export const mapName = (worldName) => {
     if (worldName === "world") return "Overworld";
     if (worldName === "world_nether") return "Nether";
@@ -7,17 +9,16 @@ export const mapName = (worldName) => {
 
 export const mapTime = (minecraftTime) => {
     const time = minecraftTime % 24000;
-    if (time < 0) return "Error";
 
-    if (time < 1000) return "Sunrise";
-    if (time < 12000) return "Day";
-    if (time < 13000) return "Sunset";
-    if (time < 23000) return "Night";
+    if (time < 1000) return t("time.sunrise");
+    if (time < 12000) return t("time.day");
+    if (time < 13000) return t("time.sunset");
+    if (time < 23000) return t("time.night");
     return "Sunrise";
 }
 
-export const timeMarks = [
-    { value: 1000, label: "Day" },
-    { value: 13000, label: "Night" },
-    { value: 23000, label: "Sunrise" }
+export const timeMarks = () => [
+    { value: 1000, label: t("time.day") },
+    { value: 13000, label: t("time.night") },
+    { value: 23000, label: t("time.sunrise") }
 ]

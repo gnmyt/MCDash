@@ -13,6 +13,7 @@ import {
 import {useContext, useEffect, useState} from "react";
 import {WorldsContext} from "@/states/Root/pages/Worlds/contexts/Worlds";
 import {putRequest} from "@/common/utils/RequestUtil.js";
+import {t} from "i18next";
 
 export const CreateWorldDialog = ({open, setOpen}) => {
     const {updateWorlds} = useContext(WorldsContext);
@@ -36,23 +37,23 @@ export const CreateWorldDialog = ({open, setOpen}) => {
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
             <Box component="form" noValidate onSubmit={create}>
-                <DialogTitle>Create a new world</DialogTitle>
+                <DialogTitle>{t("worlds.create_title")}</DialogTitle>
                 <DialogContent>
                     <Stack direction="column" gap={2}>
-                        <TextField autoFocus label="Name of the world" fullWidth variant="standard" value={name}
+                        <TextField autoFocus label={t("worlds.world_name")} fullWidth variant="standard" value={name}
                                    onChange={(e) => setName(e.target.value)}/>
 
-                        <Select label="Type of the world" fullWidth variant="standard" value={environment}
+                        <Select label={t("worlds.world_type")} fullWidth variant="standard" value={environment}
                                 onChange={(e) => setEnvironment(e.target.value)}>
-                            <MenuItem value="normal">Overworld</MenuItem>
-                            <MenuItem value="nether">Nether</MenuItem>
-                            <MenuItem value="the_end">End</MenuItem>
+                            <MenuItem value="normal">{t("worlds.overworld")}</MenuItem>
+                            <MenuItem value="nether">{t("worlds.nether")}</MenuItem>
+                            <MenuItem value="the_end">{t("worlds.end")}</MenuItem>
                         </Select>
                     </Stack>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button type="submit" disabled={name.length === 0}>Create</Button>
+                    <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
+                    <Button type="submit" disabled={name.length === 0}>{t("action.create")}</Button>
                 </DialogActions>
             </Box>
         </Dialog>

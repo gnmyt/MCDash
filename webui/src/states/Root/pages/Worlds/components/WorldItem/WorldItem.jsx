@@ -9,6 +9,7 @@ import ActionConfirmDialog from "@components/ActionConfirmDialog";
 import {deleteRequest} from "@/common/utils/RequestUtil.js";
 import {WorldsContext} from "@/states/Root/pages/Worlds/contexts/Worlds";
 import DifficultyDialog from "@/states/Root/pages/Worlds/components/WorldItem/components/DifficultyDialog";
+import {t} from "i18next";
 
 export const WorldItem = ({name, environment, time, weather, difficulty, players}) => {
 
@@ -34,9 +35,9 @@ export const WorldItem = ({name, environment, time, weather, difficulty, players
             <WeatherDialog open={openDialog === "weather"} setOpen={setOpenDialog} name={name} weather={weather}/>
             <TimeDialog open={openDialog === "time"} setOpen={setOpenDialog} name={name} time={time}/>
             <DifficultyDialog open={openDialog === "difficulty"} setOpen={setOpenDialog} name={name} difficulty={difficulty}/>
-            <ActionConfirmDialog open={openDialog === "delete"} setOpen={setOpenDialog} title={"Delete world"}
-                                    description={"Are you sure you want to delete this world?"} onClick={deleteWorld}
-                                    successMessage={"World deleted successfully!"}/>
+            <ActionConfirmDialog open={openDialog === "delete"} setOpen={setOpenDialog} title={t("worlds.delete.title")}
+                                    description={t("worlds.delete.text")} onClick={deleteWorld}
+                                    successMessage={t("worlds.delete.success")} buttonText={t("worlds.delete.yes")} />
 
             <WorldHeader name={name} environment={environment}/>
 
@@ -44,9 +45,12 @@ export const WorldItem = ({name, environment, time, weather, difficulty, players
 
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{mt: 1}} gap={1}>
                 <ButtonGroup variant="contained" color="secondary" fullWidth size="small">
-                    <Button onClick={() => setOpenDialog("weather")} startIcon={<Cloud/>}>Weather</Button>
-                    <Button onClick={() => setOpenDialog("time")} startIcon={<Timelapse/>}>Time</Button>
-                    <Button onClick={() => setOpenDialog("difficulty")} startIcon={<Gavel/>}>Difficulty</Button>
+                    <Button onClick={() => setOpenDialog("weather")}
+                            startIcon={<Cloud/>}>{t("worlds.weather.button")}</Button>
+                    <Button onClick={() => setOpenDialog("time")}
+                            startIcon={<Timelapse/>}>{t("worlds.time.button")}</Button>
+                    <Button onClick={() => setOpenDialog("difficulty")}
+                            startIcon={<Gavel/>}>{t("worlds.difficulty.button")}</Button>
                 </ButtonGroup>
                 <IconButton size="small" color="error" onClick={() => setOpenDialog("delete")}
                             disabled={players !== 0 || name === "world"}><Delete/></IconButton>
