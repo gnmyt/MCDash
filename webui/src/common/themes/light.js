@@ -40,7 +40,7 @@ const theme = createTheme({
             styleOverrides: {
                 body: {
                     "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-                        width: 5,
+                        width: 8,
                     },
                     "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
                         borderRadius: 8,
