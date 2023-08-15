@@ -7,17 +7,23 @@ import Root from "@/states/Root";
 import {routes} from "@/common/routes/server.jsx";
 import {TokenProvider} from "@contexts/Token";
 import {PlayerProvider} from "@contexts/Players";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {SettingsContext} from "@contexts/Settings";
+import i18n from "./i18n.js";
 
 const App = () => {
 
     const {theme} = useContext(SettingsContext);
+    const [translationsLoaded, setTranslationsLoaded] = useState(false);
 
     const router = createBrowserRouter([
         {path: "/login", element: <Login />},
         {path: "/", element: <Root />, children: routes}
     ]);
+
+    i18n.on("initialized", () => setTranslationsLoaded(true));
+
+    if (!translationsLoaded) return <></>;
 
     return (
         <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
