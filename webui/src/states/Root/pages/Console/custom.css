@@ -1,3 +1,7 @@
 .xterm-cursor {
     visibility: hidden;
 }
+
+.xterm-screen {
+    border-radius: 1rem;
+}
