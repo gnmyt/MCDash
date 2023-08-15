@@ -1,6 +1,7 @@
 import {createContext, useEffect, useState} from "react";
 import {jsonRequest, patchRequest} from "@/common/utils/RequestUtil.js";
 import {Alert, Snackbar} from "@mui/material";
+import {t} from "i18next";
 
 export const SSHStatusContext = createContext({});
 
@@ -53,14 +54,14 @@ export const SSHStatusProvider = (props) => {
             <Snackbar open={bindError} autoHideDuration={3000} onClose={() => setBindError(false)}
                         anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
                 <Alert onClose={() => setBindError(false)} severity="error" sx={{width: '100%'}}>
-                    Could not bind to that port. Please try another one.
+                    {t("configuration.ssh.bind_error")}
                 </Alert>
             </Snackbar>
 
             <Snackbar open={changesSaved} autoHideDuration={3000} onClose={() => setChangesSaved(false)}
                       anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
                 <Alert onClose={() => setChangesSaved(false)} severity="success" sx={{width: '100%'}}>
-                    Your changes have been saved.
+                    {t("action.changes_saved")}
                 </Alert>
             </Snackbar>
 

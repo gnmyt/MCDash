@@ -4,6 +4,7 @@ import {Box, Button, Stack, Switch, TextField, Typography} from "@mui/material";
 import ConfigurationItem from "@/states/Root/pages/Configuration/components/ConfigurationItem";
 import {Dns} from "@mui/icons-material";
 import {SSHStatusContext} from "@/states/Root/pages/Configuration/contexts/SSHStatus";
+import {t} from "i18next";
 
 export const Configuration = () => {
     const {properties, updateProperties} = useContext(PropertiesContext);
@@ -19,7 +20,7 @@ export const Configuration = () => {
 
     return (
         <div>
-            <Typography variant="h5" fontWeight={500}>Services</Typography>
+            <Typography variant="h5" fontWeight={500}>{t("configuration.services")}</Typography>
 
             <Stack direction="row" sx={{mt: 2}} flexWrap="wrap">
                 <Box backgroundColor="background.darker" borderRadius={2} padding={2}
@@ -27,21 +28,21 @@ export const Configuration = () => {
                     <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
                         <Stack direction="row" spacing={1} alignItems="center">
                             <Dns/>
-                            <h2>SSH Server</h2>
+                            <Typography variant="h5" fontWeight={600}>{t("configuration.ssh.server")}</Typography>
                         </Stack>
                         <Switch checked={sshStatus} onChange={updateSshStatus}/>
                     </Stack>
-                    <Typography variant="body2">Manage your files and control the console from your computer.</Typography>
+                    <Typography variant="body2">{t("configuration.ssh.description")}</Typography>
                     <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" sx={{mt: 2}}>
-                        <TextField fullWidth label="SSH-Port" variant="outlined" value={sshPortState} type="number" size="small"
+                        <TextField fullWidth label={t("configuration.ssh.port")} variant="outlined" value={sshPortState} type="number" size="small"
                                    onChange={(event) => setSshPortState(event.target.value)} onBlur={updateSshPort}/>
                         <Button href={`sftp://${retrieveUsername()}@${window.location.hostname}:${sshPort}/`}
-                                variant="contained" disabled={!sshStatus} fullWidth >Connect</Button>
+                                variant="contained" disabled={!sshStatus} fullWidth >{t("configuration.ssh.connect")}</Button>
                     </Stack>
                 </Box>
             </Stack>
 
-            <Typography variant="h5" fontWeight={500} mt={2}>Configuration</Typography>
+            <Typography variant="h5" fontWeight={500} mt={2}>{t("nav.configuration")}</Typography>
 
             <Stack direction="row" sx={{mt: 2}} flexWrap="wrap">
                 {properties.map((property) =>
