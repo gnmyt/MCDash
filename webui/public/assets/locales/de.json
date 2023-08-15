@@ -1,229 +1,229 @@
 {
   "action": {
-    "failed": "Could not execute action",
-    "success": "Action executed successfully",
-    "cancel": "Cancel",
-    "add": "Add",
-    "save": "Save",
-    "remove": "Remove",
-    "continue": "Yes, continue",
-    "confirm": "Confirm action",
-    "create": "Create",
-    "warn": "Warning",
-    "sure": "Are you sure you want to confirm this action?",
-    "changes_saved": "Changes saved"
+    "failed": "Aktion konnte nicht ausgeführt werden",
+    "success": "Aktion erfolgreich ausgeführt",
+    "cancel": "Abbrechen",
+    "add": "Hinzufügen",
+    "save": "Speichern",
+    "remove": "Entfernen",
+    "continue": "Ja, fortfahren",
+    "confirm": "Aktion bestätigen",
+    "create": "Erstellen",
+    "warn": "Warnung",
+    "sure": "Möchtest du wirklich fortfahren?",
+    "changes_saved": "Änderungen gespeichert"
   },
   "nav": {
-    "overview": "Overview",
-    "players": "Players",
-    "files": "File Manager",
-    "console": "Console",
-    "worlds": "Worlds",
+    "overview": "Übersicht",
+    "players": "Spieler",
+    "files": "Datei-Manager",
+    "console": "Konsole",
+    "worlds": "Welten",
     "plugins": "Plugins",
     "backups": "Backups",
-    "configuration": "Configuration"
+    "configuration": "Einstellungen"
   },
   "info": {
-    "server_unavailable": "The server is currently unavailable."
+    "server_unavailable": "Der Server ist derzeit nicht erreichbar."
   },
   "login": {
-    "sign_in": "Sign In",
-    "failed": "Login failed, check your credentials.",
-    "name": "Ingame-name",
-    "password": "Password"
+    "sign_in": "Anmelden",
+    "failed": "Login fehlgeschlagen, prüfe deine Zugangsdaten.",
+    "name": "Spielername",
+    "password": "Passwort"
   },
   "header": {
-    "support_me": "Support me",
-    "dark_theme": "Dark theme",
-    "light_theme": "Light theme",
-    "update_language": "Update language",
-    "language": "Language",
-    "logout": "Logout"
+    "support_me": "Unterstütze mich",
+    "dark_theme": "Dunkler Modus",
+    "light_theme": "Heller Modus",
+    "update_language": "Sprache ändern",
+    "language": "Sprache",
+    "logout": "Abmelden"
   },
   "time": {
-    "sunrise": "Sunrise",
-    "day": "Day",
-    "sunset": "Sunset",
-    "night": "Night"
+    "sunrise": "Sonnenaufgang",
+    "day": "Tag",
+    "sunset": "Sonnenuntergang",
+    "night": "Nacht"
   },
   "backup": {
     "name": "Backup",
-    "latest": "Latest backup",
-    "created": "Backup successfully created",
-    "create": "Create a backup",
-    "time": "Created at",
-    "none_found": "No backups found",
-    "description": "What do you want to backup?",
-    "restored": "Backup successfully restored",
-    "restoring": "Restoring backup",
+    "latest": "Letztes Backup",
+    "created": "Backup erfolgreich erstellt",
+    "create": "Backup erstellen",
+    "time": "Erstellt am",
+    "none_found": "Keine Backups gefunden",
+    "description": "Was möchtest du sichern?",
+    "restored": "Backup wurde erfolgreich wiederhergestellt",
+    "restoring": "Backup wird wiedergestellt",
     "restore_text": "MCDash will restore this backup while runtime. Since Minecraft automatically saves the worlds every few seconds from memory, your world might get corrupted. To prevent this, you can stop the server without saving the world from memory. Any unsaved changes made to the server while runtime will be lost. This does not apply if you want to restore logs or other files that are not getting automatically saved by Minecraft.",
-    "restore_and_stop": "Restore & Stop",
-    "only_restore": "Only restore",
+    "restore_and_stop": "Wiederherstellen & Stoppen",
+    "only_restore": "Nur wiederherstellen",
     "delete": {
-      "title": "Delete backup",
-      "text": "Are you sure you want to delete this backup?",
-      "success": "Backup successfully deleted",
-      "yes": "Yes, delete"
+      "title": "Backup löschen",
+      "text": "Bist du sicher, das du das Backup löschen möchtest?",
+      "success": "Backup erfolgreich gelöscht",
+      "yes": "Ja, löschen"
     },
     "mode": {
-      "complete": "The complete server",
-      "worlds": "All loaded worlds",
-      "plugins": "Plug-Ins & their configs",
-      "config": "Configuration files",
-      "logs": "Console logs"
+      "complete": "Alles vom Server",
+      "worlds": "Alle geladenen Welten",
+      "plugins": "Plugins und die Einstellungen",
+      "config": "Einstellungen des Servers",
+      "logs": "Logs"
     },
     "mapping": {
-      "complete": "Complete server",
-      "worlds": "Worlds",
+      "complete": "Alles vom Server",
+      "worlds": "Welten",
       "plugins": "Plugins",
-      "config": "Configurations",
+      "config": "Einstellungen",
       "logs": "Logs"
     }
   },
   "configuration": {
-    "saved": "Changes saved. Restart the server to apply them.",
-    "services": "Services",
+    "saved": "Änderungen gespeichert, zum Anwenden wird ein Neustart benötigt.",
+    "services": "Dienste",
     "ssh": {
-      "server": "SSH server",
-      "description": "Manage your files and control the console from your computer.",
-      "bind_error": "Could not bind to that port. Please try another one.",
+      "server": "SSH-Server",
+      "description": "Verwalte deine Dateien und erhalte die Konsole auf deinem Computer.",
+      "bind_error": "Port konnte nicht verwendet werden, versuche es mit einem nicht verwendeten Port.",
       "port": "SSH-Port",
-      "connect": "Connect"
+      "connect": "Verbinden"
     }
   },
   "console": {
-    "command": "Command"
+    "command": "Befehl"
   },
   "files": {
-    "folder": "Folder",
-    "loading": "Loading file...",
-    "file_deleted": "File successfully deleted",
-    "file_saved": "File successfully saved",
-    "upload_file": "Upload a file",
-    "file_uploaded": "File successfully uploaded",
-    "folder_deleted": "Folder successfully deleted",
-    "folder_created": "Folder successfully created",
-    "download": "Download",
-    "delete": "Delete",
-    "go_back": "Go back",
+    "folder": "Ordner",
+    "loading": "Datei wird geladen...",
+    "file_deleted": "Datei erfolgreich gelöscht",
+    "file_saved": "Datei erfolgreich erstellt",
+    "upload_file": "Datei hochladen",
+    "file_uploaded": "Datei erfolgreich hochgeladen",
+    "folder_deleted": "Ordner erfolgreich gelöscht",
+    "folder_created": "Ordner erfolgreich erstellt",
+    "download": "Herunterladen",
+    "delete": "Löschen",
+    "go_back": "Zurück",
     "create_folder": {
-      "title": "Create new folder",
-      "text": "Please enter the name of the new folder"
+      "title": "Ordner erstellen",
+      "text": "Gib dem Ordner einen Namen"
     }
   },
   "overview": {
-    "cpu": "CPU-Cores",
+    "cpu": "CPU-Kerne",
     "tps": "TPS",
     "ram": "RAM",
-    "disk": "Disk",
+    "disk": "Speicher",
     "control": "Quick Control",
     "shutdown": {
-      "button": "Shutdown",
-      "title": "Shutdown server",
-      "text": "Are you sure you want to shutdown the server?",
-      "yes": "Yes, shutdown",
-      "success": "Server successfully shutdown"
+      "button": "Herunterfahren",
+      "title": "Server stoppen",
+      "text": "Möchtest du wirklich den Server stoppen?",
+      "yes": "Ja, herunterfahren",
+      "success": "Server wurde heruntergefahren"
     },
     "reload": {
-      "button": "Reload",
-      "title": "Reload server",
-      "text": "Are you sure you want to reload the server?",
-      "yes": "Yes, reload",
-      "success": "Server successfully reloaded"
+      "button": "Neu laden",
+      "title": "Server neu laden",
+      "text": "Möchtest du wirklich den Server neu laden?",
+      "yes": "Ja, neu laden",
+      "success": "Server wurde neu geladen"
     }
   },
   "plugins": {
-    "by": "by",
-    "search": "Search",
+    "by": "von",
+    "search": "Suchen",
     "store": "Store",
-    "no_description": "No description provided",
-    "no_plugins": "No plugins found",
-    "enable": "Enable",
-    "disable": "Disable",
-    "not_supported": "Plugin not supported",
-    "view_resource": "View resource",
-    "already_installed": "Plugin already installed",
-    "install": "Install",
+    "no_description": "Keine Beschreibung angegeben",
+    "no_plugins": "Keine Plugins gefunden",
+    "enable": "Aktivieren",
+    "disable": "Deaktivieren",
+    "not_supported": "Plugin wird nicht unterstützt",
+    "view_resource": "Plugin anschauen",
+    "already_installed": "Plugin bereits installiert",
+    "install": "Installieren",
     "delete": {
-      "tooltip": "Delete plugin",
-      "title": "Delete {{name}}",
-      "text": "Are you sure you want to delete {{name}}? You need to restart your server to apply the changes after deleting."
+      "tooltip": "Plugin löschen",
+      "title": "{{name}} löschen",
+      "text": "Bist du Sicher, das du {{name}} löschen möchtest? Dein Server muss hierbei neu gestartet werden, damit die Änderungen angewendet werden können."
     }
   },
   "worlds": {
-    "change": "Change",
-    "create": "Create world",
-    "create_title": "Create a new world",
-    "overworld": "Overworld",
+    "change": "Ändern",
+    "create": "Welt erstellen",
+    "create_title": "Neue Welt erstellen",
+    "overworld": "Oberfläche - Standard",
     "nether": "Nether",
-    "end": "The End",
-    "world_name": "Name of the world",
-    "world_type": "Type of the world",
+    "end": "Das End",
+    "world_name": "Name der Welt",
+    "world_type": "Typ der Welt",
     "difficulty": {
-      "changed": "Difficulty changed successfully!",
-      "title": "Change difficulty",
-      "peaceful": "Peaceful",
-      "easy": "Easy",
+      "changed": "Schwierigkeitsstufe erfolgreich gespeichert!",
+      "title": "Schwierigkeit anpassen",
+      "peaceful": "Friedlich",
+      "easy": "Einfach",
       "normal": "Normal",
-      "hard": "Hard",
-      "button": "Difficulty"
+      "hard": "Schwer",
+      "button": "Schwierigkeit"
     },
     "time": {
-      "changed": "Time changed successfully!",
-      "title": "Change time",
-      "update": "Change to",
-      "button": "Time"
+      "changed": "Zeit erfolgreich angepasst!",
+      "title": "Zeit ändern",
+      "update": "Ändern zu",
+      "button": "Zeit"
     },
     "weather": {
-      "changed": "Weather changed successfully!",
-      "title": "Change weather",
-      "clear": "Clear",
-      "rain": "Rain",
-      "thunder": "Thunder",
-      "button": "Weather"
+      "changed": "Wetter erfolgreich angepasst!",
+      "title": "Wetter ändern",
+      "clear": "Klar",
+      "rain": "Regen",
+      "thunder": "Gewitter",
+      "button": "Wetter"
     },
     "info": {
-      "players": "Players",
-      "time": "Time",
-      "weather": "Weather",
-      "difficulty": "Difficulty"
+      "players": "Spieler",
+      "time": "Zeit",
+      "weather": "Wetter",
+      "difficulty": "Schwierigkeit"
     },
     "delete": {
-      "title": "Delete world",
-      "text": "Are you sure you want to delete this world?",
-      "yes": "Yes, delete",
-      "success": "World successfully deleted"
+      "title": "Welt löschen",
+      "text": "Möchtest du wirklich die Welt löschen?",
+      "yes": "Ja, löschen",
+      "success": "Welt erfolgreich gelöscht"
     }
   },
   "players": {
-    "online": "Online Players",
+    "online": "Aktive Spieler",
     "name": "Name",
-    "username": "Username",
-    "id": "Player-ID",
-    "world": "Current world",
-    "address": "IP-Address",
+    "username": "Spielername",
+    "id": "Spieler-ID",
+    "world": "Aktuelle Welt",
+    "address": "IP-Adresse",
     "food_level": "Hunger",
-    "health": "Health",
-    "is_op": "OP",
-    "game_mode": "Gamemode",
-    "player_time": "Playtime",
-    "reason": "Reason",
-    "last_seen": "Last seen",
-    "action_player": "{{action}} Player{{plural}}",
+    "health": "Gesundheit",
+    "is_op": "Operator",
+    "game_mode": "Spielmodus",
+    "player_time": "Spielzeit",
+    "reason": "Grund",
+    "last_seen": "Zuletzt gesehen",
+    "action_player": "{{action}} Spieler{{plural}}",
     "action_player_text": "Are you sure you want to {{action}} the following player{{plural}}?",
-    "teleport_title": "Teleport player to world",
-    "op_player": "The player will be granted operator permissions. Are you sure?",
-    "whitelist_title": "Add player to whitelist",
-    "teleport": "Teleport",
-    "whitelisted_players": "Whitelisted Players",
-    "enable_whitelist": "Enable whitelist",
-    "disable_whitelist": "Disable whitelist",
-    "banned_players": "Banned Players",
-    "unban": "Unban",
+    "teleport_title": "Spieler zur Welt teleportieren",
+    "op_player": "Dieser Spieler wird sämtliche Berechtigungen für diesen Server erhalten. Bist du dir sicher?",
+    "whitelist_title": "Spieler zur Whitelist hinzufügen",
+    "teleport": "Teleportieren",
+    "whitelisted_players": "Eingetragene Spieler in der Whitelist",
+    "enable_whitelist": "Whitelist aktivieren",
+    "disable_whitelist": "Whitelist deaktivieren",
+    "banned_players": "Gebannte Spieler",
+    "unban": "Entbannen",
     "action": {
-      "kicked": "You have been kicked!",
-      "kick": "Kick",
-      "ban": "Ban"
+      "kicked": "Du wurdest gekickt!",
+      "kick": "Kicken",
+      "ban": "Bannen"
     }
   }
 }
