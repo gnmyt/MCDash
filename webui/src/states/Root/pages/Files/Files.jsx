@@ -81,8 +81,6 @@ export const Files = () => {
 
             {currentFile && <FileEditor currentFile={currentFile} directory={directory}
                                         setSnackbar={setSnackbar} />}
-
         </>
-
-    )
+    );
 }
