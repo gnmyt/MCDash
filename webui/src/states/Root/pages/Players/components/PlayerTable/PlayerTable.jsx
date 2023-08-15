@@ -7,6 +7,7 @@ import ActionConfirmDialog from "@components/ActionConfirmDialog";
 import {Alert, Snackbar} from "@mui/material";
 import PlayerTeleportDialog
     from "@/states/Root/pages/Players/components/PlayerTable/components/PlayerTeleportDialog";
+import {t} from "i18next";
 
 export const PlayerTable = ({setSelectedPlayers}) => {
     const {players, updatePlayers} = useContext(PlayerContext);
@@ -48,15 +49,15 @@ export const PlayerTable = ({setSelectedPlayers}) => {
 
     return (
         <>
-            <ActionConfirmDialog open={opWarning} setOpen={setOPWarning} title={"Warning"} onClick={confirm}
-                                 description={"The player will be granted operator permissions. Are you sure?"} />
+            <ActionConfirmDialog open={opWarning} setOpen={setOPWarning} title={t("action.warn")} onClick={confirm}
+                                 description={t("players.op_player")} />
 
             <PlayerTeleportDialog open={teleportDialog} setOpen={setTeleportDialog} player={currentPlayer} />
 
             <Snackbar open={actionFinished} autoHideDuration={3000} onClose={() => setActionFinished(false)}
                       anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
                 <Alert onClose={() => setActionFinished(false)} severity={"success"} sx={{width: '100%'}}>
-                    Action executed successfully
+                    {t("action.success")}
                 </Alert>
             </Snackbar>
 

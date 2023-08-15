@@ -3,6 +3,7 @@ import {jsonRequest} from "@/common/utils/RequestUtil.js";
 import StoreItem from "@/states/Root/pages/Plugins/components/PluginStore/components/StoreItem";
 import {Stack, Typography} from "@mui/material";
 import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
+import {t} from "i18next";
 
 export const PluginStore = ({search, closeStore}) => {
     const [plugins, setPlugins] = useState([]);
@@ -49,7 +50,7 @@ export const PluginStore = ({search, closeStore}) => {
                                                     installed={currentPlugins.find((p) => p.path
                                                         ?.startsWith("Managed-" + plugin.id + ".jar"))} />)}
 
-                {plugins.length === 0 && <Typography sx={{width: "100%"}} textAlign="center">No plugins found</Typography>}
+                {plugins.length === 0 && <Typography sx={{width: "100%"}} textAlign="center">{t("plugins.no_plugins")}</Typography>}
             </Stack>
         </>
     )

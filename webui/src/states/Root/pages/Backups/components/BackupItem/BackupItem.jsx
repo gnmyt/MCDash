@@ -7,6 +7,7 @@ import {BackupContext} from "@/states/Root/pages/Backups/contexts/Backups";
 import ActionConfirmDialog from "@components/ActionConfirmDialog";
 import RestoreDialog from "@/states/Root/pages/Backups/components/BackupItem/components/RestoreDialog";
 import mappings from "./mappings.jsx";
+import {t} from "i18next";
 
 export const BackupItem = ({id, created, size, latest, tag, modes, setDelete}) => {
 
@@ -28,9 +29,9 @@ export const BackupItem = ({id, created, size, latest, tag, modes, setDelete}) =
 
     return (
         <>
-            <ActionConfirmDialog open={deleteDialogOpen} setOpen={setDeleteDialogOpen} title="Delete backup"
-                                 description="Are you sure you want to delete this backup?" buttonText="Yes, delete"
-                                 onClick={deleteBackup} successMessage="Backup successfully deleted" />
+            <ActionConfirmDialog open={deleteDialogOpen} setOpen={setDeleteDialogOpen} title={t("backup.delete.title")}
+                                 description={t("backup.delete.text")} buttonText={t("backup.delete.yes")}
+                                 onClick={deleteBackup} successMessage={t("backup.delete.success")} />
 
             <RestoreDialog id={id} open={restoreDialogOpen} setOpen={setRestoreDialogOpen} />
 
@@ -38,12 +39,12 @@ export const BackupItem = ({id, created, size, latest, tag, modes, setDelete}) =
                 <Stack sx={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
                     <Stack>
                         <Stack sx={{flexDirection: "row", alignItems: "center"}} gap={0.5}>
-                            <Typography variant="h6" fontWeight={500}>{latest && "Latest"} Backup {(!latest && "#"+tag)}</Typography>
-                            {modes.map((mode) => <div key={mode}>{mappings[mode]}</div>)}
+                            <Typography variant="h6" fontWeight={500}>{latest ? t("backup.latest") : t("backup.name")} {(!latest && "#"+tag)}</Typography>
+                            {modes.map((mode) => <div key={mode}>{mappings()[mode]}</div>)}
                             <Chip label={convertSize(size)} size="small" color="secondary"/>
                         </Stack>
 
-                        <Typography variant="body2" color="text.secondary">Created at {created.toLocaleString()}</Typography>
+                        <Typography variant="body2" color="text.secondary">{t("backup.time")} {created.toLocaleString()}</Typography>
                     </Stack>
                     <Box>
                         <IconButton size="small" onClick={() => setRestoreDialogOpen(true)}><Restore /></IconButton>

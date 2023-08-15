@@ -5,6 +5,7 @@ import {WorldsContext} from "@/states/Root/pages/Worlds/contexts/Worlds";
 import {Add} from "@mui/icons-material";
 import CreateWorldDialog from "@/states/Root/pages/Worlds/components/CreateWorldDialog";
 import WorldItem from "@/states/Root/pages/Worlds/components/WorldItem";
+import {t} from "i18next";
 
 export const Worlds = () => {
 
@@ -15,11 +16,11 @@ export const Worlds = () => {
         <>
             <CreateWorldDialog open={createWorldDialogOpen} setOpen={setCreateWorldDialogOpen}/>
             <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
-                <Typography variant="h5" fontWeight={500}>Worlds</Typography>
+                <Typography variant="h5" fontWeight={500}>{t("nav.worlds")}</Typography>
 
                 <Stack direction="row" spacing={1}>
                     <Button variant="outlined" color="secondary" startIcon={<Add/>}
-                            onClick={() => setCreateWorldDialogOpen(true)}>Create World</Button>
+                            onClick={() => setCreateWorldDialogOpen(true)}>{t("worlds.create")}</Button>
                 </Stack>
             </Box>
 

@@ -3,6 +3,7 @@ import {Thunderstorm, WaterDrop, WbSunny} from "@mui/icons-material";
 import {patchRequest} from "@/common/utils/RequestUtil.js";
 import {WorldsContext} from "@/states/Root/pages/Worlds/contexts/Worlds";
 import {useContext, useState} from "react";
+import {t} from "i18next";
 
 export const WeatherDialog = ({open, setOpen, weather, name}) => {
 
@@ -22,12 +23,12 @@ export const WeatherDialog = ({open, setOpen, weather, name}) => {
             <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={() => setSnackbarOpen(false)}
                       anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
                 <Alert onClose={() => setSnackbarOpen(false)} severity={"success"} sx={{width: '100%'}}>
-                    Weather changed successfully!
+                    {t("worlds.weather.success")}
                 </Alert>
             </Snackbar>
             <Dialog open={open} onClose={() => setOpen(null)}>
                 <Box component="form" noValidate>
-                    <DialogTitle>Change weather</DialogTitle>
+                    <DialogTitle>{t("worlds.weather.title")}</DialogTitle>
                     <DialogContent>
                         <Stack direction="row" alignItems="center" justifyContent="center" gap={1}>
                             <IconButton color={weather === "clear" ? "secondary" : "default"}

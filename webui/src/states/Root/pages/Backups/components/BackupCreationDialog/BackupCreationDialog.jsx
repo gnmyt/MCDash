@@ -14,6 +14,7 @@ import {
 import React, {useContext, useEffect, useState} from "react";
 import {request} from "@/common/utils/RequestUtil.js";
 import {BackupContext} from "@/states/Root/pages/Backups/contexts/Backups";
+import {t} from "i18next";
 
 export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
 
@@ -32,6 +33,7 @@ export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
     }
 
     const executeAction = () => {
+        if (modes.length === 0) return;
         setOpen(false);
         setLoading(true);
         request("backups/", "PUT", {mode: modes.join("")}, {}, false).then(() => {
@@ -50,43 +52,43 @@ export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
             <Snackbar open={finished} autoHideDuration={5000} onClose={() => setFinished(false)}
                       anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
                 <Alert onClose={() => setFinished(false)} severity="success" sx={{width: '100%'}}>
-                    Backup successfully created
+                    {t("backup.created")}
                 </Alert>
             </Snackbar>
 
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <Box component="form" noValidate>
-                    <DialogTitle>Create a backup</DialogTitle>
+                    <DialogTitle>{t("backup.create")}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            What do you want to backup?
+                            {t("backup.description")}
                         </DialogContentText>
 
                         <Stack direction="column" sx={{mt: 1}}>
                             <FormControlLabel
                                 control={<Checkbox checked={modes.includes("0")} onChange={() => toggleMode("0")}/>}
-                                label="The complete server"/>
+                                label={t("backup.mode.complete")}/>
 
                             <FormControlLabel
                                 control={<Checkbox checked={modes.includes("1")} onChange={() => toggleMode("1")}/>}
-                                label="All loaded worlds" disabled={modes.includes("0")}/>
+                                label={t("backup.mode.worlds")} disabled={modes.includes("0")}/>
 
                             <FormControlLabel
                                 control={<Checkbox checked={modes.includes("2")} onChange={() => toggleMode("2")}/>}
-                                label="Plug-Ins & their configs" disabled={modes.includes("0")}/>
+                                label={t("backup.mode.plugins")} disabled={modes.includes("0")}/>
 
                             <FormControlLabel
                                 control={<Checkbox checked={modes.includes("3")} onChange={() => toggleMode("3")}/>}
-                                label="Configuration files" disabled={modes.includes("0")}/>
+                                label={t("backup.mode.config")} disabled={modes.includes("0")}/>
 
                             <FormControlLabel
                                 control={<Checkbox checked={modes.includes("4")} onChange={() => toggleMode("4")}/>}
-                                label="Console logs" disabled={modes.includes("0")}/>
+                                label={t("backup.mode.logs")} disabled={modes.includes("0")}/>
                         </Stack>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => setOpen(false)}>Cancel</Button>
-                        <Button onClick={executeAction}>Create</Button>
+                        <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
+                        <Button onClick={executeAction}>{t("action.create")}</Button>
                     </DialogActions>
                 </Box>
             </Dialog>

@@ -1,6 +1,7 @@
 import {Menu, MenuItem} from "@mui/material";
 import {Delete, Download} from "@mui/icons-material";
 import {deleteRequest, downloadRequest} from "@/common/utils/RequestUtil.js";
+import {t} from "i18next";
 
 export const FileDropdown = ({contextMenu, setContextMenu, directory, setFiles, setSnackbar}) => {
 
@@ -11,14 +12,14 @@ export const FileDropdown = ({contextMenu, setContextMenu, directory, setFiles, 
     const deleteFile = (file) => {
         deleteRequest("filebrowser/file", {path: "." + directory + file.name}).then(() => {
             setFiles(files => files.filter((f) => f.name !== file.name));
-            setSnackbar("File successfully deleted");
+            setSnackbar(t("files.file_deleted"));
         });
     }
 
     const deleteFolder = (file) => {
         deleteRequest("filebrowser/folder", {path: "." + directory + file.name}).then(() => {
             setFiles(files => files.filter((f) => f.name !== file.name));
-            setSnackbar("Folder successfully deleted");
+            setSnackbar(t("files.folder_deleted"));
         });
     }
 
@@ -46,11 +47,11 @@ export const FileDropdown = ({contextMenu, setContextMenu, directory, setFiles, 
                   ? {top: contextMenu.mouseY, left: contextMenu.mouseX} : undefined}>
             {!contextMenu?.file?.is_folder && <MenuItem onClick={downloadFile}>
                 <Download/>
-                Download
+                {t("files.download")}
             </MenuItem>}
             <MenuItem onClick={handleDelete}>
                 <Delete/>
-                Delete
+                {t("files.delete")}
             </MenuItem>
         </Menu>
     );

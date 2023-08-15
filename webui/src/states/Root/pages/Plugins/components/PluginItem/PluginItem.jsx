@@ -4,6 +4,7 @@ import {deleteRequest, postRequest} from "@/common/utils/RequestUtil.js";
 import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
 import {Delete} from "@mui/icons-material";
 import ActionConfirmDialog from "@components/ActionConfirmDialog";
+import {t} from "i18next";
 
 export const PluginItem = ({name, version, author, description, enabled, path}) => {
     const {plugins, updatePlugins} = useContext(PluginsContext);
@@ -31,22 +32,22 @@ export const PluginItem = ({name, version, author, description, enabled, path}) 
     return (
         <Box backgroundColor="background.darker" borderRadius={2} padding={2} sx={{mr: 1, mt: 1, width: {xs: "100%", lg: 300}}}>
             <Typography variant="h6" fontWeight={500}>{name} <Chip label={version} size="small" color="secondary" /></Typography>
-            <Typography variant="body2" color="text.secondary">by {author || "Unknown"}</Typography>
-            <Typography variant="body1">{description || "No description provided"}</Typography>
+            <Typography variant="body2" color="text.secondary">{t("plugins.by")} {author || "Unknown"}</Typography>
+            <Typography variant="body1">{description || t("plugins.no_description")}</Typography>
 
-            <ActionConfirmDialog title={`Delete ${name}`} description={`Are you sure you want to delete ${name}? You need to restart your server to apply the changes after deleting.`}
+            <ActionConfirmDialog title={t("plugins.delete.title", {name})} description={t("plugins.delete.text", {name})}
                                  onClick={deletePlugin} successMessage="none"
                                     open={deleteDialogOpen} setOpen={setDeleteDialogOpen} />
 
             <Stack direction="row" justifyContent="flex-end" sx={{mt: 1, alignItems: "center"}} gap={1}>
 
-                {name !== "MinecraftDashboard" && <Tooltip title="Delete plugin">
+                {name !== "MinecraftDashboard" && <Tooltip title={t("plugins.delete.tooltip")}>
                     <IconButton size="small" color="error" onClick={() => setDeleteDialogOpen(true)}>
                         <Delete/>
                     </IconButton></Tooltip>}
 
                 <Button variant="contained" size="small" color={enabled ? "error" : "success"} disabled={name === "MinecraftDashboard"}
-                        onClick={togglePlugin}>{enabled ? "Disable" : "Enable"}</Button>
+                        onClick={togglePlugin}>{t(enabled ? t("plugins.disable") : t("plugins.enable"))}</Button>
             </Stack>
         </Box>
     )

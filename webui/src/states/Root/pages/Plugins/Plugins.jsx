@@ -4,6 +4,7 @@ import {PluginsContext} from "@/states/Root/pages/Plugins/contexts/Plugins";
 import {PluginItem} from "@/states/Root/pages/Plugins/components/PluginItem/PluginItem.jsx";
 import {Store} from "@mui/icons-material";
 import PluginStore from "@/states/Root/pages/Plugins/components/PluginStore";
+import {t} from "i18next";
 
 export const Plugins = () => {
     const [storeOpen, setStoreOpen] = useState(false);
@@ -15,16 +16,16 @@ export const Plugins = () => {
     return (
         <>
             <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, mb: 2}}>
-                <Typography variant="h5" fontWeight={500}>Plugins <Chip label={plugins.length}
+                <Typography variant="h5" fontWeight={500}>{t("nav.plugins")} <Chip label={plugins.length}
                                                                         color="secondary"/></Typography>
 
                 <Stack direction="row" spacing={1}>
-                    {storeOpen && <TextField label="Search" variant="outlined" size={"small"} sx={{width: {xs: 150, lg: 300}}}
+                    {storeOpen && <TextField label={t("plugins.search")} variant="outlined" size={"small"} sx={{width: {xs: 150, lg: 300}}}
                             value={search} onChange={(e) => setSearch(e.target.value)} color="secondary"
                                              onKeyUp={(e) => e.key === "Enter" && setCurrentSearch(search)}
                     onBlur={() => setCurrentSearch(search)} />}
                         <Button variant={storeOpen ? "contained" : "outlined"} color="secondary" startIcon={<Store/>}
-                        onClick={() => setStoreOpen(open => !open)}>Store</Button>
+                        onClick={() => setStoreOpen(open => !open)}>{t("plugins.store")}</Button>
                 </Stack>
             </Box>
 

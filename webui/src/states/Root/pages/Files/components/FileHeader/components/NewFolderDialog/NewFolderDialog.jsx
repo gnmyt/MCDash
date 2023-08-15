@@ -1,6 +1,7 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import {useEffect, useState} from "react";
 import {putRequest} from "@/common/utils/RequestUtil.js";
+import {t} from "i18next";
 
 export const NewFolderDialog = ({open, setOpen, directory, updateFiles, setSnackbar}) => {
 
@@ -12,11 +13,12 @@ export const NewFolderDialog = ({open, setOpen, directory, updateFiles, setSnack
 
     const create = (event) => {
         if (event) event.preventDefault();
+        if (!folderName) return;
         setOpen(false);
 
         putRequest("filebrowser/folder", {path: "." + directory + folderName}).then(() => {
             updateFiles();
-            setSnackbar("Folder created successfully");
+            setSnackbar(t("files.folder_created"));
         });
     }
 
@@ -24,19 +26,19 @@ export const NewFolderDialog = ({open, setOpen, directory, updateFiles, setSnack
         <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description" component="form" onSubmit={create}>
             <DialogTitle id="alert-dialog-title">
-                Create new folder
+                {t("files.create_folder.title")}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Please enter the name of the new folder.
+                    {t("files.create_folder.text")}
                 </DialogContentText>
 
-                <TextField autoFocus label="Folder" fullWidth variant="standard" value={folderName}
+                <TextField autoFocus label={t("files.folder")} fullWidth variant="standard" value={folderName}
                            onChange={(e) => setFolderName(e.target.value)}/>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => setOpen(false)}>Cancel</Button>
-                <Button onClick={create} autoFocus>Create</Button>
+                <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
+                <Button onClick={create} autoFocus>{t("action.create")}</Button>
             </DialogActions>
         </Dialog>
     );

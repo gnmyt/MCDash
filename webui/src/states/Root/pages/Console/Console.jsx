@@ -7,6 +7,7 @@ import "xterm/css/xterm.css";
 import "./custom.css";
 import {Box, IconButton, Stack, TextField, Typography} from "@mui/material";
 import {Send} from "@mui/icons-material";
+import {t} from "i18next";
 
 export const Console = () => {
     const terminalRef = useRef(null);
@@ -56,7 +57,7 @@ export const Console = () => {
 
     return (
         <>
-            <Typography variant="h5" fontWeight={500}>Console</Typography>
+            <Typography variant="h5" fontWeight={500}>{t("nav.console")}</Typography>
 
             <Box ref={terminalRef} sx={{mt: 2, width: "85vw", borderRadius: 1.5, overflow: "hidden"}}/>
 
@@ -64,11 +65,10 @@ export const Console = () => {
                 e.preventDefault();
                 dispatchCommand(command).then(() => setCommand(""));
             }}>
-                <TextField value={command} required fullWidth label="Command"
+                <TextField value={command} required fullWidth label={t("console.command")}
                            autoFocus onChange={(e) => setCommand(e.target.value)}/>
-                <IconButton variant="contained" type="submit">
-                    <Send/>
-                </IconButton>
+
+                <IconButton variant="contained" type="submit"><Send/></IconButton>
             </Stack>
         </>
     );

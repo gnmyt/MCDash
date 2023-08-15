@@ -1,8 +1,9 @@
 import {Typography} from "@mui/material";
+import {t} from "i18next";
 
-const columns = [
+const columns = () => [
     {
-        field: 'name', headerName: 'Username', minWidth: 150, flex: 1, renderCell: (params) => {
+        field: 'name', headerName: t("players.username"), minWidth: 150, flex: 1, renderCell: (params) => {
             return (
                 <div style={{display: "flex", alignItems: "center"}}>
                     <img src={`https://crafatar.com/avatars/${params.row.uuid}?size=25&overlay`} alt={params.row.name}
@@ -12,9 +13,9 @@ const columns = [
             )
         }
     },
-    {field: 'uuid', headerName: 'Player-ID', flex: 1, minWidth: 200},
+    {field: 'uuid', headerName: t("players.id"), flex: 1, minWidth: 200},
     {
-        field: 'last_seen', headerName: 'Last seen', flex: 1, minWidth: 100, renderCell: (params) =>
+        field: 'last_seen', headerName: t("players.last_seen"), flex: 1, minWidth: 100, renderCell: (params) =>
             (<Typography>{new Date(params.row.last_seen).toLocaleString()}</Typography>)
     }
 ];

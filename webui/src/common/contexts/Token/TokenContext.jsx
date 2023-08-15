@@ -1,6 +1,7 @@
 import {useState, createContext, useEffect} from "react";
 import {request} from "@/common/utils/RequestUtil.js";
 import {Alert, Snackbar} from "@mui/material";
+import {t} from "i18next";
 
 export const TokenContext = createContext({});
 
@@ -27,7 +28,7 @@ export const TokenProvider = (props) => {
         <TokenContext.Provider value={{tokenValid, checkToken, serverOnline}}>
             <Snackbar open={!serverOnline}>
                 <Alert severity="error" sx={{width: "100%"}}>
-                    The server is currently unavailable.
+                    {t("info.server_unavailable")}
                 </Alert>
             </Snackbar>
             {props.children}

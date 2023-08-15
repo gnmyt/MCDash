@@ -15,6 +15,7 @@ import {useContext, useState} from "react";
 import {capitalizeFirst} from "@/common/utils/StringUtil.js";
 import {postRequest, putRequest} from "@/common/utils/RequestUtil.js";
 import {BanListContext} from "@/states/Root/pages/Players/contexts/BanList";
+import {t} from "i18next";
 
 export const PlayerActionDialog = ({open, action, setOpen, selected}) => {
     const {players, updatePlayers} = useContext(PlayerContext);
@@ -27,7 +28,7 @@ export const PlayerActionDialog = ({open, action, setOpen, selected}) => {
 
         for (const playerId of selected)
             await (action === "kick" ? postRequest : putRequest)(`players/${action === "kick" ? "kick" : "banlist"}/`,
-                {reason: reason || "You have been kicked!", username: players.find((p) => p.uuid === playerId).name});
+                {reason: reason || t("players.action.kicked"), username: players.find((p) => p.uuid === playerId).name});
 
         setOpen(false);
         updatePlayers();
@@ -37,10 +38,12 @@ export const PlayerActionDialog = ({open, action, setOpen, selected}) => {
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
             <Box component="form" noValidate onSubmit={executeAction}>
-                <DialogTitle>{action === "kick" ? "Kick" : "Ban"} Player{selected.length > 1 ? "s" : ""}</DialogTitle>
+                <DialogTitle>{t(`players.action_player`, {action: t(`players.action.${action}`),
+                    plural: selected.length > 1 ? "s" : ""})}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Are you sure you want to {action} the following player{selected.length > 1 ? "s" : ""}?
+                        {t("players.action_player_text", {action: t(`players.action.${action}`).toLowerCase(),
+                            plural: selected.length > 1 ? "s" : ""})}
                     </DialogContentText>
 
                     <Stack direction="row" spacing={1} style={{marginTop: "1rem", marginBottom: "0.5rem"}}>
@@ -49,12 +52,12 @@ export const PlayerActionDialog = ({open, action, setOpen, selected}) => {
                         ))}
                     </Stack>
 
-                    <TextField autoFocus label="Reason" fullWidth variant="standard" value={reason}
+                    <TextField autoFocus label={t("players.reason")} fullWidth variant="standard" value={reason}
                                onChange={(e) => setReason(e.target.value)}/>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button type="submit" onClick={executeAction}>{capitalizeFirst(action)}</Button>
+                    <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
+                    <Button type="submit" onClick={executeAction}>{t(`players.action.${action}`)}</Button>
                 </DialogActions>
             </Box>
         </Dialog>

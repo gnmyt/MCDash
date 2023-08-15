@@ -3,6 +3,7 @@ import {Settings} from "@mui/icons-material";
 import React, {useState} from "react";
 import {patchRequest} from "@/common/utils/RequestUtil.js";
 import {capitalizeFirst} from "@/common/utils/StringUtil.js";
+import {t} from "i18next";
 
 export const ConfigurationItem = ({property, updateProperties}) => {
 
@@ -40,9 +41,9 @@ export const ConfigurationItem = ({property, updateProperties}) => {
 
     return (
         <>
-            <Snackbar open={changesSaved} message="Changes saved" onClick={() => setChangesSaved(false)}
+            <Snackbar open={changesSaved} message={t("action.changes_saved")} onClick={() => setChangesSaved(false)}
                       anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
-                <Alert severity="success" sx={{width: "100%"}}>Changes saved. Restart the server to apply them.</Alert>
+                <Alert severity="success" sx={{width: "100%"}}>{t("configuration.saved")}</Alert>
             </Snackbar>
 
             <Box key={property.name} backgroundColor="background.darker" borderRadius={2} padding={2}
