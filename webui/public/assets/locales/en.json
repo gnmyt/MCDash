@@ -40,6 +40,13 @@
     "language": "Language",
     "logout": "Logout"
   },
+  "update": {
+    "available": "Update available",
+    "info": "There is an update available for MCDash. Once you update, the plugin file will be replaced and the panel will shutdown. If you want the panel to automatically restart, you can click the \"Reload after update\" button. Keep in mind that reloading your server may cause some issues so it is recommended to just update and restart the server manually.",
+    "just_update": "Just update",
+    "reload_after": "Reload after update",
+    "updating": "The panel will shutdown and update to version {{latest}}. Please wait..."
+  },
   "time": {
     "sunrise": "Sunrise",
     "day": "Day",

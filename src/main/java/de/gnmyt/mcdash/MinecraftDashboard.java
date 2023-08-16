@@ -21,6 +21,7 @@ public class MinecraftDashboard extends JavaPlugin {
     private static ConfigurationManager config;
     private static Metrics metrics;
     private static BackupController backupController;
+    private static UpdateManager updateManager;
     private static AccountManager accountManager;
     private static WorldManager worldManager;
     private static SSHManager sshManager;
@@ -30,6 +31,7 @@ public class MinecraftDashboard extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        updateManager = new UpdateManager(instance);
         accountManager = new AccountManager(instance);
         sshManager = new SSHManager(instance);
         worldManager = new WorldManager(instance);
@@ -55,6 +57,7 @@ public class MinecraftDashboard extends JavaPlugin {
     @Override
     public void onDisable() {
         if (server != null) server.stop(0);
+        if (updateManager != null) updateManager.shutdownScheduler();
         server = null;
     }
 
@@ -170,5 +173,13 @@ public class MinecraftDashboard extends JavaPlugin {
      */
     public static ScheduledExecutorService getExecutor() {
         return executor;
+    }
+
+    /**
+     * Gets the update manager
+     * @return the update manager
+     */
+    public static UpdateManager getUpdateManager() {
+        return updateManager;
     }
 }

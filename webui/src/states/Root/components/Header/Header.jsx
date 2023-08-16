@@ -1,21 +1,29 @@
-import {AppBar, IconButton, Stack, Toolbar, Typography} from "@mui/material";
-import {AccountCircle, Menu as MenuIcon,} from "@mui/icons-material";
+import {AppBar, IconButton, Stack, Toolbar, Tooltip, Typography} from "@mui/material";
+import {AccountCircle, BrowserUpdated, Menu as MenuIcon} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import {sidebar} from "@/common/routes/server.jsx";
 import {useLocation} from "react-router-dom";
 import AccountMenu from "@/states/Root/components/Header/components/AccountMenu";
 import {t} from "i18next";
+import UpdateDialog from "@/states/Root/components/Header/components/UpdateDialog";
+import {jsonRequest} from "@/common/utils/RequestUtil.js";
 
 const drawerWidth = 240;
 
 export const Header = ({toggleOpen}) => {
     const location = useLocation();
 
+    const [versionInfo, setVersionInfo] = useState({available: false});
+    const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
     useEffect(() => {
         document.title = "MCDash - " + getTitleByPath();
     }, [location]);
+
+    useEffect(() => {
+        jsonRequest("update").then((data) => setVersionInfo(data));
+    }, []);
 
     const getTitleByPath = () => {
         const route = sidebar.find((route) => location.pathname.startsWith(route.path) && route.path !== "/");
@@ -27,6 +35,8 @@ export const Header = ({toggleOpen}) => {
     return (
         <AppBar position="fixed" sx={{width: {sm: `calc(100% - ${drawerWidth}px)`}, ml: {sm: `${drawerWidth}px`}}}>
             <AccountMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
+            <UpdateDialog open={updateDialogOpen} setOpen={setUpdateDialogOpen} setVersionInfo={setVersionInfo}
+                            latest={versionInfo.latest} current={versionInfo.current}/>
 
             <Toolbar>
                 <IconButton aria-label="open drawer" edge="start" onClick={toggleOpen}
@@ -35,7 +45,12 @@ export const Header = ({toggleOpen}) => {
                 </IconButton>
                 <Typography variant="h6" noWrap>{getTitleByPath()}</Typography>
 
-                <Stack sx={{ml: "auto"}}>
+                <Stack sx={{ml: "auto"}} direction="row">
+                    {versionInfo.available && <Tooltip title={t("update.available")}>
+                        <IconButton color="warning" onClick={() => setUpdateDialogOpen(true)}>
+                            <BrowserUpdated/>
+                        </IconButton>
+                    </Tooltip>}
                     <IconButton id="menu" onClick={() => setMenuOpen(true)}>
                         <AccountCircle/>
                     </IconButton>
