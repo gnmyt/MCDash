@@ -16,7 +16,7 @@
   "nav": {
     "overview": "Übersicht",
     "players": "Spieler",
-    "files": "Datei-Manager",
+    "files": "Dateimanager",
     "console": "Konsole",
     "worlds": "Welten",
     "plugins": "Plugins",
@@ -55,28 +55,28 @@
     "none_found": "Keine Backups gefunden",
     "description": "Was möchtest du sichern?",
     "restored": "Backup wurde erfolgreich wiederhergestellt",
-    "restoring": "Backup wird wiedergestellt",
-    "restore_text": "MCDash will restore this backup while runtime. Since Minecraft automatically saves the worlds every few seconds from memory, your world might get corrupted. To prevent this, you can stop the server without saving the world from memory. Any unsaved changes made to the server while runtime will be lost. This does not apply if you want to restore logs or other files that are not getting automatically saved by Minecraft.",
+    "restoring": "Backup wird wiederhergestellt",
+    "restore_text": "MCDash wird dieses Backup während der Laufzeit wiederherstellen. Da Minecraft die Welten automatisch alle paar Sekunden aus dem Arbeitsspeicher speichert, könnte deine Welt beschädigt werden. Um dies zu verhindern, können Sie den Server anhalten, ohne die Welt aus dem Arbeitsspeicher zu speichern. Alle nicht gespeicherten Änderungen, die während der Laufzeit am Server vorgenommen werden, gehen dabei verloren. Dies gilt nicht, wenn Sie Protokolle oder andere Dateien wiederherstellen wollen, die nicht automatisch von Minecraft gespeichert werden.",
     "restore_and_stop": "Wiederherstellen & Stoppen",
     "only_restore": "Nur wiederherstellen",
     "delete": {
       "title": "Backup löschen",
-      "text": "Bist du sicher, das du das Backup löschen möchtest?",
+      "text": "Bist du sicher, dass du das Backup löschen möchtest?",
       "success": "Backup erfolgreich gelöscht",
       "yes": "Ja, löschen"
     },
     "mode": {
       "complete": "Alles vom Server",
       "worlds": "Alle geladenen Welten",
-      "plugins": "Plugins und die Einstellungen",
-      "config": "Einstellungen des Servers",
+      "plugins": "Plugins und deren Einstellungen",
+      "config": "Konfigurationsdateien",
       "logs": "Logs"
     },
     "mapping": {
       "complete": "Alles vom Server",
       "worlds": "Welten",
       "plugins": "Plugins",
-      "config": "Einstellungen",
+      "config": "Konfigurationen",
       "logs": "Logs"
     }
   },
@@ -108,7 +108,7 @@
     "go_back": "Zurück",
     "create_folder": {
       "title": "Ordner erstellen",
-      "text": "Gib dem Ordner einen Namen"
+      "text": "Bitte gib den Namen des neuen Ordners ein"
     }
   },
   "overview": {
@@ -116,7 +116,7 @@
     "tps": "TPS",
     "ram": "RAM",
     "disk": "Speicher",
-    "control": "Quick Control",
+    "control": "Schnellsteuerung",
     "shutdown": {
       "button": "Herunterfahren",
       "title": "Server stoppen",
@@ -210,7 +210,7 @@
     "reason": "Grund",
     "last_seen": "Zuletzt gesehen",
     "action_player": "{{action}} Spieler{{plural}}",
-    "action_player_text": "Are you sure you want to {{action}} the following player{{plural}}?",
+    "action_player_text": "Möchtest du die folgenden Spieler wirklich {{action}}?",
     "teleport_title": "Spieler zur Welt teleportieren",
     "op_player": "Dieser Spieler wird sämtliche Berechtigungen für diesen Server erhalten. Bist du dir sicher?",
     "whitelist_title": "Spieler zur Whitelist hinzufügen",
