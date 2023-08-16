@@ -40,6 +40,13 @@
     "language": "Sprache",
     "logout": "Abmelden"
   },
+  "update": {
+    "available": "Update verfügbar",
+    "info": "Es ist ein Update für MCDash verfügbar. Sobald du das Update durchführst, wird die Plugin-Datei ersetzt und das Panel wird heruntergefahren. Wenn du möchtest, dass das Panel automatisch neu gestartet wird, kannst du auf die Schaltfläche \"Nach Update neu laden\" klicken. Bedenke, dass das Neuladen deines Servers zu Problemen führen kann. Es wird daher empfohlen, den Server nur manuell zu aktualisieren und neu zu starten.",
+    "just_update": "Nur aktualisieren",
+    "reload_after": "Nach Update neu laden",
+    "updating": "Das Panel wird herunterfahren und auf Version {{latest}} aktualisiert. Bitte warten..."
+  },
   "time": {
     "sunrise": "Sonnenaufgang",
     "day": "Tag",
