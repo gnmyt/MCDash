@@ -35,7 +35,7 @@ export const Header = ({toggleOpen}) => {
     return (
         <AppBar position="fixed" sx={{width: {sm: `calc(100% - ${drawerWidth}px)`}, ml: {sm: `${drawerWidth}px`}}}>
             <AccountMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
-            <UpdateDialog open={updateDialogOpen} setOpen={setUpdateDialogOpen}
+            <UpdateDialog open={updateDialogOpen} setOpen={setUpdateDialogOpen} setVersionInfo={setVersionInfo}
                             latest={versionInfo.latest} current={versionInfo.current}/>
 
             <Toolbar>
