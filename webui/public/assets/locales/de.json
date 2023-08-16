@@ -147,7 +147,7 @@
     "delete": {
       "tooltip": "Plugin löschen",
       "title": "{{name}} löschen",
-      "text": "Bist du Sicher, das du {{name}} löschen möchtest? Dein Server muss hierbei neu gestartet werden, damit die Änderungen angewendet werden können."
+      "text": "Bist du sicher, dass du {{name}} löschen möchtest? Dein Server muss hierbei neu gestartet werden, damit die Änderungen angewendet werden können."
     }
   },
   "worlds": {
@@ -156,7 +156,7 @@
     "create_title": "Neue Welt erstellen",
     "overworld": "Oberfläche - Standard",
     "nether": "Nether",
-    "end": "Das End",
+    "end": "Das Ende",
     "world_name": "Name der Welt",
     "world_type": "Typ der Welt",
     "difficulty": {
@@ -209,13 +209,13 @@
     "player_time": "Spielzeit",
     "reason": "Grund",
     "last_seen": "Zuletzt gesehen",
-    "action_player": "{{action}} Spieler{{plural}}",
+    "action_player": "Spieler {{action}}",
     "action_player_text": "Möchtest du die folgenden Spieler wirklich {{action}}?",
     "teleport_title": "Spieler zur Welt teleportieren",
     "op_player": "Dieser Spieler wird sämtliche Berechtigungen für diesen Server erhalten. Bist du dir sicher?",
     "whitelist_title": "Spieler zur Whitelist hinzufügen",
     "teleport": "Teleportieren",
-    "whitelisted_players": "Eingetragene Spieler in der Whitelist",
+    "whitelisted_players": "Spieler auf der Whitelist",
     "enable_whitelist": "Whitelist aktivieren",
     "disable_whitelist": "Whitelist deaktivieren",
     "banned_players": "Gebannte Spieler",
