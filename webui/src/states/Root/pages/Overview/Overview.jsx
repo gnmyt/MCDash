@@ -22,7 +22,7 @@ export const Overview = () => {
 
     return (
         <>
-            <Typography variant="h5" fontWeight={500}>Quick Overview</Typography>
+            <Typography variant="h5" fontWeight={500}>{t("nav.overview")}</Typography>
 
             <Stack direction="row" sx={{mt: 3, flexDirection: {xs: "column", lg: "row"}}} gap={2}>
                 <StatisticBox title={t("overview.cpu")} value={stats.processors}/>
