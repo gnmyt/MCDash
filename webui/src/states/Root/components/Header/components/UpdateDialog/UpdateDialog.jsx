@@ -3,22 +3,23 @@ import {postRequest} from "@/common/utils/RequestUtil.js";
 import {useState} from "react";
 import {t} from "i18next";
 
-export const UpdateDialog = ({open, setOpen, latest, current}) => {
+export const UpdateDialog = ({open, setOpen, latest, current, setVersionInfo}) => {
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
 
     const reload = (reload = false) => {
-        postRequest("update", {reloadAfterUpdate: reload}).then(() => {
-            if (reload) setTimeout(() => window.location.reload(), 5000);
-        });
         setOpen(false);
         setSnackbarOpen(true);
+        postRequest("update", {reloadAfterUpdate: reload}).then(() => {
+            if (reload) setTimeout(() => window.location.reload(), 5000);
+            setTimeout(() => setSnackbarOpen(false), 5000);
+            setVersionInfo({available: false, latest, current});
+        });
     }
 
     return (
         <>
-            <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={() => setSnackbarOpen(false)}
-                      anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+            <Snackbar open={snackbarOpen} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Alert severity="info" sx={{width: '100%'}}>
                     {t("update.updating", {latest})}
                 </Alert>
