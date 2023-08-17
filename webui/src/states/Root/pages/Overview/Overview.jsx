@@ -1,59 +1,61 @@
-import {Button, Stack, Typography} from "@mui/material";
-import {PowerSettingsNew, Replay} from "@mui/icons-material";
-import {request} from "@/common/utils/RequestUtil.js";
-import {useContext, useState} from "react";
-import ActionConfirmDialog from "@components/ActionConfirmDialog";
-import {StatsContext} from "@/states/Root/pages/Overview/contexts/StatsContext";
+import {Box, Stack, Typography} from "@mui/material";
+import {Label, Settings, SettingsEthernet} from "@mui/icons-material";
+import {jsonRequest} from "@/common/utils/RequestUtil.js";
+import {useEffect, useState} from "react";
 import StatisticBox from "@/states/Root/pages/Overview/components/StatisticBox";
+import OverviewArea from "@/states/Root/pages/Overview/components/OverviewArea";
 import {t} from "i18next";
+import WelcomeTip from "@/states/Root/pages/Overview/components/WelcomeTip";
 
 export const Overview = () => {
-    const [shutdownOpen, setShutdownOpen] = useState(false);
-    const [reloadOpen, setReloadOpen] = useState( false);
-    const {stats} = useContext(StatsContext);
+    const [welcomeShown, setWelcomeShown] = useState(localStorage.getItem("welcomeShown") === "true" || false);
+    const [serverInfo, setServerInfo] = useState(null);
 
-    const handleShutdown = async () => {
-        return (await request("action/shutdown", "POST")).status === 200;
-    };
+    const handleWelcomeClose = () => {
+        setWelcomeShown(true);
+        localStorage.setItem("welcomeShown", "true");
+    }
 
-    const handleReload = async () => {
-        return (await request("action/reload", "POST")).status === 200;
-    };
+    const getMotd = () => {
+        return serverInfo.motd.split("\n").map((line, index) => {
+            line = line.replace(/§[0-9a-fk-or]/g, "");
+            return <Typography key={index} variant="span"
+                               fontWeight={500}>{line.length > 25 ? line.substring(0, 25) + "..." : line}<br/></Typography>
+        });
+    }
+
+    useEffect(() => {
+        jsonRequest("server").then((r) => setServerInfo(r));
+    }, []);
 
     return (
         <>
-            <Typography variant="h5" fontWeight={500}>{t("nav.overview")}</Typography>
+            <OverviewArea/>
+            <Stack direction={{xs: "column", lg: "row"}} justifyContent="space-between" sx={{mt: 3}} gap={5}
+                   alignItems={{xs: "stretch", lg: "flex-start"}}>
+                <Stack direction="column" gap={2} width={{xs: "100%", lg: "80%"}}>
 
-            <Stack direction="row" sx={{mt: 3, flexDirection: {xs: "column", lg: "row"}}} gap={2}>
-                <StatisticBox title={t("overview.cpu")} value={stats.processors}/>
+                    <Typography variant="h5" fontWeight={500}>{t("overview.tip.title")}</Typography>
 
-                <StatisticBox title={t("overview.tps")} value={stats.tps}/>
-
-                <StatisticBox title={t("overview.ram")} value={`${(stats.used_memory / 1024 / 1024 / 1024)
-                    .toFixed(2)} / ${(stats.total_memory / 1024 / 1024 / 1024).toFixed(2)} GB`}/>
-
-                <StatisticBox title={t("overview.disk")} value={`${(stats.used_space / 1024 / 1024 / 1024)
-                    .toFixed(2)} / ${(stats.total_space / 1024 / 1024 / 1024).toFixed(2)} GB`}/>
+                    {!welcomeShown && <WelcomeTip handleWelcomeClose={handleWelcomeClose}/>}
+                    {welcomeShown && <Typography variant="body1" fontWeight={500} sx={{color: "text.secondary"}}>
+                        {t("overview.tip.none")}
+                    </Typography>}
+                </Stack>
+                {serverInfo && <Stack direction="column" gap={1} sx={{flexGrow: 1}}>
+                    <StatisticBox title={t("overview.software")} value={serverInfo.software} icon={<Settings/>}
+                                   color="success"/>
+                    <StatisticBox title={t("overview.version")} value={serverInfo.version} icon={<Label/>} color="success"/>
+                    <StatisticBox title={t("overview.ip")}
+                                   value={serverInfo.ip + (serverInfo.port !== 25565 ? ":" + serverInfo.port : "")}
+                                   icon={<SettingsEthernet/>} color="success"/>
+                    <StatisticBox value={getMotd()} icon={<Box component="img" src={serverInfo.icon}/>}
+                                   color="success"/>
+                </Stack>}
             </Stack>
 
-            <Typography variant="h5" fontWeight={500} sx={{mt: 2}}>{t("overview.control")}</Typography>
 
-            <ActionConfirmDialog open={shutdownOpen} setOpen={setShutdownOpen} title={t("overview.shutdown.title")}
-                                 description={t("overview.shutdown.text")} buttonText={t("overview.shutdown.yes")}
-                                 onClick={handleShutdown} successMessage={t("overview.shutdown.success")} />
-
-            <ActionConfirmDialog open={reloadOpen} setOpen={setReloadOpen} title={t("overview.reload.title")}
-                                 description={t("overview.reload.text")} buttonText={t("overview.reload.yes")}
-                                 onClick={handleReload} successMessage={t("overview.reload.success")} />
-
-
-            <Stack spacing={2} direction="row" sx={{mt: 3}}>
-                <Button variant="contained" color="error" startIcon={<PowerSettingsNew />}
-                        onClick={() => setShutdownOpen(true)}>{t("overview.shutdown.button")}</Button>
-
-                <Button variant="contained" color="warning" startIcon={<Replay />}
-                        onClick={() => setReloadOpen(true)}>{t("overview.reload.button")}</Button>
-            </Stack>
         </>
+
     )
 }
