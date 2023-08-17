@@ -1,0 +1,1 @@
+export {WelcomeTip as default} from "./WelcomeTip.jsx";
