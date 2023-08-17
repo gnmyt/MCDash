@@ -40,7 +40,7 @@ export const WhitelistAddDialog = ({open, setOpen}) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
-                    <Button type="submit" onClick={executeAction}>{"action.add"}</Button>
+                    <Button type="submit" onClick={executeAction}>{t("action.add")}</Button>
                 </DialogActions>
             </Box>
         </Dialog>
