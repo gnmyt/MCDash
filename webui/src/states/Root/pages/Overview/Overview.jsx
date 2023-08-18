@@ -33,7 +33,7 @@ export const Overview = () => {
             <OverviewArea/>
             <Stack direction={{xs: "column", lg: "row"}} justifyContent="space-between" sx={{mt: 3}} gap={5}
                    alignItems={{xs: "stretch", lg: "flex-start"}}>
-                <Stack direction="column" gap={2} width={{xs: "100%", lg: "80%"}}>
+                <Stack direction="column" gap={2} width={{xs: "100%", lg: "78.5%"}}>
 
                     <Typography variant="h5" fontWeight={500}>{t("overview.tip.title")}</Typography>
 
