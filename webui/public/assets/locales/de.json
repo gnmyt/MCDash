@@ -123,7 +123,19 @@
     "tps": "TPS",
     "ram": "RAM",
     "disk": "Speicher",
-    "control": "Schnellsteuerung",
+    "software": "Server Software",
+    "version": "Server Version",
+    "ip": "Server IP",
+    "tip": {
+      "title": "Tipps",
+      "welcome": "MCDash - Willkommen!",
+      "text": "Glückwunsch! Du hast MCDash erfolgreich installiert. MCDash ist ein Web-Panel, das dir die Verwaltung deines Minecraft-Servers ermöglicht.",
+      "subtext": "Wenn du Hilfe bei der Verwendung von MCDash brauchst, kannst du jederzeit auf die Dokumentation zugreifen, indem du auf die Schaltfläche unten klickst.",
+      "documentation": "Dokumentation",
+      "donate": "Spenden",
+      "none": "Im Moment gibt es keine Tipps für dich. Bitte schau später wieder vorbei!",
+      "close": "Schließen"
+    },
     "shutdown": {
       "button": "Herunterfahren",
       "title": "Server stoppen",
