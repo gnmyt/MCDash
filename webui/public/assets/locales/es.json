@@ -1,111 +1,111 @@
 {
   "action": {
-    "failed": "Could not execute action",
-    "success": "Action executed successfully",
-    "cancel": "Cancel",
-    "add": "Add",
-    "save": "Save",
-    "remove": "Remove",
-    "continue": "Yes, continue",
-    "confirm": "Confirm action",
-    "create": "Create",
-    "warn": "Warning",
-    "sure": "Are you sure you want to confirm this action?",
-    "changes_saved": "Changes saved"
+    "failed": "No se ha podido ejecutar la acción",
+    "success": "Acción ejecutada correctamente",
+    "cancel": "Cancelar",
+    "add": "Añadir",
+    "save": "Guardar",
+    "remove": "Eliminar",
+    "continue": "Sí, continuar",
+    "confirm": "Confirmar acción",
+    "create": "Crear",
+    "warn": "Advertencia",
+    "sure": "¿Estás seguro de que quieres confirmar esta acción?",
+    "changes_saved": "Cambios guardados"
   },
   "nav": {
-    "overview": "Overview",
-    "players": "Players",
-    "files": "File Manager",
-    "console": "Console",
-    "worlds": "Worlds",
+    "overview": "Información General",
+    "players": "Jugadores",
+    "files": "Gestor de Archivos",
+    "console": "Consola",
+    "worlds": "Mundos",
     "plugins": "Plugins",
-    "backups": "Backups",
-    "configuration": "Configuration"
+    "backups": "Copias de Seguridad",
+    "configuration": "Configuración"
   },
   "info": {
-    "server_unavailable": "The server is currently unavailable."
+    "server_unavailable": "El servidor no se encuentra disponible actualmente."
   },
   "login": {
-    "sign_in": "Sign In",
-    "failed": "Login failed, check your credentials.",
-    "name": "Ingame-name",
-    "password": "Password"
+    "sign_in": "Iniciar Sesión",
+    "failed": "Inicio de sesión fallido, comprueba tus credenciales.",
+    "name": "Nombre de usuario en Minecraft",
+    "password": "Contraseña"
   },
   "header": {
-    "support_me": "Support me",
-    "dark_theme": "Dark theme",
-    "light_theme": "Light theme",
-    "update_language": "Update language",
-    "language": "Language",
-    "logout": "Logout"
+    "support_me": "Apóyame",
+    "dark_theme": "Tema oscuro",
+    "light_theme": "Tema claro",
+    "update_language": "Cambiar idioma",
+    "language": "Idioma",
+    "logout": "Cerrar sesión"
   },
   "update": {
-    "available": "Update available",
-    "info": "There is an update available for MCDash. Once you update, the plugin file will be replaced and the panel will shutdown. If you want the panel to automatically restart, you can click the \"Reload after update\" button. Keep in mind that reloading your server may cause some issues so it is recommended to just update and restart the server manually.",
-    "just_update": "Just update",
-    "reload_after": "Reload after update",
-    "updating": "The panel will shutdown and update to version {{latest}}. Please wait..."
+    "available": "Actualización disponible",
+    "info": "Hay una actualización disponible para MCDash. Una vez que actualice, el archivo del plugin será reemplazado y el panel se cerrará. Si desea que el panel se reinicie automáticamente, puede hacer clic en el botón \"Recargar después de actualizar\". Tenga en cuenta que recargar su servidor puede causar algunos problemas, por lo que se recomienda actualizar y reiniciar el servidor manualmente.",
+    "just_update": "Sólo actualizar",
+    "reload_after": "Recargar después de actualizar",
+    "updating": "El panel se apagará y actualizará a la versión {{latest}}. Por favor, espere..."
   },
   "time": {
-    "sunrise": "Sunrise",
-    "day": "Day",
-    "sunset": "Sunset",
-    "night": "Night"
+    "sunrise": "Amanecer",
+    "day": "Mediodía",
+    "sunset": "Atardecer",
+    "night": "Noche"
   },
   "backup": {
-    "name": "Backup",
-    "latest": "Latest backup",
-    "created": "Backup successfully created",
-    "create": "Create a backup",
-    "time": "Created at",
-    "none_found": "No backups found",
-    "description": "What do you want to backup?",
-    "restored": "Backup successfully restored",
-    "restoring": "Restoring backup",
-    "restore_text": "MCDash will restore this backup while runtime. Since Minecraft automatically saves the worlds every few seconds from memory, your world might get corrupted. To prevent this, you can stop the server without saving the world from memory. Any unsaved changes made to the server while runtime will be lost. This does not apply if you want to restore logs or other files that are not getting automatically saved by Minecraft.",
-    "restore_and_stop": "Restore & Stop",
-    "only_restore": "Only restore",
+    "name": "Copia de seguridad",
+    "latest": "Última copia de seguridad",
+    "created": "Copia de seguridad creada con éxito",
+    "create": "Crear una copia de seguridad",
+    "time": "Fecha de creación:",
+    "none_found": "No se han encontrado copias de seguridad",
+    "description": "¿Qué quieres guardar en la copia de seguridad?",
+    "restored": "Copia de seguridad restaurada correctamente",
+    "restoring": "Restaurando copia de seguridad",
+    "restore_text": "MCDash restaurará esta copia de seguridad mientras el servidor está en ejecución. Dado que Minecraft automáticamente guarda los mundos cada pocos segundos, tu mundo podría corromperse. Para evitar esto, puede detener el servidor sin guardar el mundo. Cualquier cambio no guardado realizado en el servidor se perderá. Esto no se aplica si desea restaurar registros u otros archivos que no se guardan automáticamente por Minecraft.",
+    "restore_and_stop": "Restaurar y Apagar servidor",
+    "only_restore": "Sólo restaurar",
     "delete": {
-      "title": "Delete backup",
-      "text": "Are you sure you want to delete this backup?",
-      "success": "Backup successfully deleted",
-      "yes": "Yes, delete"
+      "title": "Eliminar copia de seguridad",
+      "text": "¿Estás seguro de que quieres eliminar esta copia de seguridad?",
+      "success": "Copia de seguridad eliminada con éxito",
+      "yes": "Sí, eliminar"
     },
     "mode": {
-      "complete": "The complete server",
-      "worlds": "All loaded worlds",
-      "plugins": "Plug-Ins & their configs",
-      "config": "Configuration files",
-      "logs": "Console logs"
+      "complete": "El servidor entero",
+      "worlds": "Todos los mundos cargados actualmente",
+      "plugins": "Todos los plugins y sus archivos de configuración",
+      "config": "Todos los ficheros de configuración del servidor",
+      "logs": "Todos los logs del servidor"
     },
     "mapping": {
-      "complete": "Complete server",
-      "worlds": "Worlds",
+      "complete": "Servidor completo",
+      "worlds": "Mundos",
       "plugins": "Plugins",
-      "config": "Configurations",
+      "config": "Ficheros de configuración del servidor",
       "logs": "Logs"
     }
   },
   "configuration": {
-    "saved": "Changes saved. Restart the server to apply them.",
-    "services": "Services",
+    "saved": "Cambios guardados. Reinicia el servidor para aplicarlos.",
+    "services": "Servicios",
     "ssh": {
-      "server": "SSH server",
-      "description": "Manage your files and control the console from your computer.",
-      "bind_error": "Could not bind to that port. Please try another one.",
-      "port": "SSH-Port",
-      "connect": "Connect"
+      "server": "Servidor SSH",
+      "description": "Administra los ficheros y controla la consola desde tu ordenador.",
+      "bind_error": "No se puede utilizar ese puerto. Por favor, prueba con otro.",
+      "port": "Puerto de SSH",
+      "connect": "Conectar"
     }
   },
   "console": {
-    "command": "Command"
+    "command": "Comando"
   },
   "files": {
-    "folder": "Folder",
-    "loading": "Loading file...",
-    "file_deleted": "File successfully deleted",
-    "file_saved": "File successfully saved",
+    "folder": "Carpeta",
+    "loading": "Cargando archivo...",
+    "file_deleted": "Archivo eliminado con éxito",
+    "file_saved": "Archivo guardado con éxito",
     "upload_file": "Upload a file",
     "file_uploaded": "File successfully uploaded",
     "folder_deleted": "Folder successfully deleted",
@@ -133,72 +133,72 @@
       "subtext": "If you need help using MCDash you can always access the documentation by clicking on the button below.",
       "documentation": "Documentation",
       "donate": "Donate",
-      "none": "There are no tips for you at the moment. Please check back later!",
-      "close": "Close"
+      "none": "No hay consejos disponibles en este momento. Por favor, ¡vuelve más tarde!",
+      "close": "Cerrar"
     },
     "shutdown": {
-      "button": "Shutdown",
-      "title": "Shutdown server",
-      "text": "Are you sure you want to shutdown the server?",
-      "yes": "Yes, shutdown",
-      "success": "Server successfully shutdown"
+      "button": "Apagar",
+      "title": "Apagar servidor",
+      "text": "¿Estás seguro de que quieres apagar el servidor?",
+      "yes": "Sí, apagar",
+      "success": "El servidor se ha apagado con éxito"
     },
     "reload": {
-      "button": "Reload",
-      "title": "Reload server",
-      "text": "Are you sure you want to reload the server?",
-      "yes": "Yes, reload",
-      "success": "Server successfully reloaded"
+      "button": "Recargar",
+      "title": "Recargar servidor",
+      "text": "¿Estás seguro de que quieres recargar el servidor?",
+      "yes": "Sí, recargar",
+      "success": "El servidor se ha recargado con éxito"
     }
   },
   "plugins": {
-    "by": "by",
-    "search": "Search",
-    "store": "Store",
-    "no_description": "No description provided",
-    "no_plugins": "No plugins found",
-    "enable": "Enable",
-    "disable": "Disable",
-    "not_supported": "Plugin not supported",
-    "view_resource": "View resource",
-    "already_installed": "Plugin already installed",
-    "install": "Install",
+    "by": "por",
+    "search": "Búsqueda",
+    "store": "Tienda",
+    "no_description": "No se ha proporcionado ninguna descripción",
+    "no_plugins": "No se han encontrado plugins",
+    "enable": "Habilitar",
+    "disable": "Deshabilitar",
+    "not_supported": "Plugin incompatible",
+    "view_resource": "Ver recurso",
+    "already_installed": "Plugin ya instalado",
+    "install": "Instalar",
     "delete": {
-      "tooltip": "Delete plugin",
-      "title": "Delete {{name}}",
-      "text": "Are you sure you want to delete {{name}}? You need to restart your server to apply the changes after deleting."
+      "tooltip": "Eliminar plugin",
+      "title": "Eliminar {{name}}",
+      "text": "¿Estás seguro de que quieres eliminar {{name}}? Tendrás que reiniciar el servidor para aplicar los cambios."
     }
   },
   "worlds": {
-    "change": "Change",
-    "create": "Create world",
-    "create_title": "Create a new world",
+    "change": "Cambiar",
+    "create": "Crear mundo",
+    "create_title": "Crear un nuevo mundo",
     "overworld": "Overworld",
     "nether": "Nether",
     "end": "The End",
-    "world_name": "Name of the world",
-    "world_type": "Type of the world",
+    "world_name": "Nombre del mundo",
+    "world_type": "Tipo del mundo",
     "difficulty": {
-      "changed": "Difficulty changed successfully!",
-      "title": "Change difficulty",
-      "peaceful": "Peaceful",
-      "easy": "Easy",
+      "changed": "¡Dificultad modificada con éxito!",
+      "title": "Modificar dificultad",
+      "peaceful": "Pacífico",
+      "easy": "Fácil",
       "normal": "Normal",
-      "hard": "Hard",
-      "button": "Difficulty"
+      "hard": "Difícil",
+      "button": "Dificultad"
     },
     "time": {
-      "changed": "Time changed successfully!",
-      "title": "Change time",
-      "update": "Change to",
-      "button": "Time"
+      "changed": "¡Tiempo ajustado con éxito!",
+      "title": "Ajustar tiempo",
+      "update": "Ajustar a",
+      "button": "Tiempo"
     },
     "weather": {
-      "changed": "Weather changed successfully!",
-      "title": "Change weather",
-      "clear": "Clear",
-      "rain": "Rain",
-      "thunder": "Thunder",
+      "changed": "¡Clima cambiado con éxito!",
+      "title": "Cambiar clima",
+      "clear": "Soleado",
+      "rain": "Lluvioso",
+      "thunder": "Tormentoso",
       "button": "Weather"
     },
     "info": {
