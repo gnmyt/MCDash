@@ -23,7 +23,7 @@ export const WeatherDialog = ({open, setOpen, weather, name}) => {
             <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={() => setSnackbarOpen(false)}
                       anchorOrigin={{vertical: "bottom", horizontal: "right"}}>
                 <Alert onClose={() => setSnackbarOpen(false)} severity={"success"} sx={{width: '100%'}}>
-                    {t("worlds.weather.success")}
+                    {t("worlds.weather.changed")}
                 </Alert>
             </Snackbar>
             <Dialog open={open} onClose={() => setOpen(null)}>
