@@ -2,6 +2,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+[![Downloads][downloads-shield]][downloads-url]
 [![MIT License][license-shield]][license-url]
 
 <br />
@@ -63,3 +64,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [issues-url]: https://github.com/gnmyt/MCDash/issues
 [license-shield]: https://img.shields.io/github/license/gnmyt/MCDash.svg?style=for-the-badge
 [license-url]: https://github.com/gnmyt/MCDash/blob/master/LICENSE.txt
+[downloads-shield]: https://img.shields.io/github/downloads/gnmyt/MCDash/total?style=for-the-badge
+[downloads-url]: https://github.com/gnmyt/MCDash/releases/latest
