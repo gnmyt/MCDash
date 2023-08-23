@@ -1,0 +1,248 @@
+{
+  "action": {
+    "failed": "No se ha podido ejecutar la acción",
+    "success": "Acción ejecutada correctamente",
+    "cancel": "Cancelar",
+    "add": "Añadir",
+    "save": "Guardar",
+    "remove": "Eliminar",
+    "continue": "Sí, continuar",
+    "confirm": "Confirmar acción",
+    "create": "Crear",
+    "warn": "Advertencia",
+    "sure": "¿Estás seguro de que quieres confirmar esta acción?",
+    "changes_saved": "Cambios guardados"
+  },
+  "nav": {
+    "overview": "Información General",
+    "players": "Jugadores",
+    "files": "Gestor de Archivos",
+    "console": "Consola",
+    "worlds": "Mundos",
+    "plugins": "Plugins",
+    "backups": "Copias de Seguridad",
+    "configuration": "Configuración"
+  },
+  "info": {
+    "server_unavailable": "El servidor no se encuentra disponible actualmente."
+  },
+  "login": {
+    "sign_in": "Iniciar Sesión",
+    "failed": "Inicio de sesión fallido, comprueba tus credenciales.",
+    "name": "Nombre de usuario en Minecraft",
+    "password": "Contraseña"
+  },
+  "header": {
+    "support_me": "Apóyame",
+    "dark_theme": "Tema oscuro",
+    "light_theme": "Tema claro",
+    "update_language": "Cambiar idioma",
+    "language": "Idioma",
+    "logout": "Cerrar sesión"
+  },
+  "update": {
+    "available": "Actualización disponible",
+    "info": "Hay una actualización disponible para MCDash. Una vez que actualice, el archivo del plugin será reemplazado y el panel se cerrará. Si desea que el panel se reinicie automáticamente, puede hacer clic en el botón \"Recargar después de actualizar\". Tenga en cuenta que recargar su servidor puede causar algunos problemas, por lo que se recomienda actualizar y reiniciar el servidor manualmente.",
+    "just_update": "Sólo actualizar",
+    "reload_after": "Recargar después de actualizar",
+    "updating": "El panel se apagará y actualizará a la versión {{latest}}. Por favor, espere..."
+  },
+  "time": {
+    "sunrise": "Amanecer",
+    "day": "Mediodía",
+    "sunset": "Atardecer",
+    "night": "Noche"
+  },
+  "backup": {
+    "name": "Copia de seguridad",
+    "latest": "Última copia de seguridad",
+    "created": "Copia de seguridad creada con éxito",
+    "create": "Crear una copia de seguridad",
+    "time": "Fecha de creación:",
+    "none_found": "No se han encontrado copias de seguridad",
+    "description": "¿Qué quieres guardar en la copia de seguridad?",
+    "restored": "Copia de seguridad restaurada correctamente",
+    "restoring": "Restaurando copia de seguridad",
+    "restore_text": "MCDash restaurará esta copia de seguridad mientras el servidor está en ejecución. Dado que Minecraft automáticamente guarda los mundos cada pocos segundos, tu mundo podría corromperse. Para evitar esto, puede detener el servidor sin guardar el mundo. Cualquier cambio no guardado realizado en el servidor se perderá. Esto no se aplica si desea restaurar registros u otros archivos que no se guardan automáticamente por Minecraft.",
+    "restore_and_stop": "Restaurar y Apagar servidor",
+    "only_restore": "Sólo restaurar",
+    "delete": {
+      "title": "Eliminar copia de seguridad",
+      "text": "¿Estás seguro de que quieres eliminar esta copia de seguridad?",
+      "success": "Copia de seguridad eliminada con éxito",
+      "yes": "Sí, eliminar"
+    },
+    "mode": {
+      "complete": "El servidor entero",
+      "worlds": "Todos los mundos cargados actualmente",
+      "plugins": "Todos los plugins y sus archivos de configuración",
+      "config": "Todos los ficheros de configuración del servidor",
+      "logs": "Todos los logs del servidor"
+    },
+    "mapping": {
+      "complete": "Servidor completo",
+      "worlds": "Mundos",
+      "plugins": "Plugins",
+      "config": "Ficheros de configuración del servidor",
+      "logs": "Logs"
+    }
+  },
+  "configuration": {
+    "saved": "Cambios guardados. Reinicia el servidor para aplicarlos.",
+    "services": "Servicios",
+    "ssh": {
+      "server": "Servidor SSH",
+      "description": "Administra los ficheros y controla la consola desde tu ordenador.",
+      "bind_error": "No se puede utilizar ese puerto. Por favor, prueba con otro.",
+      "port": "Puerto de SSH",
+      "connect": "Conectar"
+    }
+  },
+  "console": {
+    "command": "Comando"
+  },
+  "files": {
+    "folder": "Carpeta",
+    "loading": "Cargando archivo...",
+    "file_deleted": "Archivo eliminado con éxito",
+    "file_saved": "Archivo guardado con éxito",
+    "upload_file": "Subir un archivo",
+    "file_uploaded": "Archivo subido correctamente",
+    "folder_deleted": "Carpeta eliminada con éxito",
+    "folder_created": "Carpeta creada correctamente",
+    "download": "Descargar",
+    "delete": "Eliminar",
+    "go_back": "Atrás",
+    "create_folder": {
+      "title": "Crear nueva carpeta",
+      "text": "Por favor, introduce el nombre de la nueva carpeta"
+    }
+  },
+  "overview": {
+    "cpu": "Núcleos de CPU",
+    "tps": "TPS",
+    "ram": "RAM",
+    "disk": "Disco",
+    "software": "Software del servidor",
+    "version": "Versión del servidor",
+    "ip": "IP del servidor",
+    "tip": {
+      "title": "Consejos",
+      "welcome": "¡Bienvenido a MCDash!",
+      "text": "¡Enhorabuena! Has conseguido instalar MCDash con éxito. MCDash es un panel web que te permite administrar tu servidor de Minecraft.",
+      "subtext": "Si necesitas ayuda para utilizar MCDash siempre puedes acceder a la documentación haciendo clic en el botón de abajo.",
+      "documentation": "Documentación",
+      "donate": "Donar",
+      "none": "No hay consejos disponibles en este momento. Por favor, ¡vuelve más tarde!",
+      "close": "Cerrar"
+    },
+    "shutdown": {
+      "button": "Apagar",
+      "title": "Apagar servidor",
+      "text": "¿Estás seguro de que quieres apagar el servidor?",
+      "yes": "Sí, apagar",
+      "success": "El servidor se ha apagado con éxito"
+    },
+    "reload": {
+      "button": "Recargar",
+      "title": "Recargar servidor",
+      "text": "¿Estás seguro de que quieres recargar el servidor?",
+      "yes": "Sí, recargar",
+      "success": "El servidor se ha recargado con éxito"
+    }
+  },
+  "plugins": {
+    "by": "por",
+    "search": "Búsqueda",
+    "store": "Tienda",
+    "no_description": "No se ha proporcionado ninguna descripción",
+    "no_plugins": "No se han encontrado plugins",
+    "enable": "Habilitar",
+    "disable": "Deshabilitar",
+    "not_supported": "Plugin incompatible",
+    "view_resource": "Ver recurso",
+    "already_installed": "Plugin ya instalado",
+    "install": "Instalar",
+    "delete": {
+      "tooltip": "Eliminar plugin",
+      "title": "Eliminar {{name}}",
+      "text": "¿Estás seguro de que quieres eliminar {{name}}? Tendrás que reiniciar el servidor para aplicar los cambios."
+    }
+  },
+  "worlds": {
+    "change": "Cambiar",
+    "create": "Crear mundo",
+    "create_title": "Crear un nuevo mundo",
+    "overworld": "Overworld",
+    "nether": "Nether",
+    "end": "The End",
+    "world_name": "Nombre del mundo",
+    "world_type": "Tipo del mundo",
+    "difficulty": {
+      "changed": "¡Dificultad modificada con éxito!",
+      "title": "Modificar dificultad",
+      "peaceful": "Pacífico",
+      "easy": "Fácil",
+      "normal": "Normal",
+      "hard": "Difícil",
+      "button": "Dificultad"
+    },
+    "time": {
+      "changed": "¡Tiempo ajustado con éxito!",
+      "title": "Ajustar tiempo",
+      "update": "Ajustar a",
+      "button": "Tiempo"
+    },
+    "weather": {
+      "changed": "¡Clima cambiado con éxito!",
+      "title": "Cambiar clima",
+      "clear": "Soleado",
+      "rain": "Lluvioso",
+      "thunder": "Tormentoso",
+      "button": "Clima"
+    },
+    "info": {
+      "players": "Jugadores",
+      "time": "Tiempo",
+      "weather": "Clima",
+      "difficulty": "Dificultad"
+    },
+    "delete": {
+      "title": "Eliminar mundo",
+      "text": "¿Estás seguro de que quieres eliminar este mundo?",
+      "yes": "Sí, eliminar",
+      "success": "Mundo eliminado con éxito"
+    }
+  },
+  "players": {
+    "online": "Jugadores online",
+    "name": "Nombre",
+    "username": "Nombre de usuario",
+    "id": "ID de jugador",
+    "world": "Mundo actual",
+    "address": "Dirección IP",
+    "food_level": "Hambre",
+    "health": "Salud",
+    "is_op": "OP",
+    "game_mode": "Modo de juego",
+    "player_time": "Tiempo de juego",
+    "reason": "Motivo",
+    "last_seen": "Visto por última vez",
+    "action_player": "{{action}} Jugador(es)",
+    "action_player_text": "¿Estás seguro de que quieres {{action}} el/los siguiente(s) jugador(es)?",
+    "teleport_title": "Teletransportar jugador al mundo",
+    "op_player": "Este jugador recibirá permisos de administrador. ¿Estás seguro?",
+    "whitelist_title": "Añadir jugador a la lista blanca",
+    "teleport": "Teletransportar",
+    "whitelisted_players": "Jugadores en la lista blanca",
+    "enable_whitelist": "Habilitar lista blanca",
+    "disable_whitelist": "Deshabilitar lista blanca",
+    "banned_players": "Jugadores baneados",
+    "unban": "Desbanear",
+    "action": {
+      "kicked": "¡Has sido kickeado!",
+      "kick": "Kickear",
+      "ban": "Banear"
+    }
+  }
+}
