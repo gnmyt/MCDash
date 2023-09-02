@@ -13,7 +13,7 @@ export const Root = () => {
 
     return (
         <>
-            {tokenValid === false && serverOnline && <Navigate to="/login" />}
+            {tokenValid === false && <Navigate to="/login" />}
 
             {tokenValid === null && serverOnline === false && <ServerDown />}
 
