@@ -24,7 +24,11 @@
     "configuration": "Einstellungen"
   },
   "info": {
-    "server_unavailable": "Der Server ist derzeit nicht erreichbar."
+    "server_unavailable": "Der Server ist derzeit nicht erreichbar.",
+    "down": {
+      "title": "Server not available",
+      "description": "Check if the server is started and MCDash is active. This page will be reloaded automatically."
+    }
   },
   "login": {
     "sign_in": "Anmelden",
