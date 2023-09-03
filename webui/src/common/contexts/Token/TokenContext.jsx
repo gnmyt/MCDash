@@ -7,7 +7,7 @@ export const TokenContext = createContext({});
 
 export const TokenProvider = (props) => {
     const [tokenValid, setTokenValid] = useState(null);
-    const [serverOnline, setServerOnline] = useState(false);
+    const [serverOnline, setServerOnline] = useState(null);
 
     const checkToken = () => request("ping").then((r) => {
         if (!r.ok && !(r.status === 400 || r.status === 401)) throw new Error("Server unavailable");
@@ -26,7 +26,7 @@ export const TokenProvider = (props) => {
 
     return (
         <TokenContext.Provider value={{tokenValid, checkToken, serverOnline}}>
-            <Snackbar open={!serverOnline}>
+            <Snackbar open={serverOnline === false && tokenValid !== null}>
                 <Alert severity="error" sx={{width: "100%"}}>
                     {t("info.server_unavailable")}
                 </Alert>

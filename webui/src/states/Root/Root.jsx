@@ -4,6 +4,7 @@ import {useContext, useState} from "react";
 import {Box, Toolbar} from "@mui/material";
 import Sidebar from "@/states/Root/components/Sidebar";
 import Header from "@/states/Root/components/Header";
+import ServerDown from "@/states/Root/pages/ServerDown";
 
 export const Root = () => {
 
@@ -12,16 +13,18 @@ export const Root = () => {
 
     return (
         <>
-            {tokenValid === false && serverOnline && <Navigate to="/login" />}
+            {tokenValid === false && <Navigate to="/login" />}
 
-            <Box sx={{ display: 'flex', overflow: 'hidden'}}>
+            {tokenValid === null && serverOnline === false && <ServerDown />}
+
+            {tokenValid && <Box sx={{ display: 'flex', overflow: 'hidden'}}>
                 <Header mobileOpen={mobileOpen} toggleOpen={() => setMobileOpen(current => !current)} />
                 <Sidebar mobileOpen={mobileOpen} toggleOpen={() => setMobileOpen(current => !current)} />
                 <Box component="main" sx={{ flexGrow: 1, p: 3, ml: { sm: "240px"} }}>
                     <Toolbar />
                     <Outlet />
                 </Box>
-            </Box>
+            </Box>}
         </>
     )
 }

@@ -24,7 +24,11 @@
     "configuration": "Configuration"
   },
   "info": {
-    "server_unavailable": "The server is currently unavailable."
+    "server_unavailable": "The server is currently unavailable.",
+    "down": {
+      "title": "Server not available",
+      "description": "Check if the server is started and MCDash is active. This page will be reloaded automatically."
+    }
   },
   "login": {
     "sign_in": "Sign In",
