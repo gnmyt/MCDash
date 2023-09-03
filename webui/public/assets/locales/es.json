@@ -26,8 +26,8 @@
   "info": {
     "server_unavailable": "El servidor no se encuentra disponible actualmente.",
     "down": {
-      "title": "Server not available",
-      "description": "Check if the server is started and MCDash is active. This page will be reloaded automatically."
+      "title": "Servidor no disponible",
+      "description": "Comprueba si el servidor se ha iniciado y MCDash está activo. Esta página se recargará automáticamente."
     }
   },
   "login": {
