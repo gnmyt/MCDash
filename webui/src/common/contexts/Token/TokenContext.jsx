@@ -26,7 +26,7 @@ export const TokenProvider = (props) => {
 
     return (
         <TokenContext.Provider value={{tokenValid, checkToken, serverOnline}}>
-            <Snackbar open={serverOnline === false}>
+            <Snackbar open={serverOnline === false && tokenValid !== null}>
                 <Alert severity="error" sx={{width: "100%"}}>
                     {t("info.server_unavailable")}
                 </Alert>
