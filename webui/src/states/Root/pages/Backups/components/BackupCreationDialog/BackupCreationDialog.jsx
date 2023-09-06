@@ -16,7 +16,7 @@ import {request} from "@/common/utils/RequestUtil.js";
 import {BackupContext} from "@/states/Root/pages/Backups/contexts/Backups";
 import {t} from "i18next";
 
-export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
+export const BackupCreationDialog = ({open, setOpen, setLoading, currentModes = [], actionMode = false, createAction}) => {
 
     const {updateBackups} = useContext(BackupContext);
 
@@ -44,7 +44,7 @@ export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
     }
 
     useEffect(() => {
-        if (!open) setModes([]);
+      setModes(currentModes || []);
     }, [open]);
 
     return (
@@ -58,7 +58,7 @@ export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
 
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <Box component="form" noValidate>
-                    <DialogTitle>{t("backup.create")}</DialogTitle>
+                    <DialogTitle>{actionMode ? t("schedules.action.edit") : t("backup.create")}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             {t("backup.description")}
@@ -88,7 +88,8 @@ export const BackupCreationDialog = ({open, setOpen, setLoading}) => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>{t("action.cancel")}</Button>
-                        <Button onClick={executeAction}>{t("action.create")}</Button>
+                        <Button onClick={actionMode ? () => createAction(modes) : executeAction}
+                                disabled={modes.length === 0}>{actionMode ? t("action.save") : t("action.create")}</Button>
                     </DialogActions>
                 </Box>
             </Dialog>
