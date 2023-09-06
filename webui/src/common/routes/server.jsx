@@ -1,4 +1,4 @@
-import {Dashboard, Extension, Folder, Group, Public, Save, Settings, Terminal} from "@mui/icons-material";
+import {Dashboard, Extension, Folder, Group, Public, Save, Settings, Terminal, Event} from "@mui/icons-material";
 import Overview from "@/states/Root/pages/Overview";
 import {BanListProvider} from "@/states/Root/pages/Players/contexts/BanList";
 import Players from "@/states/Root/pages/Players";
@@ -16,6 +16,8 @@ import {SSHStatusProvider} from "@/states/Root/pages/Configuration/contexts/SSHS
 import Worlds from "@/states/Root/pages/Worlds";
 import {WorldsProvider} from "@/states/Root/pages/Worlds/contexts/Worlds";
 import {t} from "i18next";
+import Scheduler from "@/states/Root/pages/Scheduler";
+import {ScheduleProvider} from "@/states/Root/pages/Scheduler/contexts/Schedules/SchedulesContext.jsx";
 
 export const routes = [
     {path: "/", element: <StatsProvider><Overview /></StatsProvider>},
@@ -25,6 +27,7 @@ export const routes = [
     {path: "/worlds", element: <WorldsProvider><Worlds /></WorldsProvider>},
     {path: "/plugins", element: <PluginsProvider><Plugins /></PluginsProvider>},
     {path: "/backups", element: <BackupProvider><Backups/></BackupProvider>},
+    {path: "/schedules", element: <ScheduleProvider><Scheduler /></ScheduleProvider>},
     {path: "/configuration", element: <PropertiesProvider><SSHStatusProvider><Configuration /></SSHStatusProvider></PropertiesProvider>}
 ]
 
@@ -63,6 +66,11 @@ export const sidebar = [
         path: "/backups",
         icon: <Save />,
         name: () => t("nav.backups")
+    },
+    {
+        path: "/schedules",
+        icon: <Event />,
+        name: () => t("nav.schedules")
     },
     {
         path: "/configuration",
