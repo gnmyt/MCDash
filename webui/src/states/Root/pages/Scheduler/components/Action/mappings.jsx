@@ -1,4 +1,4 @@
-import {Campaign, PowerSettingsNew, Replay, Save, Terminal} from "@mui/icons-material";
+import {Campaign, Group, PowerSettingsNew, Replay, Save, Terminal} from "@mui/icons-material";
 import {t} from "i18next";
 
 export default () => ({
@@ -21,5 +21,9 @@ export default () => ({
     "5": {
         icon: <Save />,
         name: t("schedules.types.backup"),
+    },
+    "6": {
+        icon: <Group />,
+        name: t("schedules.types.kick"),
     }
 });
