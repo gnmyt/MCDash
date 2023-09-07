@@ -53,7 +53,7 @@ export const Schedule = ({name, execution, actions}) => {
             </Stack>
 
             <Collapse in={open}>
-                <Stack direction="row" gap={2} sx={{mt: 2}} alignItems="center" justifyContent="space-between">
+                <Stack direction="row" gap={2} sx={{mt: 2}} alignItems="center" justifyContent="space-between" flexWrap="wrap">
 
                     {actions.length !== 0 && <Typography variant="body2" fontWeight={500} color="text.secondary">
                         {t("schedules.tasks.title")} ({actions.length})</Typography>}
