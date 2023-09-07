@@ -3,11 +3,9 @@ import {t} from "i18next";
 import {putRequest} from "@/common/utils/RequestUtil.js";
 import {useContext, useEffect, useState} from "react";
 import {SchedulesContext} from "@/states/Root/pages/Scheduler/contexts/Schedules";
+import {getDays} from "./utils.js";
 
 export const CreateScheduleDialog = ({open, setOpen}) => {
-    const days = () => [t("schedules.weekly.monday"), t("schedules.weekly.tuesday"),
-        t("schedules.weekly.wednesday"), t("schedules.weekly.thursday"), t("schedules.weekly.friday"),
-        t("schedules.weekly.saturday"), t("schedules.weekly.sunday")];
 
     const {updateSchedules} = useContext(SchedulesContext);
 
@@ -58,7 +56,7 @@ export const CreateScheduleDialog = ({open, setOpen}) => {
                                                                                  key={day}>{day + 1}.</MenuItem>)}
                         </Select>}
                     {frequency === "weekly" && <Select value={time} onChange={(e) => setTime(e.target.value)} fullWidth>
-                        {days().map((day, index) => <MenuItem value={index + 1} key={index}>{day}</MenuItem>)}
+                        {getDays().map((day, index) => <MenuItem value={index + 1} key={index}>{day}</MenuItem>)}
                     </Select>}
                     {frequency === "daily" && <TextField type="time" fullWidth value={time}
                                                          onChange={(e) => setTime(e.target.value)}/>}
