@@ -22,7 +22,7 @@ export const Scheduler = () => {
 
             <Stack direction="column" gap={1}>
                 {schedules.map((schedule) => <Schedule key={schedule.name} {...schedule}/>)}
-                {schedules.length === 0 && <Typography textAlign="center">{t("backup.none_found")}</Typography>}
+                {schedules.length === 0 && <Typography textAlign="center">{t("schedules.none_created")}</Typography>}
             </Stack>
         </Stack>
     )
