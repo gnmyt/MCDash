@@ -28,8 +28,8 @@ export const EditActionDialog = ({open, setOpen, actionType, payload, index, act
             <DialogContent>
                 <Stack direction="column" gap={2} mt={1}>
                     {(actionType === 1 || actionType === 2 || actionType === 6) &&
-                        <TextField label={t("schedules.action.payload")} value={newPayload}
-                                   onChange={(e) => setPayload(e.target.value)} fullWidth/>}
+                        <TextField value={newPayload} onChange={(e) => setPayload(e.target.value)} fullWidth
+                                   label={t("schedules.action." + (actionType === 1 ? "command" : actionType === 2 ? "message" : "kick"))}/>}
                 </Stack>
             </DialogContent>
             <DialogActions>
