@@ -16,7 +16,7 @@ export const CreateActionDialog = ({open, setOpen, name, actions}) => {
         event.preventDefault();
         if (!actionType) return;
 
-        if ((actionType === "COMMAND" || actionType === "BROADCAST" || actionType === "WAIT") && !payload) return;
+        if ((actionType === "1" || actionType === "2" || actionType === "6") && !payload) return;
 
         const newActions = [...actions, {type: actionType, payload: actionType === "5" ? "0" : payload}];
         await patchRequest("schedules/actions", {name, actions: JSON.stringify(newActions)});
@@ -46,8 +46,8 @@ export const CreateActionDialog = ({open, setOpen, name, actions}) => {
                         ))}
                     </Select>
                     {(actionType === "1" || actionType === "2" || actionType === "6") &&
-                        <TextField onChange={(e) => setPayload(e.target.value)}
-                                   label={t("schedules.action.payload")} fullWidth value={payload}/>}
+                        <TextField value={payload} onChange={(e) => setPayload(e.target.value)} fullWidth
+                                   label={t("schedules.action." + (actionType === "1" ? "command" : actionType === "2" ? "message" : "kick"))}/>}
                 </Stack>
             </DialogContent>
             <DialogActions>
