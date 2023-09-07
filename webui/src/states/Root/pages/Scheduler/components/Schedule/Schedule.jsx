@@ -7,9 +7,10 @@ import {deleteRequest} from "@/common/utils/RequestUtil.js";
 import {SchedulesContext} from "@/states/Root/pages/Scheduler/contexts/Schedules";
 import ActionConfirmDialog from "@components/ActionConfirmDialog";
 import {t} from "i18next";
+import {convertFrequency} from "@/states/Root/pages/Scheduler/components/Schedule/utils.js";
 
 export const Schedule = ({name, execution, actions}) => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
@@ -39,7 +40,7 @@ export const Schedule = ({name, execution, actions}) => {
                     <Stack direction="column" gap={0}>
                         <Typography variant="body1" fontWeight={500}>{name}</Typography>
                         <Typography variant="body2" fontWeight={500}
-                                    color="text.secondary">{execution.frequency} {execution.time}</Typography>
+                                    color="text.secondary">{convertFrequency(execution.frequency, execution.time)}</Typography>
                     </Stack>
                 </Stack>
 
