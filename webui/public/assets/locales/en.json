@@ -250,6 +250,7 @@
     "create": "Create schedule",
     "create_title": "Create a new schedule",
     "name": "Name of the schedule",
+    "none_created": "No schedules created",
     "schedule": {
       "monthly": "Every month on the {{day}}th day",
       "weekly": "Every week on {{days}}",
