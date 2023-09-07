@@ -250,6 +250,12 @@
     "create": "Create schedule",
     "create_title": "Create a new schedule",
     "name": "Name of the schedule",
+    "schedule": {
+      "monthly": "Every month on the {{day}}th day",
+      "weekly": "Every week on {{days}}",
+      "daily": "Every day at {{time}}",
+      "hourly": "Every hour at {{minutes}} minutes"
+    },
     "tasks": {
       "title": "Tasks",
       "none_created": "No tasks created",
