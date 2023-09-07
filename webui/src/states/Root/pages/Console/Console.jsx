@@ -15,7 +15,7 @@ export const Console = () => {
     const [currentHistoryIndex, setCurrentHistoryIndex] = useState(consoleHistory.length);
 
     const pushHistory = (command) => {
-        if (consoleHistory.length >= 10) consoleHistory.splice(0, 1);
+        if (consoleHistory.length >= 25) consoleHistory.splice(0, 1);
         consoleHistory.push(command);
         setConsoleHistory(consoleHistory);
         localStorage.setItem("consoleHistory", JSON.stringify(consoleHistory));
