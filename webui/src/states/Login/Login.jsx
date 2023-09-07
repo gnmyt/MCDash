@@ -1,7 +1,7 @@
 import {useContext, useState} from "react";
 import {TokenContext} from "@contexts/Token";
 import {Navigate} from "react-router-dom";
-import {Alert, Box, Button, Container, Grid, Stack, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, Container, Divider, Grid, Stack, TextField, Typography} from "@mui/material";
 import {Buffer} from "buffer";
 import {t} from "i18next";
 
@@ -27,8 +27,10 @@ export const Login = () => {
                         boxShadow: 5, borderRadius: 2, py: 4, display: "flex", flexDirection: "column",
                         alignItems: "center", justifyContent: "center"}}>
                         <Stack direction="row" alignItems="center" gap={1}>
-                            <img src="/assets/img/favicon.png" alt="MCDash" width="40px" height="40px" />
-                            <Typography variant="h5" noWrap>{t("login.sign_in")}</Typography>
+                            <img src="/assets/img/favicon.png" alt="MCDash" width="50px" height="50px" />
+                            <Typography variant="h5" noWrap fontWeight={700}>MCDash</Typography>
+                            <Divider orientation="vertical" sx={{height: "30px", mx: 0.5}} />
+                            <Typography variant="h5" noWrap color="text.secondary">{t("login.sign_in")}</Typography>
                         </Stack>
                         {loginFailed && <Alert severity="error" sx={{mt: 1, width: "80%"}}>
                             {t("login.failed")}
