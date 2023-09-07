@@ -60,8 +60,8 @@ public class ScheduleController {
             calendar.set(Calendar.MINUTE, 0);
         } else if (execution.getFrequency() == ScheduleFrequency.WEEKLY) {
             calendar.set(Calendar.DAY_OF_WEEK, (execution.getTime() + 1) > 7 ? 1 : execution.getTime() + 1);
-            calendar.set(Calendar.HOUR_OF_DAY, execution.getHours());
-            calendar.set(Calendar.MINUTE, execution.getMinutes());
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
         } else if (execution.getFrequency() == ScheduleFrequency.DAILY) {
             calendar.set(Calendar.HOUR_OF_DAY, execution.getHours());
             calendar.set(Calendar.MINUTE, execution.getMinutes());
