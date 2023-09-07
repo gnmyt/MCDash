@@ -6,7 +6,8 @@ public enum ScheduleActionType {
     BROADCAST(2, true),
     RELOAD_SERVER(3, false),
     STOP_SERVER(4, false),
-    CREATE_BACKUP(5, true);
+    CREATE_BACKUP(5, true),
+    KICK_ALL_PLAYERS(6, true);
 
     private final int id;
     private final boolean requiresPayload;
