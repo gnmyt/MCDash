@@ -21,10 +21,15 @@
     "worlds": "Welten",
     "plugins": "Plugins",
     "backups": "Backups",
+    "schedules": "Schedules",
     "configuration": "Einstellungen"
   },
   "info": {
-    "server_unavailable": "Der Server ist derzeit nicht erreichbar."
+    "server_unavailable": "Der Server ist derzeit nicht erreichbar.",
+    "down": {
+      "title": "Server nicht erreichbar",
+      "description": "Überprüfe, ob der Server gestartet ist und MCDash aktiv ist. Diese Seite wird automatisch neu geladen."
+    }
   },
   "login": {
     "sign_in": "Anmelden",
@@ -243,6 +248,60 @@
       "kicked": "Du wurdest gekickt!",
       "kick": "Kicken",
       "ban": "Bannen"
+    }
+  },
+  "schedules": {
+    "create": "Create schedule",
+    "create_title": "Create a new schedule",
+    "edit_title": "Edit schedule",
+    "name": "Name of the schedule",
+    "none_created": "No schedules created",
+    "schedule": {
+      "monthly": "Every month on the {{day}}th day",
+      "weekly": "Every week on {{days}}",
+      "daily": "Every day at {{time}}",
+      "hourly": "Every hour at {{minutes}} minutes"
+    },
+    "tasks": {
+      "title": "Tasks",
+      "none_created": "No tasks created",
+      "edit": "Edit",
+      "delete": "Delete",
+      "add": "Create task"
+    },
+    "frequencies": {
+      "monthly": "Monthly",
+      "weekly": "Weekly",
+      "daily": "Daily",
+      "hourly": "Hourly"
+    },
+    "weekly": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "action": {
+      "kick": "Reason for kick",
+      "command": "Command",
+      "message": "Message",
+      "create": "Create action",
+      "edit": "Edit action"
+    },
+    "types": {
+      "command": "Send a command",
+      "broadcast": "Broadcast a message",
+      "reload": "Reload the server",
+      "stop": "Stop the server",
+      "backup": "Create a backup",
+      "kick": "Kick all players"
+    },
+    "delete": {
+      "title": "Delete schedule",
+      "text": "Are you sure you want to delete this schedule?"
     }
   }
 }
