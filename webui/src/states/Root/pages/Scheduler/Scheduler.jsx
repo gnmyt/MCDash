@@ -20,9 +20,16 @@ export const Scheduler = () => {
                         onClick={() => setDialogOpen(true)}>{t("schedules.create")}</Button>
             </Stack>
 
-            <Stack direction="column" gap={1}>
-                {schedules.map((schedule) => <Schedule key={schedule.name} {...schedule}/>)}
-                {schedules.length === 0 && <Typography textAlign="center">{t("schedules.none_created")}</Typography>}
+            <Stack alignItems="flex-start" gap={1} direction={{sm: "column", lg: "row"}}>
+                {schedules.length === 0 && <Typography width="100%" textAlign="center">{t("schedules.none_created")}</Typography>}
+                {schedules.length !== 0 &&<Stack direction="column" gap={1} sx={{width: {sm: "100%", lg: "48%"}}}>
+                     schedules.slice(0, Math.ceil(schedules.length / 2)).map((schedule) => (
+                        <Schedule key={schedule.name} {...schedule}/>))
+                </Stack>}
+                {schedules.length !== 0 && <Stack direction="column" gap={1} sx={{width: {sm: "100%", lg: "48%"}}}>
+                    schedules.slice(Math.ceil(schedules.length / 2)).map((schedule) => (
+                        <Schedule key={schedule.name} {...schedule}/>))
+                </Stack>}
             </Stack>
         </Stack>
     )
