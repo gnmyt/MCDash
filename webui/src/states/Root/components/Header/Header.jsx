@@ -1,5 +1,5 @@
-import {AppBar, IconButton, Stack, Toolbar, Tooltip, Typography} from "@mui/material";
-import {AccountCircle, BrowserUpdated, Menu as MenuIcon} from "@mui/icons-material";
+import {AppBar, Avatar, IconButton, Stack, Toolbar, Tooltip, Typography} from "@mui/material";
+import {BrowserUpdated, Menu as MenuIcon} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import {sidebar} from "@/common/routes/server.jsx";
 import {useLocation} from "react-router-dom";
@@ -12,6 +12,8 @@ const drawerWidth = 240;
 
 export const Header = ({toggleOpen}) => {
     const location = useLocation();
+
+    const retrieveUsername = () => atob(localStorage.getItem("token")).split(":")[0];
 
     const [versionInfo, setVersionInfo] = useState({available: false});
     const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
@@ -52,7 +54,8 @@ export const Header = ({toggleOpen}) => {
                         </IconButton>
                     </Tooltip>}
                     <IconButton id="menu" onClick={() => setMenuOpen(true)}>
-                        <AccountCircle/>
+                        <Avatar src={"https://mc-heads.net/avatar/" + retrieveUsername()} alt={retrieveUsername()}
+                                sx={{width: 24, height: 24}}/>
                     </IconButton>
                 </Stack>
             </Toolbar>
