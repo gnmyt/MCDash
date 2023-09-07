@@ -40,11 +40,10 @@ export const AccountMenu = ({menuOpen, setMenuOpen}) => {
     return (
         <>
             <ChangeLanguageDialog open={languageOpen} setOpen={setLanguageOpen} setMenuOpen={setMenuOpen}/>
-            <Menu anchorEl={document.getElementById("menu")} open={menuOpen}
-                  onClose={() => setMenuOpen(false)}>
+            <Menu anchorEl={document.getElementById("menu")} open={menuOpen} onClose={() => setMenuOpen(false)}>
                 <MenuItem>
-                    <Avatar sx={{width: 24, height: 24, mr: 1}}>
-                        {retrieveUsername().charAt(0)}
+                    <Avatar sx={{width: 24, height: 24, mr: 1}} src={"https://mc-heads.net/avatar/" + retrieveUsername()}
+                            alt={retrieveUsername()}>
                     </Avatar>
                     <Typography variant="inherit">{retrieveUsername()}</Typography>
                 </MenuItem>
