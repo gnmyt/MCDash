@@ -124,6 +124,13 @@ public class ScheduleController {
                                 MinecraftDashboard.getBackupController().createBackup(action.getPayload(),
                                         BackupRoute.getBackupDirectories(action.getPayload()).toArray(new File[0]));
                                 break;
+                            case KICK_ALL_PLAYERS:
+                                Bukkit.getScheduler().callSyncMethod(MinecraftDashboard.getInstance(), () -> {
+                                    MinecraftDashboard.getInstance().getServer().getOnlinePlayers().forEach(player ->
+                                            player.kickPlayer(action.getPayload()));
+                                    return null;
+                                });
+                                break;
                         }
                     } catch (Exception e) {
                         Bukkit.getLogger().warning("An error occurred while executing a schedule action: "
