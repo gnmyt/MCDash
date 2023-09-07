@@ -8,7 +8,8 @@ if (localStorage.getItem('language') === null)
 
 export const languages = {
     de: "Deutsch",
-    en: "English"
+    en: "English",
+    es: "Español",
 }
 
 i18n.use(initReactI18next).use(LanguageDetector).use(HttpApi).init({
