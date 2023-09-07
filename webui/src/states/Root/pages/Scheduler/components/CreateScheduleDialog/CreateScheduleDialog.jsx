@@ -44,7 +44,7 @@ export const CreateScheduleDialog = ({open, setOpen, edit, currentName, executio
         setFrequency(execution?.frequency ? execution.frequency.toLowerCase() : "monthly");
 
         setTime(execution?.frequency === "DAILY" ? (execution.time.substring(0, 2) + ":" + execution.time.substring(2, 4))
-            : execution?.time ? parseInt(execution.time) : "0");
+            : execution?.time ? parseInt(execution.time) : "1");
     }, [open]);
 
     return (
