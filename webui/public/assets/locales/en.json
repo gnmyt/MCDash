@@ -249,6 +249,7 @@
   "schedules": {
     "create": "Create schedule",
     "create_title": "Create a new schedule",
+    "edit_title": "Edit schedule",
     "name": "Name of the schedule",
     "none_created": "No schedules created",
     "schedule": {
@@ -260,6 +261,7 @@
     "tasks": {
       "title": "Tasks",
       "none_created": "No tasks created",
+      "edit": "Edit",
       "delete": "Delete",
       "add": "Create task"
     },
