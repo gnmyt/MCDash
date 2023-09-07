@@ -8,10 +8,12 @@
 <br />
 <p align="center">
   <a href="https://github.com/gnmyt/MCDash">
-    <img src="https://i.imgur.com/XiwEM3n.png" alt="Logo" width="80" height="80">
+    <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://i.imgur.com/bxuP8yC.png">
+        <img alt="MyLinks Banner" src="https://i.imgur.com/aTxlW0Q.png">
+    </picture>
   </a>
 </p>
-<h3 align="center">Minecraft Dashboard</h3>
 
 ## About The Project
 MCDash is a simple dashboard for your Minecraft server. It allows you to see the current status of your server, the online players, console and more.
