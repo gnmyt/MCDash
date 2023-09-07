@@ -18,6 +18,50 @@ import java.util.Arrays;
 
 public class BackupRoute extends DefaultHandler {
 
+    /**
+     * Gets a list of all directories that should be backed up
+     * @param mode The mode of the backup
+     * @return the list of all directories that should be backed up
+     */
+    public static ArrayList<File> getBackupDirectories(String mode) {
+        String[] modes = mode.split("");
+
+        for (int i = 0; i < modes.length; i++) {
+            for (int j = 0; j < modes.length; j++) {
+                if (i == j) continue;
+                if (modes[i].equals(modes[j])) return new ArrayList<>();
+            }
+        }
+
+        ArrayList<File> directories = new ArrayList<>();
+
+        for (String currentMode : modes) {
+            BackupMode backupMode = BackupMode.fromMode(Integer.parseInt(currentMode));
+            if (backupMode == null) return new ArrayList<>();
+
+            if (backupMode == BackupMode.SERVER) {
+                File[] serverFolder = new File(".").listFiles();
+                directories.addAll(Arrays.asList(serverFolder != null ? serverFolder : new File[0]));
+                break;
+            }
+
+            if (backupMode == BackupMode.WORLDS) Bukkit.getWorlds().forEach(world -> {
+                Bukkit.getScheduler().runTask(MinecraftDashboard.getInstance(), world::save);
+                directories.add(world.getWorldFolder());
+            });
+
+            if (backupMode == BackupMode.PLUGINS) directories.add(new File("plugins"));
+
+            if (backupMode == BackupMode.CONFIGS)
+                directories.addAll(FileUtils.listFiles(new File("."), new String[]{"yml", "properties", "json"}, false));
+
+            if (backupMode == BackupMode.LOGS)
+                directories.addAll(Arrays.asList(new File("logs"), new File("crash-reports")));
+        }
+
+        return directories;
+    }
+
     private final BackupController controller = MinecraftDashboard.getBackupController();
 
     /**
@@ -56,46 +100,14 @@ public class BackupRoute extends DefaultHandler {
         if (!isIntegerInBody(request, response, "mode")) return;
 
         String mode = getStringFromBody(request, "mode").contains("0") ? "0" : getStringFromBody(request, "mode");
-        String[] modes = mode.split("");
 
-        for (int i = 0; i < modes.length; i++) {
-            for (int j = 0; j < modes.length; j++) {
-                if (i == j) continue;
-                if (modes[i].equals(modes[j])) {
-                    response.code(400).message("You can't use the same mode twice");
-                    return;
-                }
-            }
+        ArrayList<File> directories = getBackupDirectories(mode);
+
+        if (directories.isEmpty()) {
+            response.code(400).message("Invalid backup mode string");
+            return;
         }
 
-        ArrayList<File> directories = new ArrayList<>();
-
-        for (String currentMode : modes) {
-            BackupMode backupMode = BackupMode.fromMode(Integer.parseInt(currentMode));
-            if (backupMode == null) {
-                response.code(404).message(String.format("Backup mode %s not found", currentMode));
-                return;
-            }
-
-            if (backupMode == BackupMode.SERVER) {
-                File[] serverFolder = new File(".").listFiles();
-                directories.addAll(Arrays.asList(serverFolder != null ? serverFolder : new File[0]));
-                break;
-            }
-
-            if (backupMode == BackupMode.WORLDS) Bukkit.getWorlds().forEach(world -> {
-                runSync(world::save);
-                directories.add(world.getWorldFolder());
-            });
-
-            if (backupMode == BackupMode.PLUGINS) directories.add(new File("plugins"));
-
-            if (backupMode == BackupMode.CONFIGS)
-                directories.addAll(FileUtils.listFiles(new File("."), new String[]{"yml", "properties", "json"}, false));
-
-            if (backupMode == BackupMode.LOGS)
-                directories.addAll(Arrays.asList(new File("logs"), new File("crash-reports")));
-        }
         controller.createBackup(mode, directories.toArray(new File[0]));
 
         response.message("Backup created");

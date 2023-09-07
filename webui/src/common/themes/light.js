@@ -7,8 +7,9 @@ const theme = createTheme({
             main: '#556cd6',
         },
         background: {
+            card: '#f1f1f1',
             default: '#F4F6F8',
-            darker: "#e5e5e5"
+            darker: "#e5e5e5",
         }
     },
     components: {

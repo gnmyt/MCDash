@@ -40,7 +40,7 @@ export const BackupItem = ({id, created, size, latest, tag, modes, setDelete}) =
                     <Stack>
                         <Stack sx={{flexDirection: "row", alignItems: "center"}} gap={0.5}>
                             <Typography variant="h6" fontWeight={500}>{latest ? t("backup.latest") : t("backup.name")} {(!latest && "#"+tag)}</Typography>
-                            {modes.map((mode) => <div key={mode}>{mappings()[mode]}</div>)}
+                            {modes.map((mode) => <Stack key={mode}>{mappings()[mode]}</Stack>)}
                             <Chip label={convertSize(size)} size="small" color="secondary"/>
                         </Stack>
 

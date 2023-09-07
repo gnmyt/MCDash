@@ -16,8 +16,8 @@ public class WorldManager {
     private final FileConfiguration config;
 
     /**
-     * Basic constructor of the {@link AccountManager}
-     * Loads the accounts.yml file
+     * Basic constructor of the {@link WorldManager}
+     * Loads the worlds.yml file
      */
     public WorldManager(MinecraftDashboard api) {
         file = new File("plugins//"+api.getName()+"//worlds.yml");
