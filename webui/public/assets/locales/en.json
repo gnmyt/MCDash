@@ -290,7 +290,8 @@
       "broadcast": "Broadcast a message",
       "reload": "Reload the server",
       "stop": "Stop the server",
-      "backup": "Create a backup"
+      "backup": "Create a backup",
+      "kick": "Kick all players"
     },
     "delete": {
       "title": "Delete schedule",
