@@ -281,7 +281,9 @@
       "sunday": "Sunday"
     },
     "action": {
-      "payload": "Payload",
+      "kick": "Reason for kick",
+      "command": "Command",
+      "message": "Message",
       "create": "Create action",
       "edit": "Edit action"
     },
