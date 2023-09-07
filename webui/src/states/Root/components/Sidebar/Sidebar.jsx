@@ -30,7 +30,7 @@ export const Sidebar = ({mobileOpen, toggleOpen, window: containerWindow}) => {
         <>
             <Toolbar>
                 <Stack direction="row" alignItems="center" gap={1}>
-                    <img src="/assets/img/favicon.png" alt="MCDash" width="40px" height="40px" />
+                    <img src="/assets/img/favicon.png" alt="MCDash" width="50px" />
                     <Typography variant="h5" noWrap fontWeight={700}>MCDash</Typography>
                 </Stack>
             </Toolbar>
