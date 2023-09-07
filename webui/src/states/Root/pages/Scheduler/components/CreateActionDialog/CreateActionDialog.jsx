@@ -45,7 +45,7 @@ export const CreateActionDialog = ({open, setOpen, name, actions}) => {
                             </MenuItem>
                         ))}
                     </Select>
-                    {(actionType === "1" || actionType === "2") &&
+                    {(actionType === "1" || actionType === "2" || actionType === "6") &&
                         <TextField onChange={(e) => setPayload(e.target.value)}
                                    label={t("schedules.action.payload")} fullWidth value={payload}/>}
                 </Stack>
