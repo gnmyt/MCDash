@@ -10,6 +10,37 @@ import {Send} from "@mui/icons-material";
 import {t} from "i18next";
 
 export const Console = () => {
+
+    const [consoleHistory, setConsoleHistory] = useState(JSON.parse(localStorage.getItem("consoleHistory")) || []);
+    const [currentHistoryIndex, setCurrentHistoryIndex] = useState(consoleHistory.length);
+
+    const pushHistory = (command) => {
+        if (consoleHistory.length >= 25) consoleHistory.splice(0, 1);
+        consoleHistory.push(command);
+        setConsoleHistory(consoleHistory);
+        localStorage.setItem("consoleHistory", JSON.stringify(consoleHistory));
+        setCurrentHistoryIndex(consoleHistory.length);
+
+        setCommand("");
+    }
+
+    const onHistoryKeyUp = (e) => {
+        if (e.key === "ArrowUp") {
+            if (currentHistoryIndex > 0) {
+                setCurrentHistoryIndex(currentHistoryIndex - 1);
+                setCommand(consoleHistory[currentHistoryIndex - 1]);
+            }
+        } else if (e.key === "ArrowDown") {
+            setCurrentHistoryIndex(currentHistoryIndex < consoleHistory.length - 1 ? currentHistoryIndex + 1 : consoleHistory.length);
+            setCommand(currentHistoryIndex < consoleHistory.length - 1 ? consoleHistory[currentHistoryIndex + 1] : "");
+        }
+    }
+
+    const executeCommand = (event) => {
+        event.preventDefault();
+        dispatchCommand(command).then(() => pushHistory(command));
+    }
+
     const terminalRef = useRef(null);
     const [command, setCommand] = useState("");
 
@@ -61,12 +92,9 @@ export const Console = () => {
 
             <Box ref={terminalRef} sx={{mt: 2, width: "85vw", borderRadius: 1.5, overflow: "hidden"}}/>
 
-            <Stack component="form" direction="row" alignItems="center" gap={1} sx={{mt: 3}} onSubmit={(e) => {
-                e.preventDefault();
-                dispatchCommand(command).then(() => setCommand(""));
-            }}>
+            <Stack component="form" direction="row" alignItems="center" gap={1} sx={{mt: 3}} onSubmit={executeCommand}>
                 <TextField value={command} required fullWidth label={t("console.command")}
-                           autoFocus onChange={(e) => setCommand(e.target.value)}/>
+                           autoFocus onChange={(e) => setCommand(e.target.value)} onKeyUp={onHistoryKeyUp}/>
 
                 <IconButton variant="contained" type="submit"><Send/></IconButton>
             </Stack>
