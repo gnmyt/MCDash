@@ -3,6 +3,7 @@ import {useContext, useState} from "react";
 import {SettingsContext} from "@contexts/Settings";
 import GermanFlag from "@/common/assets/images/flags/de.webp";
 import EnglishFlag from "@/common/assets/images/flags/en.webp";
+import SpainFlag from "@/common/assets/images/flags/es.webp";
 import {t} from "i18next";
 
 export const ChangeLanguageDialog = ({open, setOpen}) => {
@@ -23,16 +24,20 @@ export const ChangeLanguageDialog = ({open, setOpen}) => {
                 <Select fullWidth value={value} onChange={(e) => setValue(e.target.value)} variant="outlined">
                     <MenuItem value="en">
                         <Stack direction={"row"} gap={1} alignItems={"center"}>
-                            <Box component="img" src={EnglishFlag} height={12} alt="English"
-                                 borderRadius={0.2}/>
+                            <Box component="img" src={EnglishFlag} height={12} alt="English" borderRadius={0.2}/>
                             English
                         </Stack>
                     </MenuItem>
                     <MenuItem value="de">
                         <Stack direction={"row"} gap={1} alignItems={"center"}>
-                            <Box component="img" src={GermanFlag} height={12} alt="English"
-                                 borderRadius={0.2}/>
+                            <Box component="img" src={GermanFlag} height={12} alt="English" borderRadius={0.2}/>
                             Deutsch
+                        </Stack>
+                    </MenuItem>
+                    <MenuItem value="es">
+                        <Stack direction={"row"} gap={1} alignItems={"center"}>
+                            <Box component="img" src={SpainFlag} height={12} alt="Spanish" borderRadius={0.2}/>
+                            Español
                         </Stack>
                     </MenuItem>
                 </Select>
