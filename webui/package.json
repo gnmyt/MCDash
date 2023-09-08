@@ -17,7 +17,7 @@
     "@mui/material": "^5.13.5",
     "@mui/x-charts": "^6.0.0-alpha.7",
     "@mui/x-data-grid": "^6.8.0",
-    "@uiw/codemirror-theme-atomone": "^4.21.3",
+    "@uiw/codemirror-theme-dracula": "^4.21.13",
     "@uiw/react-codemirror": "^4.21.3",
     "buffer": "^6.0.3",
     "i18next": "^23.4.4",
