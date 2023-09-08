@@ -21,7 +21,7 @@
     "worlds": "Mundos",
     "plugins": "Plugins",
     "backups": "Copias de Seguridad",
-    "schedules": "Schedules",
+    "schedules": "Horarios",
     "configuration": "Configuración"
   },
   "info": {
@@ -251,57 +251,57 @@
     }
   },
   "schedules": {
-    "create": "Create schedule",
-    "create_title": "Create a new schedule",
-    "edit_title": "Edit schedule",
-    "name": "Name of the schedule",
-    "none_created": "No schedules created",
+    "create": "Crear horario",
+    "create_title": "Crear un nuevo horario",
+    "edit_title": "Editar horario",
+    "name": "Nombre del horario",
+    "none_created": "No se han creado horarios",
     "schedule": {
-      "monthly": "Every month on the {{day}}th day",
-      "weekly": "Every week on {{days}}",
-      "daily": "Every day at {{time}}",
-      "hourly": "Every hour at {{minutes}} minutes"
+      "monthly": "Cada mes, el {{day}}ésimo día",
+      "weekly": "Cada semana en {{days}}",
+      "daily": "Todos los días a las {{time}}",
+      "hourly": "Cada hora a los {{minutes}} minutos"
     },
     "tasks": {
-      "title": "Tasks",
-      "none_created": "No tasks created",
-      "edit": "Edit",
-      "delete": "Delete",
-      "add": "Create task"
+      "title": "Tareas",
+      "none_created": "No hay tareas creadas",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "add": "Crear tarea"
     },
     "frequencies": {
-      "monthly": "Monthly",
-      "weekly": "Weekly",
-      "daily": "Daily",
-      "hourly": "Hourly"
+      "monthly": "Mensualmente",
+      "weekly": "Semanal",
+      "daily": "Diario",
+      "hourly": "Horaria"
     },
     "weekly": {
-      "monday": "Monday",
-      "tuesday": "Tuesday",
-      "wednesday": "Wednesday",
-      "thursday": "Thursday",
-      "friday": "Friday",
-      "saturday": "Saturday",
-      "sunday": "Sunday"
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
     },
     "action": {
-      "kick": "Reason for kick",
-      "command": "Command",
-      "message": "Message",
-      "create": "Create action",
-      "edit": "Edit action"
+      "kick": "Razón de patear",
+      "command": "Comando",
+      "message": "Mensaje",
+      "create": "Crear acción",
+      "edit": "Editar acción"
     },
     "types": {
-      "command": "Send a command",
-      "broadcast": "Broadcast a message",
-      "reload": "Reload the server",
-      "stop": "Stop the server",
-      "backup": "Create a backup",
-      "kick": "Kick all players"
+      "command": "Enviar comando",
+      "broadcast": "Emitir un mensaje",
+      "reload": "Recarga el servidor",
+      "stop": "Detener el servidor",
+      "backup": "Crear un respaldo",
+      "kick": "Patear a todos los jugadores"
     },
     "delete": {
-      "title": "Delete schedule",
-      "text": "Are you sure you want to delete this schedule?"
+      "title": "Borrar horario",
+      "text": "¿Está seguro de que desea eliminar este horario?"
     }
   }
 }
