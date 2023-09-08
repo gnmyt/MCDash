@@ -1,5 +1,5 @@
 import CodeMirror from "@uiw/react-codemirror";
-import {atomone} from "@uiw/codemirror-theme-atomone";
+import {dracula} from "@uiw/codemirror-theme-dracula";
 import {Box, Fab} from "@mui/material";
 import {useEffect, useState} from "react";
 import {patchRequest, request} from "@/common/utils/RequestUtil.js";
@@ -38,7 +38,10 @@ export const FileEditor = ({directory, currentFile, setSnackbar}) => {
         <Box display="flex" flexDirection="column" gap={1} marginTop={2} sx={{maxWidth: "85vw"}}>
             {fileContentChanged && <Fab color="secondary" sx={{position: "fixed", bottom: 20, right: 20}}
                                         onClick={saveFile}><Save/></Fab>}
-            <CodeMirror value={fileContent === null ? t("files.loading") : fileContent} onChange={updateContent} theme={atomone}/>
+            <Box sx={{borderRadius: 2, overflow: "hidden"}}>
+                <CodeMirror value={fileContent === null ? t("files.loading") : fileContent} onChange={updateContent}
+                            theme={dracula}/>
+            </Box>
         </Box>
     )
 }
