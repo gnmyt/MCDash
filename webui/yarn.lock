@@ -832,13 +832,6 @@
     "@codemirror/state" "^6.0.0"
     "@codemirror/view" "^6.0.0"
 
-"@uiw/codemirror-theme-atomone@^4.21.3":
-  version "4.21.3"
-  resolved "https://registry.npmjs.org/@uiw/codemirror-theme-atomone/-/codemirror-theme-atomone-4.21.3.tgz"
-  integrity sha512-287WliCgjhsMtl8sJrkPZLoiYOTqofketjYRw+w6+vp9ENuS9k1OOVPmwqh5vwRVOpQRnYP88S98oS/i23fNTg==
-  dependencies:
-    "@uiw/codemirror-themes" "4.21.3"
-
 "@uiw/codemirror-theme-dracula@^4.21.13":
   version "4.21.13"
   resolved "https://registry.yarnpkg.com/@uiw/codemirror-theme-dracula/-/codemirror-theme-dracula-4.21.13.tgz#63dd60922f977190c73bd530b3152216b37c6ec8"
@@ -850,15 +843,6 @@
   version "4.21.13"
   resolved "https://registry.yarnpkg.com/@uiw/codemirror-themes/-/codemirror-themes-4.21.13.tgz#153cc00b8675963cc796d57b2e38bd902aef8fd3"
   integrity sha512-+IeYow6kmz1LJmXd1rL7ngVxb5lm2wKrjYNfomDvmoUz2gKcca8y7pWGMIFhIsabrNW11SFVSloVkj9ZXw7e1Q==
-  dependencies:
-    "@codemirror/language" "^6.0.0"
-    "@codemirror/state" "^6.0.0"
-    "@codemirror/view" "^6.0.0"
-
-"@uiw/codemirror-themes@4.21.3":
-  version "4.21.3"
-  resolved "https://registry.npmjs.org/@uiw/codemirror-themes/-/codemirror-themes-4.21.3.tgz"
-  integrity sha512-gB7jUP1SqAkvwOGt0hTpyw7xHMJkgDu5ODy+1qPHMU27IT425+GXJAHPKLHBuRL2+InnWJPMz9JXVrrJU32lLg==
   dependencies:
     "@codemirror/language" "^6.0.0"
     "@codemirror/state" "^6.0.0"
