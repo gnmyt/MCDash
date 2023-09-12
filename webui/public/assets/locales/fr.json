@@ -1,46 +1,46 @@
 {
   "action": {
-    "failed": "Could not execute action",
-    "success": "Action executed successfully",
-    "cancel": "Cancel",
-    "add": "Add",
-    "save": "Save",
-    "remove": "Remove",
-    "continue": "Yes, continue",
-    "confirm": "Confirm action",
-    "create": "Create",
-    "warn": "Warning",
-    "sure": "Are you sure you want to confirm this action?",
-    "changes_saved": "Changes saved"
+    "failed": "Impossible d'exécuter l'action",
+    "success": "Action exécutée avec succès",
+    "cancel": "Annuler",
+    "add": "Ajouter",
+    "save": "Enregistrer",
+    "remove": "Retirer",
+    "continue": "Oui, continuer",
+    "confirm": "Confirmer l'action",
+    "create": "Créer",
+    "warn": "Attention",
+    "sure": "Êtes-vous sûr de vouloir effectuer cette action ?",
+    "changes_saved": "Modifications enregistrées"
   },
   "nav": {
-    "overview": "Overview",
-    "players": "Players",
-    "files": "File Manager",
+    "overview": "Vue d'ensemble",
+    "players": "Joueurs",
+    "files": "Gestionnaire de fichiers",
     "console": "Console",
-    "worlds": "Worlds",
+    "worlds": "Mondes",
     "plugins": "Plugins",
-    "backups": "Backups",
-    "schedules": "Schedules",
-    "configuration": "Configuration"
+    "backups": "Sauvegardes",
+    "schedules": "Planifications",
+    "configuration": "Paramètres"
   },
   "info": {
-    "server_unavailable": "The server is currently unavailable.",
+    "server_unavailable": "Le serveur est actuellement indisponible.",
     "down": {
-      "title": "Server not available",
-      "description": "Check if the server is started and MCDash is active. This page will be reloaded automatically."
+      "title": "Serveur indisponible",
+      "description": "Vérifiez si le serveur est démarré et que MCDash est actif. Cette page sera rechargée automatiquement."
     }
   },
   "login": {
-    "sign_in": "Sign In",
-    "failed": "Login failed, check your credentials.",
-    "name": "Ingame-name",
-    "password": "Password"
+    "sign_in": "S'identifier",
+    "failed": "La connexion a échoué, vérifiez vos identifiants.",
+    "name": "Nom en jeu",
+    "password": "Mot de passe"
   },
   "header": {
-    "support_me": "Support me",
-    "dark_theme": "Dark theme",
-    "light_theme": "Light theme",
+    "support_me": "Me soutenir",
+    "dark_theme": "Thème sombre",
+    "light_theme": "Thème clair",
     "update_language": "Update language",
     "language": "Language",
     "logout": "Logout"
