@@ -49,7 +49,7 @@
     "available": "Une mise à jour est disponible",
     "info": "Une mise à jour est disponible pour MCDash. Une fois mis à jour, le fichier du plugin sera remplacé et l'interface s'arrêtera. Si vous voulez que l'interface redémarre automatiquement, vous pouvez cliquer sur le bouton \"Recharger après mise à jour\". Gardez à l'esprit que le rechargement de votre serveur peut causer des problèmes, il est donc recommandé de simplement mettre à jour et de redémarrer le serveur manuellement.",
     "just_update": "Seulement mettre à jour",
-    "reload_after": "Recharger après la mise à jour",
+    "reload_after": "Recharger après avoir mis à jour",
     "updating": "L'interface va s'éteindre et se mettre à jour vers la version {{latest}}. Veuillez patienter..."
   },
   "time": {
