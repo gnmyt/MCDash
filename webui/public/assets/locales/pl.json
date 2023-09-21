@@ -169,38 +169,38 @@
     "already_installed": "Wtyczka jest już zainstalowana",
     "install": "Zainstaluj",
     "delete": {
-      "tooltip": "Delete plugin",
-      "title": "Delete {{name}}",
-      "text": "Are you sure you want to delete {{name}}? You need to restart your server to apply the changes after deleting."
+      "tooltip": "Usuń plugin",
+      "title": "Usuń {{name}}",
+      "text": "Czy na pewno chcesz usunąć {{name}}? Musisz zrestartować swój serwer, aby zastosować zmiany po usunięciu."
     }
   },
   "worlds": {
-    "change": "Change",
-    "create": "Create world",
-    "create_title": "Create a new world",
+    "change": "Zmień",
+    "create": "Stwórz świat",
+    "create_title": "Stwórz nowy świat",
     "overworld": "Overworld",
     "nether": "Nether",
-    "end": "The End",
-    "world_name": "Name of the world",
-    "world_type": "Type of the world",
+    "end": "End",
+    "world_name": "Nazwa świata",
+    "world_type": "Typ świata",
     "difficulty": {
-      "changed": "Difficulty changed successfully!",
-      "title": "Change difficulty",
-      "peaceful": "Peaceful",
-      "easy": "Easy",
-      "normal": "Normal",
-      "hard": "Hard",
-      "button": "Difficulty"
+      "changed": "Trudność została zmieniona pomyślnie!",
+      "title": "Zmień trudność",
+      "peaceful": "Pokojowy",
+      "easy": "Łatwy",
+      "normal": "Normalny",
+      "hard": "Trudny",
+      "button": "Poziom trudności"
     },
     "time": {
-      "changed": "Time changed successfully!",
-      "title": "Change time",
-      "update": "Change to",
-      "button": "Time"
+      "changed": "Czas został pomyślnie zmieniony!",
+      "title": "Zmień czas",
+      "update": "Zmień na",
+      "button": "Czas"
     },
     "weather": {
-      "changed": "Weather changed successfully!",
-      "title": "Change weather",
+      "changed": "Pogoda została pomyślnie zmieniona!",
+      "title": "Zmień pogodę",
       "clear": "Bezchmurnie",
       "rain": "Deszcz",
       "thunder": "Burza z piorunami",
@@ -265,43 +265,43 @@
     "tasks": {
       "title": "Zadania",
       "none_created": "Nie utworzono zadań",
-      "edit": "Edit",
-      "delete": "Delete",
-      "add": "Create task"
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "add": "Utwórz zadanie"
     },
     "frequencies": {
-      "monthly": "Monthly",
-      "weekly": "Weekly",
-      "daily": "Daily",
-      "hourly": "Hourly"
+      "monthly": "Miesięcznie",
+      "weekly": "Tygodniowo",
+      "daily": "Dziennie",
+      "hourly": "Godzinowo"
     },
     "weekly": {
-      "monday": "Monday",
-      "tuesday": "Tuesday",
-      "wednesday": "Wednesday",
-      "thursday": "Thursday",
-      "friday": "Friday",
-      "saturday": "Saturday",
-      "sunday": "Sunday"
+      "monday": "Poniedziałek",
+      "tuesday": "Wtorek",
+      "wednesday": "Środa",
+      "thursday": "Czwartek",
+      "friday": "Piątek",
+      "saturday": "Sobota",
+      "sunday": "Niedziela"
     },
     "action": {
-      "kick": "Reason for kick",
-      "command": "Command",
-      "message": "Message",
-      "create": "Create action",
-      "edit": "Edit action"
+      "kick": "Powód wyrzucenia",
+      "command": "Komenda",
+      "message": "Wiadomość",
+      "create": "Utwórz akcję",
+      "edit": "Edytuj akcję"
     },
     "types": {
-      "command": "Send a command",
-      "broadcast": "Broadcast a message",
-      "reload": "Reload the server",
-      "stop": "Stop the server",
-      "backup": "Create a backup",
-      "kick": "Kick all players"
+      "command": "Wyślij komendę",
+      "broadcast": "Nadaj komunikat",
+      "reload": "Przeładuj serwer",
+      "stop": "Zatrzymaj serwer",
+      "backup": "Utwórz kopię zapasową",
+      "kick": "Wyrzuć wszystkich graczy"
     },
     "delete": {
-      "title": "Delete schedule",
-      "text": "Are you sure you want to delete this schedule?"
+      "title": "Usuń harmonogram",
+      "text": "Czy na pewno chcesz usunąć ten harmonogram?"
     }
   }
 }
