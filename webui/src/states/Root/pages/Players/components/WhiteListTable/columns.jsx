@@ -16,7 +16,7 @@ const columns = () => [
     {field: 'uuid', headerName: t("players.id"), flex: 1, minWidth: 200},
     {
         field: 'last_seen', headerName: t("players.last_seen"), flex: 1, minWidth: 100, renderCell: (params) =>
-            (<Typography>{new Date(params.row.last_seen).toLocaleString()}</Typography>)
+            (<Typography>{new Date(params.row.last_seen).getDate() === 1 ? "-" : new Date(params.row.last_seen).toLocaleString()}</Typography>)
     }
 ];
 
