@@ -2,6 +2,8 @@ import {useContext} from "react";
 import {WhiteListContext} from "@/states/Root/pages/Players/contexts/WhiteList";
 import {DataGrid} from "@mui/x-data-grid";
 import columns from "./columns.jsx";
+import {Stack} from "@mui/material";
+import {t} from "i18next";
 
 export const WhiteListTable = ({setSelectedWhitelistedPlayers}) => {
     const {whitelistedPlayers} = useContext(WhiteListContext);
@@ -21,6 +23,11 @@ export const WhiteListTable = ({setSelectedWhitelistedPlayers}) => {
                 }}
                 sx={{display: 'grid', gridTemplateRows: 'auto 1f auto'}}
                 autoHeight={true}
+                slots={{
+                    noRowsOverlay: () => <Stack sx={{height: "100%", alignItems: "center", justifyContent: "center"}}>
+                        {t("players.none.whitelisted")}
+                    </Stack>
+                }}
             />
         </>
     );
