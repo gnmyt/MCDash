@@ -28,6 +28,7 @@ export const WhiteListTable = ({setSelectedWhitelistedPlayers}) => {
                         {t("players.none.whitelisted")}
                     </Stack>
                 }}
+                slotProps={{pagination: {labelRowsPerPage: t("players.per_page")}}}
             />
         </>
     );
