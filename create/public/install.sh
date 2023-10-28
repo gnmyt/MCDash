@@ -11,6 +11,7 @@ PANEL_PORT=$5
 VERSION=$6
 NAME=$7
 JAVA_VERSION=$8
+MEMORY=$9
 
 JAVA_ROOT="${ROOT}/java/${JAVA_VERSION}"
 
@@ -61,6 +62,10 @@ fi
 
 if [ -z "${JAVA_VERSION}" ]; then
     quit "Java version not specified"
+fi
+
+if [ -z "${MEMORY}" ]; then
+    quit "Memory not specified"
 fi
 
 say "dependencies"
@@ -198,7 +203,7 @@ After=network.target
 WorkingDirectory=${INSTALLATION_PATH}
 User=minecraft-${ID}
 Restart=always
-ExecStart=${JAVA_ROOT}/bin/java -jar server.jar nogui
+ExecStart=${JAVA_ROOT}/bin/java -jar -Xms${MEMORY} -Xmx${MEMORY} server.jar nogui
 
 [Install]
 WantedBy=multi-user.target
