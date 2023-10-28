@@ -14,7 +14,7 @@ export const NewServer = () => {
     const [software, setSoftware] = useState("spigot");
     const [version, setVersion] = useState("1.20.1");
     const [serverName, setServerName] = useState("My server");
-    const [instanceId, setInstanceId] = useState(Math.random().toString(36).substring(2, 7));
+    const [memory, setMemory] = useState(4);
 
     const [eula, setEula] = useState(false);
     const [mcPort, setMcPort] = useState(25565);
@@ -28,7 +28,7 @@ export const NewServer = () => {
     const handleNext = () => {
         if (currentStep === steps.length) return;
 
-        if (currentStep === 0 && (!software || !version || !serverName || !instanceId)) {
+        if (currentStep === 0 && (!software || !version || !serverName || !memory)) {
             setError("You must fill in all fields to continue");
             return;
         }
@@ -71,14 +71,14 @@ export const NewServer = () => {
             <Box sx={{mt: 2, mb: 2}}>
                 {currentStep === 0 && <Server software={software} setSoftware={setSoftware} serverName={serverName}
                                               version={version} setVersion={setVersion} setServerName={setServerName}
-                                              instanceId={instanceId} setInstanceId={setInstanceId}/>}
+                                              memory={memory} setMemory={setMemory}/>}
                 {currentStep === 1 && <Game eula={eula} setEula={setEula} mcPort={mcPort} setMcPort={setMcPort}
                                             panelPort={panelPort} setPanelPort={setPanelPort}/>}
                 {currentStep === 2 && <Account username={username} setUsername={setUsername} password={password}
                                                setPassword={setPassword}/>}
 
                 {currentStep === steps.length && <Finished software={software} version={version} serverName={serverName}
-                                                           instanceId={instanceId} mcPort={mcPort} panelPort={panelPort}
+                                                           memory={memory} mcPort={mcPort} panelPort={panelPort}
                                                            username={username} password={password}/>}
             </Box>
 
