@@ -77,6 +77,7 @@ export const PlayerTable = ({setSelectedPlayers}) => {
                         {t("players.none.online")}
                     </Stack>
                 }}
+                slotProps={{pagination: {labelRowsPerPage: t("players.per_page")}}}
             />
         </>
     );
