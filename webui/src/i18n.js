@@ -10,6 +10,9 @@ export const languages = {
     de: "Deutsch",
     en: "English",
     es: "Español",
+    fr: "Français",
+    ja: "日本語",
+    pl: "Polski"
 }
 
 i18n.use(initReactI18next).use(LanguageDetector).use(HttpApi).init({
