@@ -24,34 +24,47 @@ MCDash is a simple dashboard for your Minecraft server. It allows you to see the
 - [x] View and edit the files of your server
 - [x] Use your server console
 - [x] Execute commands
+- [x] See the installed plugins & install plugisn from spigotmc
+- [x] Schedule tasks daily, monthly, ...
 - [x] See the installed plugins
+- [x] Create backups of your server
+- [x] Manage your worlds
 - [x] Update your server properties
 
 ## Screenshots
 
 ### Dashboard
-![Screenshot 1](https://i.imgur.com/mnQUDKn.png)
+![Screenshot 1](https://i.imgur.com/PX1QGYw.png)
 
 ### Players
-![Screenshot 2](https://i.imgur.com/9qvnVWR.png)
+![Screenshot 2](https://i.imgur.com/Jpng0hy.png)
 
 ### Files
-![Screenshot 3](https://i.imgur.com/AHfuSfc.png)
+![Screenshot 3](https://i.imgur.com/Lno1Wl5.png)
 
 ### Console
-![Screenshot 4](https://i.imgur.com/idXXSEz.png)
+![Screenshot 4](https://i.imgur.com/WgBcrbr.png)
+
+### Worlds
+![Screenshot 5](https://i.imgur.com/uSsnbiV.png)
 
 ### Plugins
-![Screenshot 5](https://i.imgur.com/HPr8ux8.png)
+![Screenshot 6](https://i.imgur.com/8w2Vuep.png)
+
+### Plugins (Store)
+![Screenshot 7](https://i.imgur.com/Wm8WOxJ.png)
+
+### Backups
+![Screenshot 8](https://i.imgur.com/hWFxTlF.png)
+
+### Schedules
+![Screenshot 9](https://i.imgur.com/SbhZJdc.png)
 
 ### Configuration
-![Screenshot 6](https://i.imgur.com/6mWaAI4.png)
+![Screenshot 10](https://i.imgur.com/Q58pZAT.png)
 
 ## Installation
-1. Download the newest version of this plugin in the `Releases` section and put it in the `plugins` directory of your server.
-2. Restart your server.
-3. Use the `/passwd` command to set your web password.
-4. Open your browser and go to `http://your-ip:7867` and login with your minecraft name and password.
+Check out our [installation guide](https://mcdash.gnmyt.dev/docs/introduction/installation) to install MCDash on your server.
 
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
