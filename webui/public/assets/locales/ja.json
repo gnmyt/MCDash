@@ -248,7 +248,13 @@
       "kicked": "追放しました。",
       "kick": "追放",
       "ban": "BAN"
-    }
+    },
+    "none": {
+      "online": "No players online",
+      "whitelisted": "No whitelisted players found",
+      "banned": "No banned players found"
+    },
+    "per_page": "Players per page"
   },
   "schedules": {
     "create": "スケジュールを作成",
