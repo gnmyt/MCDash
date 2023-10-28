@@ -248,7 +248,13 @@
       "kicked": "¡Has sido kickeado!",
       "kick": "Kickear",
       "ban": "Banear"
-    }
+    },
+    "none": {
+      "online": "No players online",
+      "whitelisted": "No whitelisted players found",
+      "banned": "No banned players found"
+    },
+    "per_page": "Players per page"
   },
   "schedules": {
     "create": "Crear horario",
