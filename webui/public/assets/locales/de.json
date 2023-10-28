@@ -248,7 +248,13 @@
       "kicked": "Du wurdest gekickt!",
       "kick": "Kicken",
       "ban": "Bannen"
-    }
+    },
+    "none": {
+      "online": "Keine Spieler online",
+      "whitelisted": "Keine Spieler auf der Whitelist gefunden",
+      "banned": "Keine gebannten Spieler gefunden"
+    },
+    "per_page": "Spieler pro Seite"
   },
   "schedules": {
     "create": "Zeitplan erstellen",

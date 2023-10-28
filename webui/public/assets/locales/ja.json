@@ -1,0 +1,313 @@
+{
+  "action": {
+    "failed": "操作を実行できませんでした。",
+    "success": "操作が正常に実行されました。",
+    "cancel": "キャンセル",
+    "add": "追加",
+    "save": "保存",
+    "remove": "除外",
+    "continue": "続行",
+    "confirm": "続行",
+    "create": "作成",
+    "warn": "警告",
+    "sure": "この操作を実行しても良いですか?",
+    "changes_saved": "変更を保存しました。"
+  },
+  "nav": {
+    "overview": "概要",
+    "players": "プレイヤー",
+    "files": "ファイルマネージャー",
+    "console": "コンソール",
+    "worlds": "ワールド",
+    "plugins": "プラグイン",
+    "backups": "バックアップ",
+    "schedules": "スケジュール",
+    "configuration": "詳細設定"
+  },
+  "info": {
+    "server_unavailable": "現在サーバーは利用できません。",
+    "down": {
+      "title": "サーバーは利用できません",
+      "description": "サーバーが起動していることを確認し、MCDashが有効であることを確認してください。ページは自動的に再読み込みされます。"
+    }
+  },
+  "login": {
+    "sign_in": "ログイン",
+    "failed": "ログインに失敗しました。認証情報を確認してください。",
+    "name": "ゲーム内での名前",
+    "password": "パスワード"
+  },
+  "header": {
+    "support_me": "支援する",
+    "dark_theme": "ダークテーマ",
+    "light_theme": "ライトテーマ",
+    "update_language": "言語を更新",
+    "language": "言語",
+    "logout": "ログアウト"
+  },
+  "update": {
+    "available": "アップデートが利用可能",
+    "info": "MCDashのアップデートがあります。アップデートすると、プラグインファイルが置き換えられ、パネルがシャットダウンします。 パネルを自動的に再起動させたい場合は、「更新後再読み込み」ボタンをクリックします。 サーバーを再読み込みすると問題が発生する可能性があるので、手動で更新して再起動することをお勧めします。",
+    "just_update": "更新だけ",
+    "reload_after": "更新後再読み込み",
+    "updating": "パネルをシャットダウンし、バージョン {{latest}}に更新します。しばらくお待ちください。"
+  },
+  "time": {
+    "sunrise": "日の出",
+    "day": "昼間",
+    "sunset": "日没",
+    "night": "夜"
+  },
+  "backup": {
+    "name": "バックアップ",
+    "latest": "最新のバックアップ",
+    "created": "バックアップが正常に作成されました。",
+    "create": "バックアップを作成",
+    "time": "作成日時",
+    "none_found": "バックアップはありません。",
+    "description": "バックアップするものを選択",
+    "restored": "バックアップが正常に復元されました。",
+    "restoring": "バックアップを復元中",
+    "restore_text": "MCDashは起動中にこのバックアップを復元します。Minecraft はメモリから数秒ごとにワールドを自動的に保存するため、ワールドが破損する可能性があります。 これを防ぐために、メモリから世界を保存せずにサーバーを停止できます。 起動中にサーバーに保存されていない変更はすべて失われます。 ログやその他のファイルを Minecraft によって自動的に保存されていない場合は、この操作は適用されません。",
+    "restore_and_stop": "復元して停止",
+    "only_restore": "復元のみ",
+    "delete": {
+      "title": "バックアップを削除",
+      "text": "本当にバックアップを削除してもよろしいですか?",
+      "success": "バックアップを削除しました。",
+      "yes": "削除"
+    },
+    "mode": {
+      "complete": "全て",
+      "worlds": "ロードされているワールド",
+      "plugins": "プラグインとその設定",
+      "config": "設定/構成ファイル",
+      "logs": "コンソールログ"
+    },
+    "mapping": {
+      "complete": "サーバーの全て",
+      "worlds": "ワールド",
+      "plugins": "プラグイン",
+      "config": "設定",
+      "logs": "ログ"
+    }
+  },
+  "configuration": {
+    "saved": "変更が保存されました。サーバーを再起動して適用します。",
+    "services": "サービス",
+    "ssh": {
+      "server": "SSHサーバー",
+      "description": "ファイルを管理し、コンピュータからコンソールを制御します。",
+      "bind_error": "そのポートの関連付けに失敗しました。別のポートを試してください。",
+      "port": "SSHポート",
+      "connect": "接続"
+    }
+  },
+  "console": {
+    "command": "コマンド"
+  },
+  "files": {
+    "folder": "フォルダー",
+    "loading": "ファイルをロード中...",
+    "file_deleted": "ファイルを削除しました。",
+    "file_saved": "ファイルを保存しました。",
+    "upload_file": "ファイルをアップロード",
+    "file_uploaded": "ファイルがアップロードされました。",
+    "folder_deleted": "フォルダを削除しました。",
+    "folder_created": "フォルダを作成しました。",
+    "download": "ダウンロード",
+    "delete": "削除",
+    "go_back": "戻る",
+    "create_folder": {
+      "title": "新しいフォルダを作成",
+      "text": "名前を入力"
+    }
+  },
+  "overview": {
+    "cpu": "CPUコア数",
+    "tps": "TPS",
+    "ram": "メモリ",
+    "disk": "容量",
+    "software": "サーバーの種類",
+    "version": "バージョン",
+    "ip": "IP",
+    "tip": {
+      "title": "お知らせ",
+      "welcome": "MCDash - ようこそ!",
+      "text": "おめでとうございます! MCDash を正常にインストールできました。MCDash は、Minecraft サーバーを管理できるWebパネルです。",
+      "subtext": "ヘルプが必要な場合は、下のボタンをクリックすることでいつでもドキュメントにアクセスできます。",
+      "documentation": "ドキュメント",
+      "donate": "寄付",
+      "none": "お知らせはありません。更新までお待ち下さい!",
+      "close": "閉じる"
+    },
+    "shutdown": {
+      "button": "停止",
+      "title": "サーバーを停止",
+      "text": "本当にサーバーを停止してもよろしいですか?",
+      "yes": "停止",
+      "success": "正常に停止しました。"
+    },
+    "reload": {
+      "button": "再起動",
+      "title": "サーバーを再起動",
+      "text": "サーバーを再起動してもよろしいですか?",
+      "yes": "再起動",
+      "success": "正常に再起動しました。"
+    }
+  },
+  "plugins": {
+    "by": "作成者:",
+    "search": "検索",
+    "store": "ストア",
+    "no_description": "説明無し",
+    "no_plugins": "プラグイン無し",
+    "enable": "有効",
+    "disable": "無効",
+    "not_supported": "サポートされていません",
+    "view_resource": "リソースの表示",
+    "already_installed": "プラグインは既にインストールされています",
+    "install": "インストール",
+    "delete": {
+      "tooltip": "削除",
+      "title": "{{name}}を削除",
+      "text": "本当に{{name}}を削除してもよろしいですか? 変更を適用するにはサーバーを再起動する必要があります。"
+    }
+  },
+  "worlds": {
+    "change": "変更",
+    "create": "新規作成",
+    "create_title": "ワールドを作成",
+    "overworld": "オーバーワールド",
+    "nether": "ネザー",
+    "end": "エンド",
+    "world_name": "ワールド名",
+    "world_type": "ワールドの種類",
+    "difficulty": {
+      "changed": "難易度を変更しました",
+      "title": "難易度の変更",
+      "peaceful": "ピースフル",
+      "easy": "イージー",
+      "normal": "ノーマル",
+      "hard": "ハード",
+      "button": "難易度"
+    },
+    "time": {
+      "changed": "時間を変更しました",
+      "title": "時間を変更",
+      "update": "変更:  ",
+      "button": "時間"
+    },
+    "weather": {
+      "changed": "天気を変更しました",
+      "title": "天気を変更",
+      "clear": "快晴",
+      "rain": "雨",
+      "thunder": "雷雨",
+      "button": "天気"
+    },
+    "info": {
+      "players": "プレイヤー人数",
+      "time": "時間",
+      "weather": "天気",
+      "difficulty": "難易度"
+    },
+    "delete": {
+      "title": "ワールドを削除",
+      "text": "本当にワールドを削除してもよろしいですか?",
+      "yes": "削除",
+      "success": "ワールドが正常に削除されました。"
+    }
+  },
+  "players": {
+    "online": "オンラインのプレイヤー",
+    "name": "名前",
+    "username": "ユーザー名",
+    "id": "プレイヤーID",
+    "world": "現在のワールド",
+    "address": "IPアドレス",
+    "food_level": "空腹度",
+    "health": "体力",
+    "is_op": "OP権限",
+    "game_mode": "ゲームモード",
+    "player_time": "プレイ時間",
+    "reason": "理由",
+    "last_seen": "最終接続",
+    "action_player": "プレイヤーを{{action}} {{plural}}",
+    "action_player_text": "プレイヤーを{{action}}しますか? {{plural}}",
+    "teleport_title": "別のワールドにテレポート",
+    "op_player": "プレイヤーにOP権限を付与してもよろしいですか?",
+    "whitelist_title": "ホワイトリストにプレイヤーを追加",
+    "teleport": "テレポート",
+    "whitelisted_players": "ホワイトリスト",
+    "enable_whitelist": "ホワイトリストを有効化",
+    "disable_whitelist": "ホワイトリストを無効化",
+    "banned_players": "BANリスト",
+    "unban": "BAN解除",
+    "action": {
+      "kicked": "追放しました。",
+      "kick": "追放",
+      "ban": "BAN"
+    },
+    "none": {
+      "online": "No players online",
+      "whitelisted": "No whitelisted players found",
+      "banned": "No banned players found"
+    },
+    "per_page": "Players per page"
+  },
+  "schedules": {
+    "create": "スケジュールを作成",
+    "create_title": "新規作成",
+    "edit_title": "編集",
+    "name": "名前",
+    "none_created": "スケジュールなし",
+    "schedule": {
+      "monthly": "毎月{{day}}日",
+      "weekly": "毎週{{days}}日",
+      "daily": "毎日{{time}}時",
+      "hourly": "毎時間{{minutes}}分"
+    },
+    "tasks": {
+      "title": "タスク",
+      "none_created": "タスクなし",
+      "edit": "編集",
+      "delete": "削除",
+      "add": "タスクを作成"
+    },
+    "frequencies": {
+      "monthly": "毎月",
+      "weekly": "毎週",
+      "daily": "毎日",
+      "hourly": "毎指定時間"
+    },
+    "weekly": {
+      "monday": "月曜日",
+      "tuesday": "火曜日",
+      "wednesday": "水曜日",
+      "thursday": "木曜日",
+      "friday": "金曜日",
+      "saturday": "土曜日",
+      "sunday": "日曜日"
+    },
+    "action": {
+      "kick": "理由",
+      "command": "コマンド",
+      "message": "メッセージ",
+      "create": "タスクを作成",
+      "edit": "タスクを編集"
+    },
+    "types": {
+      "command": "コマンドを送信",
+      "broadcast": "メッセージを送信",
+      "reload": "サーバーを再起動",
+      "stop": "サーバーを停止",
+      "backup": "バックアップを作成",
+      "kick": "全プレイヤーを追放"
+    },
+    "delete": {
+      "title": "スケジュールを削除",
+      "text": "本当にスケジュールを削除してよろしいですか?"
+    }
+  }
+}

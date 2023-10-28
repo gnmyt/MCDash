@@ -1,0 +1,313 @@
+{
+  "action": {
+    "failed": "Nie można wykonać akcji",
+    "success": "Akcja wykonana pomyślnie",
+    "cancel": "Anuluj",
+    "add": "Dodaj",
+    "save": "Zapisz",
+    "remove": "Usuń",
+    "continue": "Tak, kontynuuj",
+    "confirm": "Potwierdź akcję",
+    "create": "Stwórz",
+    "warn": "Ostrzeżenie",
+    "sure": "Czy na pewno chcesz potwierdzić tę czynność?",
+    "changes_saved": "Zapisano zmiany"
+  },
+  "nav": {
+    "overview": "Podsumowanie",
+    "players": "Gracze",
+    "files": "Menadżer plików",
+    "console": "Konsola",
+    "worlds": "Światy",
+    "plugins": "Pluginy",
+    "backups": "Kopie zapasowe",
+    "schedules": "Harmonogramy",
+    "configuration": "Konfiguracja"
+  },
+  "info": {
+    "server_unavailable": "Serwer jest obecnie niedostępny.",
+    "down": {
+      "title": "Serwer niedostępny",
+      "description": "Sprawdź, czy serwer jest uruchomiony, a MCDash jest aktywny. Ta strona zostanie przeładowana automatycznie."
+    }
+  },
+  "login": {
+    "sign_in": "Zaloguj się",
+    "failed": "Logowanie nie powiodło się, sprawdź swoje poświadczenia.",
+    "name": "Nazwa w grze",
+    "password": "Hasło"
+  },
+  "header": {
+    "support_me": "Wesprzyj mnie",
+    "dark_theme": "Ciemny motyw",
+    "light_theme": "Jasny motyw",
+    "update_language": "Zmień język",
+    "language": "Język",
+    "logout": "Wyloguj się"
+  },
+  "update": {
+    "available": "Dostępna jest aktualizacja",
+    "info": "Dostępna jest aktualizacją aktualizacja MCDash. Po aktualizacji plik wtyczki zostanie zastąpiony, a panel zostanie wyłączony. Jeśli chcesz, aby panel automatycznie zrestartował, możesz kliknąć przycisk \"Przeładuj po aktualizacji\". Pamiętaj, że przeładowanie serwera może spowodować pewne problemy, dlatego zaleca się, aby aktualizację oraz restart serwera wykonać ręcznie.",
+    "just_update": "Tylko zaktualizuj",
+    "reload_after": "Przeładuj po aktualizacji",
+    "updating": "Panel zostanie wyłączony i zaktualizowany do wersji {{latest}}. Proszę czekać..."
+  },
+  "time": {
+    "sunrise": "Wschód słońca",
+    "day": "Dzień",
+    "sunset": "Zachód słońca",
+    "night": "Noc"
+  },
+  "backup": {
+    "name": "Kopia zapasowa",
+    "latest": "Najnowsza kopia zapasowa",
+    "created": "Kopia zapasowa została pomyślnie utworzona",
+    "create": "Utwórz kopię zapasową",
+    "time": "Utworzono:",
+    "none_found": "Nie znaleziono żadnej kopii zapasowej",
+    "description": "Co ma zawierać kopia zapasowa?",
+    "restored": "Kopia zapasowa została pomyślnie przywrócona",
+    "restoring": "Przywracanie kopii zapasowej",
+    "restore_text": "MCDash przywróci tę kopię zapasową podczas pracy. Ponieważ Minecraft automatycznie zapisuje światy z pamięci co kilka sekund, Twój świat może ulec uszkodzeniu. Aby temu zapobiec, możesz zatrzymać serwer bez zapisywania świata w pamięci. Wszelkie niezapisane zmiany wprowadzone na serwerze, gdy czas pracy zostanie utracony. Nie ma to zastosowania, jeśli chcesz przywrócić dzienniki zdarzeń lub inne pliki, które nie są automatycznie zapisywane przez Minecraft.",
+    "restore_and_stop": "Przywróć i zatrzymaj",
+    "only_restore": "Tylko przywróć",
+    "delete": {
+      "title": "Usuń kopię zapasową",
+      "text": "Czy jesteś pewien, że chcesz usunąć tę kopię zapasową?",
+      "success": "Kopia zapasowa została pomyślnie usunięta",
+      "yes": "Tak, usuń"
+    },
+    "mode": {
+      "complete": "Cały serwer",
+      "worlds": "Wszystkie załadowane światy",
+      "plugins": "Pluginy i ich konfiguracje",
+      "config": "Pliki konfiguracyjne",
+      "logs": "Dzienniki konsoli"
+    },
+    "mapping": {
+      "complete": "Cały serwer",
+      "worlds": "Światy",
+      "plugins": "Pluginy",
+      "config": "Konfiguracje",
+      "logs": "Dzienniki zdarzeń"
+    }
+  },
+  "configuration": {
+    "saved": "Zapisano zmiany. Uruchom ponownie serwer, aby je zastosować.",
+    "services": "Usługi",
+    "ssh": {
+      "server": "Serwer SSH",
+      "description": "Zarządzaj swoimi plikami i kontroluj konsolę z komputera.",
+      "bind_error": "Nie można powiązać z tym portem. Spróbuj innego.",
+      "port": "Port SSH",
+      "connect": "Połącz"
+    }
+  },
+  "console": {
+    "command": "Komenda"
+  },
+  "files": {
+    "folder": "Folder",
+    "loading": "Ładowanie pliku...",
+    "file_deleted": "Plik został pomyślnie usunięty",
+    "file_saved": "Plik został pomyślnie zapisany",
+    "upload_file": "Prześlij plik",
+    "file_uploaded": "Plik został pomyślnie przesłany",
+    "folder_deleted": "Folder został pomyślnie usunięty",
+    "folder_created": "Folder został pomyślnie utworzony",
+    "download": "Pobierz",
+    "delete": "Usuń",
+    "go_back": "Wstecz",
+    "create_folder": {
+      "title": "Utwórz nowy folder",
+      "text": "Wpisz nazwę nowego folderu"
+    }
+  },
+  "overview": {
+    "cpu": "Rdzenie procesora",
+    "tps": "TPS",
+    "ram": "Pamięć RAM",
+    "disk": "Dysk",
+    "software": "Oprogramowanie serwera",
+    "version": "Wersja serwera",
+    "ip": "IP Serwera",
+    "tip": {
+      "title": "Porady",
+      "welcome": "MCDash - Witaj!",
+      "text": "Gratulacje! Pomyślnie udało Ci się zainstalować MCDash. MCDash to panel internetowy, który pozwala zarządzać serwerem Minecraft.",
+      "subtext": "Jeśli potrzebujesz pomocy przy użyciu MCDash, zawsze możesz uzyskać dostęp do dokumentacji, klikając poniższy przycisk.",
+      "documentation": "Dokumentacja",
+      "donate": "Darowizna",
+      "none": "W tej chwili nie ma dla Ciebie żadnych wskazówek. Sprawdź później!",
+      "close": "Zamknij"
+    },
+    "shutdown": {
+      "button": "Wyłącz",
+      "title": "Wyłącz serwer",
+      "text": "Czy na pewno chcesz wyłączyć serwer?",
+      "yes": "Tak, wyłącz",
+      "success": "Serwer został pomyślnie wyłączony"
+    },
+    "reload": {
+      "button": "Przeładuj",
+      "title": "Przeładuj serwer",
+      "text": "Czy na pewno chcesz przeładować serwer?",
+      "yes": "Tak, przeładuj",
+      "success": "Serwer został pomyślnie przeładowany"
+    }
+  },
+  "plugins": {
+    "by": "autorstwa",
+    "search": "Szukaj",
+    "store": "Sklep",
+    "no_description": "Nie podano opisu",
+    "no_plugins": "Nie znaleziono wtyczek",
+    "enable": "Aktywuj",
+    "disable": "Dezaktywuj",
+    "not_supported": "Plugin nie jest obsługiwany",
+    "view_resource": "Zobacz zasób",
+    "already_installed": "Wtyczka jest już zainstalowana",
+    "install": "Zainstaluj",
+    "delete": {
+      "tooltip": "Usuń plugin",
+      "title": "Usuń {{name}}",
+      "text": "Czy na pewno chcesz usunąć {{name}}? Musisz zrestartować swój serwer, aby zastosować zmiany po usunięciu."
+    }
+  },
+  "worlds": {
+    "change": "Zmień",
+    "create": "Stwórz świat",
+    "create_title": "Stwórz nowy świat",
+    "overworld": "Overworld",
+    "nether": "Nether",
+    "end": "End",
+    "world_name": "Nazwa świata",
+    "world_type": "Typ świata",
+    "difficulty": {
+      "changed": "Trudność została zmieniona pomyślnie!",
+      "title": "Zmień trudność",
+      "peaceful": "Pokojowy",
+      "easy": "Łatwy",
+      "normal": "Normalny",
+      "hard": "Trudny",
+      "button": "Poziom trudności"
+    },
+    "time": {
+      "changed": "Czas został pomyślnie zmieniony!",
+      "title": "Zmień czas",
+      "update": "Zmień na",
+      "button": "Czas"
+    },
+    "weather": {
+      "changed": "Pogoda została pomyślnie zmieniona!",
+      "title": "Zmień pogodę",
+      "clear": "Bezchmurnie",
+      "rain": "Deszcz",
+      "thunder": "Burza z piorunami",
+      "button": "Pogoda"
+    },
+    "info": {
+      "players": "Gracze",
+      "time": "Czas",
+      "weather": "Pogoda",
+      "difficulty": "Poziom trudności"
+    },
+    "delete": {
+      "title": "Usuń świat",
+      "text": "Czy na pewno chcesz usunąć ten świat?",
+      "yes": "Tak, usuń",
+      "success": "Świat został pomyślnie usunięty"
+    }
+  },
+  "players": {
+    "online": "Gracze online",
+    "name": "Nazwa",
+    "username": "Nazwa użytkownika",
+    "id": "ID gracza",
+    "world": "Obecny świat",
+    "address": "Adres IP",
+    "food_level": "Głód",
+    "health": "Zdrowie",
+    "is_op": "OP",
+    "game_mode": "Tryb gry",
+    "player_time": "Czas gry",
+    "reason": "Powód",
+    "last_seen": "Ostatnio widziany",
+    "action_player": "{{action}} gracza {{plural}}",
+    "action_player_text": "Czy na pewno chcesz {{action}} następującego gracza {{plural}}?",
+    "teleport_title": "Teleportuj gracza do świata",
+    "op_player": "Gracz otrzyma uprawnienia operatora. Czy jesteś pewien?",
+    "whitelist_title": "Dodaj gracza na białą listę",
+    "teleport": "Teleportuj",
+    "whitelisted_players": "Gracze na białej liście",
+    "enable_whitelist": "Włącz białą listę",
+    "disable_whitelist": "Wyłącz białą listę",
+    "banned_players": "Zbanowani gracze",
+    "unban": "Odbanuj",
+    "action": {
+      "kicked": "Zostałeś wyrzucony!",
+      "kick": "Wyrzuć",
+      "ban": "Zbanuj"
+    },
+    "none": {
+      "online": "No players online",
+      "whitelisted": "No whitelisted players found",
+      "banned": "No banned players found"
+    },
+    "per_page": "Players per page"
+  },
+  "schedules": {
+    "create": "Utwórz harmonogram",
+    "create_title": "Utwórz nowy harmonogram",
+    "edit_title": "Edytuj harmonogram",
+    "name": "Nazwa harmonogramu",
+    "none_created": "Nie utworzono harmonogramów",
+    "schedule": {
+      "monthly": "Co miesiąc w {{day}} dzień",
+      "weekly": "Co tydzień w {{days}}",
+      "daily": "Codziennie o {{time}}",
+      "hourly": "Co godzinę w {{minutes}} minucie"
+    },
+    "tasks": {
+      "title": "Zadania",
+      "none_created": "Nie utworzono zadań",
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "add": "Utwórz zadanie"
+    },
+    "frequencies": {
+      "monthly": "Miesięcznie",
+      "weekly": "Tygodniowo",
+      "daily": "Dziennie",
+      "hourly": "Godzinowo"
+    },
+    "weekly": {
+      "monday": "Poniedziałek",
+      "tuesday": "Wtorek",
+      "wednesday": "Środa",
+      "thursday": "Czwartek",
+      "friday": "Piątek",
+      "saturday": "Sobota",
+      "sunday": "Niedziela"
+    },
+    "action": {
+      "kick": "Powód wyrzucenia",
+      "command": "Komenda",
+      "message": "Wiadomość",
+      "create": "Utwórz akcję",
+      "edit": "Edytuj akcję"
+    },
+    "types": {
+      "command": "Wyślij komendę",
+      "broadcast": "Nadaj komunikat",
+      "reload": "Przeładuj serwer",
+      "stop": "Zatrzymaj serwer",
+      "backup": "Utwórz kopię zapasową",
+      "kick": "Wyrzuć wszystkich graczy"
+    },
+    "delete": {
+      "title": "Usuń harmonogram",
+      "text": "Czy na pewno chcesz usunąć ten harmonogram?"
+    }
+  }
+}
