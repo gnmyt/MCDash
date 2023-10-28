@@ -28,12 +28,16 @@ public class TPSRunnable implements Runnable {
      * @return the current tps of the server
      */
     public double getCurrentTPS(int ticks) {
-        if (tick_count< ticks) return 20.0D;
+        try {
+            if (tick_count< ticks) return 20.0D;
 
-        int target = (tick_count-ticks-1) % this.ticks.length;
-        long elapsed = System.currentTimeMillis() - this.ticks[target];
+            int target = (tick_count-ticks-1) % this.ticks.length;
+            long elapsed = System.currentTimeMillis() - this.ticks[target];
 
-        return ticks / (elapsed / 1000.0D);
+            return ticks / (elapsed / 1000.0D);
+        } catch (Exception e) {
+            return 20.0D;
+        }
     }
 
     /**
