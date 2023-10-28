@@ -73,7 +73,7 @@ export const PlayerTable = ({setSelectedPlayers}) => {
                 sx={{display: 'grid', gridTemplateRows: 'auto 1f auto'}}
                 autoHeight={true}
                 slots={{
-                    noRowsOverlay: () => <Stack sx={height: "100%", alignItems: "center", justifyContent: "center"}}>
+                    noRowsOverlay: () => <Stack sx={{height: "100%", alignItems: "center", justifyContent: "center"}}>
                         {t("players.none.online")}
                     </Stack>
                 }}
