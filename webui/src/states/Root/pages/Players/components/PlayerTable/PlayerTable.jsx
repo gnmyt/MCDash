@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import {PlayerContext} from "@contexts/Players";
 import {deleteRequest, putRequest} from "@/common/utils/RequestUtil.js";
 import ActionConfirmDialog from "@components/ActionConfirmDialog";
-import {Alert, Snackbar} from "@mui/material";
+import {Alert, Snackbar, Stack} from "@mui/material";
 import PlayerTeleportDialog
     from "@/states/Root/pages/Players/components/PlayerTable/components/PlayerTeleportDialog";
 import {t} from "i18next";
@@ -72,6 +72,11 @@ export const PlayerTable = ({setSelectedPlayers}) => {
                 onRowSelectionModelChange={(newSelection) => {setSelectedPlayers(newSelection)}}
                 sx={{display: 'grid', gridTemplateRows: 'auto 1f auto'}}
                 autoHeight={true}
+                slots={{
+                    noRowsOverlay: () => <Stack sx={height: "100%", alignItems: "center", justifyContent: "center"}}>
+                        {t("players.none.online")}
+                    </Stack>
+                }}
             />
         </>
     );
