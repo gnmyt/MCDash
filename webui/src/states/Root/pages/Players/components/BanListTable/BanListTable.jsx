@@ -28,6 +28,7 @@ export const BanListTable = ({setSelectedBannedPlayers}) => {
                         {t("players.none.banned")}
                     </Stack>
                 }}
+                slotProps={{pagination: {labelRowsPerPage: t("players.per_page")}}}
             />
         </>
     );
