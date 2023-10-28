@@ -7,7 +7,7 @@ import {getJavaVersion} from "../Server/versions.js";
 
 const command_boilerplate = "curl -sSL https://create.mcdash.gnmyt.dev/install.sh | bash -s -- ";
 
-export const Finished = ({software, password, instanceId, mcPort, panelPort, version, username, serverName}) => {
+export const Finished = ({software, password, memory, mcPort, panelPort, version, username, serverName}) => {
     const copyCommand = () => navigator.clipboard.writeText(generateCommand());
 
     const [open, setOpen] = useState(false);
@@ -19,12 +19,13 @@ export const Finished = ({software, password, instanceId, mcPort, panelPort, ver
         return command_boilerplate + [
             `\"${software}\"`,
             `\"${username + ": " + hashSync(password, 10).replace(/\$/g, "\\$")}\"`,
-            `\"${instanceId}\"`,
+            `\"${Math.random().toString(36).substring(2, 7)}\"`,
             `\"${mcPort}\"`,
             `\"${panelPort}\"`,
             `\"${version}\"`,
             `\"${serverName}\"`,
-            `"${getJavaVersion(version)}"`
+            `"${getJavaVersion(version)}"`,
+            `\"${parseInt(memory)*1024}\"`
         ].join(" ");
     }
 
