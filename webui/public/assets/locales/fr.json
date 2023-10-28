@@ -250,11 +250,11 @@
       "ban": "Bannir"
     },
     "none": {
-      "online": "No players online",
-      "whitelisted": "No whitelisted players found",
-      "banned": "No banned players found"
+      "online": "Pas de joueurs en ligne",
+      "whitelisted": "Aucun joueur ne figure sur la liste blanche",
+      "banned": "Joueurs bannis introuvables"
     },
-    "per_page": "Players per page"
+    "per_page": "Joueurs par page"
   },
   "schedules": {
     "create": "Créer une planification",
