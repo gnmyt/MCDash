@@ -1,4 +1,4 @@
-import {Box, Stack, Tab, Tabs, Typography} from "@mui/material";
+import {Box, Link, Stack, Tab, Tabs, Typography} from "@mui/material";
 import {useState} from "react";
 
 import Icon from "/assets/img/favicon.png";
@@ -31,6 +31,14 @@ const App = () => {
                         {tab === 1 && <ExistingServer />}
                     </SocketProvider>
                 </Box>
+
+                <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
+                    <Link href="https://gnmyt.dev/imprint" target="_blank" rel="noopener noreferrer"
+                          color="text.secondary" underline="hover" variant="body2">Imprint</Link>
+                    <Typography variant="body2" color="text.secondary">|</Typography>
+                    <Link href="https://gnmyt.dev/privacy" target="_blank" rel="noopener noreferrer"
+                          color="text.secondary" underline="hover" variant="body2">Privacy</Link>
+                </Stack>
             </Stack>
         </>
     )
