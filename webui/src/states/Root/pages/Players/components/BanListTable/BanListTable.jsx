@@ -2,6 +2,8 @@ import {useContext} from "react";
 import {BanListContext} from "@/states/Root/pages/Players/contexts/BanList";
 import {DataGrid} from "@mui/x-data-grid";
 import columns from "./columns.jsx";
+import {Stack} from "@mui/material";
+import {t} from "i18next";
 
 export const BanListTable = ({setSelectedBannedPlayers}) => {
     const {bannedPlayers} = useContext(BanListContext);
@@ -21,6 +23,12 @@ export const BanListTable = ({setSelectedBannedPlayers}) => {
                 }}
                 sx={{display: 'grid', gridTemplateRows: 'auto 1f auto'}}
                 autoHeight={true}
+                slots={{
+                    noRowsOverlay: () => <Stack sx={{height: "100%", alignItems: "center", justifyContent: "center"}}>
+                        {t("players.none.banned")}
+                    </Stack>
+                }}
+                slotProps={{pagination: {labelRowsPerPage: t("players.per_page")}}}
             />
         </>
     );
