@@ -203,7 +203,7 @@ After=network.target
 WorkingDirectory=${INSTALLATION_PATH}
 User=minecraft-${ID}
 Restart=always
-ExecStart=${JAVA_ROOT}/bin/java -jar -Xms${MEMORY} -Xmx${MEMORY} server.jar nogui
+ExecStart=${JAVA_ROOT}/bin/java -jar -Xms${MEMORY}M -Xmx${MEMORY}M server.jar nogui
 
 [Install]
 WantedBy=multi-user.target
