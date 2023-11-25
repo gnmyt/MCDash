@@ -67,7 +67,20 @@ export const Console = () => {
 
                 if (currentLine === 0 && lines.length >= 100) lines.splice(0, lines.length - 100);
 
-                lines.forEach((line) => terminal.writeln(line));
+                lines.forEach((line) => {
+                    const logLevelRegex = /\[(\d{2}:\d{2}:\d{2})] \[.*?\/(INFO|WARN(ING)?|ERROR)]/;
+
+                    line = line.replace(logLevelRegex, (match, time, level) => {
+                        let colorCode = '\x1b[0m';
+                        if (level === 'INFO') colorCode = '\x1b[34m';
+                        else if (level === 'WARN' || level === 'WARNING') colorCode = '\x1b[33m';
+                        else if (level === 'ERROR') colorCode = '\x1b[31m';
+
+                        return `[${time}] [${colorCode}${level}\x1b[0m]${colorCode === '\x1b[34m' ? '' : colorCode}`;
+                    });
+
+                    terminal.writeln(line + '\x1b[0m');
+                });
 
                 currentLine += lineAmount;
             });
