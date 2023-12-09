@@ -23,6 +23,7 @@ public class MinecraftDashboard extends JavaPlugin {
     private static BackupController backupController;
     private static UpdateManager updateManager;
     private static AccountManager accountManager;
+    private static BackupManager backupManager;
     private static WorldManager worldManager;
     private static SSHManager sshManager;
     private static ScheduleManager scheduleManager;
@@ -34,6 +35,7 @@ public class MinecraftDashboard extends JavaPlugin {
         instance = this;
         updateManager = new UpdateManager(instance);
         accountManager = new AccountManager(instance);
+        backupManager = new BackupManager(instance);
         sshManager = new SSHManager(instance);
         worldManager = new WorldManager(instance);
         config = new ConfigurationManager(instance);
@@ -151,6 +153,14 @@ public class MinecraftDashboard extends JavaPlugin {
      */
     public static SSHManager getSSHManager() {
         return sshManager;
+    }
+
+    /**
+     * Gets the backup manager
+     * @return the backup manager
+     */
+    public static BackupManager getBackupManager() {
+        return backupManager;
     }
 
     /**
