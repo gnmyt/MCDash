@@ -1,5 +1,7 @@
 package de.gnmyt.mcdash.api.controller;
 
+import de.gnmyt.mcdash.MinecraftDashboard;
+import de.gnmyt.mcdash.api.config.BackupManager;
 import de.gnmyt.mcdash.panel.routes.filebrowser.FileRoute;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -16,13 +18,14 @@ import java.util.zip.ZipOutputStream;
 
 public class BackupController {
 
+    private final BackupManager backupManager = MinecraftDashboard.getBackupManager();
     private final File backupFolder;
 
     /**
      * Basic constructor of the {@link BackupController}
      */
     public BackupController() {
-        this.backupFolder = new File("backups");
+        this.backupFolder = new File(backupManager.getBackupPath());
 
         if (!backupFolder.exists()) backupFolder.mkdirs();
     }
