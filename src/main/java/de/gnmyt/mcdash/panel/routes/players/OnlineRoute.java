@@ -6,6 +6,7 @@ import de.gnmyt.mcdash.api.http.Request;
 import de.gnmyt.mcdash.api.http.ResponseController;
 import de.gnmyt.mcdash.api.json.ArrayBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
 public class OnlineRoute extends DefaultHandler {
@@ -25,11 +26,18 @@ public class OnlineRoute extends DefaultHandler {
 
         ArrayBuilder builder = new ArrayBuilder();
 
+        Statistic playStat;
+        try {
+            playStat = Statistic.valueOf("PLAY_ONE_TICK"); // used below MC 1.15.2
+        } catch (IllegalArgumentException ignored) {
+            playStat = Statistic.valueOf("PLAY_ONE_MINUTE"); // MC 1.15.2 and above
+        }
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             builder.addNode()
                     .add("uuid", player.getUniqueId().toString())
                     .add("name", player.getName())
-                    .add("player_time", player.getPlayerTime())
+                    .add("player_time", player.getStatistic(playStat))
                     .add("current_world", player.getWorld().getName())
                     .add("address", player.getAddress().getHostName())
                     .add("health", Math.round(player.getHealth()))
