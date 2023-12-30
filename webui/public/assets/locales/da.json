@@ -1,313 +1,313 @@
 {
   "action": {
-    "failed": "Could not execute action",
-    "success": "Action executed successfully",
-    "cancel": "Cancel",
-    "add": "Add",
-    "save": "Save",
-    "remove": "Remove",
-    "continue": "Yes, continue",
-    "confirm": "Confirm action",
-    "create": "Create",
-    "warn": "Warning",
-    "sure": "Are you sure you want to confirm this action?",
-    "changes_saved": "Changes saved"
+    "failed": "Handlingen kunne ikke udføres",
+    "success": "Handling udført med succes",
+    "cancel": "Afbestille",
+    "add": "Tilføje",
+    "save": "Gemme",
+    "remove": "Fjerne",
+    "continue": "Ja, fortsæt",
+    "confirm": "Bekræft handling",
+    "create": "skab",
+    "warn": "advarsel",
+    "sure": "Er du sikker på, at du vil fortsætte?",
+    "changes_saved": "ændringer gemt"
   },
   "nav": {
-    "overview": "Overview",
-    "players": "Players",
-    "files": "File Manager",
-    "console": "Console",
-    "worlds": "Worlds",
+    "overview": "Oversigt",
+    "players": "Spiller",
+    "files": "Filhåndtering",
+    "console": "Konsol",
+    "worlds": "Verdener",
     "plugins": "Plugins",
-    "backups": "Backups",
-    "schedules": "Schedules",
-    "configuration": "Configuration"
+    "backups": "Sikkerhedskopier",
+    "schedules": "Tidsplaner",
+    "configuration": "Indstillinger"
   },
   "info": {
-    "server_unavailable": "The server is currently unavailable.",
+    "server_unavailable": "Serveren er i øjeblikket ikke tilgængelig.",
     "down": {
-      "title": "Server not available",
-      "description": "Check if the server is started and MCDash is active. This page will be reloaded automatically."
+      "title": "kan ikke nå serveren",
+      "description": "Tjek at serveren er startet og MCDash kører. Denne side genindlæses automatisk."
     }
   },
   "login": {
-    "sign_in": "Sign In",
-    "failed": "Login failed, check your credentials.",
-    "name": "Ingame-name",
-    "password": "Password"
+    "sign_in": "Tilmeld",
+    "failed": "Login mislykkedes, tjek dine loginoplysninger.",
+    "name": "Spiller navn",
+    "password": "adgangskode"
   },
   "header": {
-    "support_me": "Support me",
-    "dark_theme": "Dark theme",
-    "light_theme": "Light theme",
-    "update_language": "Update language",
-    "language": "Language",
-    "logout": "Logout"
+    "support_me": "Støt mig",
+    "dark_theme": "Mørk tilstand",
+    "light_theme": "Lys tilstand",
+    "update_language": "skift sprog",
+    "language": "Sprog",
+    "logout": "Log ud"
   },
   "update": {
-    "available": "Update available",
-    "info": "There is an update available for MCDash. Once you update, the plugin file will be replaced and the panel will shutdown. If you want the panel to automatically restart, you can click the \"Reload after update\" button. Keep in mind that reloading your server may cause some issues so it is recommended to just update and restart the server manually.",
-    "just_update": "Just update",
-    "reload_after": "Reload after update",
-    "updating": "The panel will shutdown and update to version {{latest}}. Please wait..."
+    "available": "Opdatering tilgængelig",
+    "info": "En opdatering til MCDash er tilgængelig. Når du har udført opdateringen, erstattes plugin-filen, og panelet lukkes ned. Hvis du vil have panelet til at genstarte automatisk, kan du klikke på knappen \"Genindlæs efter opdatering\". Husk, at genindlæsning af din server kan forårsage problemer. Derfor anbefales det kun at opdatere og genstarte serveren manuelt.",
+    "just_update": "Bare opdatering",
+    "reload_after": "Genindlæs efter opdatering",
+    "updating": "Panelet lukker ned og opdaterer til version {{latest}}. Vent venligst..."
   },
   "time": {
-    "sunrise": "Sunrise",
-    "day": "Day",
-    "sunset": "Sunset",
-    "night": "Night"
+    "sunrise": "Solopgang",
+    "day": "Dag",
+    "sunset": "Solnedgang",
+    "night": "Nat"
   },
   "backup": {
     "name": "Backup",
-    "latest": "Latest backup",
-    "created": "Backup successfully created",
-    "create": "Create a backup",
-    "time": "Created at",
-    "none_found": "No backups found",
-    "description": "What do you want to backup?",
-    "restored": "Backup successfully restored",
-    "restoring": "Restoring backup",
-    "restore_text": "MCDash will restore this backup while runtime. Since Minecraft automatically saves the worlds every few seconds from memory, your world might get corrupted. To prevent this, you can stop the server without saving the world from memory. Any unsaved changes made to the server while runtime will be lost. This does not apply if you want to restore logs or other files that are not getting automatically saved by Minecraft.",
-    "restore_and_stop": "Restore & Stop",
-    "only_restore": "Only restore",
+    "latest": "Sidste backup",
+    "created": "Sikkerhedskopien blev oprettet",
+    "create": "Opret backup",
+    "time": "Oprettet",
+    "none_found": "Ingen sikkerhedskopier fundet",
+    "description": "Hvad vil du sikre?",
+    "restored": "Sikkerhedskopieringen blev gendannet",
+    "restoring": "Sikkerhedskopien er gendannet",
+    "restore_text": "MCDash vil gendanne denne sikkerhedskopi under kørsel. Da Minecraft automatisk gemmer verdener fra hukommelsen med få sekunders mellemrum, kan din verden blive ødelagt. For at forhindre dette kan du stoppe serveren uden at redde verden fra hukommelsen. Eventuelle ikke-gemte ændringer foretaget på serveren under kørsel vil gå tabt. Dette gælder ikke, hvis du ønsker at gendanne logfiler eller andre filer, der ikke automatisk gemmes af Minecraft.",
+    "restore_and_stop": "Gendan og stop",
+    "only_restore": "Bare gendan",
     "delete": {
-      "title": "Delete backup",
-      "text": "Are you sure you want to delete this backup?",
-      "success": "Backup successfully deleted",
-      "yes": "Yes, delete"
+      "title": "Slet backup",
+      "text": "Er du sikker på, at du vil slette sikkerhedskopien?",
+      "success": "Sikkerhedskopien blev slettet",
+      "yes": "Ja, slet"
     },
     "mode": {
-      "complete": "The complete server",
-      "worlds": "All loaded worlds",
-      "plugins": "Plug-Ins & their configs",
-      "config": "Configuration files",
-      "logs": "Console logs"
+      "complete": "Alt fra serveren",
+      "worlds": "Alle fyldte verdener",
+      "plugins": "Plugins og deres indstillinger",
+      "config": "Konfigurationsfiler",
+      "logs": "Logs"
     },
     "mapping": {
-      "complete": "Complete server",
-      "worlds": "Worlds",
+      "complete": "Alt fra serveren",
+      "worlds": "Verdener",
       "plugins": "Plugins",
-      "config": "Configurations",
+      "config": "Konfigurationer",
       "logs": "Logs"
     }
   },
   "configuration": {
-    "saved": "Changes saved. Restart the server to apply them.",
-    "services": "Services",
+    "saved": "Ændringer gemt, en genstart er påkrævet for at anvende.",
+    "services": "Tjenester",
     "ssh": {
-      "server": "SSH server",
-      "description": "Manage your files and control the console from your computer.",
-      "bind_error": "Could not bind to that port. Please try another one.",
+      "server": "SSH-Server",
+      "description": "Administrer dine filer og få konsollen på din computer.",
+      "bind_error": "Port kunne ikke bruges, prøv en ubrugt port.",
       "port": "SSH-Port",
-      "connect": "Connect"
+      "connect": "Forbinde"
     }
   },
   "console": {
-    "command": "Command"
+    "command": "Kommando"
   },
   "files": {
     "folder": "Folder",
-    "loading": "Loading file...",
-    "file_deleted": "File successfully deleted",
-    "file_saved": "File successfully saved",
-    "upload_file": "Upload a file",
-    "file_uploaded": "File successfully uploaded",
-    "folder_deleted": "Folder successfully deleted",
-    "folder_created": "Folder successfully created",
-    "download": "Download",
-    "delete": "Delete",
-    "go_back": "Go back",
+    "loading": "Indlæser fil...",
+    "file_deleted": "Filen blev slettet",
+    "file_saved": "Filen er oprettet",
+    "upload_file": "Upload fil",
+    "file_uploaded": "Filen blev uploadet",
+    "folder_deleted": "Mappe blev slettet",
+    "folder_created": "Mappe oprettet",
+    "download": "Hent",
+    "delete": "Slet",
+    "go_back": "Tilbage",
     "create_folder": {
-      "title": "Create new folder",
-      "text": "Please enter the name of the new folder"
+      "title": "Opret mappe",
+      "text": "Indtast venligst navnet på den nye mappe"
     }
   },
   "overview": {
-    "cpu": "CPU-Cores",
+    "cpu": "CPU-kerner",
     "tps": "TPS",
     "ram": "RAM",
-    "disk": "Disk",
-    "software": "Server-Software",
-    "version": "Server-Version",
-    "ip": "Server-IP",
+    "disk": "Opbevaring",
+    "software": "Server Software",
+    "version": "Server version",
+    "ip": "Server IP",
     "tip": {
       "title": "Tips",
-      "welcome": "MCDash - Welcome!",
-      "text": "Congratulations! You have managed to install MCDash successfully. MCDash is a web panel that allows you to manage your Minecraft server.",
-      "subtext": "If you need help using MCDash you can always access the documentation by clicking on the button below.",
-      "documentation": "Documentation",
-      "donate": "Donate",
-      "none": "There are no tips for you at the moment. Please check back later!",
-      "close": "Close"
+      "welcome": "MCDash - Velkommen!",
+      "text": "Tillykke! Du har installeret MCDash. MCDash er et webpanel, der giver dig mulighed for at administrere din Minecraft-server.",
+      "subtext": "Hvis du har brug for hjælp til at bruge MCDash, kan du altid få adgang til dokumentationen ved at klikke på knappen nedenfor.",
+      "documentation": "Dokumentation",
+      "donate": "Doner",
+      "none": "Der er ingen tips til dig i øjeblikket. Kom venligst tilbage senere!",
+      "close": "Tæt"
     },
     "shutdown": {
-      "button": "Shutdown",
-      "title": "Shutdown server",
-      "text": "Are you sure you want to shutdown the server?",
-      "yes": "Yes, shutdown",
-      "success": "Server successfully shutdown"
+      "button": "lukke ned",
+      "title": "Stop server",
+      "text": "Er du sikker på, at du vil stoppe serveren?",
+      "yes": "Ja, luk ned",
+      "success": "Serveren er blevet lukket"
     },
     "reload": {
-      "button": "Reload",
-      "title": "Reload server",
-      "text": "Are you sure you want to reload the server?",
-      "yes": "Yes, reload",
-      "success": "Server successfully reloaded"
+      "button": "Genindlæs",
+      "title": "Genindlæs server",
+      "text": "Vil du virkelig genindlæse serveren?",
+      "yes": "Ja, genindlæs",
+      "success": "Serveren er blevet genindlæst"
     }
   },
   "plugins": {
-    "by": "by",
-    "search": "Search",
-    "store": "Store",
-    "no_description": "No description provided",
-    "no_plugins": "No plugins found",
-    "enable": "Enable",
-    "disable": "Disable",
-    "not_supported": "Plugin not supported",
-    "view_resource": "View resource",
-    "already_installed": "Plugin already installed",
-    "install": "Install",
+    "by": "fra",
+    "search": "Søge",
+    "store": "butik",
+    "no_description": "Ingen beskrivelse givet",
+    "no_plugins": "Ingen plugins fundet",
+    "enable": "Aktiver",
+    "disable": "Deaktiver",
+    "not_supported": "Plugin er ikke understøttet",
+    "view_resource": "Se plugin",
+    "already_installed": "Plugin er allerede installeret",
+    "install": "At installere",
     "delete": {
-      "tooltip": "Delete plugin",
-      "title": "Delete {{name}}",
-      "text": "Are you sure you want to delete {{name}}? You need to restart your server to apply the changes after deleting."
+      "tooltip": "Slet plugin",
+      "title": "{{name}} slette",
+      "text": "Er du sikker på, at du vil slette {{name}}? Din server skal genstartes, så ændringerne kan anvendes."
     }
   },
   "worlds": {
-    "change": "Change",
-    "create": "Create world",
-    "create_title": "Create a new world",
-    "overworld": "Overworld",
+    "change": "Lave om",
+    "create": "Skab verden",
+    "create_title": "Skab ny verden",
+    "overworld": "Overflade - standard",
     "nether": "Nether",
-    "end": "The End",
-    "world_name": "Name of the world",
-    "world_type": "Type of the world",
+    "end": "Slutningen",
+    "world_name": "Verdens navn",
+    "world_type": "Type af verden",
     "difficulty": {
-      "changed": "Difficulty changed successfully!",
-      "title": "Change difficulty",
-      "peaceful": "Peaceful",
-      "easy": "Easy",
+      "changed": "Sværhedsgrad blev gemt!",
+      "title": "Juster sværhedsgraden",
+      "peaceful": "Fredelig",
+      "easy": "ganske enkelt",
       "normal": "Normal",
-      "hard": "Hard",
-      "button": "Difficulty"
+      "hard": "Svært",
+      "button": "Vanskelighed"
     },
     "time": {
-      "changed": "Time changed successfully!",
-      "title": "Change time",
-      "update": "Change to",
-      "button": "Time"
+      "changed": "Tiden blev justeret med succes!",
+      "title": "Skift tid",
+      "update": "Skifte til",
+      "button": "Tid"
     },
     "weather": {
-      "changed": "Weather changed successfully!",
-      "title": "Change weather",
-      "clear": "Clear",
-      "rain": "Rain",
-      "thunder": "Thunder",
-      "button": "Weather"
+      "changed": "Vejret justeret med succes!",
+      "title": "Skift vejr",
+      "clear": "Klar",
+      "rain": "Regn",
+      "thunder": "Tordenvejr",
+      "button": "Vejr"
     },
     "info": {
-      "players": "Players",
-      "time": "Time",
-      "weather": "Weather",
-      "difficulty": "Difficulty"
+      "players": "Spiller",
+      "time": "Tid",
+      "weather": "Vejr",
+      "difficulty": "Vanskelighed"
     },
     "delete": {
-      "title": "Delete world",
-      "text": "Are you sure you want to delete this world?",
-      "yes": "Yes, delete",
-      "success": "World successfully deleted"
+      "title": "Welt löschen",
+      "text": "Vil du virkelig slette verden?",
+      "yes": "Ja, slet",
+      "success": "Verden blev slettet"
     }
   },
   "players": {
-    "online": "Online Players",
-    "name": "Name",
-    "username": "Username",
-    "id": "Player-ID",
-    "world": "Current world",
-    "address": "IP-Address",
-    "food_level": "Hunger",
-    "health": "Health",
-    "is_op": "OP",
-    "game_mode": "Gamemode",
-    "player_time": "Playtime",
-    "reason": "Reason",
-    "last_seen": "Last seen",
-    "action_player": "{{action}} Player{{plural}}",
-    "action_player_text": "Are you sure you want to {{action}} the following player{{plural}}?",
-    "teleport_title": "Teleport player to world",
-    "op_player": "The player will be granted operator permissions. Are you sure?",
-    "whitelist_title": "Add player to whitelist",
-    "teleport": "Teleport",
-    "whitelisted_players": "Whitelisted Players",
-    "enable_whitelist": "Enable whitelist",
-    "disable_whitelist": "Disable whitelist",
-    "banned_players": "Banned Players",
-    "unban": "Unban",
+    "online": "Aktive spillere",
+    "name": "Efternavn",
+    "username": "Spiller navn",
+    "id": "Spiller-ID",
+    "world": "Nuværende verden",
+    "address": "IP-adresse",
+    "food_level": "Sult",
+    "health": "Sundhed",
+    "is_op": "Operatør",
+    "game_mode": "Spilletilstand",
+    "player_time": "Lege tid",
+    "reason": "Grund",
+    "last_seen": "Sidst set",
+    "action_player": "Spiller {{action}}",
+    "action_player_text": "Vil du virkelig {{action}} følgende spillere?",
+    "teleport_title": "Teleporter spillere til verden",
+    "op_player": "Denne spiller vil modtage alle tilladelser til denne server. Er du sikker?",
+    "whitelist_title": "Tilføj spillere til hvidlisten",
+    "teleport": "Teleportere",
+    "whitelisted_players": "Hvidlistede spillere",
+    "enable_whitelist": "Aktiver hvidliste",
+    "disable_whitelist": "Deaktiver hvidliste",
+    "banned_players": "Forbudte spillere",
+    "unban": "Ophæv forbuddet",
     "action": {
-      "kicked": "You have been kicked!",
-      "kick": "Kick",
-      "ban": "Ban"
+      "kicked": "Du er blevet sparket!",
+      "kick": "Sparke",
+      "ban": "Forjage"
     },
     "none": {
-      "online": "No players online",
-      "whitelisted": "No whitelisted players found",
-      "banned": "No banned players found"
+      "online": "Ingen spillere online",
+      "whitelisted": "Ingen hvidlistede spillere fundet",
+      "banned": "Ingen udelukkede spillere fundet"
     },
-    "per_page": "Players per page"
+    "per_page": "Spillere per side"
   },
   "schedules": {
-    "create": "Create schedule",
-    "create_title": "Create a new schedule",
-    "edit_title": "Edit schedule",
-    "name": "Name of the schedule",
-    "none_created": "No schedules created",
+    "create": "Opret en tidsplan",
+    "create_title": "Opret ny tidsplan",
+    "edit_title": "Rediger tidsplan",
+    "name": "Tidsplanens navn",
+    "none_created": "Ingen tidsplaner oprettet",
     "schedule": {
-      "monthly": "Every month on the {{day}}th day",
-      "weekly": "Every week on {{days}}",
-      "daily": "Every day at {{time}}",
-      "hourly": "Every hour at {{minutes}} minutes"
+      "monthly": "Hver måned på {{day}}. Dag",
+      "weekly": "Hver uge på {{days}}",
+      "daily": "Hver dag kl {{time}}",
+      "hourly": "Hver time på {{minutes}} minutter"
     },
     "tasks": {
-      "title": "Tasks",
-      "none_created": "No tasks created",
-      "edit": "Edit",
-      "delete": "Delete",
-      "add": "Create task"
+      "title": "Opgaver",
+      "none_created": "Ingen opgaver oprettet",
+      "edit": "Redigere",
+      "delete": "Slet",
+      "add": "Opret opgave"
     },
     "frequencies": {
-      "monthly": "Monthly",
-      "weekly": "Weekly",
-      "daily": "Daily",
-      "hourly": "Hourly"
+      "monthly": "Månedlige",
+      "weekly": "Ugentlig",
+      "daily": "Daglige",
+      "hourly": "Hver time"
     },
     "weekly": {
-      "monday": "Monday",
-      "tuesday": "Tuesday",
-      "wednesday": "Wednesday",
-      "thursday": "Thursday",
-      "friday": "Friday",
-      "saturday": "Saturday",
-      "sunday": "Sunday"
+      "monday": "Mandag",
+      "tuesday": "Tirsdag",
+      "wednesday": "Onsdag",
+      "thursday": "Torsdag",
+      "friday": "Fredag",
+      "saturday": "lørdag",
+      "sunday": "Søndag"
     },
     "action": {
-      "kick": "Reason for kick",
-      "command": "Command",
-      "message": "Message",
-      "create": "Create action",
-      "edit": "Edit action"
+      "kick": "Årsag til sparket",
+      "command": "Kommando",
+      "message": "Nyheder",
+      "create": "Skab handling",
+      "edit": "Rediger handling"
     },
     "types": {
-      "command": "Send a command",
-      "broadcast": "Broadcast a message",
-      "reload": "Reload the server",
-      "stop": "Stop the server",
-      "backup": "Create a backup",
-      "kick": "Kick all players"
+      "command": "Send kommando",
+      "broadcast": "Send besked",
+      "reload": "Genindlæs server",
+      "stop": "Stop serveren",
+      "backup": "Opret backup",
+      "kick": "Alle spillere sparker"
     },
     "delete": {
-      "title": "Delete schedule",
-      "text": "Are you sure you want to delete this schedule?"
+      "title": "Slet tidsplan",
+      "text": "Er du sikker på, at du vil slette denne tidsplan?"
     }
   }
 }
