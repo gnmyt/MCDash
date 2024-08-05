@@ -1,0 +1,313 @@
+{
+  "action": {
+    "failed": "Actie kon niet uitgevoerd worden",
+    "success": "Actie succesvol uitgevoerd",
+    "cancel": "Annuleren",
+    "add": "Toevoegen",
+    "save": "Opslaan",
+    "remove": "Verwijderen",
+    "continue": "Ja, doorgaan",
+    "confirm": "Actie bevestigen",
+    "create": "Aanmaken",
+    "warn": "Waarschuwing",
+    "sure": "Wil je echt doorgaan?",
+    "changes_saved": "Wijzigingen opgeslagen"
+  },
+  "nav": {
+    "overview": "Overzicht",
+    "players": "Spelers",
+    "files": "Bestandsbeheer",
+    "console": "Console",
+    "worlds": "Werelden",
+    "plugins": "Plug-ins",
+    "backups": "Back-ups",
+    "schedules": "Schema's",
+    "configuration": "Configuraties"
+  },
+  "info": {
+    "server_unavailable": "De server is momenteel niet bereikbaar.",
+    "down": {
+      "title": "Server niet bereikbaar",
+      "description": "Controleer of de server is gestart en MCDash actief is. Deze pagina wordt automatisch opnieuw geladen."
+    }
+  },
+  "login": {
+    "sign_in": "Inloggen",
+    "failed": "Inloggen mislukt, controleer je inloggegevens.",
+    "name": "Ingame-naam",
+    "password": "Wachtwoord"
+  },
+  "header": {
+    "support_me": "Steun mij",
+    "dark_theme": "Donker thema",
+    "light_theme": "Licht thema",
+    "update_language": "Taal veranderen",
+    "language": "Taal",
+    "logout": "Uitloggen"
+  },
+  "update": {
+    "available": "Update beschikbaar",
+    "info": "Er is een update beschikbaar voor MCDash. Wanneer je updatet, wordt het plug-inbestand vervangen en de panel afgesloten. Als je wilt dat de panel automatisch herstart, kan je op de knop \"Herladen na update\" klikken. Hou er rekening mee dat het herladen van je server problemen kan veroorzaken, dus het wordt aanbevolen de server gewoon handmatig te updaten en opnieuw op te starten.",
+    "just_update": "Alleen updaten",
+    "reload_after": "Herladen na update",
+    "updating": "De panel wordt afgesloten en naar versie {{latest}} geüpdatet. Even geduld aub..."
+  },
+  "time": {
+    "sunrise": "Zonsopkomst",
+    "day": "Dag",
+    "sunset": "Zonsondergang",
+    "night": "Nacht"
+  },
+  "backup": {
+    "name": "Back-up",
+    "latest": "Laatste back-up",
+    "created": "Back-up succesvol aangemaakt",
+    "create": "Back-up aanmaken",
+    "time": "Gemaakt op",
+    "none_found": "Geen back-ups gevonden",
+    "description": "Wat wil je back-uppen?",
+    "restored": "Back-up succesvol hersteld",
+    "restoring": "Back-up wordt hersteld",
+    "restore_text": "MCDash zal deze back-up tijdens runtime herstellen. Omdat Minecraft elke paar seconden de wereld van geheugen opslaat, kan de wereld beschadigd raken. Om dit te voorkomen, kan je de server stoppen zonder de wereld van het geheugen op te slaan. Niet-opgeslagen wijzigingen aan de server zullen verloren raken. Dit geldt niet als je logs of andere bestanden wilt herstellen die niet automatisch door Minecraft worden opgeslagen.",
+    "restore_and_stop": "Herstellen & Stoppen",
+    "only_restore": "Alleen herstellen",
+    "delete": {
+      "title": "Back-up verwijderen",
+      "text": "Weet je zeker dat je deze back-up wilt verwijderen?",
+      "success": "Back-up succesvol verwijderd",
+      "yes": "Ja, verwijder"
+    },
+    "mode": {
+      "complete": "De volledige server",
+      "worlds": "Alle geladen werelden",
+      "plugins": "Plug-Ins & hun configuraties",
+      "config": "Configuratiebestanden",
+      "logs": "Console logs"
+    },
+    "mapping": {
+      "complete": "Volledige server",
+      "worlds": "Werelden",
+      "plugins": "Plug-ins",
+      "config": "Configuraties",
+      "logs": "Logs"
+    }
+  },
+  "configuration": {
+    "saved": "Wijzigingen opgeslagen. Herstart de server om ze toe te passen.",
+    "services": "Services",
+    "ssh": {
+      "server": "SSH-server",
+      "description": "Beheer je bestanden en bestuur de console vanaf je computer.",
+      "bind_error": "Poort kon niet gebonden worden. Probeer een andere poort.",
+      "port": "SSH-Poort",
+      "connect": "Verbinden"
+    }
+  },
+  "console": {
+    "command": "Opdracht"
+  },
+  "files": {
+    "folder": "Folder",
+    "loading": "Bestand laden...",
+    "file_deleted": "Bestand succesvol verwijderd",
+    "file_saved": "Bestand succesvol opgeslagen",
+    "upload_file": "Bestand uploaden",
+    "file_uploaded": "Bestand succesvol geüpload",
+    "folder_deleted": "Folder succesvol verwijderd",
+    "folder_created": "Folder succesvol aangemaakt",
+    "download": "Downloaden",
+    "delete": "Verwijderen",
+    "go_back": "Teruggaan",
+    "create_folder": {
+      "title": "Nieuwe folder aanmaken",
+      "text": "Voer de naam in voor de nieuwe folder"
+    }
+  },
+  "overview": {
+    "cpu": "CPU-Kernen",
+    "tps": "TPS",
+    "ram": "RAM",
+    "disk": "Schijf",
+    "software": "Server-Software",
+    "version": "Server-Versie",
+    "ip": "Server-IP",
+    "tip": {
+      "title": "Tips",
+      "welcome": "MCDash - Welkom!",
+      "text": "Gefeliciteerd! Het is je gelukt om MCDash succesvol te installeren. MCDash is een web panel waarmee je je Minecraft server kunt beheren.",
+      "subtext": "Als je hulp nodig hebt bij het gebruik van MCDash, kan je altijd de documentatie lezen door op de onderstaande knop te klikken.",
+      "documentation": "Documentatie",
+      "donate": "Doneer",
+      "none": "Er zijn momenteel geen tips voor jou. Kom later nog eens terug!",
+      "close": "Sluiten"
+    },
+    "shutdown": {
+      "button": "Afsluiten",
+      "title": "Server afsluiten",
+      "text": "Weet je zeker dat je de server wilt afsluiten?",
+      "yes": "Ja, sluit af",
+      "success": "Server succesvol afgesloten"
+    },
+    "reload": {
+      "button": "Herladen",
+      "title": "Server herladen",
+      "text": "Weet je zeker dat je de server wil herladen?",
+      "yes": "Ja, herlaad",
+      "success": "Server succesvol herladen"
+    }
+  },
+  "plugins": {
+    "by": "door",
+    "search": "Zoeken",
+    "store": "Winkel",
+    "no_description": "Geen beschrijving gegeven",
+    "no_plugins": "Geen plug-ins gevonden",
+    "enable": "Inschakelen",
+    "disable": "Uitschakelen",
+    "not_supported": "Plug-in niet ondersteund",
+    "view_resource": "Bron bekijken",
+    "already_installed": "Plug-in al geïnstalleerd",
+    "install": "Installeer",
+    "delete": {
+      "tooltip": "Plug-in verwijderen",
+      "title": "{{name}} verwijderen",
+      "text": "Weet je zeker dat je {{name}} wilt verwijderen? Je moet je server herstarten om de wijzigingen toe te passen na het verwijderen."
+    }
+  },
+  "worlds": {
+    "change": "Wijzigen",
+    "create": "Wereld aanmaken",
+    "create_title": "Nieuwe wereld aanmaken",
+    "overworld": "Overwereld",
+    "nether": "Nether",
+    "end": "De End",
+    "world_name": "Wereldnaam",
+    "world_type": "Wereldtype",
+    "difficulty": {
+      "changed": "Moeilijkheidsgraad succesvol veranderd!",
+      "title": "Moeilijkheidsgraad veranderen",
+      "peaceful": "Vreedzaam",
+      "easy": "Makkelijk",
+      "normal": "Normaal",
+      "hard": "Moeilijk",
+      "button": "Moeilijkheidsgraad"
+    },
+    "time": {
+      "changed": "Tijd succesvol veranderd!",
+      "title": "Tijd veranderen",
+      "update": "Veranderen naar",
+      "button": "Tijd"
+    },
+    "weather": {
+      "changed": "Weer succesvol veranderd!",
+      "title": "Weer veranderen",
+      "clear": "Helder",
+      "rain": "Regen",
+      "thunder": "Onweer",
+      "button": "Weer"
+    },
+    "info": {
+      "players": "Spelers",
+      "time": "Tijd",
+      "weather": "Weer",
+      "difficulty": "Moeilijkheidsgraad"
+    },
+    "delete": {
+      "title": "Wereld verwijderen",
+      "text": "Weet je zeker dat je deze wereld wilt verwijderen?",
+      "yes": "Ja, verwijder",
+      "success": "Wereld succesvol verwijderd"
+    }
+  },
+  "players": {
+    "online": "Online Spelers",
+    "name": "Naam",
+    "username": "Gebruikersnaam",
+    "id": "Speler-ID",
+    "world": "Huidige wereld",
+    "address": "IP-Adres",
+    "food_level": "Hunger",
+    "health": "Gezondheid",
+    "is_op": "OP",
+    "game_mode": "Speelmodus",
+    "player_time": "Speeltijd",
+    "reason": "REden",
+    "last_seen": "Laatst gezien",
+    "action_player": "{{action}} Speler{{plural}}",
+    "action_player_text": "Wil je deze speler{{plural}} echt {{action}}?",
+    "teleport_title": "Teleporteer speler naar wereld",
+    "op_player": "De speler zal beheerderspermissies krijgen. Weet je het zeker?",
+    "whitelist_title": "Voeg speler toe aan whitelist",
+    "teleport": "Teleporteer",
+    "whitelisted_players": "Gewhiteliste Spelers",
+    "enable_whitelist": "Whitelist inschakelen",
+    "disable_whitelist": "Whitelist uitschakelen",
+    "banned_players": "Verbannen Spelers",
+    "unban": "Niet meer verbannen",
+    "action": {
+      "kicked": "Je bent gekickt!",
+      "kick": "Kicken",
+      "ban": "Verbannen"
+    },
+    "none": {
+      "online": "Geen spelers online",
+      "whitelisted": "Geen gewhiteliste spelers gevonden",
+      "banned": "Geen verbannen spelers gevonden"
+    },
+    "per_page": "Spelers per pagina"
+  },
+  "schedules": {
+    "create": "Schema aanmaken",
+    "create_title": "Nieuw schema aanmaken",
+    "edit_title": "Schema aanpassen",
+    "name": "Naam van het schema",
+    "none_created": "Geen schema's aangemaakt",
+    "schedule": {
+      "monthly": "Elke maand op de {{day}}e dag",
+      "weekly": "Elke week op {{days}}",
+      "daily": "Elke dag op {{time}}",
+      "hourly": "Elk uur op {{minutes}} minuten"
+    },
+    "tasks": {
+      "title": "Taken",
+      "none_created": "Geen taken aangemaakt",
+      "edit": "Wijzigen",
+      "delete": "Verwijderen",
+      "add": "Taak aanmaken"
+    },
+    "frequencies": {
+      "monthly": "Maandelijks",
+      "weekly": "Wekelijks",
+      "daily": "Dagelijks",
+      "hourly": "Uurlijks"
+    },
+    "weekly": {
+      "monday": "Maandag",
+      "tuesday": "Dinsdag",
+      "wednesday": "Woensdag",
+      "thursday": "Donderdag",
+      "friday": "Vrijdag",
+      "saturday": "Zaterdag",
+      "sunday": "Zondag"
+    },
+    "action": {
+      "kick": "Reden voor kick",
+      "command": "Opdracht",
+      "message": "Bericht",
+      "create": "Actie aanmaken",
+      "edit": "Actie aanpassen"
+    },
+    "types": {
+      "command": "Een opdracht sturen",
+      "broadcast": "Een bericht uitzenden",
+      "reload": "Server herladen",
+      "stop": "Server stoppen",
+      "backup": "Back-up aanmaken",
+      "kick": "Alle spelers kicken"
+    },
+    "delete": {
+      "title": "Schema verwijderen",
+      "text": "Weet je zeker dat je dit schema wil verwijderen?"
+    }
+  }
+}
