@@ -250,11 +250,11 @@
       "ban": "BAN"
     },
     "none": {
-      "online": "No players online",
-      "whitelisted": "No whitelisted players found",
-      "banned": "No banned players found"
+      "online": "オンラインのプレイヤーが居ません。",
+      "whitelisted": "ホワイトリストに登録されたプレイヤーが居ません。",
+      "banned": "BANされたプレイヤーが居ません。"
     },
-    "per_page": "Players per page"
+    "per_page": "ページごとのプレイヤー"
   },
   "schedules": {
     "create": "スケジュールを作成",
