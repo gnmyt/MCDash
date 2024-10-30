@@ -10,7 +10,7 @@
   <a href="https://github.com/gnmyt/MCDash">
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://i.imgur.com/bxuP8yC.png">
-        <img alt="MyLinks Banner" src="https://i.imgur.com/aTxlW0Q.png">
+        <img alt="MyLinks Banner" src="https://i.imgur.com/aTxlW0Q.png"> test
     </picture>
   </a>
 </p>
