@@ -6,7 +6,7 @@ const config = {
   title: 'MCDash',
   tagline: 'MCDash is a simple dashboard for your Minecraft server.',
   favicon: 'img/favicon.ico',
-  url: 'https://mcdash.gnmyt.dev',
+  url: 'https://mcdash.gnm.dev',
   baseUrl: '/',
   organizationName: 'gnmyt',
   projectName: 'MCDash',

@@ -20,7 +20,7 @@ export const WelcomeTip = ({handleWelcomeClose}) => {
                 {t("overview.tip.text")}<br/>{t("overview.tip.subtext")}
             </Typography>
             <Stack direction="row" gap={1}>
-                <Button variant="text" href="https://mcdash.gnmyt.dev/" target="_blank" sx={{mt: 1}}
+                <Button variant="text" href="https://mcdash.gnm.dev/" target="_blank" sx={{mt: 1}}
                         startIcon={<Book/>} color="success">
                     {t("overview.tip.documentation")}
                 </Button>

@@ -64,7 +64,7 @@ MCDash is a simple dashboard for your Minecraft server. It allows you to see the
 ![Screenshot 10](https://i.imgur.com/Q58pZAT.png)
 
 ## Installation
-Check out our [installation guide](https://mcdash.gnmyt.dev/docs/intro) to install MCDash on your server.
+Check out our [installation guide](https://mcdash.gnm.dev/docs/intro) to install MCDash on your server.
 
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
