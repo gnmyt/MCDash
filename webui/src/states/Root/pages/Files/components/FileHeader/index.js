@@ -1,1 +1,0 @@
-export {FileHeader as default} from './FileHeader';

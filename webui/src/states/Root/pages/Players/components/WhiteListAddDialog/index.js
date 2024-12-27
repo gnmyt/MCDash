@@ -1,1 +1,0 @@
-export {WhitelistAddDialog as default} from "./WhitelistAddDialog";

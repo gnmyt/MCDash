@@ -1,1 +1,0 @@
-export {OverviewArea as default} from "./OverviewArea.jsx";
