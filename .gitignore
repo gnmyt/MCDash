@@ -1,4 +1,6 @@
 .idea
-MCDash.iml
-/target/
+*.iml
+**/target/
+**/build
+**/.gradle
 webui/dist
