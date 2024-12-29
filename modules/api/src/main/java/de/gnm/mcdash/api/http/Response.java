@@ -104,5 +104,14 @@ public class Response {
         return this;
     }
 
+    /**
+     * Sends an error response with the given error message.
+     *
+     * @return The current JSON response instance
+     */
+    public Response ok() {
+        return code(200).raw("OK");
+    }
+
 
 }
