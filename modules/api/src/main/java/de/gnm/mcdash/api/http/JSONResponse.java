@@ -34,6 +34,17 @@ public class JSONResponse extends Response {
     /**
      * Adds a new key-value pair to the JSON response.
      * @param name The key
+     * @param value The value (Object)
+     * @return The current JSON response instance
+     */
+    public JSONResponse add(String name, Object value) {
+        node.putPOJO(name, value);
+        return this;
+    }
+
+    /**
+     * Adds a new key-value pair to the JSON response.
+     * @param name The key
      * @param value The value (int)
      * @return The current JSON response instance
      */
@@ -80,5 +91,10 @@ public class JSONResponse extends Response {
     @Override
     public InputStream getInputStream() {
         return new ByteArrayInputStream(node.toString().getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public JSONResponse ok() {
+        return message("OK");
     }
 }
