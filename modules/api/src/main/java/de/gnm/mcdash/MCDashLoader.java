@@ -4,6 +4,7 @@ package de.gnm.mcdash;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.controller.AccountController;
 import de.gnm.mcdash.api.controller.ControllerManager;
+import de.gnm.mcdash.api.controller.SessionController;
 import de.gnm.mcdash.api.handlers.BaseHandler;
 import de.gnm.mcdash.api.handlers.StaticHandler;
 import de.gnm.mcdash.api.http.HTTPMethod;
@@ -14,6 +15,7 @@ import io.undertow.Undertow;
 import io.undertow.server.handlers.PathHandler;
 import org.reflections.Reflections;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +23,9 @@ import java.util.Map;
 public class MCDashLoader {
     private final Map<Class<?>, BasePipe> pipes = new HashMap<>();
     private final ControllerManager controllerManager = new ControllerManager();
-    private final BaseHandler routeHandler = new BaseHandler();
+    private final BaseHandler routeHandler = new BaseHandler(controllerManager);
+    private String databaseFile = "mcdash.db";
+    private File serverRoot = new File(System.getProperty("user.dir"));
     private Undertow httpServer;
 
     /**
@@ -40,13 +44,16 @@ public class MCDashLoader {
     private void initialize() {
         registerRoutes();
 
+        controllerManager.setConnection(String.format("jdbc:sqlite:%s", databaseFile));
+
         PathHandler handler = new PathHandler()
                 .addPrefixPath("/api", routeHandler)
                 .addPrefixPath("/", new StaticHandler());
 
-        httpServer = Undertow.builder().addHttpListener(8080, "0.0.0.0").setHandler(handler).build();
+        httpServer = Undertow.builder().addHttpListener(7867, "0.0.0.0").setHandler(handler).build();
 
-        controllerManager.registerController(AccountController.class, new AccountController("test"));
+        controllerManager.registerController(AccountController.class);
+        controllerManager.registerController(SessionController.class);
     }
 
     /**
@@ -56,7 +63,10 @@ public class MCDashLoader {
         Reflections reflections = new Reflections(getRoutePackageName());
         reflections.getSubTypesOf(BaseRoute.class).forEach(clazz -> {
             try {
-                BaseRoute baseHandler = clazz.getDeclaredConstructor().newInstance();
+                BaseRoute baseRoute = clazz.getDeclaredConstructor().newInstance();
+
+                baseRoute.setControllerManager(controllerManager);
+                baseRoute.setServerRoot(serverRoot);
 
                 for (Method method : clazz.getDeclaredMethods()) {
                     Path routePath = method.getAnnotation(Path.class);
@@ -66,7 +76,7 @@ public class MCDashLoader {
 
                     de.gnm.mcdash.api.annotations.Method routeMethod = method.getAnnotation(de.gnm.mcdash.api.annotations.Method.class);
 
-                    RouteMeta routeMeta = new RouteMeta(baseHandler, method, routeMethod != null ? routeMethod.value() : HTTPMethod.GET, routePath.value());
+                    RouteMeta routeMeta = new RouteMeta(baseRoute, method, routeMethod != null ? routeMethod.value() : HTTPMethod.GET, routePath.value());
                     routeHandler.registerRoute(routeMeta);
                 }
             } catch (Exception ignored) {
@@ -137,4 +147,19 @@ public class MCDashLoader {
         return controllerManager.getController(controllerType);
     }
 
+    public void setDatabaseFile(String databaseFile) {
+        this.databaseFile = databaseFile;
+    }
+
+    public void setServerRoot(File serverRoot) {
+        if (!serverRoot.exists()) {
+            serverRoot.mkdirs();
+        }
+
+        if (!serverRoot.isDirectory()) {
+            throw new IllegalArgumentException("The server root must be a directory.");
+        }
+
+        this.serverRoot = serverRoot;
+    }
 }
