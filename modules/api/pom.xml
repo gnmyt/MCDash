@@ -26,11 +26,11 @@
             <version>2.3.18.Final</version>
         </dependency>
 
-        <!-- Commons API -->
+        <!-- Commons Lang API -->
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.18.0</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.17.0</version>
         </dependency>
 
         <!-- Reflections API -->
