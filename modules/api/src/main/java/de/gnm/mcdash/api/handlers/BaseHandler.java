@@ -1,6 +1,10 @@
 package de.gnm.mcdash.api.handlers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
+import de.gnm.mcdash.api.controller.ControllerManager;
+import de.gnm.mcdash.api.controller.SessionController;
+import de.gnm.mcdash.api.helper.ParserHelper;
 import de.gnm.mcdash.api.http.*;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
@@ -17,6 +21,11 @@ public class BaseHandler implements HttpHandler {
 
     private static final String API_PREFIX = "/api";
     private final List<RouteMeta> routes = new ArrayList<>();
+    private final ControllerManager controllerManager;
+
+    public BaseHandler(ControllerManager controllerManager) {
+        this.controllerManager = controllerManager;
+    }
 
     /**
      * Registers a route with the handler
@@ -55,6 +64,8 @@ public class BaseHandler implements HttpHandler {
 
         Map<String, String> pathVariables = extractPathVariables(matchedRoute, relativePath);
         String contentType = exchange.getRequestHeaders().getFirst(HttpString.tryFromString("Content-Type"));
+
+        if (!isRouteAuthenticated(matchedRoute, exchange)) return;
 
         Response response = handleRequestForRoute(exchange, matchedRoute, pathVariables, contentType);
 
@@ -118,6 +129,33 @@ public class BaseHandler implements HttpHandler {
     }
 
     /**
+     * Checks if a route is authenticated
+     *
+     * @param route    the route to check
+     * @param exchange the HTTP request/response exchange
+     * @return true if the route is authenticated, false otherwise
+     */
+    private boolean isRouteAuthenticated(RouteMeta route, HttpServerExchange exchange) {
+        if (route.getMethod().getAnnotation(AuthenticatedRoute.class) != null) {
+            if (exchange.getRequestHeaders().getFirst(HttpString.tryFromString("Authorization")) == null) {
+                sendErrorResponse(exchange, 401, "Unauthorized");
+                return false;
+            }
+
+            SessionController sessionController = controllerManager.getController(SessionController.class);
+
+            String sessionToken = exchange.getRequestHeaders().getFirst(HttpString.tryFromString("Authorization"))
+                    .replace("Bearer ", "");
+
+            if (!sessionController.isValidToken(sessionToken)) {
+                sendErrorResponse(exchange, 401, "Unauthorized");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Handles a request for a route
      *
      * @param exchange      the HTTP request/response exchange
@@ -134,15 +172,14 @@ public class BaseHandler implements HttpHandler {
             }
 
             // JSON request
-            if (route.getMethod().getParameterTypes()[0].equals(JSONRequest.class) && "application/json".equals(contentType)) {
+            if (route.getMethod().getParameterTypes()[0].equals(JSONRequest.class)) {
                 return handleJsonRequest(exchange, route, pathVariables);
             }
 
             return new JSONResponse().error("Invalid request.").code(400);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            return new JSONResponse().error(e.getMessage()).code(500);
         }
-
-        return null;
     }
 
     /**
@@ -155,11 +192,21 @@ public class BaseHandler implements HttpHandler {
      */
     private Response handleJsonRequest(HttpServerExchange exchange, RouteMeta route, Map<String, String> pathVariables) {
         try {
-            JsonNode jsonBody = ParserHelper.parseJsonBody(exchange);
+            JsonNode jsonBody;
+            if (route.getHttpMethod() == HTTPMethod.GET) {
+                jsonBody = ParserHelper.parseQueryParameters(exchange);
+            } else {
+                jsonBody = ParserHelper.parseJsonBody(exchange);
+            }
             JSONRequest request = new JSONRequest(exchange.getSourceAddress().getAddress(), exchange.getRequestHeaders(), pathVariables, jsonBody);
             return (Response) route.getMethod().invoke(route.getRoute(), request);
         } catch (Exception e) {
-            return new JSONResponse().error("Please provide a valid JSON body.").code(400);
+            if (e instanceof IllegalArgumentException) {
+                return new JSONResponse().error("Please provide a valid JSON body.").code(400);
+            } else {
+                e.printStackTrace();
+                return new JSONResponse().error(e.getCause() != null ? e.getCause().getMessage() : e.getMessage()).code(500);
+            }
         }
     }
 
