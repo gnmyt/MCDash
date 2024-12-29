@@ -1,7 +1,8 @@
-package de.gnm.mcdash.api.http;
+package de.gnm.mcdash.api.helper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 
@@ -72,5 +73,20 @@ public class ParserHelper {
             }
         }
         return -1;
+    }
+
+    /**
+     * Parses the query parameters of an HTTP request.
+     * @param exchange The HTTP server exchange
+     * @return The parsed query parameters
+     */
+    public static JsonNode parseQueryParameters(HttpServerExchange exchange) {
+        ObjectNode jsonNode = MAPPER.createObjectNode();
+        exchange.getQueryParameters().forEach((key, values) -> {
+            if (!values.isEmpty()) {
+                jsonNode.put(key, values.getFirst());
+            }
+        });
+        return jsonNode;
     }
 }
