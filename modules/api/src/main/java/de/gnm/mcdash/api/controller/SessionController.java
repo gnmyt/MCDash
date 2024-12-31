@@ -1,7 +1,6 @@
 package de.gnm.mcdash.api.controller;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -83,6 +82,15 @@ public class SessionController extends BaseController {
         if (!isValidToken(token)) return -1;
 
         return (int) getSingleResult("SELECT userId FROM sessions WHERE token = ?", token).get("userId");
+    }
+
+    /**
+     * Updates the 'lastUsed' field of a session
+     *
+     * @param token The token of the session
+     */
+    public void updateLastUsed(String token) {
+        executeUpdate("UPDATE sessions SET lastUsed = CURRENT_TIMESTAMP WHERE token = ?", token);
     }
 
 }
