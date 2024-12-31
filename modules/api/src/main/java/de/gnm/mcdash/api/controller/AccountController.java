@@ -75,4 +75,25 @@ public class AccountController extends BaseController {
         return BCrypt.checkpw(password, hashedPassword);
     }
 
+    /**
+     * Change the password of an account by the username
+     * @param username The username of the account
+     * @param password The new password of the account
+     * @return whether the password was changed successfully
+     */
+    public boolean changePassword(String username, String password) {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        return executeUpdate("UPDATE accounts SET password = ? WHERE username = ?", hashedPassword, username) > 0;
+    }
+
+    /**
+     * Change the username of an account by the username
+     * @param username The username of the account
+     * @param newUsername The new username of the account
+     * @return whether the username was changed successfully
+     */
+    public boolean changeUsername(String username, String newUsername) {
+        return executeUpdate("UPDATE accounts SET username = ? WHERE username = ?", newUsername, username) > 0;
+    }
+
 }
