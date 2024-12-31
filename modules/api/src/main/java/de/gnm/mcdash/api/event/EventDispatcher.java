@@ -19,7 +19,6 @@ public class EventDispatcher {
      */
     public <T extends BaseEvent> void registerListener(Class<T> eventType, Consumer<T> listener) {
         listeners.computeIfAbsent(eventType, k -> new ArrayList<>()).add(listener);
-        System.out.println("Registered listener for " + eventType.getSimpleName());
     }
 
     /**
