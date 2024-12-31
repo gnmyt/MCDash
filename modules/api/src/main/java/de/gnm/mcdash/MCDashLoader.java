@@ -5,6 +5,7 @@ import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.controller.AccountController;
 import de.gnm.mcdash.api.controller.ControllerManager;
 import de.gnm.mcdash.api.controller.SessionController;
+import de.gnm.mcdash.api.event.EventDispatcher;
 import de.gnm.mcdash.api.handlers.BaseHandler;
 import de.gnm.mcdash.api.handlers.StaticHandler;
 import de.gnm.mcdash.api.http.HTTPMethod;
@@ -24,6 +25,7 @@ public class MCDashLoader {
     private final Map<Class<?>, BasePipe> pipes = new HashMap<>();
     private final ControllerManager controllerManager = new ControllerManager();
     private final BaseHandler routeHandler = new BaseHandler(controllerManager);
+    private final EventDispatcher eventDispatcher = new EventDispatcher();
     private String databaseFile = "mcdash.db";
     private File serverRoot = new File(System.getProperty("user.dir"));
     private Undertow httpServer;
@@ -137,6 +139,15 @@ public class MCDashLoader {
     }
 
     /**
+     * Gets the event dispatcher
+     *
+     * @return the event dispatcher
+     */
+    public EventDispatcher getEventDispatcher() {
+        return eventDispatcher;
+    }
+
+    /**
      * Gets a controller of the given type
      *
      * @param controllerType the type of the controller
@@ -147,10 +158,20 @@ public class MCDashLoader {
         return controllerManager.getController(controllerType);
     }
 
+    /**
+     * Sets the database file
+     *
+     * @param databaseFile the database file
+     */
     public void setDatabaseFile(String databaseFile) {
         this.databaseFile = databaseFile;
     }
 
+    /**
+     * Sets and creates the server root
+     *
+     * @param serverRoot the server root
+     */
     public void setServerRoot(File serverRoot) {
         if (!serverRoot.exists()) {
             serverRoot.mkdirs();
