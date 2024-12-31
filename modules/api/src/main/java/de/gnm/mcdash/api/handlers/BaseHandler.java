@@ -151,6 +151,8 @@ public class BaseHandler implements HttpHandler {
                 sendErrorResponse(exchange, 401, "Unauthorized");
                 return false;
             }
+
+            sessionController.updateLastUsed(sessionToken);
         }
         return true;
     }
