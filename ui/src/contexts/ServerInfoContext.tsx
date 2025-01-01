@@ -38,8 +38,6 @@ export const ServerInfoProvider = (props: ServerInfoProviderProps) => {
 
     useEffect(() => {
         checkToken();
-        const interval = setInterval(() => checkToken(), 10000);
-        return () => clearInterval(interval);
     }, []);
 
     return (
