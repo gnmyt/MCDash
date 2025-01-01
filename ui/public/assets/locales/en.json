@@ -1,4 +1,17 @@
 {
+  "action": {
+    "cancel": "Cancel",
+    "add": "Add",
+    "save": "Save",
+    "remove": "Remove",
+    "continue": "Yes, continue",
+    "confirm": "Confirm action",
+    "create": "Create",
+    "exit": "Exit",
+    "warn": "Warning",
+    "sure": "Are you sure you want to confirm this action?",
+    "changes_saved": "Changes saved"
+  },
   "login": {
     "sign_in": "Sign In",
     "failed": "Login failed, check your credentials.",
@@ -20,6 +33,32 @@
       "base": "Settings",
       "server": "Server",
       "users": "Users"
+    }
+  },
+  "files": {
+    "table": {
+      "name": "Name",
+      "size": "Size",
+      "last_modified": "Last Modified",
+      "actions": "Actions"
+    },
+    "new_folder": "New Folder",
+    "file_deleted": "File successfully deleted",
+    "file_saved": "File successfully saved",
+    "upload_file": "Upload File",
+    "save_file": "Save File",
+    "file_uploaded": "File successfully uploaded",
+    "file_renamed": "The file has been renamed successfully.",
+    "enter_name": "Enter new name",
+    "rename": "Rename",
+    "download": "Download",
+    "delete": "Delete",
+    "delete_description": "This action cannot be undone. This will permanently delete the item.",
+    "create_folder": {
+      "placeholder": "Enter folder name",
+      "title": "Create new folder",
+      "button": "Create folder",
+      "feedback": "The folder has been created successfully."
     }
   }
 }
