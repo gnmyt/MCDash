@@ -19,7 +19,7 @@ import {
 import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible.tsx";
 import {sidebar} from "@/states/Root/routes.tsx";
 import {useContext, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
 
 export function Sidebar() {
@@ -34,16 +34,18 @@ export function Sidebar() {
     const isFeatureAvailable = (requiredFeatures?: string[]) =>
         !requiredFeatures || requiredFeatures.every((feature) => serverInfo.availableFeatures?.includes(feature));
 
-    const isCurrentRoute = (path: string) =>
-        location.pathname === path || location.pathname.startsWith(path + "/");
+    const isCurrentRoute = (path: string) => {
+        if (path !== "/" && location.pathname.startsWith(path)) return true;
+        if (location.pathname === path) return true;
+    }
 
-    const handleNavigationClick = (item: { items?: any[]; path: string }) => {
+    const handleNavigationClick = (item: { items?: { path: string; name: () => string }[]; path: string }) => {
         if (item.items?.length) {
             toggleCollapsible(item.path);
-        } else {
+        }  else {
             navigate(item.path);
         }
-    };
+    }
 
     return (
         <ShadSidebar variant="inset" className="select-none">
@@ -51,7 +53,7 @@ export function Sidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <a className="flex items-center space-x-2 cursor-pointer">
+                            <Link to="/" className="flex items-center space-x-2 cursor-pointer">
                                 <div
                                     className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                     <Cuboid className="size-4"/>
@@ -60,7 +62,7 @@ export function Sidebar() {
                                     <span className="truncate font-semibold">MCDash</span>
                                     <span className="truncate text-xs">1.2.0</span>
                                 </div>
-                            </a>
+                            </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
