@@ -1,12 +1,12 @@
 package de.gnm.mcdash.api.routes;
 
-import de.gnm.mcdash.api.controller.ControllerManager;
+import de.gnm.mcdash.MCDashLoader;
 
 import java.io.File;
 
 public abstract class BaseRoute {
 
-    ControllerManager controllerManager = new ControllerManager();
+    MCDashLoader loader;
     File serverRoot;
 
     /**
@@ -17,16 +17,27 @@ public abstract class BaseRoute {
      * @return The controller
      */
     public <T> T getController(Class<T> controllerType) {
-        return controllerManager.getController(controllerType);
+        return loader.getController(controllerType);
     }
 
     /**
-     * Set the server root
+     * Gets a pipe of the given type
      *
-     * @param controllerManager The controller manager
+     * @param pipeType the type of the pipe
+     * @param <T>      the type of the pipe
+     * @return the pipe
      */
-    public void setControllerManager(ControllerManager controllerManager) {
-        this.controllerManager = controllerManager;
+    public <T> T getPipe(Class<T> pipeType) {
+        return loader.getPipe(pipeType);
+    }
+
+    /**
+     * Sets the loader
+     *
+     * @param loader The loader
+     */
+    public void setLoader(MCDashLoader loader) {
+        this.loader = loader;
     }
 
     /**
@@ -40,6 +51,7 @@ public abstract class BaseRoute {
 
     /**
      * Set the server root
+     *
      * @param serverRoot The server root
      */
     public void setServerRoot(File serverRoot) {
