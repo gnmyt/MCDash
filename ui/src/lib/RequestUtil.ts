@@ -16,7 +16,7 @@ export const request = async (path: string, method = "GET", body = {}, headers =
 
     return await fetch("/api/" + path, {
         headers: {...getHeaders(), ...headers}, method,
-        body: method !== "GET" ? new URLSearchParams(body) : undefined,
+        body: Object.keys(body).length ? JSON.stringify(body) : undefined,
         signal: controller.signal
     });
 }
