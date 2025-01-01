@@ -153,7 +153,7 @@ public class ServerHelper {
                 "-Xms" + (xmx / 2) + "M",
                 "-jar",
                 SERVER_JAR,
-                "-nogui"
+                "nogui"
         ));
 
         LOG.info("Starting server with: " + String.join(" ", flagsList));
