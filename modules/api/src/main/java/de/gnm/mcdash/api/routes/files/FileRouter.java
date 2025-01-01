@@ -3,6 +3,8 @@ package de.gnm.mcdash.api.routes.files;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
 import de.gnm.mcdash.api.annotations.Path;
+import de.gnm.mcdash.api.annotations.RequiresFeatures;
+import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.http.Response;
@@ -14,6 +16,7 @@ import java.io.File;
 public class FileRouter extends BaseRoute {
 
     @AuthenticatedRoute
+    @RequiresFeatures(Feature.FileManager)
     @Path("/files/list")
     public Response listFiles(JSONRequest request) {
         request.checkFor("path");

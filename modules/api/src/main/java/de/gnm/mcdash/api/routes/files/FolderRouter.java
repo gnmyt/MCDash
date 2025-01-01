@@ -3,6 +3,8 @@ package de.gnm.mcdash.api.routes.files;
 import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
 import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
+import de.gnm.mcdash.api.annotations.RequiresFeatures;
+import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.helper.FileHelper;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
@@ -17,6 +19,7 @@ import static de.gnm.mcdash.api.http.HTTPMethod.PUT;
 public class FolderRouter extends BaseRoute {
 
     @AuthenticatedRoute
+    @RequiresFeatures(Feature.FileManager)
     @Path("/folder")
     @Method(PUT)
     public Response createFolder(JSONRequest request) {
@@ -42,6 +45,7 @@ public class FolderRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
+    @RequiresFeatures(Feature.FileManager)
     @Path("/folder")
     @Method(DELETE)
     public Response deleteFolder(JSONRequest request) {
