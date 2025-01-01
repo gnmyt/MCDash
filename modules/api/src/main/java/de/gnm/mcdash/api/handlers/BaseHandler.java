@@ -205,7 +205,29 @@ public class BaseHandler implements HttpHandler {
                 return handleJsonRequest(exchange, route, pathVariables);
             }
 
+            // Raw request
+            if (route.getMethod().getParameterTypes()[0].equals(RawRequest.class)) {
+                return handleRawRequest(exchange, route, pathVariables);
+            }
+
             return new JSONResponse().error("Invalid request.").code(400);
+        } catch (Exception e) {
+            return new JSONResponse().error(e.getMessage()).code(500);
+        }
+    }
+
+    /**
+     * Handles a raw request
+     *
+     * @param exchange      the HTTP request/response exchange
+     * @param route         the route to handle the request for
+     * @param pathVariables the path variables extracted from the request path
+     * @return the response to send back to the client
+     */
+    private Response handleRawRequest(HttpServerExchange exchange, RouteMeta route, Map<String, String> pathVariables) {
+        try {
+            RawRequest request = new RawRequest(exchange.getSourceAddress().getAddress(), exchange.getRequestHeaders(), pathVariables, exchange.getInputStream());
+            return (Response) route.getMethod().invoke(route.getRoute(), request);
         } catch (Exception e) {
             return new JSONResponse().error(e.getMessage()).code(500);
         }
