@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/Sidebar.tsx"
+import {Sidebar} from "@/components/Sidebar.tsx"
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -7,48 +7,50 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+import {Separator} from "@/components/ui/separator"
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { ServerInfoContext } from "@/contexts/ServerInfoContext.tsx";
+import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
 import {useContext} from "react";
-import {Navigate, Outlet} from "react-router-dom";
+import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
+import {getLocationByPath} from "@/states/Root/routes.tsx";
 
 const Root = () => {
-
     const {tokenValid} = useContext(ServerInfoContext)!;
+
+    const location = useLocation();
 
     return (
         <>
-            {tokenValid === false && <Navigate to="/login" />}
+            {tokenValid === false && <Navigate to="/login"/>}
 
             {tokenValid === true && <>
                 <SidebarProvider>
-                    <Sidebar />
+                    <Sidebar/>
                     <SidebarInset>
                         <header className="flex h-16 shrink-0 items-center gap-2">
                             <div className="flex items-center gap-2 px-4">
-                                <SidebarTrigger className="-ml-1" />
-                                <Separator orientation="vertical" className="mr-2 h-4" />
+                                <SidebarTrigger className="-ml-1"/>
+                                <Separator orientation="vertical" className="mr-2 h-4"/>
                                 <Breadcrumb>
                                     <BreadcrumbList>
                                         <BreadcrumbItem className="hidden md:block">
-                                            <BreadcrumbLink href="#">
-                                                MCDash
-                                            </BreadcrumbLink>
+                                            <Link to="/">
+                                                <BreadcrumbLink>MCDash</BreadcrumbLink>
+                                            </Link>
                                         </BreadcrumbItem>
-                                        <BreadcrumbSeparator className="hidden md:block" />
+                                        <BreadcrumbSeparator className="hidden md:block"/>
                                         <BreadcrumbItem>
-                                            <BreadcrumbPage>Overview</BreadcrumbPage>
+                                            <BreadcrumbPage>{getLocationByPath(location.pathname)?.name()}</BreadcrumbPage>
                                         </BreadcrumbItem>
                                     </BreadcrumbList>
                                 </Breadcrumb>
                             </div>
                         </header>
-                        <Outlet />
+                        <Outlet/>
                     </SidebarInset>
                 </SidebarProvider>
             </>}
