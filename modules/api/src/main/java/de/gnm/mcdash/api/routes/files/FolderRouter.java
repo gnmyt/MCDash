@@ -13,8 +13,7 @@ import de.gnm.mcdash.api.routes.BaseRoute;
 
 import java.io.File;
 
-import static de.gnm.mcdash.api.http.HTTPMethod.DELETE;
-import static de.gnm.mcdash.api.http.HTTPMethod.PUT;
+import static de.gnm.mcdash.api.http.HTTPMethod.*;
 
 public class FolderRouter extends BaseRoute {
 
@@ -67,6 +66,38 @@ public class FolderRouter extends BaseRoute {
             return new JSONResponse().message("Directory deleted");
         } catch (Exception e) {
             return new JSONResponse().error("Error deleting directory: " + e.getMessage());
+        }
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(Feature.FileManager)
+    @Path("/folder/rename")
+    @Method(PATCH)
+    public Response renameFolder(JSONRequest request) {
+        request.checkFor("path", "newPath");
+        File serverRoot = getServerRoot();
+        String path = request.get("path");
+        String newPath = request.get("newPath");
+
+        try {
+            File directory = FileHelper.getNormalizedPath(serverRoot, path);
+            File newDirectory = FileHelper.getNormalizedPath(serverRoot, newPath);
+
+            if (!directory.exists() || !directory.isDirectory()) {
+                return new JSONResponse().error("The directory does not exist");
+            }
+
+            if (newDirectory.exists()) {
+                return new JSONResponse().error("The new directory already exists");
+            }
+
+            if (!directory.renameTo(newDirectory)) {
+                return new JSONResponse().error("Error renaming directory");
+            }
+
+            return new JSONResponse().message("Directory renamed");
+        } catch (Exception e) {
+            return new JSONResponse().error("Error renaming directory: " + e.getMessage());
         }
     }
 
