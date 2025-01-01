@@ -2,18 +2,36 @@ import {Cuboid} from "lucide-react";
 import MinecraftBanner from "@/assets/images/minecraft-banner.png";
 
 import LoginForm from "@/states/Login/components/LoginForm.tsx";
-import {useState} from "react";
+import {FormEvent, useContext, useState} from "react";
+import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
+import {postRequest} from "@/lib/RequestUtil.ts";
+import {Navigate} from "react-router-dom";
 
 const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const {checkToken, tokenValid} = useContext(ServerInfoContext)!;
+
+    const login = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        postRequest("session/create", {username, password}).then(async (r) => {
+            if (!r.session) throw new Error("Invalid credentials");
+            localStorage.setItem("sessionToken", r.session);
+            await checkToken();
+        }).catch((e) => {
+            console.error(e);
+        });
+    }
+
     return (
         <div className="grid min-h-screen lg:grid-cols-2">
+            {tokenValid && <Navigate to="/"/>}
+
             <div className="flex flex-col gap-4 p-6 md:p-10">
                 <div className="flex justify-center gap-2 md:justify-start">
-                    <a href="#" className="flex items-center gap-2 font-medium">
+                    <a className="flex items-center gap-2 font-medium">
                         <div
                             className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
                             <Cuboid className="size-4"/>
@@ -23,7 +41,9 @@ const Login = () => {
                 </div>
                 <div className="flex flex-1 items-center justify-center">
                     <div className="w-full max-w-xs">
-                        <LoginForm username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>
+                        <LoginForm username={username} setUsername={setUsername} password={password}
+                                   setPassword={setPassword}
+                                   login={login}/>
                     </div>
                 </div>
             </div>
@@ -33,7 +53,7 @@ const Login = () => {
                     <img
                         src={MinecraftBanner}
                         alt="Image"
-                        className="h-full w-full object-contain rounded-lg shadow-lg"
+                        className="h-full w-full object-contain rounded-lg"
                     />
                 </div>
             </div>
