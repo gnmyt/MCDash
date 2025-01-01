@@ -54,6 +54,8 @@ public class FileHelper {
     public static ArrayNode getFilesAsJsonArray(File[] files) {
         ArrayNode arrayNode = MAPPER.createArrayNode();
         for (File file : files) {
+            if (file.getName().equals("mcdash.db")) continue;
+
             ObjectNode objectNode = MAPPER.createObjectNode();
             objectNode.put("name", file.getName());
             objectNode.put("is_folder", !file.isFile());
