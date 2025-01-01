@@ -5,6 +5,7 @@ import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.controller.AccountController;
 import de.gnm.mcdash.api.controller.ControllerManager;
 import de.gnm.mcdash.api.controller.SessionController;
+import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.event.EventDispatcher;
 import de.gnm.mcdash.api.handlers.BaseHandler;
 import de.gnm.mcdash.api.handlers.StaticHandler;
@@ -18,13 +19,13 @@ import org.reflections.Reflections;
 
 import java.io.File;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MCDashLoader {
     private final Map<Class<?>, BasePipe> pipes = new HashMap<>();
+    private final List<Feature> availableFeatures = new ArrayList<>();
     private final ControllerManager controllerManager = new ControllerManager();
-    private final BaseHandler routeHandler = new BaseHandler(controllerManager);
+    private final BaseHandler routeHandler = new BaseHandler(this);
     private final EventDispatcher eventDispatcher = new EventDispatcher();
     private String databaseFile = "mcdash.db";
     private File serverRoot = new File(System.getProperty("user.dir"));
@@ -67,7 +68,7 @@ public class MCDashLoader {
             try {
                 BaseRoute baseRoute = clazz.getDeclaredConstructor().newInstance();
 
-                baseRoute.setControllerManager(controllerManager);
+                baseRoute.setLoader(this);
                 baseRoute.setServerRoot(serverRoot);
 
                 for (Method method : clazz.getDeclaredMethods()) {
@@ -156,6 +157,24 @@ public class MCDashLoader {
      */
     public <T> T getController(Class<T> controllerType) {
         return controllerManager.getController(controllerType);
+    }
+
+    /**
+     * Registers a feature
+     *
+     * @param feature the feature to register
+     */
+    public void registerFeatures(Feature... feature) {
+        availableFeatures.addAll(Arrays.asList(feature));
+    }
+
+    /**
+     * Gets the available features
+     *
+     * @return the available features
+     */
+    public List<Feature> getAvailableFeatures() {
+        return availableFeatures;
     }
 
     /**
