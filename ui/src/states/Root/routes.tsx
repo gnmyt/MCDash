@@ -1,36 +1,21 @@
 import {Folders, LayoutDashboardIcon, ServerIcon, Settings2} from "lucide-react";
 import {t} from "i18next";
-
-export const routes = [
-    {
-        path: "/", element:
-            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    <div className="aspect-video rounded-xl bg-muted/50"/>
-                    <div className="aspect-video rounded-xl bg-muted/50"/>
-                    <div className="aspect-video rounded-xl bg-muted/50"/>
-                </div>
-                <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min"/>
-            </div>
-    },
-    {
-        path: "/files", element: <h2>Files</h2>
-    },
-    {
-        path: "/settings/server", element: <h2>Server</h2>
-    },
-];
+import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
+import Overview from "@/states/Root/pages/Overview/Overview.tsx";
 
 export const sidebar = [
     {
         path: "/",
         icon: LayoutDashboardIcon,
+        element: <Overview />,
         name: () => t("nav.overview")
     },
     {
-        path: "/files",
+        routerPath: "/files/*",
+        path: "/files/",
         icon: Folders,
         requiredFeatures: ["FileManager"],
+        element: <FileManager/>,
         name: () => t("nav.files")
     },
     {
@@ -42,6 +27,7 @@ export const sidebar = [
                 path: "/settings/server",
                 name: () => t("nav.settings.server"),
                 icon: ServerIcon,
+                element: <div>Server</div>
             }
         ]
     }
@@ -49,6 +35,7 @@ export const sidebar = [
 
 export const getLocationByPath = (path: string) => {
     for (const item of sidebar) {
+        if (item.path !== "/" && path.startsWith(item.path)) return item;
         if (item.path === path) return item;
         if (item.items) {
             for (const subitem of item.items) {
@@ -57,4 +44,20 @@ export const getLocationByPath = (path: string) => {
         }
     }
     return null;
+}
+
+export const getRoutes = () => {
+    const routes = [];
+    for (const item of sidebar) {
+        if (item.items) {
+            for (const subitem of item.items) {
+                routes.push(subitem);
+            }
+        } else {
+            const newItem = {...item};
+            newItem.path = item.routerPath || item.path;
+            routes.push(newItem);
+        }
+    }
+    return routes;
 }
