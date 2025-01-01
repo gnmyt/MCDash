@@ -7,7 +7,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {routes} from "@/states/Root/routes.tsx";
 import {ThemeProvider} from "@/components/theme-provider.tsx";
 import Root from "@/states/Root/Root.tsx";
-import {TokenProvider} from "@/contexts/TokenContext.tsx";
+import {ServerInfoProvider} from "@/contexts/ServerInfoContext.tsx";
 
 const App = () => {
     const [translationsLoaded, setTranslationsLoaded] = useState(false);
@@ -23,9 +23,9 @@ const App = () => {
 
     return (
         <ThemeProvider defaultTheme="dark" storageKey="theme">
-            <TokenProvider>
+            <ServerInfoProvider>
                 <RouterProvider router={router}/>
-            </TokenProvider>
+            </ServerInfoProvider>
         </ThemeProvider>
     );
 };
