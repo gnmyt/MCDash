@@ -6,5 +6,20 @@
     "password": "Password",
     "forgot_password": "Forgot your password?",
     "forgot_password_description": "If you've forgotten your password, you can reset it by using the /account command in-game."
+  },
+  "nav": {
+    "overview": "Overview",
+    "players": "Players",
+    "files": "File Manager",
+    "console": "Console",
+    "worlds": "Worlds",
+    "plugins": "Plugins",
+    "backups": "Backups",
+    "schedules": "Schedules",
+    "settings": {
+      "base": "Settings",
+      "server": "Server",
+      "users": "Users"
+    }
   }
 }
