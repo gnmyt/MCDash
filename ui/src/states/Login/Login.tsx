@@ -6,6 +6,8 @@ import {FormEvent, useContext, useState} from "react";
 import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
 import {postRequest} from "@/lib/RequestUtil.ts";
 import {Navigate} from "react-router-dom";
+import {toast} from "@/hooks/use-toast.ts";
+import {t} from "i18next";
 
 const Login = () => {
 
@@ -20,8 +22,8 @@ const Login = () => {
             if (!r.session) throw new Error("Invalid credentials");
             localStorage.setItem("sessionToken", r.session);
             await checkToken();
-        }).catch((e) => {
-            console.error(e);
+        }).catch(() => {
+            toast({description: t("login.failed"), variant: "destructive"});
         });
     }
 
