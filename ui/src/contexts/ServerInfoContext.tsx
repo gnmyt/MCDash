@@ -1,31 +1,38 @@
 import { useState, createContext, useEffect, ReactNode } from "react";
 import { request } from "@/lib/RequestUtil.ts";
 
-interface TokenContextType {
-    tokenValid: boolean | null;
-    checkToken: () => Promise<boolean | undefined>;
-    serverOnline: boolean | null;
+interface ServerInfo {
+    serverSoftware?: string;
+    serverVersion?: string;
+    serverPort?: number;
+    availableFeatures?: string[];
 }
 
-export const TokenContext = createContext<TokenContextType | undefined>(undefined);
+interface ServerInfoContextType {
+    tokenValid: boolean | null;
+    checkToken: () => Promise<boolean | undefined>;
+    serverInfo: ServerInfo;
+}
 
-interface TokenProviderProps {
+export const ServerInfoContext = createContext<ServerInfoContextType | undefined>(undefined);
+
+interface ServerInfoProviderProps {
     children: ReactNode;
 }
 
-export const TokenProvider = (props: TokenProviderProps) => {
+export const ServerInfoProvider = (props: ServerInfoProviderProps) => {
     const [tokenValid, setTokenValid] = useState<boolean | null>(null);
-    const [serverOnline, setServerOnline] = useState<boolean | null>(null);
+    const [serverInfo, setServerInfo] = useState<ServerInfo>({});
 
     const checkToken = async (): Promise<boolean | undefined> => {
         try {
             const r = await request("info");
             if (!r.ok && !(r.status === 400 || r.status === 401)) throw new Error("Server unavailable");
             setTokenValid(r.status === 200);
-            setServerOnline(true);
+            setServerInfo(await r.json());
             return r.status === 200;
         } catch {
-            setServerOnline(false);
+            setServerInfo({});
         }
     };
 
@@ -36,8 +43,8 @@ export const TokenProvider = (props: TokenProviderProps) => {
     }, []);
 
     return (
-        <TokenContext.Provider value={{ tokenValid, checkToken, serverOnline }}>
+        <ServerInfoContext.Provider value={{ tokenValid, checkToken, serverInfo }}>
             {props.children}
-        </TokenContext.Provider>
+        </ServerInfoContext.Provider>
     );
 };
