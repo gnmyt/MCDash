@@ -3,10 +3,13 @@ package de.gnm.loader;
 import de.gnm.loader.helper.ServerHelper;
 import de.gnm.loader.pipes.OperatorPipeImpl;
 import de.gnm.loader.pipes.QuickActionPipeImpl;
+import de.gnm.loader.pipes.ServerInfoPipeImpl;
 import de.gnm.loader.pipes.WhitelistPipeImpl;
 import de.gnm.mcdash.MCDashLoader;
 import de.gnm.mcdash.api.controller.AccountController;
+import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.event.console.ConsoleMessageReceivedEvent;
+import de.gnm.mcdash.api.pipes.ServerInfoPipe;
 import de.gnm.mcdash.api.pipes.players.OperatorPipe;
 import de.gnm.mcdash.api.pipes.QuickActionPipe;
 import de.gnm.mcdash.api.pipes.players.WhitelistPipe;
@@ -24,6 +27,8 @@ public class MCDashVanilla {
     private static final MCDashLoader loader = new MCDashLoader();
     private static final ServerHelper serverHelper = new ServerHelper(SERVER_ROOT, loader.getEventDispatcher());
 
+    private static String serverVersion = null;
+
     /**
      * Main method. Starts the MCDash Vanilla server
      *
@@ -33,6 +38,10 @@ public class MCDashVanilla {
         LOG.info("Starting MCDash Vanilla...");
 
         loader.getEventDispatcher().registerListener(ConsoleMessageReceivedEvent.class, event -> {
+            if (serverVersion == null && event.getMessage().contains("Starting minecraft server version")) {
+                serverVersion = event.getMessage().split("Starting minecraft server version ")[1].split(" ")[0];
+                loader.registerPipe(ServerInfoPipe.class, new ServerInfoPipeImpl(serverVersion));
+            }
             LOG.info(event.getMessage());
         });
 
@@ -49,6 +58,7 @@ public class MCDashVanilla {
         }
 
         registerPipes();
+        registerFeatures();
 
         LOG.info("Web interface available at http://localhost:7867");
 
@@ -62,6 +72,13 @@ public class MCDashVanilla {
         loader.registerPipe(OperatorPipe.class, new OperatorPipeImpl(serverHelper.getOutputStream()));
         loader.registerPipe(WhitelistPipe.class, new WhitelistPipeImpl(serverHelper.getOutputStream()));
         loader.registerPipe(QuickActionPipe.class, new QuickActionPipeImpl(serverHelper.getOutputStream()));
+    }
+
+    /**
+     * Registers all features for vanilla
+     */
+    protected static void registerFeatures() {
+        loader.registerFeatures(Feature.FileManager, Feature.Properties);
     }
 
     /**
