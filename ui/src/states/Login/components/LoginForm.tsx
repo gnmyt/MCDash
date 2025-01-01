@@ -11,11 +11,13 @@ interface LoginFormProps {
     setUsername: (value: string) => void;
     password: string;
     setPassword: (value: string) => void;
+    login: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ username, setUsername, password, setPassword }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ username, setUsername, password, setPassword, login }) => {
+
     return (
-        <form className="flex flex-col gap-6" action="javascript:void(0)">
+        <form className="flex flex-col gap-6" onSubmit={login}>
             <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">{t("login.sign_in")}</h1>
             </div>
