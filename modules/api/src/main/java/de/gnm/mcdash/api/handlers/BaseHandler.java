@@ -1,9 +1,11 @@
 package de.gnm.mcdash.api.handlers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import de.gnm.mcdash.MCDashLoader;
 import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
-import de.gnm.mcdash.api.controller.ControllerManager;
+import de.gnm.mcdash.api.annotations.RequiresFeatures;
 import de.gnm.mcdash.api.controller.SessionController;
+import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.helper.ParserHelper;
 import de.gnm.mcdash.api.http.*;
 import io.undertow.server.HttpHandler;
@@ -21,10 +23,10 @@ public class BaseHandler implements HttpHandler {
 
     private static final String API_PREFIX = "/api";
     private final List<RouteMeta> routes = new ArrayList<>();
-    private final ControllerManager controllerManager;
+    private final MCDashLoader loader;
 
-    public BaseHandler(ControllerManager controllerManager) {
-        this.controllerManager = controllerManager;
+    public BaseHandler(MCDashLoader loader) {
+        this.loader = loader;
     }
 
     /**
@@ -55,19 +57,23 @@ public class BaseHandler implements HttpHandler {
         if (!isApiRequest(requestPath, exchange)) return;
 
         String relativePath = requestPath.substring(API_PREFIX.length());
-        RouteMeta matchedRoute = matchRoute(relativePath);
+        RouteMeta matchedRoute = matchRoute(relativePath, exchange.getRequestMethod().toString());
 
         if (matchedRoute == null) {
             sendErrorResponse(exchange, 404, "Not found");
             return;
         }
 
+        if (!isFeatureAvailable(matchedRoute)) {
+            sendErrorResponse(exchange, 501, "Feature not available on this server");
+            return;
+        }
+
         Map<String, String> pathVariables = extractPathVariables(matchedRoute, relativePath);
-        String contentType = exchange.getRequestHeaders().getFirst(HttpString.tryFromString("Content-Type"));
 
         if (!isRouteAuthenticated(matchedRoute, exchange)) return;
 
-        Response response = handleRequestForRoute(exchange, matchedRoute, pathVariables, contentType);
+        Response response = handleRequestForRoute(exchange, matchedRoute, pathVariables);
 
         if (response == null) {
             sendErrorResponse(exchange, 500, "Internal server error.");
@@ -98,8 +104,12 @@ public class BaseHandler implements HttpHandler {
      * @param relativePath the relative path of the request
      * @return the matched route, or null if no route was found
      */
-    private RouteMeta matchRoute(String relativePath) {
+    private RouteMeta matchRoute(String relativePath, String requestMethod) {
         for (RouteMeta route : routes) {
+            if (!requestMethod.equals(route.getHttpMethod().toString())) {
+                continue;
+            }
+
             Matcher matcher = createRouteMatcher(route.getPath(), relativePath);
             if (matcher.matches()) {
                 return route;
@@ -142,7 +152,7 @@ public class BaseHandler implements HttpHandler {
                 return false;
             }
 
-            SessionController sessionController = controllerManager.getController(SessionController.class);
+            SessionController sessionController = loader.getController(SessionController.class);
 
             String sessionToken = exchange.getRequestHeaders().getFirst(HttpString.tryFromString("Authorization"))
                     .replace("Bearer ", "");
@@ -158,15 +168,32 @@ public class BaseHandler implements HttpHandler {
     }
 
     /**
+     * Checks if a feature provided by a route is available
+     *
+     * @param route the route to check
+     * @return true if the feature is available, false otherwise
+     */
+    private boolean isFeatureAvailable(RouteMeta route) {
+        if (route.getMethod().getAnnotation(RequiresFeatures.class) != null) {
+            RequiresFeatures requiresFeatures = route.getMethod().getAnnotation(RequiresFeatures.class);
+            for (Feature feature : requiresFeatures.value()) {
+                if (!loader.getAvailableFeatures().contains(feature)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Handles a request for a route
      *
      * @param exchange      the HTTP request/response exchange
      * @param route         the route to handle the request for
      * @param pathVariables the path variables extracted from the request path
-     * @param contentType   the content type of the request
      * @return the response to send back to the client
      */
-    private Response handleRequestForRoute(HttpServerExchange exchange, RouteMeta route, Map<String, String> pathVariables, String contentType) {
+    private Response handleRequestForRoute(HttpServerExchange exchange, RouteMeta route, Map<String, String> pathVariables) {
         try {
             // No request
             if (route.getMethod().getParameterCount() == 0) {
@@ -206,7 +233,6 @@ public class BaseHandler implements HttpHandler {
             if (e instanceof IllegalArgumentException) {
                 return new JSONResponse().error("Please provide a valid JSON body.").code(400);
             } else {
-                e.printStackTrace();
                 return new JSONResponse().error(e.getCause() != null ? e.getCause().getMessage() : e.getMessage()).code(500);
             }
         }
