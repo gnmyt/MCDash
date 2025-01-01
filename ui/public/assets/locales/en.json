@@ -1,0 +1,10 @@
+{
+  "login": {
+    "sign_in": "Sign In",
+    "failed": "Login failed, check your credentials.",
+    "name": "Ingame-name",
+    "password": "Password",
+    "forgot_password": "Forgot your password?",
+    "forgot_password_description": "If you've forgotten your password, you can reset it by using the /account command in-game."
+  }
+}
