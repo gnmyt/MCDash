@@ -15,13 +15,14 @@ import {
 } from "@/components/ui/sidebar"
 import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
 import {useContext} from "react";
-import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
+import {Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {getLocationByPath} from "@/states/Root/routes.tsx";
 
 const Root = () => {
     const {tokenValid} = useContext(ServerInfoContext)!;
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -38,9 +39,7 @@ const Root = () => {
                                 <Breadcrumb>
                                     <BreadcrumbList>
                                         <BreadcrumbItem className="hidden md:block">
-                                            <Link to="/">
-                                                <BreadcrumbLink>MCDash</BreadcrumbLink>
-                                            </Link>
+                                            <BreadcrumbLink className="cursor-pointer" onClick={() => navigate("/")}>Home</BreadcrumbLink>
                                         </BreadcrumbItem>
                                         <BreadcrumbSeparator className="hidden md:block"/>
                                         <BreadcrumbItem>
