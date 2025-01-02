@@ -39,6 +39,7 @@
     "schedules": "Schedules",
     "settings": {
       "base": "Settings",
+      "ssh": "SSH/SFTP Access",
       "server": "Server",
       "users": "Users"
     }
@@ -67,6 +68,37 @@
       "title": "Create new folder",
       "button": "Create folder",
       "feedback": "The folder has been created successfully."
+    }
+  },
+  "ssh": {
+    "status": {
+      "title": "Server Status",
+      "description": "Control the main SSH server status",
+      "enabled": "Server Enabled",
+      "disabled": "Server Disabled",
+      "connect": "Connect"
+    },
+    "port": {
+      "title": "SSH Port",
+      "description": "Configure the SSH server port",
+      "change": "Change Port"
+    },
+    "access": {
+      "title": "Access Control",
+      "description": "Manage SFTP and Console access",
+      "sftp_enabled": "SFTP Access Enabled",
+      "sftp_disabled": "SFTP Access Disabled",
+      "console_enabled": "Console Access Enabled",
+      "console_disabled": "Console Access Disabled"
+    },
+    "sessions": {
+      "title": "Active Sessions",
+      "description": "Current active SSH sessions",
+      "username": "Username",
+      "ip": "IP Address",
+      "sftp": "Is SFTP",
+      "actions": "Actions",
+      "disconnect": "Disconnect"
     }
   },
   "properties": {
