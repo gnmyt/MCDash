@@ -115,6 +115,8 @@ public class BackupHelper {
      * @throws IOException An exception that will be thrown if the backup could not be created
      */
     public void createBackup(String modeSuffix, File... paths) throws IOException {
+        if (isTempBackupCreated()) return;
+
         String tempFileName = System.currentTimeMillis() + "-" + modeSuffix + "_tmp.zip";
         File tempBackupFile = new File(backupFolder, tempFileName);
 
@@ -145,6 +147,16 @@ public class BackupHelper {
         if (backup != null) {
             Files.deleteIfExists(backup.toPath());
         }
+    }
+
+    /**
+     * Checks if a temporary backup is created
+     *
+     * @return <code>true</code> if a temporary backup is created, otherwise <code>false</code>
+     */
+    public boolean isTempBackupCreated() {
+        File[] tempBackupFiles = backupFolder.listFiles(file -> file.getName().endsWith("_tmp.zip"));
+        return tempBackupFiles != null && tempBackupFiles.length > 0;
     }
 
     /**
