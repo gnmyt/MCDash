@@ -1,11 +1,13 @@
 package de.gnm.mcdash.api.routes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gnm.mcdash.MCDashLoader;
 
 import java.io.File;
 
 public abstract class BaseRoute {
 
+    private final ObjectMapper mapper = new ObjectMapper();
     MCDashLoader loader;
     File serverRoot;
 
@@ -47,6 +49,14 @@ public abstract class BaseRoute {
      */
     public File getServerRoot() {
         return serverRoot;
+    }
+
+    /**
+     * Get the object mapper
+     * @return The object mapper
+     */
+    public ObjectMapper getMapper() {
+        return mapper;
     }
 
     /**
