@@ -12,6 +12,14 @@
     "sure": "Are you sure you want to confirm this action?",
     "changes_saved": "Changes saved"
   },
+  "header": {
+    "account": "Manage account",
+    "support_me": "Support me",
+    "dark_theme": "Dark theme",
+    "light_theme": "Light theme",
+    "update_language": "Update language",
+    "logout": "Logout"
+  },
   "login": {
     "sign_in": "Sign In",
     "failed": "Login failed, check your credentials.",
