@@ -70,6 +70,40 @@
       "feedback": "The folder has been created successfully."
     }
   },
+  "backup": {
+    "title": "Backups",
+    "subtitle": "Create and restore backups of your server",
+    "name": "Backup",
+    "created": "Backup successfully created",
+    "creating": "Creating backup...",
+    "create": "Create a backup",
+    "time": "Created at",
+    "restore": "Restore",
+    "download": "Download",
+    "none_found": "No backups found",
+    "description": "What do you want to backup?",
+    "include": "Include in backup",
+    "select_all": "Select all",
+    "restored": "Backup successfully restored",
+    "restoring": "Restoring backup",
+    "restore_text": "MCDash will restore this backup while runtime. Since Minecraft automatically saves the worlds every few seconds from memory, your world might get corrupted. To prevent this, you can stop the server without saving the world from memory. Any unsaved changes made to the server while runtime will be lost. This does not apply if you want to restore logs or other files that are not getting automatically saved by Minecraft.",
+    "restore_and_stop": "Restore & Stop",
+    "only_restore": "Only restore",
+    "delete": {
+      "button": "Delete",
+      "title": "Delete backup",
+      "text": "Are you sure you want to delete this backup?",
+      "success": "Backup successfully deleted",
+      "yes": "Yes, delete"
+    },
+    "mapping": {
+      "root": "Complete server",
+      "worlds": "Worlds",
+      "plugins": "Plugins",
+      "configs": "Configurations",
+      "logs": "Logs"
+    }
+  },
   "ssh": {
     "status": {
       "title": "Server Status",
