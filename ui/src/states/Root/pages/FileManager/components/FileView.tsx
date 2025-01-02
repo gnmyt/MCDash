@@ -51,9 +51,9 @@ const FileView = ({files, click, directory, updateFiles}: FileViewProps) => {
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[50%]">{t("files.table.name")}</TableHead>
-                        <TableHead className="w-[20%]">{t("files.table.size")}</TableHead>
-                        <TableHead className="w-[10%]">{t("files.table.last_modified")}</TableHead>
-                        <TableHead className="w-[10%] text-right">{t("files.table.actions")}</TableHead>
+                        <TableHead className="w-[12%]">{t("files.table.last_modified")}</TableHead>
+                        <TableHead className="w-[5%]">{t("files.table.size")}</TableHead>
+                        <TableHead className="w-[4%] text-right">{t("files.table.actions")}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -70,8 +70,8 @@ const FileView = ({files, click, directory, updateFiles}: FileViewProps) => {
                                         {item.name}
                                     </div>
                                 </TableCell>
-                                <TableCell>{item.is_folder ? "--" : convertSize(parseInt(item.size))}</TableCell>
                                 <TableCell>{new Date(item.last_modified).toLocaleString()}</TableCell>
+                                <TableCell>{!item.is_folder && convertSize(parseInt(item.size))}</TableCell>
                                 <TableCell className="text-right">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
