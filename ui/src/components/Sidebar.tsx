@@ -1,6 +1,5 @@
 import {
-    ChevronRight,
-    Cuboid
+    ChevronRight
 } from "lucide-react";
 
 import {
@@ -22,6 +21,7 @@ import {useContext, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
 import {UserProfile} from "@/components/UserProfile.tsx";
+import ServerImage from "@/assets/images/logo.png";
 
 export function Sidebar() {
     const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
@@ -55,10 +55,7 @@ export function Sidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link to="/" className="flex items-center space-x-2 cursor-pointer">
-                                <div
-                                    className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                    <Cuboid className="size-4"/>
-                                </div>
+                                <img src={ServerImage} alt="MCDash Logo" className="h-8 w-8 rounded-md"/>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">MCDash</span>
                                     <span className="truncate text-xs">1.2.0</span>
