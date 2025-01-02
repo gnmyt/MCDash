@@ -15,12 +15,13 @@ public class JSONRequest extends Request {
      * Constructor for JSONRequest
      *
      * @param address     The IP address of the client
+     * @param userId      The ID of the user
      * @param headers     The headers of the request
      * @param parameters  The parameters of the request
      * @param requestJson The JSON body of the request
      */
-    public JSONRequest(InetAddress address, HeaderMap headers, Map<String, String> parameters, JsonNode requestJson) {
-        super(address, headers, parameters);
+    public JSONRequest(InetAddress address, int userId, HeaderMap headers, Map<String, String> parameters, JsonNode requestJson) {
+        super(address, userId, headers, parameters);
         this.requestJson = requestJson;
     }
 

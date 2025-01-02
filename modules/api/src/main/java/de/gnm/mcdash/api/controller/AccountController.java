@@ -96,4 +96,13 @@ public class AccountController extends BaseController {
         return executeUpdate("UPDATE accounts SET username = ? WHERE username = ?", newUsername, username) > 0;
     }
 
+    /**
+     * Get the username of an account by the user id
+     * @param id The user id of the account
+     * @return the username of the account
+     */
+    public String getUsernameById(int id) {
+        return (String) getSingleResult("SELECT username FROM accounts WHERE id = ?", id).get("username");
+    }
+
 }

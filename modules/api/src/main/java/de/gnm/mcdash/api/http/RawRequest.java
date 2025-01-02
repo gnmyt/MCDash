@@ -13,13 +13,14 @@ public class RawRequest extends Request {
     /**
      * Constructor for a Request
      *
-     * @param address    The IP address of the client
-     * @param headers    The headers of the request
-     * @param parameters The parameters of the request
+     * @param address     The IP address of the client
+     * @param userId      The ID of the user
+     * @param headers     The headers of the request
+     * @param parameters  The parameters of the request
      * @param requestBody The body of the request
      */
-    public RawRequest(InetAddress address, HeaderMap headers, Map<String, String> parameters, InputStream requestBody) {
-        super(address, headers, parameters);
+    public RawRequest(InetAddress address, int userId, HeaderMap headers, Map<String, String> parameters, InputStream requestBody) {
+        super(address, userId, headers, parameters);
         this.requestBody = requestBody;
     }
 

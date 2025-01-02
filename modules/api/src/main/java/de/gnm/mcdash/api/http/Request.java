@@ -8,6 +8,7 @@ import java.util.Map;
 public abstract class Request {
 
     protected final InetAddress address;
+    protected final int userId;
     protected final HeaderMap headers;
     protected final Map<String, String> parameters;
 
@@ -15,11 +16,13 @@ public abstract class Request {
      * Constructor for a Request
      *
      * @param address    The IP address of the client
+     * @param userId     The ID of the user
      * @param headers    The headers of the request
      * @param parameters The parameters of the request
      */
-    public Request(InetAddress address, HeaderMap headers, Map<String, String> parameters) {
+    public Request(InetAddress address, int userId, HeaderMap headers, Map<String, String> parameters) {
         this.address = address;
+        this.userId = userId;
         this.headers = headers;
         this.parameters = parameters;
     }
@@ -31,6 +34,14 @@ public abstract class Request {
      */
     public InetAddress getAddress() {
         return address;
+    }
+
+    /**
+     * Get the ID of the user
+     * @return The ID of the user
+     */
+    public int getUserId() {
+        return userId;
     }
 
     /**

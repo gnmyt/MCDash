@@ -71,9 +71,10 @@ public class BaseHandler implements HttpHandler {
 
         Map<String, String> pathVariables = extractPathVariables(matchedRoute, relativePath);
 
-        if (!isRouteAuthenticated(matchedRoute, exchange)) return;
+        int userId = getUserIdAfterAuthentication(matchedRoute, exchange);
+        if (userId == -1) return;
 
-        Response response = handleRequestForRoute(exchange, matchedRoute, pathVariables);
+        Response response = handleRequestForRoute(exchange, userId, matchedRoute, pathVariables);
 
         if (response == null) {
             sendErrorResponse(exchange, 500, "Internal server error.");
@@ -143,13 +144,12 @@ public class BaseHandler implements HttpHandler {
      *
      * @param route    the route to check
      * @param exchange the HTTP request/response exchange
-     * @return true if the route is authenticated, false otherwise
      */
-    private boolean isRouteAuthenticated(RouteMeta route, HttpServerExchange exchange) {
+    private int getUserIdAfterAuthentication(RouteMeta route, HttpServerExchange exchange) {
         if (route.getMethod().getAnnotation(AuthenticatedRoute.class) != null) {
             if (exchange.getRequestHeaders().getFirst(HttpString.tryFromString("Authorization")) == null) {
                 sendErrorResponse(exchange, 401, "Unauthorized");
-                return false;
+                return -1;
             }
 
             SessionController sessionController = loader.getController(SessionController.class);
@@ -159,12 +159,14 @@ public class BaseHandler implements HttpHandler {
 
             if (!sessionController.isValidToken(sessionToken)) {
                 sendErrorResponse(exchange, 401, "Unauthorized");
-                return false;
+                return -1;
             }
 
             sessionController.updateLastUsed(sessionToken);
+
+            return sessionController.getUserIdByToken(sessionToken);
         }
-        return true;
+        return -1;
     }
 
     /**
@@ -189,11 +191,12 @@ public class BaseHandler implements HttpHandler {
      * Handles a request for a route
      *
      * @param exchange      the HTTP request/response exchange
+     * @param userId        the user id of the user
      * @param route         the route to handle the request for
      * @param pathVariables the path variables extracted from the request path
      * @return the response to send back to the client
      */
-    private Response handleRequestForRoute(HttpServerExchange exchange, RouteMeta route, Map<String, String> pathVariables) {
+    private Response handleRequestForRoute(HttpServerExchange exchange, int userId, RouteMeta route, Map<String, String> pathVariables) {
         try {
             // No request
             if (route.getMethod().getParameterCount() == 0) {
@@ -202,12 +205,12 @@ public class BaseHandler implements HttpHandler {
 
             // JSON request
             if (route.getMethod().getParameterTypes()[0].equals(JSONRequest.class)) {
-                return handleJsonRequest(exchange, route, pathVariables);
+                return handleJsonRequest(exchange, userId, route, pathVariables);
             }
 
             // Raw request
             if (route.getMethod().getParameterTypes()[0].equals(RawRequest.class)) {
-                return handleRawRequest(exchange, route, pathVariables);
+                return handleRawRequest(exchange, userId, route, pathVariables);
             }
 
             return new JSONResponse().error("Invalid request.").code(400);
@@ -220,13 +223,14 @@ public class BaseHandler implements HttpHandler {
      * Handles a raw request
      *
      * @param exchange      the HTTP request/response exchange
+     * @param userId        the user id of the user
      * @param route         the route to handle the request for
      * @param pathVariables the path variables extracted from the request path
      * @return the response to send back to the client
      */
-    private Response handleRawRequest(HttpServerExchange exchange, RouteMeta route, Map<String, String> pathVariables) {
+    private Response handleRawRequest(HttpServerExchange exchange, int userId, RouteMeta route, Map<String, String> pathVariables) {
         try {
-            RawRequest request = new RawRequest(exchange.getSourceAddress().getAddress(), exchange.getRequestHeaders(), pathVariables, exchange.getInputStream());
+            RawRequest request = new RawRequest(exchange.getSourceAddress().getAddress(), userId, exchange.getRequestHeaders(), pathVariables, exchange.getInputStream());
             return (Response) route.getMethod().invoke(route.getRoute(), request);
         } catch (Exception e) {
             return new JSONResponse().error(e.getMessage()).code(500);
@@ -237,11 +241,12 @@ public class BaseHandler implements HttpHandler {
      * Handles a JSON request
      *
      * @param exchange      the HTTP request/response exchange
+     * @param userId        the user id of the user
      * @param route         the route to handle the request for
      * @param pathVariables the path variables extracted from the request path
      * @return the response to send back to the client
      */
-    private Response handleJsonRequest(HttpServerExchange exchange, RouteMeta route, Map<String, String> pathVariables) {
+    private Response handleJsonRequest(HttpServerExchange exchange, int userId, RouteMeta route, Map<String, String> pathVariables) {
         try {
             JsonNode jsonBody;
             if (route.getHttpMethod() == HTTPMethod.GET) {
@@ -249,7 +254,7 @@ public class BaseHandler implements HttpHandler {
             } else {
                 jsonBody = ParserHelper.parseJsonBody(exchange);
             }
-            JSONRequest request = new JSONRequest(exchange.getSourceAddress().getAddress(), exchange.getRequestHeaders(), pathVariables, jsonBody);
+            JSONRequest request = new JSONRequest(exchange.getSourceAddress().getAddress(), userId, exchange.getRequestHeaders(), pathVariables, jsonBody);
             return (Response) route.getMethod().invoke(route.getRoute(), request);
         } catch (Exception e) {
             if (e instanceof IllegalArgumentException) {
