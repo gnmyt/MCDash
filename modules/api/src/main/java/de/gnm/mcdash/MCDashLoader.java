@@ -4,6 +4,7 @@ package de.gnm.mcdash;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.controller.AccountController;
 import de.gnm.mcdash.api.controller.ControllerManager;
+import de.gnm.mcdash.api.controller.SSHController;
 import de.gnm.mcdash.api.controller.SessionController;
 import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.event.EventDispatcher;
@@ -56,7 +57,12 @@ public class MCDashLoader {
         httpServer = Undertow.builder().addHttpListener(7867, "0.0.0.0").setHandler(handler).build();
 
         controllerManager.registerController(AccountController.class);
+
         controllerManager.registerController(SessionController.class);
+
+        controllerManager.registerController(SSHController.class);
+        getController(SSHController.class).initialize(getController(AccountController.class), serverRoot);
+
     }
 
     /**
