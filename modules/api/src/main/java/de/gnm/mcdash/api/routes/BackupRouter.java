@@ -32,7 +32,7 @@ public class BackupRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.BACKUPS)
+    @RequiresFeatures(Feature.Backups)
     @Path("/backups/list")
     @Method(GET)
     public Response listBackups() {
@@ -60,7 +60,7 @@ public class BackupRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.BACKUPS)
+    @RequiresFeatures(Feature.Backups)
     @Path("/backups/download/:backupName")
     @Method(GET)
     public Response downloadFile(RawRequest request) {
@@ -84,7 +84,7 @@ public class BackupRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.BACKUPS)
+    @RequiresFeatures(Feature.Backups)
     @Path("/backups/restore")
     @Method(POST)
     public Response restoreBackup(JSONRequest request) {
@@ -99,7 +99,7 @@ public class BackupRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.BACKUPS)
+    @RequiresFeatures(Feature.Backups)
     @Path("/backups/:backupName")
     @Method(DELETE)
     public Response deleteBackup(RawRequest request) {
@@ -117,7 +117,7 @@ public class BackupRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.BACKUPS)
+    @RequiresFeatures(Feature.Backups)
     @Path("/backups/create")
     @Method(POST)
     public Response createBackup(JSONRequest request) {

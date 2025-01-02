@@ -5,7 +5,7 @@ public enum Feature {
     FileManager(1),
     Properties(2),
     SSH(4),
-    BACKUPS(8);
+    Backups(8);
 
     private final int permissionBit;
 
