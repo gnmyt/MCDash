@@ -38,7 +38,7 @@ const BackupCard = ({backup, onRestore, onDelete, onDownload}: BackupCardProps) 
                 <CardTitle className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Archive className="h-5 w-5 text-muted-foreground"/>
-                        <span>{t("backup.title")}</span>
+                        <span>{t("backup.name")}</span>
                     </div>
                     <span className="text-sm font-normal text-muted-foreground">
                         {convertSize(backup.size)}
