@@ -10,6 +10,8 @@ import Root from "@/states/Root/Root.tsx";
 import {ServerInfoProvider} from "@/contexts/ServerInfoContext.tsx";
 import {Toaster} from "@/components/ui/toaster.tsx";
 
+export const SUPPORT_URL = "https://ko-fi.com/gnmyt";
+
 const App = () => {
     const [translationsLoaded, setTranslationsLoaded] = useState(false);
 
