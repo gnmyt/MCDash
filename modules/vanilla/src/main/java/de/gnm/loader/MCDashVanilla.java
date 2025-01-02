@@ -78,7 +78,7 @@ public class MCDashVanilla {
      * Registers all features for vanilla
      */
     protected static void registerFeatures() {
-        loader.registerFeatures(Feature.FileManager, Feature.Properties);
+        loader.registerFeatures(Feature.FileManager, Feature.Properties, Feature.SSH);
     }
 
     /**
@@ -87,15 +87,15 @@ public class MCDashVanilla {
     public static void firstRun() {
         AccountController accountController = loader.getController(AccountController.class);
 
-        if (!accountController.accountExists("admin")) {
+        if (!accountController.accountExists("Notch")) {
             String password = RandomStringUtils.random(24, 0, 0, true, true, null, new SecureRandom());
-            accountController.createAccount("admin", password);
+            accountController.createAccount("Notch", password);
 
             LOG.info("===========================================");
             LOG.info("WEB INTERFACE LOGIN CREDENTIALS");
             LOG.info("THIS WILL BE THE ONLY TIME YOU SEE THIS!");
             LOG.info("===========================================");
-            LOG.info("Username: admin");
+            LOG.info("Username: Notch");
             LOG.info("Password: " + password);
             LOG.info("===========================================");
         }
