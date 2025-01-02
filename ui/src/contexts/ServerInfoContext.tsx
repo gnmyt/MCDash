@@ -2,6 +2,7 @@ import { useState, createContext, useEffect, ReactNode } from "react";
 import { request } from "@/lib/RequestUtil.ts";
 
 interface ServerInfo {
+    accountName?: string;
     serverSoftware?: string;
     serverVersion?: string;
     serverPort?: number;
