@@ -5,7 +5,7 @@ import {
 
 import {
     Sidebar as ShadSidebar,
-    SidebarContent,
+    SidebarContent, SidebarFooter,
     SidebarGroup,
     SidebarHeader,
     SidebarMenu,
@@ -21,6 +21,7 @@ import {sidebar} from "@/states/Root/routes.tsx";
 import {useContext, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
+import {UserProfile} from "@/components/UserProfile.tsx";
 
 export function Sidebar() {
     const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
@@ -127,6 +128,9 @@ export function Sidebar() {
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
+            <SidebarFooter>
+                <UserProfile/>
+            </SidebarFooter>
         </ShadSidebar>
     );
 }
