@@ -2,6 +2,7 @@ import {Folders, LayoutDashboardIcon, ServerIcon, Settings2} from "lucide-react"
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
+import ServerSettings from "@/states/Root/pages/ServerSettings/ServerSettings.tsx";
 
 export const sidebar = [
     {
@@ -27,7 +28,8 @@ export const sidebar = [
                 path: "/settings/server",
                 name: () => t("nav.settings.server"),
                 icon: ServerIcon,
-                element: <div>Server</div>
+                requiredFeatures: ["Properties"],
+                element: <ServerSettings />
             }
         ]
     }
