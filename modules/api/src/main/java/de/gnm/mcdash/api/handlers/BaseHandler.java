@@ -72,7 +72,9 @@ public class BaseHandler implements HttpHandler {
         Map<String, String> pathVariables = extractPathVariables(matchedRoute, relativePath);
 
         int userId = getUserIdAfterAuthentication(matchedRoute, exchange);
-        if (userId == -1) return;
+        if (userId == -1 && matchedRoute.getMethod().getAnnotation(AuthenticatedRoute.class) != null) {
+            return;
+        }
 
         Response response = handleRequestForRoute(exchange, userId, matchedRoute, pathVariables);
 
