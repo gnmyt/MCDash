@@ -6,14 +6,15 @@ import HttpApi from "i18next-http-backend";
 if (localStorage.getItem("language") === null)
     localStorage.setItem("language", navigator.language.split("-")[0]);
 
-
 export const languages = [
-    {code: "de", name: "Deutsch", imageCode: "de"},
     {code: "en", name: "English", imageCode: "gb"},
+    {code: "de", name: "Deutsch", imageCode: "de"},
+    {code: "da", name: "Dansk", imageCode: "dk"},
     {code: "es", name: "Español", imageCode: "es"},
     {code: "fr", name: "Français", imageCode: "fr"},
     {code: "ja", name: "日本語", imageCode: "jp"},
-    {code: "pl", name: "Polski", imageCode: "pl"}
+    {code: "pl", name: "Polski", imageCode: "pl"},
+    {code: "nl", name: "Nederlands", imageCode: "nl"},
 ]
 
 i18n.use(initReactI18next).use(LanguageDetector).use(HttpApi).init({
