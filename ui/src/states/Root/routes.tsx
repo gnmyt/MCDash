@@ -1,8 +1,9 @@
-import {Folders, LayoutDashboardIcon, ServerIcon, Settings2} from "lucide-react";
+import {Folders, LayoutDashboardIcon, RouterIcon, ServerIcon, Settings2} from "lucide-react";
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
 import ServerSettings from "@/states/Root/pages/ServerSettings/ServerSettings.tsx";
+import SSHSettings from "@/states/Root/pages/SSHSettings/SSHSettings.tsx";
 
 export const sidebar = [
     {
@@ -30,6 +31,13 @@ export const sidebar = [
                 icon: ServerIcon,
                 requiredFeatures: ["Properties"],
                 element: <ServerSettings />
+            },
+            {
+                path: "/settings/ssh",
+                name: () => t("nav.settings.ssh"),
+                icon: RouterIcon,
+                requiredFeatures: ["Properties"],
+                element: <SSHSettings />
             }
         ]
     }
