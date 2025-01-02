@@ -6,7 +6,7 @@ export default defineAppConfig({
     },
     theme: {
       customizable: false,
-      color: 'orange',
+      color: 'green',
       radius: 0.75,
     },
     header: {
@@ -14,8 +14,8 @@ export default defineAppConfig({
       showTitle: true,
       darkModeToggle: true,
       logo: {
-        light: '/logo.svg',
-        dark: '/logo-dark.svg',
+        light: '/img/favicon.png',
+        dark: '/img/favicon.png',
       },
       nav: [],
       links: [{
