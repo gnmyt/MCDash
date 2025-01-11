@@ -9,6 +9,7 @@ import {ThemeProvider} from "@/components/theme-provider.tsx";
 import Root from "@/states/Root/Root.tsx";
 import {ServerInfoProvider} from "@/contexts/ServerInfoContext.tsx";
 import {Toaster} from "@/components/ui/toaster.tsx";
+import {SocketProvider} from "@/contexts/SocketContext.tsx";
 
 export const SUPPORT_URL = "https://ko-fi.com/gnmyt";
 
@@ -27,8 +28,10 @@ const App = () => {
     return (
         <ThemeProvider defaultTheme="dark" storageKey="theme">
             <ServerInfoProvider>
-                <Toaster />
-                <RouterProvider router={router}/>
+                <SocketProvider>
+                    <Toaster />
+                    <RouterProvider router={router}/>
+                </SocketProvider>
             </ServerInfoProvider>
         </ThemeProvider>
     );
