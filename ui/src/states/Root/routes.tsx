@@ -1,10 +1,11 @@
-import {Archive, Folders, LayoutDashboardIcon, RouterIcon, ServerIcon, Settings2} from "lucide-react";
+import {Archive, Folders, LayoutDashboardIcon, RouterIcon, ServerIcon, Settings2, Terminal} from "lucide-react";
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
 import ServerSettings from "@/states/Root/pages/ServerSettings/ServerSettings.tsx";
 import SSHSettings from "@/states/Root/pages/SSHSettings/SSHSettings.tsx";
-import Backups from "@/states/Root/Backups/Backups.tsx";
+import Backups from "@/states/Root/pages/Backups/Backups.tsx";
+import Console from "@/states/Root/pages/Console/Console.tsx";
 
 export const sidebar = [
     {
@@ -20,6 +21,13 @@ export const sidebar = [
         requiredFeatures: ["FileManager"],
         element: <FileManager/>,
         name: () => t("nav.files")
+    },
+    {
+        path: "/console",
+        icon: Terminal,
+        requiredFeatures: ["Console"],
+        element: <Console />,
+        name: () => t("nav.console")
     },
     {
         path: "/backups",
