@@ -10,12 +10,14 @@ import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.event.EventDispatcher;
 import de.gnm.mcdash.api.handlers.BaseHandler;
 import de.gnm.mcdash.api.handlers.StaticHandler;
+import de.gnm.mcdash.api.handlers.WebSocketHandler;
 import de.gnm.mcdash.api.http.HTTPMethod;
 import de.gnm.mcdash.api.http.RouteMeta;
 import de.gnm.mcdash.api.pipes.BasePipe;
 import de.gnm.mcdash.api.routes.BaseRoute;
 import io.undertow.Undertow;
 import io.undertow.server.handlers.PathHandler;
+import io.undertow.websockets.WebSocketProtocolHandshakeHandler;
 import org.reflections.Reflections;
 
 import java.io.File;
@@ -27,6 +29,7 @@ public class MCDashLoader {
     private final List<Feature> availableFeatures = new ArrayList<>();
     private final ControllerManager controllerManager = new ControllerManager();
     private final BaseHandler routeHandler = new BaseHandler(this);
+    private final WebSocketHandler webSocketHandler = new WebSocketHandler(this);
     private final EventDispatcher eventDispatcher = new EventDispatcher();
     private String databaseFile = "mcdash.db";
     private File serverRoot = new File(System.getProperty("user.dir"));
@@ -52,6 +55,7 @@ public class MCDashLoader {
 
         PathHandler handler = new PathHandler()
                 .addPrefixPath("/api", routeHandler)
+                .addPrefixPath("/api/ws", new WebSocketProtocolHandshakeHandler(webSocketHandler))
                 .addPrefixPath("/", new StaticHandler());
 
         httpServer = Undertow.builder().addHttpListener(7867, "0.0.0.0").setHandler(handler).build();
