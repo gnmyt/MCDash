@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Check } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button.tsx";
 import {
     Dialog,
     DialogContent,
@@ -10,9 +10,9 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { BackupType } from "@/types/backup";
+} from "@/components/ui/dialog.tsx";
+import { Label } from "@/components/ui/label.tsx";
+import { BackupType } from "@/types/backup.ts";
 import {t} from "i18next";
 
 interface CreateBackupDialogProps {

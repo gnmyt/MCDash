@@ -1,6 +1,6 @@
 import {Archive, Download, Settings, FileText, RotateCcw, Trash2} from "lucide-react";
-import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
+import {Button} from "@/components/ui/button.tsx";
+import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -11,8 +11,8 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import {Backup, BackupType} from "@/types/backup";
+} from "@/components/ui/alert-dialog.tsx";
+import {Backup, BackupType} from "@/types/backup.ts";
 import {ReactNode} from "react";
 import {convertSize} from "@/lib/FileUtil.ts";
 import {t} from "i18next";

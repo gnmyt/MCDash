@@ -1,8 +1,8 @@
 import * as React from "react";
 import {Loader2} from "lucide-react";
-import {Backup} from "@/types/backup";
-import BackupCard from "@/states/Root/Backups/components/BackupCard.tsx";
-import CreateBackupDialog from "@/states/Root/Backups/components/CreateBackupDialog.tsx";
+import {Backup} from "@/types/backup.ts";
+import BackupCard from "@/states/Root/pages/Backups/components/BackupCard.tsx";
+import CreateBackupDialog from "@/states/Root/pages/Backups/components/CreateBackupDialog.tsx";
 import {deleteRequest, downloadRequest, jsonRequest, postRequest} from "@/lib/RequestUtil.ts";
 import {useEffect} from "react";
 import {toast} from "@/hooks/use-toast.ts";
