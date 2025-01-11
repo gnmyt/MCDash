@@ -22,11 +22,25 @@ public class EventDispatcher {
     }
 
     /**
+     * Unregisters a listener for a specific event type.
+     *
+     * @param eventType The class of the event to unregister the listener from
+     * @param listener  The listener to unregister
+     * @param <T>       The type of the event
+     */
+    public <T extends BaseEvent> void unregisterListener(Class<T> eventType, Consumer<T> listener) {
+        List<Consumer<? extends BaseEvent>> eventListeners = listeners.get(eventType);
+
+        if (eventListeners != null) {
+            eventListeners.remove(listener);
+        }
+    }
+
+    /**
      * Dispatches an event to all its registered listeners.
      *
      * @param event The event instance to dispatch
      */
-    @SuppressWarnings("unchecked")
     public void dispatch(BaseEvent event) {
         Class<? extends BaseEvent> eventType = event.getClass();
         List<Consumer<? extends BaseEvent>> eventListeners = listeners.get(eventType);
