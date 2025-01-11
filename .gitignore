@@ -1,4 +1,7 @@
 .idea
-MCDash.iml
-/target/
-webui/dist
+*.iml
+**/target/
+**/build
+**/.gradle
+**/mcdash.db
+ui/dist

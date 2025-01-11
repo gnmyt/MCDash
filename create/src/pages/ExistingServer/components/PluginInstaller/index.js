@@ -1,1 +1,0 @@
-export {PluginInstaller as default} from "./PluginInstaller.jsx";

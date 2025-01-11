@@ -1,1 +1,0 @@
-export {InstallationDialog as default} from "./InstallationDialog.jsx";
