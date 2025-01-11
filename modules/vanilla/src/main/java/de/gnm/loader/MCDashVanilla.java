@@ -78,7 +78,7 @@ public class MCDashVanilla {
      * Registers all features for vanilla
      */
     protected static void registerFeatures() {
-        loader.registerFeatures(Feature.FileManager, Feature.Properties, Feature.SSH, Feature.Backups);
+        loader.registerFeatures(Feature.FileManager, Feature.Properties, Feature.SSH, Feature.Backups, Feature.Console);
     }
 
     /**
