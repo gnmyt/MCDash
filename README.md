@@ -26,7 +26,6 @@ MCDash is a simple dashboard for your Minecraft server. It allows you to see the
 - [x] Execute commands
 - [x] See the installed plugins & install plugins from spigotmc
 - [x] Schedule tasks daily, monthly, ...
-- [x] See the installed plugins
 - [x] Create backups of your server
 - [x] Manage your worlds
 - [x] Update your server properties
