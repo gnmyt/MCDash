@@ -110,8 +110,8 @@ mkdir -p "${INSTALLATION_PATH}" || quit "Unable to create root directory"
 cd "${INSTALLATION_PATH}" || quit "Unable to change directory"
 
 if [ "${SOFTWARE}" == "paper" ]; then
-  BUILD=$(curl -s "https://papermc.io/api/v2/projects/paper/versions/${VERSION}" | jq -r '.builds[-1]')
-  download "https://papermc.io/api/v2/projects/paper/versions/${VERSION}/builds/${BUILD}/downloads/paper-${VERSION}-${BUILD}.jar" "server.jar"
+  BUILD=$(curl -s "https://api.papermc.io/v2/projects/paper/versions/${VERSION}" | jq -r '.builds[-1]')
+  download "https://api.papermc.io/v2/projects/paper/versions/${VERSION}/builds/${BUILD}/downloads/paper-${VERSION}-${BUILD}.jar" "server.jar"
 elif [ "${SOFTWARE}" == "spigot" ]; then
   download "https://download.getbukkit.org/spigot/spigot-${VERSION}.jar" "server.jar"
 
