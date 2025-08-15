@@ -1,0 +1,313 @@
+{
+  "action": {
+    "failed": "操作失敗",
+    "success": "操作成功",
+    "cancel": "取消",
+    "add": "新增",
+    "save": "儲存",
+    "remove": "刪除",
+    "continue": "繼續",
+    "confirm": "確認",
+    "create": "建立",
+    "warn": "警告",
+    "sure": "您確定要執行此動作嗎？",
+    "changes_saved": "變更已儲存"
+  },
+  "nav": {
+    "overview": "總覽",
+    "players": "玩家",
+    "files": "檔案管理",
+    "console": "後台",
+    "worlds": "世界管理",
+    "plugins": "插件管理",
+    "backups": "備份管理",
+    "schedules": "排程管理",
+    "configuration": "設定"
+  },
+  "info": {
+    "server_unavailable": "伺服器無法使用",
+    "down": {
+      "title": "伺服器關閉",
+      "description": "伺服器目前關閉，請稍後再試。請檢查插件是否被停用，以及伺服器是否已啟動"
+    }
+  },
+  "login": {
+    "sign_in": "登入",
+    "failed": "登入失敗",
+    "name": "使用者名稱",
+    "password": "密碼"
+  },
+  "header": {
+    "support_me": "支持我",
+    "dark_theme": "深色主題",
+    "light_theme": "淺色主題",
+    "update_language": "更新語言",
+    "language": "語言",
+    "logout": "登出"
+  },
+  "update": {
+    "available": "有可用更新",
+    "info": "MCDash 有可用更新。更新後插件文件將被替換，面板將關閉。如果您希望面板自動重新啟動，請點選「更新後重新載入」按鈕。請注意，重新載入伺服器可能導致部分問題，因此建議您僅更新後手動重新啟動伺服器。",
+    "just_update": "僅更新",
+    "reload_after": "更新後重新載入",
+    "updating": "面板將關閉並更新至版本 {{latest}}。請稍候..."
+  },
+  "time": {
+    "sunrise": "日出",
+    "day": "白天",
+    "sunset": "日落",
+    "night": "夜晚"
+  },
+  "backup": {
+    "name": "備份",
+    "latest": "最新備份",
+    "created": "備份建立成功",
+    "create": "建立備份",
+    "time": "建立於",
+    "none_found": "未找到備份",
+    "description": "您要備份什麼？",
+    "restored": "備份已成功還原",
+    "restoring": "正在還原備份",
+    "restore_text": "MCDash 將在運行時還原此備份。由於 Minecraft 每隔幾秒自動從記憶體保存世界，您的世界可能會損壞。為避免此情況，您可以在不從記憶體儲存世界的情況下停止伺服器。在運行時對伺服器所做的任何未儲存更改都將遺失。這不適用於還原未由 Minecraft 自動保存之日誌或其他文件。",
+    "restore_and_stop": "還原並停止",
+    "only_restore": "僅還原",
+    "delete": {
+      "title": "刪除備份",
+      "text": "您確定要刪除此備份嗎？",
+      "success": "備份已成功刪除",
+      "yes": "是的，刪除"
+    },
+    "mode": {
+      "complete": "完整伺服器",
+      "worlds": "所有已載入世界",
+      "plugins": "插件及其設定檔",
+      "config": "設定文件",
+      "logs": "控制台日誌"
+    },
+    "mapping": {
+      "complete": "完整伺服器",
+      "worlds": "世界",
+      "plugins": "插件",
+      "config": "設定",
+      "logs": "日誌"
+    }
+  },
+  "configuration": {
+    "saved": "更改已儲存。請重新啟動伺服器以套用更改。",
+    "services": "服務",
+    "ssh": {
+      "server": "SSH 伺服器(因安全原因建議關閉)",
+      "description": "從您的電腦管理檔案並控制控制台。",
+      "bind_error": "無法綁定到該端口。請嘗試另一個。",
+      "port": "SSH 端口",
+      "connect": "連接"
+    }
+  },
+  "console": {
+    "command": "指令"
+  },
+  "files": {
+    "folder": "資料夾",
+    "loading": "正在加載檔案...",
+    "file_deleted": "檔案已成功刪除",
+    "file_saved": "檔案已成功儲存",
+    "upload_file": "上傳檔案",
+    "file_uploaded": "檔案已成功上傳",
+    "folder_deleted": "資料夾已成功刪除",
+    "folder_created": "資料夾已成功建立",
+    "download": "下載",
+    "delete": "刪除",
+    "go_back": "返回",
+    "create_folder": {
+      "title": "建立新資料夾",
+      "text": "請輸入新資料夾的名稱"
+    }
+  },
+  "overview": {
+    "cpu": "CPU",
+    "tps": "TPS",
+    "ram": "RAM",
+    "disk": "硬碟",
+    "software": "伺服器軟體",
+    "version": "伺服器版本",
+    "ip": "伺服器 IP",
+    "tip": {
+      "title": "提示",
+      "welcome": "歡迎使用 MCDash！",
+      "text": "您好管理員，歡迎使用安平邁世界的網頁管理介面",
+      "subtext": "如果您需要使用 MCDash 的協助，請點擊下面的按鈕以查看原作者文件。",
+      "documentation": "文件",
+      "donate": "捐贈",
+      "none": "目前沒有提示。請稍後再試！",
+      "close": "關閉"
+    },
+    "shutdown": {
+      "button": "關閉",
+      "title": "關閉伺服器",
+      "text": "您確定要關閉伺服器嗎？",
+      "yes": "是的，關閉",
+      "success": "伺服器已成功關閉"
+    },
+    "reload": {
+      "button": "重新載入",
+      "title": "重新載入伺服器",
+      "text": "您確定要重新載入伺服器嗎？",
+      "yes": "是的，重新載入",
+      "success": "伺服器已成功重新載入"
+    }
+  },
+  "plugins": {
+    "by": "由",
+    "search": "搜尋",
+    "store": "插件商店",
+    "no_description": "未提供插件資訊",
+    "no_plugins": "未找到任何插件",
+    "enable": "啟用",
+    "disable": "禁用",
+    "not_supported": "插件不支援",
+    "view_resource": "查看資源",
+    "already_installed": "插件已安裝",
+    "install": "安裝",
+    "delete": {
+      "tooltip": "刪除插件",
+      "title": "刪除 {{name}}",
+      "text": "您確定要刪除 {{name}}？ 您需要重新啟動伺服器以套用更改"
+    }
+  },
+  "worlds": {
+    "change": "更改",
+    "create": "建立新世界",
+    "create_title": "建立一個新世界",
+    "overworld": "主世界",
+    "nether": "地獄",
+    "end": "終界",
+    "world_name": "世界名稱",
+    "world_type": "世界類型",
+    "difficulty": {
+      "changed": "難易度調整成功！",
+      "title": "更改難易度",
+      "peaceful": "和平",
+      "easy": "簡單",
+      "normal": "正常",
+      "hard": "困難",
+      "button": "難易度"
+    },
+    "time": {
+      "changed": "時間調整成功！",
+      "title": "更改時間",
+      "update": "改變至",
+      "button": "時間"
+    },
+    "weather": {
+      "changed": "天氣調整成功！",
+      "title": "更改天氣",
+      "clear": "晴朗",
+      "rain": "下雨",
+      "thunder": "雷陣雨",
+      "button": "天氣"
+    },
+    "info": {
+      "players": "玩家",
+      "time": "時間",
+      "weather": "天氣",
+      "difficulty": "難易度"
+    },
+    "delete": {
+      "title": "刪除世界",
+      "text": "您確定要刪除世界嗎？",
+      "yes": "是的，刪除",
+      "success": "世界已成功刪除"
+    }
+  },
+  "players": {
+    "online": "線上玩家",
+    "name": "名稱",
+    "username": "玩家名稱",
+    "id": "玩家ID",
+    "world": "目前世界",
+    "address": "IP 位址",
+    "food_level": "飢餓值",
+    "health": "生命值",
+    "is_op": "OP 權限",
+    "game_mode": "遊戲模式",
+    "player_time": "玩家總遊玩時間",
+    "reason": "原因",
+    "last_seen": "最後上線",
+    "action_player": "{{action}} 玩家{{plural}}",
+    "action_player_text": "您確定要 {{action}} 以下玩家{{plural}}？",
+    "teleport_title": "傳送玩家到世界",
+    "op_player": "該玩家將獲得管理員權限。您確定嗎？",
+    "whitelist_title": "將玩家加入白名單",
+    "teleport": "傳送",
+    "whitelisted_players": "白名單玩家",
+    "enable_whitelist": "啟用白名單",
+    "disable_whitelist": "停用白名單",
+    "banned_players": "封禁玩家",
+    "unban": "解除封禁",
+    "action": {
+      "kicked": "您已被踢出！",
+      "kick": "踢出",
+      "ban": "封禁"
+    },
+    "none": {
+      "online": "無線上玩家",
+      "whitelisted": "未找到白名單玩家",
+      "banned": "未找到封禁玩家"
+    },
+    "per_page": "每頁玩家數量"
+  },
+  "schedules": {
+    "create": "建立排程",
+    "create_title": "建立新排程",
+    "edit_title": "編輯排程",
+    "name": "排程名稱",
+    "none_created": "未建立任何排程",
+    "schedule": {
+      "monthly": "每月的第 {{day}} 天",
+      "weekly": "每週 {{days}}",
+      "daily": "每天 {{time}}",
+      "hourly": "每小時於 {{minutes}} 分鐘"
+    },
+    "tasks": {
+      "title": "任務",
+      "none_created": "未建立任務",
+      "edit": "編輯",
+      "delete": "刪除",
+      "add": "建立任務"
+    },
+    "frequencies": {
+      "monthly": "每月",
+      "weekly": "每週",
+      "daily": "每天",
+      "hourly": "每小時"
+    },
+    "weekly": {
+      "monday": "星期一",
+      "tuesday": "星期二",
+      "wednesday": "星期三",
+      "thursday": "星期四",
+      "friday": "星期五",
+      "saturday": "星期六",
+      "sunday": "星期日"
+    },
+    "action": {
+      "kick": "踢出原因",
+      "command": "指令",
+      "message": "訊息",
+      "create": "建立動作",
+      "edit": "編輯動作"
+    },
+    "types": {
+      "command": "執行指令",
+      "broadcast": "廣播訊息",
+      "reload": "重新載入伺服器",
+      "stop": "停止伺服器",
+      "backup": "建立備份",
+      "kick": "踢出所有玩家"
+    },
+    "delete": {
+      "title": "刪除排程",
+      "text": "您確定要刪除此排程嗎？"
+    }
+  }
+}

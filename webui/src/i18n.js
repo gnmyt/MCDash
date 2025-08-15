@@ -12,7 +12,9 @@ export const languages = {
     es: "Español",
     fr: "Français",
     ja: "日本語",
-    pl: "Polski"
+    pl: "Polski",
+    zhtw: "臺灣正體"
+
 }
 
 i18n.use(initReactI18next).use(LanguageDetector).use(HttpApi).init({
