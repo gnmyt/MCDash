@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CheckIcon } from "@phosphor-icons/react";
+import { CheckIcon, PlusIcon } from "@phosphor-icons/react";
 
 import { Button } from "@/components/ui/button.tsx";
 import {
@@ -53,42 +53,55 @@ const CreateBackupDialog = ({ onBackup, disabled }: CreateBackupDialogProps) => 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button disabled={disabled}>{t("backup.create")}</Button>
+                <Button disabled={disabled} size="lg" className="h-12 px-6 rounded-xl text-base">
+                    <PlusIcon className="h-5 w-5 mr-2" weight="bold" />
+                    {t("backup.create")}
+                </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] rounded-xl">
                 <form onSubmit={handleSubmit}>
                     <DialogHeader>
-                        <DialogTitle>{t("backup.create")}</DialogTitle>
+                        <DialogTitle className="text-lg">{t("backup.create")}</DialogTitle>
                         <DialogDescription>
                             {t("backup.description")}
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid gap-2">
+                    <div className="grid gap-4 py-6">
+                        <div className="grid gap-3">
                             <div className="flex items-center justify-between">
-                                <Label>{t("backup.include")}</Label>
-                                <Button type="button" variant="ghost" size="sm" onClick={selectAll}>
+                                <Label className="text-base">{t("backup.include")}</Label>
+                                <Button type="button" variant="ghost" size="sm" onClick={selectAll} className="rounded-xl">
                                     {t("backup.select_all")}
                                 </Button>
                             </div>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="grid grid-cols-1 gap-2">
                                 {BACKUP_TYPES.map((type) => (
-                                    <Button key={type.value} type="button" variant="outline" className="justify-start"
-                                        onClick={() => toggleType(type.value)}>
-                                        <div className={`mr-2 flex h-4 w-4 items-center justify-center rounded-sm border ${
-                                            selectedTypes.includes(type.value) ? "bg-primary border-primary" : "border-primary"}`}>
+                                    <Button 
+                                        key={type.value} 
+                                        type="button"
+                                        variant="outline"
+                                        onClick={() => toggleType(type.value)}
+                                        className={`flex items-center justify-start gap-3 h-14 px-4 rounded-xl text-left ${selectedTypes.includes(type.value) ? 'border-primary bg-primary/10' : ''}`}
+                                    >
+                                        <div className={`flex h-5 w-5 items-center justify-center rounded-md border-2 transition-colors ${
+                                            selectedTypes.includes(type.value) 
+                                                ? "bg-primary border-primary" 
+                                                : "border-muted-foreground"}`}
+                                        >
                                             {selectedTypes.includes(type.value) && (
-                                                <CheckIcon className="h-3 w-3 text-primary-foreground" />
+                                                <CheckIcon className="h-3 w-3 text-primary-foreground" weight="bold" />
                                             )}
                                         </div>
-                                        {t("backup.mapping." + type.value.toLowerCase())}
+                                        <span className="text-base font-medium">
+                                            {t("backup.mapping." + type.value.toLowerCase())}
+                                        </span>
                                     </Button>
                                 ))}
                             </div>
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit" disabled={selectedTypes.length === 0}>
+                        <Button type="submit" disabled={selectedTypes.length === 0} size="lg" className="w-full h-12 rounded-xl text-base">
                             {t("action.create")}
                         </Button>
                     </DialogFooter>

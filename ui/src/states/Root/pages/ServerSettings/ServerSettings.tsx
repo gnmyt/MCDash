@@ -6,6 +6,7 @@ import {ParsedProperty, PropertyCategory, ServerProperty} from "@/types/config"
 import {PropertyCard} from "@/states/Root/pages/ServerSettings/components/PropertyCard.tsx";
 import {jsonRequest, patchRequest} from "@/lib/RequestUtil.ts";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert.tsx";
+import {Button} from "@/components/ui/button.tsx";
 import {t} from "i18next";
 import {toast} from "@/hooks/use-toast.ts";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
@@ -92,21 +93,18 @@ const ServerSettings = () => {
                                     if (count === 0) return null;
                                     
                                     return (
-                                        <button
+                                        <Button
                                             key={category}
+                                            variant="ghost"
                                             onClick={() => setActiveCategory(category)}
-                                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 ${
-                                                isActive 
-                                                    ? 'bg-primary text-primary-foreground font-semibold' 
-                                                    : 'hover:bg-accent text-foreground'
-                                            }`}
+                                            className={`w-full flex items-center justify-start gap-3 px-4 py-3 h-12 rounded-xl text-left ${isActive ? 'bg-accent font-semibold' : ''}`}
                                         >
                                             <Icon className="h-5 w-5 shrink-0" weight={isActive ? "fill" : "regular"} />
                                             <span className="text-base truncate">{config.label}</span>
-                                            <span className={`ml-auto text-sm ${isActive ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>
+                                            <span className="ml-auto text-sm text-muted-foreground">
                                                 {count}
                                             </span>
-                                        </button>
+                                        </Button>
                                     );
                                 })}
                             </nav>
