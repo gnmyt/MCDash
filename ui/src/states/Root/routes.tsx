@@ -1,4 +1,4 @@
-import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon} from "@phosphor-icons/react";
+import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon} from "@phosphor-icons/react";
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
@@ -6,6 +6,7 @@ import ServerSettings from "@/states/Root/pages/ServerSettings/ServerSettings.ts
 import SSHSettings from "@/states/Root/pages/SSHSettings/SSHSettings.tsx";
 import Backups from "@/states/Root/pages/Backups/Backups.tsx";
 import Console from "@/states/Root/pages/Console/Console.tsx";
+import Players from "@/states/Root/pages/Players/Players.tsx";
 
 export const sidebar = [
     {
@@ -13,6 +14,13 @@ export const sidebar = [
         icon: SquaresFourIcon,
         element: <Overview />,
         name: () => t("nav.overview")
+    },
+    {
+        path: "/players",
+        icon: UsersIcon,
+        requiredFeatures: ["Players"],
+        element: <Players />,
+        name: () => t("nav.players")
     },
     {
         routerPath: "/files/*",
