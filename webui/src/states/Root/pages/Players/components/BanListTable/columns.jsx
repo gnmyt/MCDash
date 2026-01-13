@@ -6,7 +6,7 @@ const columns = () => [
         field: 'name', headerName: t("players.username"), minWidth: 150, flex: 1, renderCell: (params) => {
             return (
                 <div style={{display: "flex", alignItems: "center"}}>
-                    <img src={`https://crafatar.com/avatars/${params.row.uuid}?size=25&overlay`} alt={params.row.name}
+                    <img src={`https://mc-heads.net/avatar/${params.row.uuid}/25`} alt={params.row.name}
                          style={{marginRight: 5}}/>
                     <Typography>{params.row.name}</Typography>
                 </div>
