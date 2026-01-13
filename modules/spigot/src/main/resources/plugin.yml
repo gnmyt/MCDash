@@ -1,0 +1,12 @@
+name: MCDash
+version: ${project.version}
+main: de.gnm.mcdash.MCDashSpigot
+api-version: '1.21'
+description: A web-based dashboard for managing your Minecraft server
+author: GNM
+website: https://mcdash.gnm.dev/
+load: STARTUP
+
+commands: {}
+
+permissions: {}
