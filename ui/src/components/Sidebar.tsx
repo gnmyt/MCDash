@@ -1,6 +1,6 @@
 import {
-    ChevronRight
-} from "lucide-react";
+    CaretRightIcon
+} from "@phosphor-icons/react";
 
 import {
     Sidebar as ShadSidebar,
@@ -51,19 +51,13 @@ export function Sidebar() {
     return (
         <ShadSidebar variant="inset" className="select-none">
             <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link to="/" className="flex items-center space-x-2 cursor-pointer">
-                                <img src={ServerImage} alt="MCDash Logo" className="h-8 w-8 rounded-md"/>
-                                <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-semibold">MCDash</span>
-                                    <span className="truncate text-xs">1.2.0</span>
-                                </div>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
+                <Link to="/" className="flex items-center gap-3 px-2 py-1 cursor-pointer">
+                    <img src={ServerImage} alt="MCDash Logo" className="h-10 w-10"/>
+                    <div className="grid flex-1 text-left leading-tight">
+                        <span className="truncate font-bold text-lg">MCDash</span>
+                        <span className="truncate text-xs text-muted-foreground">v1.2.0</span>
+                    </div>
+                </Link>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
@@ -82,8 +76,8 @@ export function Sidebar() {
                                             tooltip={item.name()}
                                             onClick={() => handleNavigationClick(item)}
                                             className="cursor-pointer">
-                                            <a className="flex items-center space-x-2">
-                                                <item.icon/>
+                                            <a className="flex items-center gap-3">
+                                                <item.icon weight={isCurrentRoute(item.path) ? "fill" : "regular"} />
                                                 <span>{item.name()}</span>
                                             </a>
                                         </SidebarMenuButton>
@@ -92,9 +86,9 @@ export function Sidebar() {
                                             <>
                                                 <CollapsibleTrigger asChild>
                                                     <SidebarMenuAction
-                                                        className={`data-[state=${isOpen ? "open" : "closed"}]:rotate-90`}
+                                                        className={`transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`}
                                                         onClick={() => toggleCollapsible(item.path)}>
-                                                        <ChevronRight/>
+                                                        <CaretRightIcon/>
                                                         <span className="sr-only">Toggle</span>
                                                     </SidebarMenuAction>
                                                 </CollapsibleTrigger>
@@ -107,8 +101,8 @@ export function Sidebar() {
                                                                     isActive={isCurrentRoute(subItem.path)}
                                                                     onClick={() => handleNavigationClick(subItem)}
                                                                     className="cursor-pointer">
-                                                                    <a>
-                                                                        <subItem.icon/>
+                                                                    <a className="flex items-center gap-3">
+                                                                        <subItem.icon weight={isCurrentRoute(subItem.path) ? "fill" : "regular"} />
                                                                         <span>{subItem.name()}</span>
                                                                     </a>
                                                                 </SidebarMenuSubButton>
