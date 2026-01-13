@@ -4,6 +4,7 @@ import {ScrollArea} from "@/components/ui/scroll-area";
 import {Button} from "@/components/ui/button";
 import {SocketContext} from "@/contexts/SocketContext";
 import {postRequest} from "@/lib/RequestUtil";
+import {parseAnsi, stripAnsi} from "@/lib/AnsiUtil";
 import {PaperPlaneRightIcon, TerminalWindowIcon} from "@phosphor-icons/react";
 
 interface LogEntry {
@@ -54,10 +55,32 @@ const Console = () => {
     }, [lastMessage]);
 
     const getLogColor = (message: string): string => {
-        if (message.includes('[ERROR]')) return 'text-red-500';
-        if (message.includes('[WARN') || message.includes('[WARNING]')) return 'text-amber-500';
-        if (message.includes('[INFO]')) return 'text-primary';
+        const stripped = stripAnsi(message);
+        if (stripped.includes('[ERROR]')) return 'text-red-500';
+        if (stripped.includes('[WARN') || stripped.includes('[WARNING]')) return 'text-amber-500';
+        if (stripped.includes('[INFO]')) return 'text-primary';
         return 'text-foreground';
+    };
+
+    const renderLogEntry = (entry: LogEntry, index: number) => {
+        const segments = parseAnsi(entry.text);
+        const hasCustomColors = segments.some(s => Object.keys(s.style).length > 0);
+
+        if (hasCustomColors) {
+            return (
+                <div key={index} className="break-all py-0.5">
+                    {segments.map((segment, i) => (
+                        <span key={i} style={segment.style}>{segment.text}</span>
+                    ))}
+                </div>
+            );
+        }
+
+        return (
+            <div key={index} className={`${entry.color} break-all py-0.5`}>
+                {stripAnsi(entry.text)}
+            </div>
+        );
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -100,11 +123,7 @@ const Console = () => {
                                 No console output yet. Server logs will appear here.
                             </div>
                         )}
-                        {log.map((entry, index) => (
-                            <div key={index} className={`${entry.color} break-all py-0.5`}>
-                                {entry.text}
-                            </div>
-                        ))}
+                        {log.map((entry, index) => renderLogEntry(entry, index))}
                         <div ref={bottomRef}/>
                     </div>
                 </ScrollArea>
