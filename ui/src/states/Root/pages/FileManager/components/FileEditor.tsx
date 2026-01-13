@@ -28,7 +28,7 @@ const FileEditor = ({directory, currentFile, fileContent, setFileContent}: FileE
 
     return (
         <>
-            <Textarea value={fileContent!} onChange={updateContent} className="h-full w-full" />
+            <Textarea value={fileContent!} onChange={updateContent} className="h-full w-full text-base rounded-xl p-4 font-mono" />
         </>
     )
 }

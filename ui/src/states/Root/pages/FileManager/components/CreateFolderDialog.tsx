@@ -30,11 +30,11 @@ const CreateFolderDialog = ({path, updateFiles}: CreateFolderDialogProps) => {
     return (
         <Dialog open={isCreateFolderOpen} onOpenChange={setIsCreateFolderOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" className="rounded-full">
-                    <FolderPlusIcon className="mr-2 h-4 w-4" /> {t("files.new_folder")}
+                <Button variant="outline" size="lg" className="rounded-xl h-12 px-5 text-base">
+                    <FolderPlusIcon className="mr-2 h-5 w-5" /> {t("files.new_folder")}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]" aria-label="Create New Folder">
+            <DialogContent className="sm:max-w-[425px] rounded-xl" aria-label="Create New Folder">
                 <DialogHeader>
                     <DialogTitle>{t("files.create_folder.title")}</DialogTitle>
                 </DialogHeader>
@@ -43,10 +43,10 @@ const CreateFolderDialog = ({path, updateFiles}: CreateFolderDialogProps) => {
                         value={newItemName}
                         onChange={(e) => setNewItemName(e.target.value)}
                         placeholder={t("files.create_folder.placeholder")}
-                        className="col-span-3"
+                        className="col-span-3 h-12 text-base rounded-xl"
                     />
                 </div>
-                <Button onClick={handleCreateFolder} className="w-full">{t("files.create_folder.button")}</Button>
+                <Button onClick={handleCreateFolder} size="lg" className="w-full h-12 text-base rounded-xl">{t("files.create_folder.button")}</Button>
             </DialogContent>
         </Dialog>
     )

@@ -42,54 +42,54 @@ const FileView = ({files, click, directory, updateFiles}: FileViewProps) => {
     }
 
     return (
-        <div className="rounded-md border flex-grow overflow-hidden">
+        <div className="rounded-xl border flex-grow overflow-hidden bg-card">
             <RenameDialog directory={directory} updateFiles={updateFiles}
                           selectedFile={selectedFile} isOpen={isRenameOpen} setOpen={setIsRenameOpen} />
             <DeleteDialog path={directory + selectedFile?.name} isOpen={isDeleteOpen} setOpen={setIsDeleteOpen}
                           updateFiles={updateFiles} isFolder={selectedFile?.is_folder ?? false} />
-            <Table>
+            <Table className="text-base">
                 <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-[50%]">{t("files.table.name")}</TableHead>
-                        <TableHead className="w-[12%]">{t("files.table.last_modified")}</TableHead>
-                        <TableHead className="w-[5%]">{t("files.table.size")}</TableHead>
-                        <TableHead className="w-[4%] text-right">{t("files.table.actions")}</TableHead>
+                    <TableRow className="hover:bg-transparent">
+                        <TableHead className="w-[50%] h-14 text-base font-semibold">{t("files.table.name")}</TableHead>
+                        <TableHead className="w-[12%] h-14 text-base font-semibold">{t("files.table.last_modified")}</TableHead>
+                        <TableHead className="w-[5%] h-14 text-base font-semibold">{t("files.table.size")}</TableHead>
+                        <TableHead className="w-[4%] h-14 text-base font-semibold text-right">{t("files.table.actions")}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {
                         files.map((item) => (
-                            <TableRow key={item.name} onClick={() => click(item)} className="cursor-pointer hover:accent">
-                                <TableCell className="font-medium">
-                                    <div className="flex items-center">
+                            <TableRow key={item.name} onClick={() => click(item)} className="cursor-pointer h-14 transition-colors">
+                                <TableCell className="font-medium py-4">
+                                    <div className="flex items-center gap-3">
                                         {item.is_folder ? (
-                                            <FolderIcon className="mr-2 h-4 w-4 text-blue-500"/>
+                                            <FolderIcon className="h-5 w-5 text-primary" weight="fill"/>
                                         ) : (
-                                            <FileIcon className="mr-2 h-4 w-4 text-gray-500"/>
+                                            <FileIcon className="h-5 w-5 text-muted-foreground"/>
                                         )}
-                                        {item.name}
+                                        <span className="text-base">{item.name}</span>
                                     </div>
                                 </TableCell>
-                                <TableCell>{new Date(item.last_modified).toLocaleString()}</TableCell>
-                                <TableCell>{!item.is_folder && convertSize(parseInt(item.size))}</TableCell>
-                                <TableCell className="text-right">
+                                <TableCell className="py-4 text-muted-foreground">{new Date(item.last_modified).toLocaleString()}</TableCell>
+                                <TableCell className="py-4 text-muted-foreground">{!item.is_folder && convertSize(parseInt(item.size))}</TableCell>
+                                <TableCell className="text-right py-4">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
                                             <Button
                                                 variant="ghost"
-                                                className="h-8 w-8 p-0 rounded-full"
+                                                className="h-10 w-10 p-0 rounded-xl"
                                                 onClick={(event) => event.stopPropagation()}>
                                                 <span className="sr-only">Open</span>
-                                                <DotsThreeVerticalIcon className="h-4 w-4"/>
+                                                <DotsThreeVerticalIcon className="h-5 w-5"/>
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent
                                             align="end"
-                                            className="w-[160px]"
+                                            className="w-[180px] rounded-xl p-2"
                                             onClick={(event) => event.stopPropagation()}>
-                                            <DropdownMenuItem onClick={() => handleRename(item)}>{t("files.rename")}</DropdownMenuItem>
-                                            {!item.is_folder && <DropdownMenuItem onClick={() => handleDownload(item)}>{t("files.download")}</DropdownMenuItem>}
-                                            <DropdownMenuItem onClick={() => handleDelete(item)} className="text-red-600">{t("files.delete")}</DropdownMenuItem>
+                                            <DropdownMenuItem onClick={() => handleRename(item)} className="rounded-lg h-10 text-base cursor-pointer">{t("files.rename")}</DropdownMenuItem>
+                                            {!item.is_folder && <DropdownMenuItem onClick={() => handleDownload(item)} className="rounded-lg h-10 text-base cursor-pointer">{t("files.download")}</DropdownMenuItem>}
+                                            <DropdownMenuItem onClick={() => handleDelete(item)} className="rounded-lg h-10 text-base cursor-pointer text-red-600">{t("files.delete")}</DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </TableCell>

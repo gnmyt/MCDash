@@ -65,10 +65,10 @@ const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updat
 
     return (
         <>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between py-2">
                 <Breadcrumb>
-                    <BreadcrumbList>
-                        <HouseIcon className="h-4 w-4 text-blue-500 cursor-pointer" onClick={() => !currentFile && setDirectory("/")}/>
+                    <BreadcrumbList className="text-base gap-2">
+                        <HouseIcon className="h-5 w-5 text-primary cursor-pointer transition-colors hover:text-primary/80" onClick={() => !currentFile && setDirectory("/")}/>
                         <BreadcrumbSeparator className="hidden md:block"/>
 
                         {getPathArray().map((dir, index) => (
@@ -87,18 +87,18 @@ const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updat
                         ))}
                     </BreadcrumbList>
                 </Breadcrumb>
-                {currentFile === null && <div className="flex space-x-2">
-                    {!uploading && <Button variant="outline" className="rounded-full" onClick={uploadFile}>
-                        <FileArrowUpIcon className="mr-2 h-4 w-4"/> {t("files.upload_file")}
+                {currentFile === null && <div className="flex gap-3">
+                    {!uploading && <Button variant="outline" size="lg" className="rounded-xl h-12 px-5 text-base" onClick={uploadFile}>
+                        <FileArrowUpIcon className="mr-2 h-5 w-5"/> {t("files.upload_file")}
                     </Button>}
                     <CreateFolderDialog updateFiles={updateFiles} path={directory}/>
                 </div>}
-                {currentFile !== null && <div className="flex space-x-2">
-                    <Button variant="outline" className="rounded-full" onClick={saveFile}>
-                        <FloppyDiskIcon className="mr-2 h-4 w-4"/> {t("files.save_file")}
+                {currentFile !== null && <div className="flex gap-3">
+                    <Button variant="outline" size="lg" className="rounded-xl h-12 px-5 text-base" onClick={saveFile}>
+                        <FloppyDiskIcon className="mr-2 h-5 w-5"/> {t("files.save_file")}
                     </Button>
-                    <Button variant="destructive" className="rounded-full" onClick={() => setCurrentFile(null)}>
-                        <XIcon className="mr-2 h-4 w-4"/> {t("action.exit")}
+                    <Button variant="destructive" size="lg" className="rounded-xl h-12 px-5 text-base" onClick={() => setCurrentFile(null)}>
+                        <XIcon className="mr-2 h-5 w-5"/> {t("action.exit")}
                     </Button>
                 </div>}
             </div>

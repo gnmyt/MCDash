@@ -34,19 +34,19 @@ const RenameDialog = ({directory, selectedFile, updateFiles, isOpen, setOpen}: R
 
     return (
         <Dialog open={isOpen} onOpenChange={setOpen}>
-            <DialogContent className="sm:max-w-[425px]" aria-label="Create New Folder">
+            <DialogContent className="sm:max-w-[425px] rounded-xl" aria-label="Create New Folder">
                 <DialogHeader>
-                    <DialogTitle>{t("files.rename")}</DialogTitle>
+                    <DialogTitle className="text-lg">{t("files.rename")}</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <Input
                         value={newItemName}
                         onChange={(e) => setNewItemName(e.target.value)}
                         placeholder={t("files.enter_name")}
-                        className="col-span-3"
+                        className="col-span-3 h-12 text-base rounded-xl"
                     />
                 </div>
-                <Button onClick={handleRename} className="w-full">{t("files.rename")}</Button>
+                <Button onClick={handleRename} size="lg" className="w-full h-12 text-base rounded-xl">{t("files.rename")}</Button>
             </DialogContent>
         </Dialog>
     )

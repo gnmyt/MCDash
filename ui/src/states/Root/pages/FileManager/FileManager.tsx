@@ -51,7 +51,7 @@ const FileManager = () => {
     }, [directory, location.pathname]);
 
     return (
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="flex flex-1 flex-col gap-6 p-6 pt-0">
             <FileHeader currentFile={currentFile} directory={directory} setDirectory={setDirectory} setCurrentFile={setCurrentFile}
                         updateFiles={updateFiles} fileContent={fileContent} />
             {!currentFile && <FileView files={files} click={onClick} directory={directory} updateFiles={updateFiles} />}
