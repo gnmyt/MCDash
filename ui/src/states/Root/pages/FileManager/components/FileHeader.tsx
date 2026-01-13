@@ -24,7 +24,7 @@ interface FileHeaderProps {
     saveFile: () => void;
 }
 
-const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updateFiles, fileContent, onCreateFolder, saveFile}: FileHeaderProps) => {
+const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updateFiles, fileContent: _fileContent, onCreateFolder, saveFile}: FileHeaderProps) => {
     const [uploading, setUploading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
 
