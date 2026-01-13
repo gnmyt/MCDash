@@ -63,6 +63,12 @@
     "download": "Download",
     "delete": "Delete",
     "delete_description": "This action cannot be undone. This will permanently delete the item.",
+    "search_placeholder": "Search files...",
+    "no_results": "No files found matching your search.",
+    "empty": {
+      "title": "This folder is empty",
+      "description": "Upload files or create a new folder to get started."
+    },
     "create_folder": {
       "placeholder": "Enter folder name",
       "title": "Create new folder",

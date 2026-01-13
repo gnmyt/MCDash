@@ -1,10 +1,12 @@
 import {useCallback, useEffect, useState} from "react";
 import FileView from "@/states/Root/pages/FileManager/components/FileView.tsx";
-import {downloadRequest, jsonRequest} from "@/lib/RequestUtil.ts";
+import {downloadRequest, jsonRequest, patchRequest} from "@/lib/RequestUtil.ts";
 import { useLocation, useNavigate } from "react-router-dom";
 import FileHeader from "@/states/Root/pages/FileManager/components/FileHeader.tsx";
 import FileEditor from "@/states/Root/pages/FileManager/components/FileEditor.tsx";
 import {Skeleton} from "@/components/ui/skeleton.tsx";
+import {toast} from "@/hooks/use-toast.ts";
+import {t} from "i18next";
 
 export interface File {
     name: string;
@@ -14,12 +16,13 @@ export interface File {
 }
 
 const FileManager = () => {
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState<File[]>([]);
     const [loading, setLoading] = useState(true);
     const location = useLocation();
     const [directory, setDirectory] = useState(location.pathname.substring(6));
     const [currentFile, setCurrentFile] = useState<string | null>(null);
     const [fileContent, setFileContent] = useState<string | undefined>("");
+    const [creatingFolder, setCreatingFolder] = useState(false);
 
     const navigate = useNavigate();
 
@@ -48,6 +51,24 @@ const FileManager = () => {
             .catch(() => changeDirectory(".."))
             .finally(() => setLoading(false));
     }
+
+    const handleCreateFolder = () => {
+        const tempFolder: File = {
+            name: "",
+            size: "0",
+            last_modified: Date.now(),
+            is_folder: true
+        };
+        setFiles([tempFolder, ...files]);
+        setCreatingFolder(true);
+    }
+
+    const saveFile = useCallback(() => {
+        if (!currentFile) return;
+        patchRequest("files/content", {path: directory + currentFile, content: fileContent}).then(() => {
+            toast({description: t("files.file_saved")});
+        });
+    }, [currentFile, directory, fileContent]);
 
     useEffect(() => {
         navigate("/files" + directory);
@@ -79,10 +100,11 @@ const FileManager = () => {
     return (
         <div className="flex flex-1 flex-col gap-6 p-6 pt-0">
             <FileHeader currentFile={currentFile} directory={directory} setDirectory={setDirectory} setCurrentFile={setCurrentFile}
-                        updateFiles={updateFiles} fileContent={fileContent} />
+                        updateFiles={updateFiles} fileContent={fileContent} onCreateFolder={handleCreateFolder} saveFile={saveFile} />
             {loading && !currentFile && <LoadingSkeleton />}
-            {!loading && !currentFile && <FileView files={files} click={onClick} directory={directory} updateFiles={updateFiles} />}
-            {currentFile && <FileEditor currentFile={currentFile} directory={directory} fileContent={fileContent} setFileContent={setFileContent} />}
+            {!loading && !currentFile && <FileView files={files} click={onClick} directory={directory} updateFiles={updateFiles} 
+                        creatingFolder={creatingFolder} setCreatingFolder={setCreatingFolder} setFiles={setFiles} />}
+            {currentFile && <FileEditor currentFile={currentFile} directory={directory} fileContent={fileContent} setFileContent={setFileContent} onSave={saveFile} />}
         </div>
     );
 };

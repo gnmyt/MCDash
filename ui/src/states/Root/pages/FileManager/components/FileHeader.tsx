@@ -5,12 +5,11 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb.tsx";
-import {FileArrowUpIcon, HouseIcon, FloppyDiskIcon, XIcon} from "@phosphor-icons/react";
+import {FileArrowUpIcon, HouseIcon, FloppyDiskIcon, XIcon, FolderPlusIcon} from "@phosphor-icons/react";
 import {Fragment, useState} from "react";
 import {Button} from "@/components/ui/button.tsx";
 import {Progress} from "@/components/ui/progress.tsx";
-import {patchRequest, uploadChunks} from "@/lib/RequestUtil.ts";
-import CreateFolderDialog from "@/states/Root/pages/FileManager/components/CreateFolderDialog.tsx";
+import {uploadChunks} from "@/lib/RequestUtil.ts";
 import {toast} from "@/hooks/use-toast.ts";
 import {t} from "i18next";
 
@@ -21,9 +20,11 @@ interface FileHeaderProps {
     setCurrentFile: (file: string | null) => void;
     updateFiles: () => void;
     fileContent: string | undefined;
+    onCreateFolder: () => void;
+    saveFile: () => void;
 }
 
-const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updateFiles, fileContent}: FileHeaderProps) => {
+const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updateFiles, fileContent, onCreateFolder, saveFile}: FileHeaderProps) => {
     const [uploading, setUploading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -57,12 +58,6 @@ const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updat
         return strings;
     }
 
-    const saveFile = () => {
-        patchRequest("files/content", {path: directory + currentFile, content: fileContent}).then(() => {
-            toast({description: t("files.file_saved")});
-        });
-    }
-
     return (
         <>
             <div className="flex items-center justify-between py-2">
@@ -91,7 +86,9 @@ const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updat
                     {!uploading && <Button variant="outline" size="lg" className="rounded-xl h-12 px-5 text-base" onClick={uploadFile}>
                         <FileArrowUpIcon className="mr-2 h-5 w-5"/> {t("files.upload_file")}
                     </Button>}
-                    <CreateFolderDialog updateFiles={updateFiles} path={directory}/>
+                    <Button variant="outline" size="lg" className="rounded-xl h-12 px-5 text-base" onClick={onCreateFolder}>
+                        <FolderPlusIcon className="mr-2 h-5 w-5" /> {t("files.new_folder")}
+                    </Button>
                 </div>}
                 {currentFile !== null && <div className="flex gap-3">
                     <Button variant="outline" size="lg" className="rounded-xl h-12 px-5 text-base" onClick={saveFile}>

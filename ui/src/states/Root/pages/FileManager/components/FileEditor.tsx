@@ -10,9 +10,10 @@ interface FileEditorProps {
     currentFile: string;
     fileContent: string | undefined;
     setFileContent: (fileContent: string | undefined) => void;
+    onSave: () => void;
 }
 
-const FileEditor = ({directory, currentFile, fileContent, setFileContent}: FileEditorProps) => {
+const FileEditor = ({directory, currentFile, fileContent, setFileContent, onSave}: FileEditorProps) => {
     const {theme} = useTheme();
 
     useEffect(() => {
@@ -25,6 +26,18 @@ const FileEditor = ({directory, currentFile, fileContent, setFileContent}: FileE
     useEffect(() => {
         return () => setFileContent(undefined);
     }, []);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                onSave();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [onSave]);
 
     const getEditorTheme = () => {
         if (theme === "system") {
