@@ -4,6 +4,7 @@ import {downloadRequest, jsonRequest} from "@/lib/RequestUtil.ts";
 import { useLocation, useNavigate } from "react-router-dom";
 import FileHeader from "@/states/Root/pages/FileManager/components/FileHeader.tsx";
 import FileEditor from "@/states/Root/pages/FileManager/components/FileEditor.tsx";
+import {Skeleton} from "@/components/ui/skeleton.tsx";
 
 export interface File {
     name: string;
@@ -14,6 +15,7 @@ export interface File {
 
 const FileManager = () => {
     const [files, setFiles] = useState([]);
+    const [loading, setLoading] = useState(true);
     const location = useLocation();
     const [directory, setDirectory] = useState(location.pathname.substring(6));
     const [currentFile, setCurrentFile] = useState<string | null>(null);
@@ -40,9 +42,11 @@ const FileManager = () => {
     };
 
     const updateFiles = () => {
+        setLoading(true);
         jsonRequest("files/list?path=." + directory)
             .then((data) => setFiles(data.files.sort((a: File, b: File) => (b.is_folder ? 1 : 0) - (a.is_folder ? 1 : 0))))
-            .catch(() => changeDirectory(".."));
+            .catch(() => changeDirectory(".."))
+            .finally(() => setLoading(false));
     }
 
     useEffect(() => {
@@ -50,11 +54,34 @@ const FileManager = () => {
         updateFiles();
     }, [directory, location.pathname]);
 
+    const LoadingSkeleton = () => (
+        <div className="rounded-xl border flex-grow overflow-hidden bg-card">
+            <div className="p-4 space-y-3">
+                <div className="flex items-center gap-4">
+                    <Skeleton className="h-4 w-[50%]" />
+                    <Skeleton className="h-4 w-[15%]" />
+                    <Skeleton className="h-4 w-[10%]" />
+                    <Skeleton className="h-4 w-[5%] ml-auto" />
+                </div>
+                {[...Array(8)].map((_, i) => (
+                    <div key={i} className="flex items-center gap-4">
+                        <Skeleton className="h-4 w-4 rounded" />
+                        <Skeleton className="h-4 w-[45%]" />
+                        <Skeleton className="h-4 w-[15%]" />
+                        <Skeleton className="h-4 w-[10%]" />
+                        <Skeleton className="h-8 w-8 ml-auto rounded-lg" />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+
     return (
         <div className="flex flex-1 flex-col gap-6 p-6 pt-0">
             <FileHeader currentFile={currentFile} directory={directory} setDirectory={setDirectory} setCurrentFile={setCurrentFile}
                         updateFiles={updateFiles} fileContent={fileContent} />
-            {!currentFile && <FileView files={files} click={onClick} directory={directory} updateFiles={updateFiles} />}
+            {loading && !currentFile && <LoadingSkeleton />}
+            {!loading && !currentFile && <FileView files={files} click={onClick} directory={directory} updateFiles={updateFiles} />}
             {currentFile && <FileEditor currentFile={currentFile} directory={directory} fileContent={fileContent} setFileContent={setFileContent} />}
         </div>
     );

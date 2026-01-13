@@ -6,6 +6,12 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu.tsx";
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuTrigger
+} from "@/components/ui/context-menu.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {File} from "@/states/Root/pages/FileManager/FileManager.tsx";
 import {convertSize} from "@/lib/FileUtil.ts";
@@ -41,60 +47,82 @@ const FileView = ({files, click, directory, updateFiles}: FileViewProps) => {
         setIsDeleteOpen(true);
     }
 
+    const renderMenuItems = (item: File) => (
+        <>
+            <ContextMenuItem onClick={() => handleRename(item)} className="rounded-lg h-9 text-sm cursor-pointer">
+                {t("files.rename")}
+            </ContextMenuItem>
+            {!item.is_folder && (
+                <ContextMenuItem onClick={() => handleDownload(item)} className="rounded-lg h-9 text-sm cursor-pointer">
+                    {t("files.download")}
+                </ContextMenuItem>
+            )}
+            <ContextMenuItem onClick={() => handleDelete(item)} className="rounded-lg h-9 text-sm cursor-pointer text-red-600">
+                {t("files.delete")}
+            </ContextMenuItem>
+        </>
+    );
+
     return (
         <div className="rounded-xl border flex-grow overflow-hidden bg-card">
             <RenameDialog directory={directory} updateFiles={updateFiles}
                           selectedFile={selectedFile} isOpen={isRenameOpen} setOpen={setIsRenameOpen} />
             <DeleteDialog path={directory + selectedFile?.name} isOpen={isDeleteOpen} setOpen={setIsDeleteOpen}
                           updateFiles={updateFiles} isFolder={selectedFile?.is_folder ?? false} />
-            <Table className="text-base">
+            <Table className="text-sm">
                 <TableHeader>
                     <TableRow className="hover:bg-transparent">
-                        <TableHead className="w-[50%] h-14 text-base font-semibold">{t("files.table.name")}</TableHead>
-                        <TableHead className="w-[12%] h-14 text-base font-semibold">{t("files.table.last_modified")}</TableHead>
-                        <TableHead className="w-[5%] h-14 text-base font-semibold">{t("files.table.size")}</TableHead>
-                        <TableHead className="w-[4%] h-14 text-base font-semibold text-right">{t("files.table.actions")}</TableHead>
+                        <TableHead className="w-[50%] h-10 text-sm font-semibold">{t("files.table.name")}</TableHead>
+                        <TableHead className="w-[12%] h-10 text-sm font-semibold">{t("files.table.last_modified")}</TableHead>
+                        <TableHead className="w-[5%] h-10 text-sm font-semibold">{t("files.table.size")}</TableHead>
+                        <TableHead className="w-[4%] h-10 text-sm font-semibold text-right">{t("files.table.actions")}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {
                         files.map((item) => (
-                            <TableRow key={item.name} onClick={() => click(item)} className="cursor-pointer h-14 transition-colors">
-                                <TableCell className="font-medium py-4">
-                                    <div className="flex items-center gap-3">
-                                        {item.is_folder ? (
-                                            <FolderIcon className="h-5 w-5 text-primary" weight="fill"/>
-                                        ) : (
-                                            <FileIcon className="h-5 w-5 text-muted-foreground"/>
-                                        )}
-                                        <span className="text-base">{item.name}</span>
-                                    </div>
-                                </TableCell>
-                                <TableCell className="py-4 text-muted-foreground">{new Date(item.last_modified).toLocaleString()}</TableCell>
-                                <TableCell className="py-4 text-muted-foreground">{!item.is_folder && convertSize(parseInt(item.size))}</TableCell>
-                                <TableCell className="text-right py-4">
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button
-                                                variant="ghost"
-                                                className="h-10 w-10 p-0 rounded-xl"
-                                                onClick={(event) => event.stopPropagation()}>
-                                                <span className="sr-only">Open</span>
-                                                <DotsThreeVerticalIcon className="h-5 w-5"/>
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent
-                                            align="end"
-                                            className="w-[180px] rounded-xl p-2"
-                                            onClick={(event) => event.stopPropagation()}>
-                                            <DropdownMenuItem onClick={() => handleRename(item)} className="rounded-lg h-10 text-base cursor-pointer">{t("files.rename")}</DropdownMenuItem>
-                                            {!item.is_folder && <DropdownMenuItem onClick={() => handleDownload(item)} className="rounded-lg h-10 text-base cursor-pointer">{t("files.download")}</DropdownMenuItem>}
-                                            <DropdownMenuItem onClick={() => handleDelete(item)} className="rounded-lg h-10 text-base cursor-pointer text-red-600">{t("files.delete")}</DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </TableCell>
-                            </TableRow>
-
+                            <ContextMenu key={item.name}>
+                                <ContextMenuTrigger asChild>
+                                    <TableRow onClick={() => click(item)} className="cursor-pointer h-10 transition-colors">
+                                        <TableCell className="font-medium py-2">
+                                            <div className="flex items-center gap-2">
+                                                {item.is_folder ? (
+                                                    <FolderIcon className="h-4 w-4 text-primary" weight="fill"/>
+                                                ) : (
+                                                    <FileIcon className="h-4 w-4 text-muted-foreground"/>
+                                                )}
+                                                <span className="text-sm">{item.name}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="py-2 text-muted-foreground text-sm">{new Date(item.last_modified).toLocaleString()}</TableCell>
+                                        <TableCell className="py-2 text-muted-foreground text-sm">{!item.is_folder && convertSize(parseInt(item.size))}</TableCell>
+                                        <TableCell className="text-right py-2">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button
+                                                        variant="ghost"
+                                                        className="h-8 w-8 p-0 rounded-lg"
+                                                        onClick={(event) => event.stopPropagation()}>
+                                                        <span className="sr-only">Open</span>
+                                                        <DotsThreeVerticalIcon className="h-4 w-4"/>
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent
+                                                    align="end"
+                                                    className="w-[160px] rounded-xl p-1.5"
+                                                    onClick={(event) => event.stopPropagation()}>
+                                                    <DropdownMenuItem onClick={() => handleRename(item)} className="rounded-lg h-9 text-sm cursor-pointer">{t("files.rename")}</DropdownMenuItem>
+                                                    {!item.is_folder && <DropdownMenuItem onClick={() => handleDownload(item)} className="rounded-lg h-9 text-sm cursor-pointer">{t("files.download")}</DropdownMenuItem>}
+                                                    <DropdownMenuItem onClick={() => handleDelete(item)} className="rounded-lg h-9 text-sm cursor-pointer text-red-600">{t("files.delete")}</DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                    </TableRow>
+                                </ContextMenuTrigger>
+                                <ContextMenuContent className="w-[160px] rounded-xl p-1.5">
+                                    {renderMenuItems(item)}
+                                </ContextMenuContent>
+                            </ContextMenu>
                         ))}
                 </TableBody>
             </Table>
