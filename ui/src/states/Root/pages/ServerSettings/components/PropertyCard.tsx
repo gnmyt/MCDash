@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import {Card, CardHeader, CardTitle, CardDescription, CardContent} from '@/components/ui/card'
 import {Switch} from '@/components/ui/switch'
 import {Input} from '@/components/ui/input'
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select'
@@ -25,27 +24,36 @@ export function PropertyCard({property, onValueChange}: PropertyCardProps) {
         switch (property.mapping.type) {
             case 'boolean':
                 return (
-                    <div className="flex items-center justify-between w-full">
-                        <Switch checked={property.parsedValue as boolean}
-                                onCheckedChange={(checked) => handleChange(checked.toString())}/>
-                        <span className="text-sm text-muted-foreground">
+                    <div className="flex items-center gap-3">
+                        <Switch 
+                            checked={property.parsedValue as boolean}
+                            onCheckedChange={(checked) => handleChange(checked.toString())}
+                            className="data-[state=checked]:bg-primary"
+                        />
+                        <span className={`text-sm font-medium ${(property.parsedValue as boolean) ? 'text-primary' : 'text-muted-foreground'}`}>
                             {(property.parsedValue as boolean) ? 'Enabled' : 'Disabled'}
                         </span>
                     </div>
                 )
             case 'number':
                 return (
-                    <Input type="number" value={value}
-                           onChange={(e) => handleChange(e.target.value)} className="w-full"/>
+                    <Input 
+                        type="number" 
+                        value={value}
+                        onChange={(e) => handleChange(e.target.value)} 
+                        className="w-48 h-12 text-base rounded-xl"
+                    />
                 )
             case 'gamemode':
             case 'difficulty':
                 return (
                     <Select value={value} onValueChange={handleChange}>
-                        <SelectTrigger><SelectValue/></SelectTrigger>
-                        <SelectContent>
+                        <SelectTrigger className="w-48 h-12 text-base rounded-xl">
+                            <SelectValue/>
+                        </SelectTrigger>
+                        <SelectContent className="rounded-xl">
                             {property.mapping.options?.map((option) => (
-                                <SelectItem key={option} value={option}>
+                                <SelectItem key={option} value={option} className="rounded-lg h-10 text-base">
                                     {option.charAt(0).toUpperCase() + option.slice(1)}
                                 </SelectItem>
                             ))}
@@ -54,39 +62,42 @@ export function PropertyCard({property, onValueChange}: PropertyCardProps) {
                 )
             case 'json':
                 return (
-                    <Input value={value} onChange={(e) => handleChange(e.target.value)}
-                           className="font-mono w-full"/>
+                    <Input 
+                        value={value} 
+                        onChange={(e) => handleChange(e.target.value)}
+                        className="flex-1 h-12 text-base rounded-xl font-mono"
+                    />
                 )
             default:
                 return (
-                    <Input value={value} onChange={(e) => handleChange(e.target.value)}
-                           className="w-full"/>
+                    <Input 
+                        value={value} 
+                        onChange={(e) => handleChange(e.target.value)}
+                        className="flex-1 max-w-md h-12 text-base rounded-xl"
+                    />
                 )
         }
     }
 
     return (
-        <Card className="w-full">
-            <div className="flex flex-col h-full">
-                <CardHeader className="pb-2">
-                    <div className="flex items-center gap-2">
-                        <Icon className="h-5 w-5 text-muted-foreground"/>
-                        <div>
-                            <CardTitle className="text-sm font-medium">
-                                {formatPropertyName(property.name)}
-                            </CardTitle>
-                            <CardDescription className="text-xs">
-                                {exists("properties." + property.name) ? t("properties." + property.name) : "Server property"}
-                            </CardDescription>
-                        </div>
-                    </div>
-                </CardHeader>
-                <CardContent
-                    className={`flex-grow flex items-center ${property.mapping.type !== 'boolean' ? 'pt-0' : ''}`}>
-                    {renderInput()}
-                </CardContent>
+        <div className="flex items-center justify-between p-4 rounded-xl border bg-background hover:bg-accent/50 transition-colors">
+            <div className="flex items-center gap-4 min-w-0">
+                <div className="h-10 w-10 rounded-xl bg-muted flex items-center justify-center shrink-0">
+                    <Icon className="h-5 w-5 text-muted-foreground"/>
+                </div>
+                <div className="min-w-0">
+                    <h3 className="text-base font-medium truncate">
+                        {formatPropertyName(property.name)}
+                    </h3>
+                    <p className="text-sm text-muted-foreground truncate">
+                        {exists("properties." + property.name) ? t("properties." + property.name) : property.name}
+                    </p>
+                </div>
             </div>
-        </Card>
+            <div className="shrink-0 ml-4">
+                {renderInput()}
+            </div>
+        </div>
     )
 }
 
