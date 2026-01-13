@@ -1,16 +1,17 @@
-<div align="center">
-<h1><img src=".github/logo.png" alt="" width="32" height="32" align="center"> MCDash</h1>
-
-A modern, beautiful web dashboard for managing your Minecraft server
-
-[![GitHub Stars](https://img.shields.io/github/stars/gnmyt/MCDash?style=flat-square&logo=github&color=f97316)](https://github.com/gnmyt/MCDash/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/gnmyt/MCDash?style=flat-square&logo=github&color=f97316)](https://github.com/gnmyt/MCDash/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/gnmyt/MCDash?style=flat-square&logo=github)](https://github.com/gnmyt/MCDash/issues)
-[![Downloads](https://img.shields.io/github/downloads/gnmyt/MCDash/total?style=flat-square&logo=github&color=f97316)](https://github.com/gnmyt/MCDash/releases/latest)
-[![License](https://img.shields.io/github/license/gnmyt/MCDash?style=flat-square)](LICENSE)
-
-[📖 Documentation](https://mcdash.gnm.dev) · [🐛 Report Bug](https://github.com/gnmyt/MCDash/issues/new?template=bug_report.md) · [✨ Request Feature](https://github.com/gnmyt/MCDash/issues/new?template=feature_request.md)
-</div>
+<h1 align="center"><img src=".github/logo.png" alt="" width="32" height="32" style="vertical-align: middle;"> MCDash</h1>
+<p align="center">A modern, beautiful web dashboard for managing your Minecraft server</p>
+<p align="center">
+  <a href="https://github.com/gnmyt/MCDash/stargazers"><img src="https://img.shields.io/github/stars/gnmyt/MCDash?style=flat-square&logo=github&color=f97316" alt="GitHub Stars"></a>
+  <a href="https://github.com/gnmyt/MCDash/network/members"><img src="https://img.shields.io/github/forks/gnmyt/MCDash?style=flat-square&logo=github&color=f97316" alt="GitHub Forks"></a>
+  <a href="https://github.com/gnmyt/MCDash/issues"><img src="https://img.shields.io/github/issues/gnmyt/MCDash?style=flat-square&logo=github" alt="GitHub Issues"></a>
+  <a href="https://github.com/gnmyt/MCDash/releases/latest"><img src="https://img.shields.io/github/downloads/gnmyt/MCDash/total?style=flat-square&logo=github&color=f97316" alt="Downloads"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/gnmyt/MCDash?style=flat-square" alt="License"></a>
+</p>
+<p align="center">
+  <a href="https://mcdash.gnm.dev">📖 Documentation</a> · 
+  <a href="https://github.com/gnmyt/MCDash/issues/new?template=bug_report.md">🐛 Report Bug</a> · 
+  <a href="https://github.com/gnmyt/MCDash/issues/new?template=feature_request.md">✨ Request Feature</a>
+</p>
 
 ---
 
