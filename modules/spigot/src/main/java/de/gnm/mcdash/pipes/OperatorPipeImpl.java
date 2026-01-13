@@ -1,10 +1,9 @@
 package de.gnm.mcdash.pipes;
 
-import de.gnm.mcdash.MCDashSpigot;
 import de.gnm.mcdash.api.entities.OfflinePlayer;
 import de.gnm.mcdash.api.pipes.players.OperatorPipe;
+import de.gnm.mcdash.util.BukkitUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -27,7 +26,7 @@ public class OperatorPipeImpl implements OperatorPipe {
 
     @Override
     public void setOp(String playerName) {
-        runOnMainThread(() -> {
+        BukkitUtil.runOnMainThread(() -> {
             org.bukkit.OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
             player.setOp(true);
         });
@@ -35,22 +34,9 @@ public class OperatorPipeImpl implements OperatorPipe {
 
     @Override
     public void deOp(String playerName) {
-        runOnMainThread(() -> {
+        BukkitUtil.runOnMainThread(() -> {
             org.bukkit.OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
             player.setOp(false);
         });
-    }
-
-    private void runOnMainThread(Runnable runnable) {
-        if (Bukkit.isPrimaryThread()) {
-            runnable.run();
-        } else {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    runnable.run();
-                }
-            }.runTask(MCDashSpigot.getInstance());
-        }
     }
 }

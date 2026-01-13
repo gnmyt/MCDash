@@ -4,9 +4,13 @@ import de.gnm.mcdash.api.controller.AccountController;
 import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.pipes.QuickActionPipe;
 import de.gnm.mcdash.api.pipes.ServerInfoPipe;
+import de.gnm.mcdash.api.pipes.players.BanPipe;
+import de.gnm.mcdash.api.pipes.players.OnlinePlayerPipe;
 import de.gnm.mcdash.api.pipes.players.OperatorPipe;
 import de.gnm.mcdash.api.pipes.players.WhitelistPipe;
 import de.gnm.mcdash.listener.ConsoleListener;
+import de.gnm.mcdash.pipes.BanPipeImpl;
+import de.gnm.mcdash.pipes.OnlinePlayerPipeImpl;
 import de.gnm.mcdash.pipes.OperatorPipeImpl;
 import de.gnm.mcdash.pipes.QuickActionPipeImpl;
 import de.gnm.mcdash.pipes.ServerInfoPipeImpl;
@@ -81,6 +85,8 @@ public class MCDashSpigot extends JavaPlugin {
         loader.registerPipe(QuickActionPipe.class, new QuickActionPipeImpl());
         loader.registerPipe(OperatorPipe.class, new OperatorPipeImpl());
         loader.registerPipe(WhitelistPipe.class, new WhitelistPipeImpl());
+        loader.registerPipe(OnlinePlayerPipe.class, new OnlinePlayerPipeImpl());
+        loader.registerPipe(BanPipe.class, new BanPipeImpl());
     }
 
     /**
@@ -92,7 +98,8 @@ public class MCDashSpigot extends JavaPlugin {
                 Feature.Properties,
                 Feature.SSH,
                 Feature.Backups,
-                Feature.Console
+                Feature.Console,
+                Feature.Players
         );
     }
 

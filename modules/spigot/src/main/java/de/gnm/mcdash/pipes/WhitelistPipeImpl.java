@@ -1,10 +1,9 @@
 package de.gnm.mcdash.pipes;
 
-import de.gnm.mcdash.MCDashSpigot;
 import de.gnm.mcdash.api.entities.OfflinePlayer;
 import de.gnm.mcdash.api.pipes.players.WhitelistPipe;
+import de.gnm.mcdash.util.BukkitUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -13,7 +12,7 @@ public class WhitelistPipeImpl implements WhitelistPipe {
 
     @Override
     public void setStatus(boolean status) {
-        runOnMainThread(() -> Bukkit.setWhitelist(status));
+        BukkitUtil.runOnMainThread(() -> Bukkit.setWhitelist(status));
     }
 
     @Override
@@ -37,7 +36,7 @@ public class WhitelistPipeImpl implements WhitelistPipe {
 
     @Override
     public void addPlayer(String playerName) {
-        runOnMainThread(() -> {
+        BukkitUtil.runOnMainThread(() -> {
             org.bukkit.OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
             player.setWhitelisted(true);
         });
@@ -45,22 +44,9 @@ public class WhitelistPipeImpl implements WhitelistPipe {
 
     @Override
     public void removePlayer(String playerName) {
-        runOnMainThread(() -> {
+        BukkitUtil.runOnMainThread(() -> {
             org.bukkit.OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
             player.setWhitelisted(false);
         });
-    }
-
-    private void runOnMainThread(Runnable runnable) {
-        if (Bukkit.isPrimaryThread()) {
-            runnable.run();
-        } else {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    runnable.run();
-                }
-            }.runTask(MCDashSpigot.getInstance());
-        }
     }
 }
