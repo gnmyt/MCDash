@@ -1,8 +1,10 @@
 import React, {useState, useRef, useEffect, useContext} from 'react';
 import {Input} from "@/components/ui/input";
 import {ScrollArea} from "@/components/ui/scroll-area";
+import {Button} from "@/components/ui/button";
 import {SocketContext} from "@/contexts/SocketContext";
 import {postRequest} from "@/lib/RequestUtil";
+import {PaperPlaneRightIcon, TerminalWindowIcon} from "@phosphor-icons/react";
 
 interface LogEntry {
     text: string;
@@ -53,9 +55,9 @@ const Console = () => {
 
     const getLogColor = (message: string): string => {
         if (message.includes('[ERROR]')) return 'text-red-500';
-        if (message.includes('[WARN') || message.includes('[WARNING]')) return 'text-yellow-500';
-        if (message.includes('[INFO]')) return 'text-blue-500';
-        return 'text-green-500';
+        if (message.includes('[WARN') || message.includes('[WARNING]')) return 'text-amber-500';
+        if (message.includes('[INFO]')) return 'text-primary';
+        return 'text-foreground';
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -89,32 +91,49 @@ const Console = () => {
     };
 
     return (
-        <div className="container mx-auto px-4">
-            <div className="relative w-full overflow-hidden">
-                <div className="bg-black text-green-500 font-mono p-4 mb-8 rounded-md">
-                    <ScrollArea className="h-[400px] mb-4">
-                        <div className="pr-4">
-                            {log.map((entry, index) => (
-                                <div key={index} className={`${entry.color} break-all`}>
-                                    {entry.text}
-                                </div>
-                            ))}
-                            <div ref={bottomRef}/>
-                        </div>
-                    </ScrollArea>
-                    <form onSubmit={handleSubmit} className="flex items-center">
-                        <span className="mr-2">{'>'}</span>
+        <div className="flex flex-col p-6 pt-0 gap-4" style={{ height: 'calc(100vh - 5.5rem)' }}>
+            <div className="bg-card border rounded-xl font-mono p-6 flex-1 flex flex-col overflow-hidden">
+                <ScrollArea className="flex-1">
+                    <div className="pr-4 text-sm leading-relaxed">
+                        {log.length === 0 && (
+                            <div className="text-muted-foreground text-center py-8">
+                                No console output yet. Server logs will appear here.
+                            </div>
+                        )}
+                        {log.map((entry, index) => (
+                            <div key={index} className={`${entry.color} break-all py-0.5`}>
+                                {entry.text}
+                            </div>
+                        ))}
+                        <div ref={bottomRef}/>
+                    </div>
+                </ScrollArea>
+            </div>
+            <form onSubmit={handleSubmit} className="shrink-0">
+                <div className="flex items-center gap-3">
+                    <div className="flex-1 relative">
+                        <TerminalWindowIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            className="flex-grow bg-transparent border-none text-green-500 focus:outline-none"
+                            className="h-14 pl-12 pr-4 text-base rounded-xl border bg-card font-mono"
+                            placeholder="Enter command..."
                             autoFocus
                         />
-                    </form>
+                    </div>
+                    <Button 
+                        type="submit" 
+                        size="lg" 
+                        className="h-14 px-6 rounded-xl text-base"
+                        disabled={!input.trim()}
+                    >
+                        <PaperPlaneRightIcon className="h-5 w-5 mr-2" weight="fill" />
+                        Send
+                    </Button>
                 </div>
-            </div>
+            </form>
         </div>
     );
 };
