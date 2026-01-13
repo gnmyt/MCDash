@@ -1,5 +1,5 @@
 "use client"
-import {ChevronsUpDown, HeartIcon, LanguagesIcon, LogOut, Moon, Sun} from "lucide-react"
+import {CaretUpDownIcon, HeartIcon, TranslateIcon, SignOutIcon, MoonIcon, SunIcon} from "@phosphor-icons/react"
 
 import {Avatar, AvatarFallback, AvatarImage,} from "@/components/ui/avatar"
 import {
@@ -55,17 +55,17 @@ export function UserProfile() {
             <SidebarMenuItem>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <SidebarMenuButton size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                            <Avatar className="h-8 w-8 rounded-lg">
+                        <SidebarMenuButton
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground h-14">
+                            <Avatar className="h-10 w-10">
                                 <AvatarImage src={"https://minotar.net/avatar/" + serverInfo.accountName + ".png"} alt={serverInfo.accountName}/>
-                                <AvatarFallback className="rounded-lg">{serverInfo.accountName?.charAt(0).toUpperCase()}</AvatarFallback>
+                                <AvatarFallback>{serverInfo.accountName?.charAt(0).toUpperCase()}</AvatarFallback>
                             </Avatar>
-                            <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-semibold">{serverInfo.accountName}</span>
-                                <span className="truncate text-xs">{t("header.account")}</span>
+                            <div className="grid flex-1 text-left leading-tight">
+                                <span className="truncate font-semibold text-base">{serverInfo.accountName}</span>
+                                <span className="truncate text-xs text-muted-foreground">{t("header.account")}</span>
                             </div>
-                            <ChevronsUpDown className="ml-auto size-4"/>
+                            <CaretUpDownIcon className="ml-auto size-5"/>
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
@@ -79,12 +79,12 @@ export function UserProfile() {
                         <DropdownMenuSeparator/>
                         <DropdownMenuGroup>
                             <DropdownMenuItem onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-                                {theme === "dark" ? <Sun/> : <Moon/>}
+                                {theme === "dark" ? <SunIcon/> : <MoonIcon/>}
                                 {theme === "dark" ? t("header.light_theme") : t("header.dark_theme")}
                             </DropdownMenuItem>
                             <DropdownMenuSub>
                                 <DropdownMenuSubTrigger>
-                                    <LanguagesIcon/>
+                                    <TranslateIcon/>
                                     {t("header.update_language")}
                                 </DropdownMenuSubTrigger>
                                 <DropdownMenuPortal>
@@ -101,7 +101,7 @@ export function UserProfile() {
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator/>
                         <DropdownMenuItem onClick={logout}>
-                            <LogOut/>
+                            <SignOutIcon/>
                             {t("header.logout")}
                         </DropdownMenuItem>
                     </DropdownMenuContent>

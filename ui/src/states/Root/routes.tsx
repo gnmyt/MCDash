@@ -1,4 +1,4 @@
-import {Archive, Folders, LayoutDashboardIcon, RouterIcon, ServerIcon, Settings2, Terminal} from "lucide-react";
+import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon} from "@phosphor-icons/react";
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
@@ -10,21 +10,21 @@ import Console from "@/states/Root/pages/Console/Console.tsx";
 export const sidebar = [
     {
         path: "/",
-        icon: LayoutDashboardIcon,
+        icon: SquaresFourIcon,
         element: <Overview />,
         name: () => t("nav.overview")
     },
     {
         routerPath: "/files/*",
         path: "/files/",
-        icon: Folders,
+        icon: FolderOpenIcon,
         requiredFeatures: ["FileManager"],
         element: <FileManager/>,
         name: () => t("nav.files")
     },
     {
         path: "/console",
-        icon: Terminal,
+        icon: TerminalIcon,
         requiredFeatures: ["Console"],
         element: <Console />,
         name: () => t("nav.console")
@@ -32,26 +32,26 @@ export const sidebar = [
     {
         path: "/backups",
         name: () => t("nav.backups"),
-        icon: Archive,
+        icon: ArchiveIcon,
         requiredFeatures: ["Backups"],
         element: <Backups />
     },
     {
         path: "/settings",
         name: () => t("nav.settings.base"),
-        icon: Settings2,
+        icon: GearSixIcon,
         items: [
             {
                 path: "/settings/server",
                 name: () => t("nav.settings.server"),
-                icon: ServerIcon,
+                icon: HardDrivesIcon,
                 requiredFeatures: ["Properties"],
                 element: <ServerSettings />
             },
             {
                 path: "/settings/ssh",
                 name: () => t("nav.settings.ssh"),
-                icon: RouterIcon,
+                icon: WifiHighIcon,
                 requiredFeatures: ["SSH"],
                 element: <SSHSettings />
             }

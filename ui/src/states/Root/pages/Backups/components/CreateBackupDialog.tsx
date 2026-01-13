@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Check } from "lucide-react";
+import { CheckIcon } from "@phosphor-icons/react";
 
 import { Button } from "@/components/ui/button.tsx";
 import {
@@ -78,7 +78,7 @@ const CreateBackupDialog = ({ onBackup, disabled }: CreateBackupDialogProps) => 
                                         <div className={`mr-2 flex h-4 w-4 items-center justify-center rounded-sm border ${
                                             selectedTypes.includes(type.value) ? "bg-primary border-primary" : "border-primary"}`}>
                                             {selectedTypes.includes(type.value) && (
-                                                <Check className="h-3 w-3 text-primary-foreground" />
+                                                <CheckIcon className="h-3 w-3 text-primary-foreground" />
                                             )}
                                         </div>
                                         {t("backup.mapping." + type.value.toLowerCase())}

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Loader2} from "lucide-react";
+import {SpinnerGapIcon} from "@phosphor-icons/react";
 import {Backup} from "@/types/backup.ts";
 import BackupCard from "@/states/Root/pages/Backups/components/BackupCard.tsx";
 import CreateBackupDialog from "@/states/Root/pages/Backups/components/CreateBackupDialog.tsx";
@@ -57,7 +57,7 @@ const Backups = () => {
 
             {isCreating && (
                 <div className="mb-8 flex items-center gap-2 rounded-lg border bg-muted p-4">
-                    <Loader2 className="h-4 w-4 animate-spin"/>
+                    <SpinnerGapIcon className="h-4 w-4 animate-spin"/>
                     <span>{t("backup.creating")}</span>
                 </div>
             )}

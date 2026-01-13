@@ -1,5 +1,5 @@
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
-import {FileIcon, Folder, MoreVertical} from "lucide-react";
+import {FileIcon, FolderIcon, DotsThreeVerticalIcon} from "@phosphor-icons/react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -63,7 +63,7 @@ const FileView = ({files, click, directory, updateFiles}: FileViewProps) => {
                                 <TableCell className="font-medium">
                                     <div className="flex items-center">
                                         {item.is_folder ? (
-                                            <Folder className="mr-2 h-4 w-4 text-blue-500"/>
+                                            <FolderIcon className="mr-2 h-4 w-4 text-blue-500"/>
                                         ) : (
                                             <FileIcon className="mr-2 h-4 w-4 text-gray-500"/>
                                         )}
@@ -80,7 +80,7 @@ const FileView = ({files, click, directory, updateFiles}: FileViewProps) => {
                                                 className="h-8 w-8 p-0 rounded-full"
                                                 onClick={(event) => event.stopPropagation()}>
                                                 <span className="sr-only">Open</span>
-                                                <MoreVertical className="h-4 w-4"/>
+                                                <DotsThreeVerticalIcon className="h-4 w-4"/>
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent

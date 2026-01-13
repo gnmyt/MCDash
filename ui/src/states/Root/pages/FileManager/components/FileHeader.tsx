@@ -5,7 +5,7 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator
 } from "@/components/ui/breadcrumb.tsx";
-import {FileUpIcon, Home, SaveIcon, XIcon} from "lucide-react";
+import {FileArrowUpIcon, HouseIcon, FloppyDiskIcon, XIcon} from "@phosphor-icons/react";
 import {Fragment, useState} from "react";
 import {Button} from "@/components/ui/button.tsx";
 import {Progress} from "@/components/ui/progress.tsx";
@@ -68,7 +68,7 @@ const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updat
             <div className="flex items-center justify-between">
                 <Breadcrumb>
                     <BreadcrumbList>
-                        <Home className="h-4 w-4 text-blue-500 cursor-pointer" onClick={() => !currentFile && setDirectory("/")}/>
+                        <HouseIcon className="h-4 w-4 text-blue-500 cursor-pointer" onClick={() => !currentFile && setDirectory("/")}/>
                         <BreadcrumbSeparator className="hidden md:block"/>
 
                         {getPathArray().map((dir, index) => (
@@ -89,13 +89,13 @@ const FileHeader = ({currentFile, directory, setDirectory, setCurrentFile, updat
                 </Breadcrumb>
                 {currentFile === null && <div className="flex space-x-2">
                     {!uploading && <Button variant="outline" className="rounded-full" onClick={uploadFile}>
-                        <FileUpIcon className="mr-2 h-4 w-4"/> {t("files.upload_file")}
+                        <FileArrowUpIcon className="mr-2 h-4 w-4"/> {t("files.upload_file")}
                     </Button>}
                     <CreateFolderDialog updateFiles={updateFiles} path={directory}/>
                 </div>}
                 {currentFile !== null && <div className="flex space-x-2">
                     <Button variant="outline" className="rounded-full" onClick={saveFile}>
-                        <SaveIcon className="mr-2 h-4 w-4"/> {t("files.save_file")}
+                        <FloppyDiskIcon className="mr-2 h-4 w-4"/> {t("files.save_file")}
                     </Button>
                     <Button variant="destructive" className="rounded-full" onClick={() => setCurrentFile(null)}>
                         <XIcon className="mr-2 h-4 w-4"/> {t("action.exit")}

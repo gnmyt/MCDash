@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {AlertCircle, Settings2} from "lucide-react"
+import {WarningCircleIcon, GearSixIcon} from "@phosphor-icons/react"
 import {parsePropertyValue} from "@/lib/PropertyUtil.ts"
 import {propertyMappings} from "@/states/Root/pages/ServerSettings/property-mappings.ts"
 import {ServerProperty} from "@/types/config"
@@ -26,7 +26,7 @@ const ServerSettings = () => {
 
     const parsedProperties = properties?.map((prop) => {
         const mapping = propertyMappings.find((m) => m.name === prop.name);
-        if (!mapping) return parsePropertyValue(prop, {name: prop.name, icon: Settings2, type: "string"});
+        if (!mapping) return parsePropertyValue(prop, {name: prop.name, icon: GearSixIcon, type: "string"});
         return parsePropertyValue(prop, mapping)
     });
 
@@ -46,7 +46,7 @@ const ServerSettings = () => {
         <div className="p-6 bg-background min-h-screen">
             <div className="max-w-7xl mx-auto space-y-6">
                 <Alert variant="destructive">
-                    <AlertCircle className="h-4 w-4"/>
+                    <WarningCircleIcon className="h-4 w-4"/>
                     <AlertTitle>{t("action.warn")}</AlertTitle>
                     <AlertDescription>
                         {t("properties.warning")}

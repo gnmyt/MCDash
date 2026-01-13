@@ -1,4 +1,4 @@
-import {Archive, Download, Settings, FileText, RotateCcw, Trash2} from "lucide-react";
+import {ArchiveIcon, DownloadSimpleIcon, GearIcon, FileTextIcon, ArrowCounterClockwiseIcon, TrashIcon} from "@phosphor-icons/react";
 import {Button} from "@/components/ui/button.tsx";
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import {
@@ -18,10 +18,10 @@ import {convertSize} from "@/lib/FileUtil.ts";
 import {t} from "i18next";
 
 const TYPE_ICONS: Record<BackupType, ReactNode> = {
-    ROOT: <Archive className="h-4 w-4"/>,
-    PLUGINS: <Settings className="h-4 w-4"/>,
-    CONFIGS: <Settings className="h-4 w-4"/>,
-    LOGS: <FileText className="h-4 w-4"/>,
+    ROOT: <ArchiveIcon className="h-4 w-4"/>,
+    PLUGINS: <GearIcon className="h-4 w-4"/>,
+    CONFIGS: <GearIcon className="h-4 w-4"/>,
+    LOGS: <FileTextIcon className="h-4 w-4"/>,
 }
 
 interface BackupCardProps {
@@ -37,7 +37,7 @@ const BackupCard = ({backup, onRestore, onDelete, onDownload}: BackupCardProps) 
             <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <Archive className="h-5 w-5 text-muted-foreground"/>
+                        <ArchiveIcon className="h-5 w-5 text-muted-foreground"/>
                         <span>{t("backup.name")}</span>
                     </div>
                     <span className="text-sm font-normal text-muted-foreground">
@@ -64,7 +64,7 @@ const BackupCard = ({backup, onRestore, onDelete, onDownload}: BackupCardProps) 
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
                         <Button variant="outline" size="sm" className="flex-1 sm:flex-initial">
-                            <RotateCcw className="mr-2 h-4 w-4"/>
+                            <ArrowCounterClockwiseIcon className="mr-2 h-4 w-4"/>
                             {t("backup.restore")}
                         </Button>
                     </AlertDialogTrigger>
@@ -88,13 +88,13 @@ const BackupCard = ({backup, onRestore, onDelete, onDownload}: BackupCardProps) 
                 </AlertDialog>
                 <Button variant="outline" size="sm" onClick={() => onDownload(backup.id)}
                         className="flex-1 sm:flex-initial">
-                    <Download className="mr-2 h-4 w-4"/>
+                    <DownloadSimpleIcon className="mr-2 h-4 w-4"/>
                     {t("backup.download")}
                 </Button>
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
                         <Button variant="destructive" size="sm" className="flex-1 sm:flex-initial">
-                            <Trash2 className="mr-2 h-4 w-4"/>
+                            <TrashIcon className="mr-2 h-4 w-4"/>
                             {t("backup.delete.button")}
                         </Button>
                     </AlertDialogTrigger>

@@ -1,7 +1,7 @@
 import {Button} from "@/components/ui/button.tsx";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog.tsx";
 import {useState} from "react";
-import {FolderPlus} from "lucide-react";
+import {FolderPlusIcon} from "@phosphor-icons/react";
 import {Input} from "@/components/ui/input.tsx";
 import {putRequest} from "@/lib/RequestUtil.ts";
 import {toast} from "@/hooks/use-toast.ts";
@@ -31,7 +31,7 @@ const CreateFolderDialog = ({path, updateFiles}: CreateFolderDialogProps) => {
         <Dialog open={isCreateFolderOpen} onOpenChange={setIsCreateFolderOpen}>
             <DialogTrigger asChild>
                 <Button variant="outline" className="rounded-full">
-                    <FolderPlus className="mr-2 h-4 w-4" /> {t("files.new_folder")}
+                    <FolderPlusIcon className="mr-2 h-4 w-4" /> {t("files.new_folder")}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]" aria-label="Create New Folder">

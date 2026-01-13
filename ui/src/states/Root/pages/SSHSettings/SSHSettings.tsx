@@ -6,7 +6,7 @@ import {Switch} from "@/components/ui/switch";
 import {Label} from "@/components/ui/label";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {Check, Globe, Lock, Power, Server, X} from "lucide-react";
+import {CheckIcon, GlobeIcon, LockIcon, PowerIcon, HardDrivesIcon, XIcon} from "@phosphor-icons/react";
 import {jsonRequest, patchRequest, postRequest} from "@/lib/RequestUtil.ts";
 import {SSHSession} from "@/types/ssh.ts";
 import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
@@ -64,7 +64,7 @@ export default function SSHSettings() {
                     <CardHeader className="flex justify-between">
                         <div>
                             <CardTitle className="flex items-center gap-2">
-                                <Power className="h-6 w-6"/>
+                                <PowerIcon className="h-6 w-6"/>
                                 {t("ssh.status.title")}
                             </CardTitle>
                             <CardDescription>{t("ssh.status.description")}</CardDescription>
@@ -86,7 +86,7 @@ export default function SSHSettings() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <Globe className="h-6 w-6"/>
+                            <GlobeIcon className="h-6 w-6"/>
                             {t("ssh.port.title")}
                         </CardTitle>
                         <CardDescription>{t("ssh.port.description")}</CardDescription>
@@ -105,7 +105,7 @@ export default function SSHSettings() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <Lock className="h-6 w-6"/>
+                            <LockIcon className="h-6 w-6"/>
                             {t("ssh.access.title")}
                         </CardTitle>
                         <CardDescription>{t("ssh.access.description")}</CardDescription>
@@ -132,7 +132,7 @@ export default function SSHSettings() {
                 <Card className="col-span-full">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <Server className="h-6 w-6"/>
+                            <HardDrivesIcon className="h-6 w-6"/>
                             {t("ssh.sessions.title")}
                         </CardTitle>
                         <CardDescription>{t("ssh.sessions.description")}</CardDescription>
@@ -159,7 +159,7 @@ export default function SSHSettings() {
                                             <span>{session.username}</span>
                                         </TableCell>
                                         <TableCell>{session.address}</TableCell>
-                                        <TableCell>{session.isSFTP ? <Check /> : <X />}</TableCell>
+                                        <TableCell>{session.isSFTP ? <CheckIcon /> : <XIcon />}</TableCell>
                                         <TableCell className="flex items-center justify-end">
                                             <Button onClick={() => disconnectSession(session.sessionId)}>
                                                 {t("ssh.sessions.disconnect")}
