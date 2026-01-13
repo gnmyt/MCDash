@@ -72,7 +72,7 @@ const Backups = () => {
 
             <div className="flex-1 min-h-0">
                 <ScrollArea className="h-full">
-                    <div className="space-y-3 pr-4">
+                    <div className="space-y-3">
                         {backups.length === 0 && (
                             <div className="flex flex-col items-center justify-center py-16 text-center">
                                 <div className="h-16 w-16 rounded-2xl bg-muted flex items-center justify-center mb-4">
