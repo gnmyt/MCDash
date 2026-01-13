@@ -9,8 +9,8 @@
     <version>1.1.7</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
     <build>
@@ -102,22 +102,6 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>0.10.2</version>
-        </dependency>
-
-        <!-- Spigot API -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Bukkit API -->
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- Jackson Core API -->
