@@ -114,7 +114,7 @@ const ScheduleCard = ({ schedule, actions, onUpdate, onDelete, onToggle, onRefre
                             <p className="text-sm text-muted-foreground">{getIntervalDescription()}</p>
                             {schedule.lastRun > 0 && (
                                 <p className="text-xs text-muted-foreground mt-1">
-                                    {t("schedules.last_run", { time: new Date(schedule.lastRun).toLocaleString() })}
+                                    {t("schedules.last_run", { time: new Date(schedule.lastRun).toLocaleString(), interpolation: { escapeValue: false } })}
                                 </p>
                             )}
                         </div>
