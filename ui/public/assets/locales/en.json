@@ -121,7 +121,8 @@
       "Console": "Console",
       "Players": "Players",
       "UserManagement": "User Management",
-      "Schedules": "Schedules"
+      "Schedules": "Schedules",
+      "Worlds": "Worlds"
     }
   },
   "players": {
@@ -169,6 +170,9 @@
     "op_success": "Player is now an operator",
     "deop_success": "Player is no longer an operator",
     "gamemode_changed": "Gamemode changed",
+    "teleport": "Teleport to World",
+    "teleported": "Teleported {{player}} to {{world}}",
+    "current_world": "current",
     "gamemode": {
       "survival": "Survival",
       "creative": "Creative",
@@ -247,6 +251,81 @@
       "title": "Create new folder",
       "button": "Create folder",
       "feedback": "The folder has been created successfully."
+    }
+  },
+  "worlds": {
+    "title": "Worlds",
+    "subtitle": "Manage server worlds, weather, time, and difficulty",
+    "create": "Create World",
+    "create_description": "Create a new world with custom settings.",
+    "created": "World created successfully",
+    "create_failed": "Failed to create world",
+    "deleted": "World deleted successfully",
+    "delete_failed": "Failed to delete world",
+    "saved": "World saved successfully",
+    "time_updated": "Time updated successfully",
+    "weather_updated": "Weather updated successfully",
+    "difficulty_updated": "Difficulty updated successfully",
+    "none_found": "No worlds found",
+    "none_found_hint": "Worlds will appear here when the server loads them.",
+    "players": "Players",
+    "time": "Time",
+    "weather_label": "Weather",
+    "difficulty_label": "Difficulty",
+    "set_time": "Time",
+    "set_weather": "Weather",
+    "set_difficulty": "Difficulty",
+    "save": "Save",
+    "environment": {
+      "normal": "Overworld",
+      "nether": "Nether",
+      "the_end": "The End"
+    },
+    "time_of_day": {
+      "morning": "Morning",
+      "day": "Day",
+      "evening": "Evening",
+      "night": "Night"
+    },
+    "time_options": {
+      "day": "Day (1000)",
+      "noon": "Noon (6000)",
+      "sunset": "Sunset (12000)",
+      "night": "Night (13000)",
+      "midnight": "Midnight (18000)"
+    },
+    "weather": {
+      "clear": "Clear",
+      "rain": "Rain",
+      "thunder": "Thunder"
+    },
+    "difficulty": {
+      "peaceful": "Peaceful",
+      "easy": "Easy",
+      "normal": "Normal",
+      "hard": "Hard"
+    },
+    "type": {
+      "normal": "Normal",
+      "flat": "Superflat",
+      "amplified": "Amplified",
+      "large_biomes": "Large Biomes"
+    },
+    "form": {
+      "name": "World Name",
+      "name_placeholder": "my_world",
+      "name_hint": "Only letters, numbers, underscores, and hyphens allowed.",
+      "environment": "Environment",
+      "environment_placeholder": "Select environment",
+      "type": "World Type",
+      "type_placeholder": "Select world type",
+      "seed": "Seed (optional)",
+      "seed_placeholder": "Leave empty for random",
+      "seed_hint": "Enter a number or text for world generation."
+    },
+    "delete": {
+      "title": "Delete World",
+      "description": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone and all world data will be permanently lost."
     }
   },
   "backup": {

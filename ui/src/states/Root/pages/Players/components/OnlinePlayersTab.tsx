@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { t } from "i18next";
 import { OnlinePlayer } from "@/types/player";
-import { postRequest } from "@/lib/RequestUtil";
+import { World } from "@/types/world";
+import { postRequest, jsonRequest } from "@/lib/RequestUtil";
 import { toast } from "@/hooks/use-toast";
 import { usePlayerSelection } from "@/hooks/use-player-selection";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,9 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -56,7 +60,8 @@ import {
     ProhibitIcon,
     SignOutIcon,
     ShieldCheckIcon,
-    ShieldIcon
+    ShieldIcon,
+    NavigationArrowIcon
 } from "@phosphor-icons/react";
 
 interface OnlinePlayersTabProps {
@@ -90,6 +95,18 @@ const OnlinePlayersTab = ({ players, onRefresh, onBanComplete }: OnlinePlayersTa
     const [banDialogOpen, setBanDialogOpen] = useState(false);
     const [kickReason, setKickReason] = useState("");
     const [banReason, setBanReason] = useState("");
+    const [worlds, setWorlds] = useState<World[]>([]);
+
+    useEffect(() => {
+        const fetchWorlds = async () => {
+            try {
+                const data = await jsonRequest("worlds");
+                setWorlds(data.worlds || []);
+            } catch {
+            }
+        };
+        fetchWorlds();
+    }, []);
 
     const handleKick = async (playerNames: string[]) => {
         for (const name of playerNames) {
@@ -123,6 +140,12 @@ const OnlinePlayersTab = ({ players, onRefresh, onBanComplete }: OnlinePlayersTa
     const handleGamemodeChange = async (playerName: string, gamemode: string) => {
         await postRequest("players/gamemode", { playerName, gamemode });
         toast({ description: t("players.gamemode_changed") });
+        await onRefresh();
+    };
+
+    const handleTeleport = async (playerName: string, worldName: string) => {
+        await postRequest("players/teleport", { playerName, worldName });
+        toast({ description: t("players.teleported", { player: playerName, world: worldName }) });
         await onRefresh();
     };
 
@@ -270,6 +293,31 @@ const OnlinePlayersTab = ({ players, onRefresh, onBanComplete }: OnlinePlayersTa
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
+                                            {worlds.length > 0 && (
+                                                <DropdownMenuSub>
+                                                    <DropdownMenuSubTrigger>
+                                                        <NavigationArrowIcon className="h-4 w-4 mr-2" />
+                                                        {t("players.teleport")}
+                                                    </DropdownMenuSubTrigger>
+                                                    <DropdownMenuSubContent>
+                                                        {worlds.map((world) => (
+                                                            <DropdownMenuItem 
+                                                                key={world.name}
+                                                                onClick={() => handleTeleport(player.name, world.name)}
+                                                                disabled={player.world === world.name}
+                                                            >
+                                                                <GlobeIcon className="h-4 w-4 mr-2" />
+                                                                {world.name}
+                                                                {player.world === world.name && (
+                                                                    <span className="ml-2 text-xs text-muted-foreground">
+                                                                        ({t("players.current_world")})
+                                                                    </span>
+                                                                )}
+                                                            </DropdownMenuItem>
+                                                        ))}
+                                                    </DropdownMenuSubContent>
+                                                </DropdownMenuSub>
+                                            )}
                                             <DropdownMenuItem onClick={() => openKickDialog(player.name)}>
                                                 <SignOutIcon className="h-4 w-4 mr-2" />
                                                 {t("players.kick")}

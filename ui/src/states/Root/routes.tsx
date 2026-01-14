@@ -1,4 +1,4 @@
-import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon, UsersThreeIcon, CalendarIcon} from "@phosphor-icons/react";
+import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon, UsersThreeIcon, CalendarIcon, GlobeHemisphereWestIcon} from "@phosphor-icons/react";
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
@@ -9,6 +9,7 @@ import Console from "@/states/Root/pages/Console/Console.tsx";
 import Players from "@/states/Root/pages/Players/Players.tsx";
 import Users from "@/states/Root/pages/Users/Users.tsx";
 import Schedules from "@/states/Root/pages/Schedules/Schedules.tsx";
+import Worlds from "@/states/Root/pages/Worlds/Worlds.tsx";
 
 export const sidebar = [
     {
@@ -38,6 +39,13 @@ export const sidebar = [
         requiredFeatures: ["Console"],
         element: <Console />,
         name: () => t("nav.console")
+    },
+    {
+        path: "/worlds",
+        icon: GlobeHemisphereWestIcon,
+        requiredFeatures: ["Worlds"],
+        element: <Worlds />,
+        name: () => t("nav.worlds")
     },
     {
         path: "/backups",
