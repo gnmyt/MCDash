@@ -7,6 +7,8 @@
     "continue": "Yes, continue",
     "confirm": "Confirm action",
     "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
     "exit": "Exit",
     "warn": "Warning",
     "sure": "Are you sure you want to confirm this action?",
@@ -116,7 +118,8 @@
       "Backups": "Backups",
       "Console": "Console",
       "Players": "Players",
-      "UserManagement": "User Management"
+      "UserManagement": "User Management",
+      "Schedules": "Schedules"
     }
   },
   "players": {
@@ -292,6 +295,102 @@
       "sftp": "Is SFTP",
       "actions": "Actions",
       "disconnect": "Disconnect"
+    }
+  },
+  "schedules": {
+    "title": "Schedules",
+    "subtitle": "Automate server tasks with scheduled actions",
+    "create": "Create Schedule",
+    "create_description": "Set up a new automated schedule for your server.",
+    "edit": "Edit Schedule",
+    "edit_description": "Modify the schedule settings.",
+    "created": "Schedule created successfully",
+    "updated": "Schedule updated successfully",
+    "deleted": "Schedule deleted successfully",
+    "enabled": "Schedule enabled",
+    "disabled": "Schedule disabled",
+    "none_found": "No schedules found",
+    "none_found_hint": "Create a schedule to automate server tasks",
+    "tasks_count": "{{count}} task(s)",
+    "create_task": "Add Task",
+    "create_task_description": "Add a new task to this schedule.",
+    "edit_task": "Edit Task",
+    "edit_task_description": "Modify the task settings.",
+    "task_created": "Task created successfully",
+    "task_updated": "Task updated successfully",
+    "task_deleted": "Task deleted successfully",
+    "no_tasks": "No tasks in this schedule",
+    "last_run": "Last run: {{time}}",
+    "status": {
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "click_to_enable": "Click to enable schedule",
+      "click_to_disable": "Click to disable schedule"
+    },
+    "delete": {
+      "title": "Delete Schedule",
+      "description": "Are you sure you want to delete this schedule? All tasks will be removed."
+    },
+    "form": {
+      "name": "Schedule Name",
+      "name_placeholder": "e.g. Daily Backup",
+      "interval": "Interval",
+      "minute": "Minute",
+      "minute_hint": "The schedule will run at this minute of every hour",
+      "hour": "Hour",
+      "day": "Day of Week",
+      "run_at_minute": "Run at minute",
+      "run_at_time": "Run at time"
+    },
+    "interval": {
+      "hourly": "Hourly",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "hourly_at": "Every hour at {{minute}} minutes",
+      "daily_at": "Every day at {{hour}}:{{minute}}",
+      "weekly_at": "Every {{day}} at {{hour}}:{{minute}}"
+    },
+    "days": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "monday_short": "Mon",
+      "tuesday_short": "Tue",
+      "wednesday_short": "Wed",
+      "thursday_short": "Thu",
+      "friday_short": "Fri",
+      "saturday_short": "Sat",
+      "sunday_short": "Sun"
+    },
+    "task": {
+      "type": "Action Type"
+    },
+    "actions": {
+      "command": "Run Command",
+      "command_input": "Command to execute",
+      "broadcast": "Broadcast Message",
+      "broadcast_input": "Message to broadcast",
+      "reload": "Reload Server",
+      "stop": "Stop Server",
+      "backup": "Create Backup",
+      "backup_input": "Backup mode (0=full, or sum of: 2=plugins, 4=configs, 8=logs)",
+      "kick_all": "Kick All Players",
+      "kick_all_input": "Kick reason message"
+    },
+    "error": {
+      "fetch": "Failed to fetch schedules",
+      "fetch_actions": "Failed to fetch available actions",
+      "create": "Failed to create schedule",
+      "update": "Failed to update schedule",
+      "delete": "Failed to delete schedule",
+      "toggle": "Failed to toggle schedule",
+      "create_task": "Failed to create task",
+      "update_task": "Failed to update task",
+      "delete_task": "Failed to delete task"
     }
   },
   "properties": {

@@ -1,4 +1,4 @@
-import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon, UsersThreeIcon} from "@phosphor-icons/react";
+import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon, UsersThreeIcon, CalendarIcon} from "@phosphor-icons/react";
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
@@ -8,6 +8,7 @@ import Backups from "@/states/Root/pages/Backups/Backups.tsx";
 import Console from "@/states/Root/pages/Console/Console.tsx";
 import Players from "@/states/Root/pages/Players/Players.tsx";
 import Users from "@/states/Root/pages/Users/Users.tsx";
+import Schedules from "@/states/Root/pages/Schedules/Schedules.tsx";
 
 export const sidebar = [
     {
@@ -44,6 +45,13 @@ export const sidebar = [
         icon: ArchiveIcon,
         requiredFeatures: ["Backups"],
         element: <Backups />
+    },
+    {
+        path: "/schedules",
+        name: () => t("nav.schedules"),
+        icon: CalendarIcon,
+        requiredFeatures: ["Schedules"],
+        element: <Schedules />
     },
     {
         path: "/settings",
