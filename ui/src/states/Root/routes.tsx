@@ -1,4 +1,4 @@
-import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon} from "@phosphor-icons/react";
+import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon, UsersThreeIcon} from "@phosphor-icons/react";
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
@@ -7,6 +7,7 @@ import SSHSettings from "@/states/Root/pages/SSHSettings/SSHSettings.tsx";
 import Backups from "@/states/Root/pages/Backups/Backups.tsx";
 import Console from "@/states/Root/pages/Console/Console.tsx";
 import Players from "@/states/Root/pages/Players/Players.tsx";
+import Users from "@/states/Root/pages/Users/Users.tsx";
 
 export const sidebar = [
     {
@@ -62,6 +63,13 @@ export const sidebar = [
                 icon: WifiHighIcon,
                 requiredFeatures: ["SSH"],
                 element: <SSHSettings />
+            },
+            {
+                path: "/settings/users",
+                name: () => t("nav.settings.users"),
+                icon: UsersThreeIcon,
+                requiredFeatures: ["UserManagement"],
+                element: <Users />
             }
         ]
     }
