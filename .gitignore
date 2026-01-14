@@ -8,3 +8,4 @@ ui/dist
 
 # Dev server
 modules/spigot/run/
+run/
