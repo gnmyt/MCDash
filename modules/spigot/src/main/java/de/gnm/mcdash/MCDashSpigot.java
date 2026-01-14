@@ -12,12 +12,14 @@ import de.gnm.mcdash.api.pipes.players.BanPipe;
 import de.gnm.mcdash.api.pipes.players.OnlinePlayerPipe;
 import de.gnm.mcdash.api.pipes.players.OperatorPipe;
 import de.gnm.mcdash.api.pipes.players.WhitelistPipe;
+import de.gnm.mcdash.api.pipes.resources.ResourcePipe;
 import de.gnm.mcdash.api.pipes.worlds.WorldPipe;
 import de.gnm.mcdash.listener.ConsoleListener;
 import de.gnm.mcdash.pipes.BanPipeImpl;
 import de.gnm.mcdash.pipes.OnlinePlayerPipeImpl;
 import de.gnm.mcdash.pipes.OperatorPipeImpl;
 import de.gnm.mcdash.pipes.QuickActionPipeImpl;
+import de.gnm.mcdash.pipes.ResourcePipeImpl;
 import de.gnm.mcdash.pipes.ServerInfoPipeImpl;
 import de.gnm.mcdash.pipes.WhitelistPipeImpl;
 import de.gnm.mcdash.pipes.WorldPipeImpl;
@@ -101,6 +103,7 @@ public class MCDashSpigot extends JavaPlugin {
         loader.registerPipe(OnlinePlayerPipe.class, new OnlinePlayerPipeImpl());
         loader.registerPipe(BanPipe.class, new BanPipeImpl());
         loader.registerPipe(WorldPipe.class, new WorldPipeImpl());
+        loader.registerPipe(ResourcePipe.class, new ResourcePipeImpl());
     }
 
     /**
@@ -194,7 +197,8 @@ public class MCDashSpigot extends JavaPlugin {
                 Feature.Console,
                 Feature.Players,
                 Feature.Schedules,
-                Feature.Worlds
+                Feature.Worlds,
+                Feature.Resources
         );
     }
 
