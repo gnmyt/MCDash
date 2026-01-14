@@ -87,7 +87,7 @@ public class MCDashVanilla {
     public static void firstRun() {
         AccountController accountController = loader.getController(AccountController.class);
 
-        if (!accountController.accountExists("Notch")) {
+        if (!accountController.hasAnyAccounts()) {
             String password = RandomStringUtils.random(24, 0, 0, true, true, null, new SecureRandom());
             accountController.createAccount("Notch", password);
 
