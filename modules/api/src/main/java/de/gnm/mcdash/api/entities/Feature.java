@@ -10,7 +10,8 @@ public enum Feature {
     Players(32),
     UserManagement(64),
     Schedules(128),
-    Worlds(256);
+    Worlds(256),
+    Resources(512);
 
     private final int permissionBit;
 

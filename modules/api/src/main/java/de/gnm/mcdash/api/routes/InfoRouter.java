@@ -1,14 +1,18 @@
 package de.gnm.mcdash.api.routes;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
 import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.controller.AccountController;
 import de.gnm.mcdash.api.controller.PermissionController;
 import de.gnm.mcdash.api.entities.Feature;
+import de.gnm.mcdash.api.entities.ResourceType;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.http.RawRequest;
 import de.gnm.mcdash.api.pipes.ServerInfoPipe;
+import de.gnm.mcdash.api.pipes.resources.ResourcePipe;
 
 import java.util.List;
 
@@ -32,12 +36,28 @@ public class InfoRouter extends BaseRoute {
         
         boolean isAdmin = permissionController.isAdmin(request.getUserId());
 
+        ArrayNode resourceTypes = getMapper().createArrayNode();
+        if (accessibleFeatures.contains(Feature.Resources)) {
+            try {
+                ResourcePipe resourcePipe = loader.getPipe(ResourcePipe.class);
+                List<ResourceType> types = resourcePipe.getSupportedResourceTypes();
+                for (ResourceType type : types) {
+                    ObjectNode typeNode = getMapper().createObjectNode();
+                    typeNode.put("identifier", type.getIdentifier());
+                    typeNode.put("folderName", type.getFolderName());
+                    resourceTypes.add(typeNode);
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
         return new JSONResponse()
                 .add("accountName", accountController.getUsernameById(request.getUserId()))
                 .add("serverSoftware", serverInfoPipe.getServerSoftware())
                 .add("serverVersion", serverInfoPipe.getServerVersion())
                 .add("serverPort", serverInfoPipe.getServerPort())
                 .add("availableFeatures", accessibleFeatures)
+                .add("resourceTypes", resourceTypes)
                 .add("isAdmin", isAdmin);
     }
 
