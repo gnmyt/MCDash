@@ -107,7 +107,11 @@ const FileView = ({
     }
 
     const handleDownload = (file: File) => {
-        downloadRequest("files/download?path=" + directory + file.name);
+        if (file.is_folder) {
+            downloadRequest("folder/download?path=" + directory + file.name);
+        } else {
+            downloadRequest("files/download?path=" + directory + file.name);
+        }
     }
 
     const handleDelete = (file: File) => {
@@ -224,12 +228,10 @@ const FileView = ({
             <ContextMenuItem onSelect={() => handleRename(item)} className="rounded-lg h-9 text-sm cursor-pointer">
                 {t("files.rename")}
             </ContextMenuItem>
-            {!item.is_folder && (
-                <ContextMenuItem onSelect={() => handleDownload(item)}
-                                 className="rounded-lg h-9 text-sm cursor-pointer">
-                    {t("files.download")}
-                </ContextMenuItem>
-            )}
+            <ContextMenuItem onSelect={() => handleDownload(item)}
+                             className="rounded-lg h-9 text-sm cursor-pointer">
+                {item.is_folder ? t("files.download_folder") : t("files.download")}
+            </ContextMenuItem>
             <ContextMenuItem onSelect={() => handleDelete(item)}
                              className="rounded-lg h-9 text-sm cursor-pointer text-red-600">
                 {t("files.delete")}
@@ -387,9 +389,8 @@ const FileView = ({
                                                     onClick={(event) => event.stopPropagation()}>
                                                     <DropdownMenuItem onClick={() => handleRename(item)}
                                                                       className="rounded-lg h-9 text-sm cursor-pointer">{t("files.rename")}</DropdownMenuItem>
-                                                    {!item.is_folder &&
-                                                        <DropdownMenuItem onClick={() => handleDownload(item)}
-                                                                          className="rounded-lg h-9 text-sm cursor-pointer">{t("files.download")}</DropdownMenuItem>}
+                                                    <DropdownMenuItem onClick={() => handleDownload(item)}
+                                                                      className="rounded-lg h-9 text-sm cursor-pointer">{item.is_folder ? t("files.download_folder") : t("files.download")}</DropdownMenuItem>
                                                     <DropdownMenuItem onClick={() => handleDelete(item)}
                                                                       className="rounded-lg h-9 text-sm cursor-pointer text-red-600">{t("files.delete")}</DropdownMenuItem>
                                                 </DropdownMenuContent>

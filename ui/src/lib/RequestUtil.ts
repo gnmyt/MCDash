@@ -107,3 +107,52 @@ export const uploadChunks = async (
         onProgress(0);
     }
 };
+
+// Upload folder by dialog
+export const uploadFolder = async (files: FileList, directory: string, onProgress: (percent: number) => void) => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => event.preventDefault();
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    const totalFiles = files.length;
+    let uploadedFiles = 0;
+
+    try {
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const relativePath = (file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name;
+            const targetPath = directory + relativePath;
+            const dirPath = targetPath.substring(0, targetPath.lastIndexOf('/'));
+            
+            if (dirPath && dirPath !== directory.slice(0, -1)) {
+                await request("folder", "PUT", { path: dirPath }, {}, false).catch(() => {});
+            }
+
+            const CHUNK_SIZE = 50 * 1024 * 1024;
+            const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+            const initResponse = await request("files/upload/init", "POST", {});
+            const initResult = await initResponse.json();
+            const uuid = initResult.uuid;
+
+            for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+                const chunkStart = chunkIndex * CHUNK_SIZE;
+                const chunkEnd = Math.min(chunkStart + CHUNK_SIZE, file.size);
+                const chunk = file.slice(chunkStart, chunkEnd);
+                const uploadResponse = await fetch(`/api/files/upload/chunk/${uuid}/${chunkIndex}`, {
+                    method: "PUT",
+                    headers: getHeaders(),
+                    body: chunk,
+                });
+                if (!uploadResponse.ok) throw new Error("Failed to upload chunk " + chunkIndex);
+            }
+
+            await request("files/upload/stop", "POST", { uuid, destinationPath: targetPath }, {}, false);
+            uploadedFiles++;
+            onProgress(Math.round((uploadedFiles / totalFiles) * 100));
+        }
+    } catch (error) {
+        console.error("Folder upload failed:", error);
+        throw error;
+    } finally {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+        onProgress(0);
+    }
+};

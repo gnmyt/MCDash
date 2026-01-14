@@ -6,13 +6,15 @@ import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
 import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.entities.PermissionLevel;
+import de.gnm.mcdash.api.helper.ArchiveHelper;
 import de.gnm.mcdash.api.helper.FileHelper;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.http.Response;
 import de.gnm.mcdash.api.routes.BaseRoute;
+import org.apache.commons.io.FileUtils;
 
-import java.io.File;
+import java.io.*;
 
 import static de.gnm.mcdash.api.http.HTTPMethod.*;
 
@@ -60,9 +62,11 @@ public class FolderRouter extends BaseRoute {
                 return new JSONResponse().error("The directory does not exist");
             }
 
-            if (!directory.delete()) {
-                return new JSONResponse().error("Error deleting directory");
+            if (directory.getCanonicalPath().equals(serverRoot.getCanonicalPath())) {
+                return new JSONResponse().error("Cannot delete the server root directory");
             }
+
+            FileUtils.deleteDirectory(directory);
 
             return new JSONResponse().message("Directory deleted");
         } catch (Exception e) {
@@ -99,6 +103,37 @@ public class FolderRouter extends BaseRoute {
             return new JSONResponse().message("Directory renamed");
         } catch (Exception e) {
             return new JSONResponse().error("Error renaming directory: " + e.getMessage());
+        }
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(Feature.FileManager)
+    @Path("/folder/download")
+    @Method(GET)
+    public Response downloadFolder(JSONRequest request) {
+        request.checkFor("path");
+        File serverRoot = getServerRoot();
+        String path = request.get("path");
+
+        try {
+            File directory = FileHelper.getNormalizedPath(serverRoot, path);
+
+            if (!directory.exists() || !directory.isDirectory()) {
+                return new JSONResponse().error("The directory does not exist");
+            }
+
+            if (directory.getCanonicalPath().equals(serverRoot.getCanonicalPath())) {
+                return new JSONResponse().error("Cannot download the server root directory");
+            }
+
+            InputStream zipStream = ArchiveHelper.createZipStream(directory);
+
+            return new Response()
+                    .header("Content-Type", "application/zip")
+                    .header("Content-Disposition", "attachment; filename=\"" + directory.getName() + ".zip\"")
+                    .stream(zipStream);
+        } catch (Exception e) {
+            return new JSONResponse().error("Error downloading folder: " + e.getMessage());
         }
     }
 
