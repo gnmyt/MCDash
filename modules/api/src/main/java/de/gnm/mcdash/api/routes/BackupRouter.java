@@ -9,6 +9,7 @@ import de.gnm.mcdash.api.annotations.RequiresFeatures;
 import de.gnm.mcdash.api.entities.BackupPart;
 import de.gnm.mcdash.api.helper.BackupHelper;
 import de.gnm.mcdash.api.entities.Feature;
+import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.http.RawRequest;
@@ -84,7 +85,7 @@ public class BackupRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Backups)
+    @RequiresFeatures(value = Feature.Backups, level = PermissionLevel.FULL)
     @Path("/backups/restore")
     @Method(POST)
     public Response restoreBackup(JSONRequest request) {
@@ -99,7 +100,7 @@ public class BackupRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Backups)
+    @RequiresFeatures(value = Feature.Backups, level = PermissionLevel.FULL)
     @Path("/backups/:backupName")
     @Method(DELETE)
     public Response deleteBackup(RawRequest request) {
@@ -117,7 +118,7 @@ public class BackupRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Backups)
+    @RequiresFeatures(value = Feature.Backups, level = PermissionLevel.FULL)
     @Path("/backups/create")
     @Method(POST)
     public Response createBackup(JSONRequest request) {

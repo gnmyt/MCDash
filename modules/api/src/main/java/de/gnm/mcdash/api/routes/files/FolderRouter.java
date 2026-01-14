@@ -5,6 +5,7 @@ import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
 import de.gnm.mcdash.api.entities.Feature;
+import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.helper.FileHelper;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
@@ -18,7 +19,7 @@ import static de.gnm.mcdash.api.http.HTTPMethod.*;
 public class FolderRouter extends BaseRoute {
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/folder")
     @Method(PUT)
     public Response createFolder(JSONRequest request) {
@@ -44,7 +45,7 @@ public class FolderRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/folder")
     @Method(DELETE)
     public Response deleteFolder(JSONRequest request) {
@@ -70,7 +71,7 @@ public class FolderRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/folder/rename")
     @Method(PATCH)
     public Response renameFolder(JSONRequest request) {

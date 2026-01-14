@@ -6,6 +6,7 @@ import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
 import de.gnm.mcdash.api.entities.Feature;
+import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.http.RawRequest;
@@ -51,7 +52,7 @@ public class FileRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/files")
     @Method(DELETE)
     public Response deleteFile(JSONRequest request) {
@@ -109,7 +110,7 @@ public class FileRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/files/rename")
     @Method(PATCH)
     public Response renameFile(JSONRequest request) {
@@ -138,7 +139,7 @@ public class FileRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/files/content")
     @Method(PATCH)
     public Response updateFileContent(JSONRequest request) {
@@ -165,7 +166,7 @@ public class FileRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/files/upload/init")
     @Method(POST)
     public Response initUpload() {
@@ -184,7 +185,7 @@ public class FileRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/files/upload/chunk/:uuid/:id")
     @Method(PUT)
     public Response uploadChunk(RawRequest request) {
@@ -214,7 +215,7 @@ public class FileRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.FileManager)
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
     @Path("/files/upload/stop")
     @Method(POST)
     public Response finalizeUpload(JSONRequest request) {

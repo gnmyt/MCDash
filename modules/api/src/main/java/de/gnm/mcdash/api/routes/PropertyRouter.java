@@ -5,6 +5,7 @@ import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
 import de.gnm.mcdash.api.entities.Feature;
+import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.helper.PropertyHelper;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
@@ -25,7 +26,7 @@ public class PropertyRouter extends BaseRoute {
 
     @AuthenticatedRoute
     @Path("/properties/:property")
-    @RequiresFeatures(Feature.Properties)
+    @RequiresFeatures(value = Feature.Properties, level = PermissionLevel.FULL)
     @Method(PATCH)
     public JSONResponse setProperty(JSONRequest request) {
         request.checkFor("value");

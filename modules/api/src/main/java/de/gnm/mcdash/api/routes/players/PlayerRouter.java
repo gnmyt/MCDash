@@ -10,6 +10,7 @@ import de.gnm.mcdash.api.entities.BannedPlayer;
 import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.entities.OfflinePlayer;
 import de.gnm.mcdash.api.entities.OnlinePlayer;
+import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.pipes.players.BanPipe;
@@ -48,7 +49,7 @@ public class PlayerRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Players)
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
     @Path("/players/kick")
     @Method(POST)
     public JSONResponse kickPlayer(JSONRequest request) {
@@ -63,7 +64,7 @@ public class PlayerRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Players)
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
     @Path("/players/gamemode")
     @Method(POST)
     public JSONResponse setGamemode(JSONRequest request) {
@@ -99,7 +100,7 @@ public class PlayerRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Players)
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
     @Path("/players/whitelist/status")
     @Method(POST)
     public JSONResponse setWhitelistStatus(JSONRequest request) {
@@ -113,7 +114,7 @@ public class PlayerRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Players)
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
     @Path("/players/whitelist/add")
     @Method(POST)
     public JSONResponse addToWhitelist(JSONRequest request) {
@@ -127,7 +128,7 @@ public class PlayerRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Players)
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
     @Path("/players/whitelist/remove")
     @Method(POST)
     public JSONResponse removeFromWhitelist(JSONRequest request) {
@@ -164,7 +165,7 @@ public class PlayerRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Players)
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
     @Path("/players/ban")
     @Method(POST)
     public JSONResponse banPlayer(JSONRequest request) {
@@ -179,7 +180,7 @@ public class PlayerRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Players)
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
     @Path("/players/unban")
     @Method(POST)
     public JSONResponse unbanPlayer(JSONRequest request) {
@@ -194,7 +195,7 @@ public class PlayerRouter extends BaseRoute {
 
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Players)
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
     @Path("/players/op")
     @Method(POST)
     public JSONResponse setOperator(JSONRequest request) {

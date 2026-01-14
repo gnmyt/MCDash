@@ -8,6 +8,7 @@ import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
 import de.gnm.mcdash.api.controller.SSHController;
 import de.gnm.mcdash.api.entities.Feature;
+import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.http.Response;
@@ -49,7 +50,7 @@ public class SSHRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.SSH)
+    @RequiresFeatures(value = Feature.SSH, level = PermissionLevel.FULL)
     @Method(POST)
     @Path("/service/ssh/disconnect")
     public Response disconnectClient(JSONRequest request) {
@@ -69,7 +70,7 @@ public class SSHRouter extends BaseRoute {
     }
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.SSH)
+    @RequiresFeatures(value = Feature.SSH, level = PermissionLevel.FULL)
     @Method(PATCH)
     @Path("/service/ssh/:configKey")
     public Response setSSHConfiguration(JSONRequest request) {

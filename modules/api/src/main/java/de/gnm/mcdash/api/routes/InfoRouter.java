@@ -4,9 +4,13 @@ import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
 import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.controller.AccountController;
+import de.gnm.mcdash.api.controller.PermissionController;
+import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.http.RawRequest;
 import de.gnm.mcdash.api.pipes.ServerInfoPipe;
+
+import java.util.List;
 
 import static de.gnm.mcdash.api.http.HTTPMethod.GET;
 
@@ -17,16 +21,24 @@ public class InfoRouter extends BaseRoute {
     @Method(GET)
     public JSONResponse getServerInfo(RawRequest request) {
         AccountController accountController = loader.getController(AccountController.class);
+        PermissionController permissionController = loader.getController(PermissionController.class);
         ServerInfoPipe serverInfoPipe = loader.getPipe(ServerInfoPipe.class);
 
-        // TODO: Remove features that the user has no permission to access in the future
+        // Filter features based on user permissions
+        List<Feature> accessibleFeatures = permissionController.getAccessibleFeatures(
+            request.getUserId(), 
+            loader.getAvailableFeatures()
+        );
+        
+        boolean isAdmin = permissionController.isAdmin(request.getUserId());
 
         return new JSONResponse()
                 .add("accountName", accountController.getUsernameById(request.getUserId()))
                 .add("serverSoftware", serverInfoPipe.getServerSoftware())
                 .add("serverVersion", serverInfoPipe.getServerVersion())
                 .add("serverPort", serverInfoPipe.getServerPort())
-                .add("availableFeatures", loader.getAvailableFeatures());
+                .add("availableFeatures", accessibleFeatures)
+                .add("isAdmin", isAdmin);
     }
 
 }

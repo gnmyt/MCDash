@@ -5,6 +5,7 @@ import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
 import de.gnm.mcdash.api.entities.Feature;
+import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.pipes.QuickActionPipe;
@@ -14,7 +15,7 @@ import static de.gnm.mcdash.api.http.HTTPMethod.POST;
 public class QuickActionRouter extends BaseRoute {
 
     @AuthenticatedRoute
-    @RequiresFeatures(Feature.Console)
+    @RequiresFeatures(value = Feature.Console, level = PermissionLevel.FULL)
     @Path("/action/command")
     @Method(POST)
     public JSONResponse executeCommand(JSONRequest request) {
