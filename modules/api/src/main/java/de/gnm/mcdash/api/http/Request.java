@@ -82,5 +82,18 @@ public abstract class Request {
         return parameters.get(key);
     }
 
+    /**
+     * Get a specific parameter of the request as an integer
+     *
+     * @param key The key of the parameter
+     * @return The value of the parameter as an integer
+     */
+    public int getIntParam(String key) {
+        String value = parameters.get(key);
+        if (value == null) {
+            throw new IllegalArgumentException("Parameter '" + key + "' not found");
+        }
+        return Integer.parseInt(value);
+    }
 
 }

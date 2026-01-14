@@ -7,7 +7,8 @@ public enum Feature {
     SSH(4),
     Backups(8),
     Console(16),
-    Players(32);
+    Players(32),
+    UserManagement(64);
 
     private final int permissionBit;
 

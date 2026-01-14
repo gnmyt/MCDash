@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import de.gnm.mcdash.MCDashLoader;
 import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
+import de.gnm.mcdash.api.controller.PermissionController;
 import de.gnm.mcdash.api.controller.SessionController;
 import de.gnm.mcdash.api.entities.Feature;
+import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.helper.ParserHelper;
 import de.gnm.mcdash.api.http.*;
 import io.undertow.server.HttpHandler;
@@ -73,6 +75,11 @@ public class BaseHandler implements HttpHandler {
 
         int userId = getUserIdAfterAuthentication(matchedRoute, exchange);
         if (userId == -1 && matchedRoute.getMethod().getAnnotation(AuthenticatedRoute.class) != null) {
+            return;
+        }
+
+        if (!hasFeaturePermission(matchedRoute, userId)) {
+            sendErrorResponse(exchange, 403, "Access denied. Insufficient permissions.");
             return;
         }
 
@@ -186,6 +193,36 @@ public class BaseHandler implements HttpHandler {
                 }
             }
         }
+        return true;
+    }
+
+    /**
+     * Checks if the user has the required permission level for features
+     *
+     * @param route  the route to check
+     * @param userId the user id
+     * @return true if the user has permission, false otherwise
+     */
+    private boolean hasFeaturePermission(RouteMeta route, int userId) {
+        RequiresFeatures requiresFeatures = route.getMethod().getAnnotation(RequiresFeatures.class);
+        if (requiresFeatures == null) return true;
+        if (userId == -1) return true;
+
+        PermissionController permissionController = loader.getController(PermissionController.class);
+        PermissionLevel requiredLevel = requiresFeatures.level();
+
+        for (Feature feature : requiresFeatures.value()) {
+            if (requiredLevel == PermissionLevel.FULL) {
+                if (!permissionController.hasFullAccess(userId, feature)) {
+                    return false;
+                }
+            } else {
+                if (!permissionController.hasReadAccess(userId, feature)) {
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 

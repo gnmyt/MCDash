@@ -102,7 +102,29 @@ public class AccountController extends BaseController {
      * @return the username of the account
      */
     public String getUsernameById(int id) {
-        return (String) getSingleResult("SELECT username FROM accounts WHERE id = ?", id).get("username");
+        var result = getSingleResult("SELECT username FROM accounts WHERE id = ?", id);
+        if (result == null) return null;
+        return (String) result.get("username");
+    }
+
+    /**
+     * Get all accounts
+     * @return a list of all accounts with their id and username
+     */
+    public java.util.List<java.util.Map<String, Object>> getAllAccounts() {
+        java.util.ArrayList<java.util.HashMap<String, Object>> results = getMultipleResults("SELECT id, username FROM accounts");
+        if (results == null) return new java.util.ArrayList<>();
+        return new java.util.ArrayList<>(results);
+    }
+
+    /**
+     * Check if any accounts exist in the database
+     * @return true if at least one account exists
+     */
+    public boolean hasAnyAccounts() {
+        var result = getSingleResult("SELECT COUNT(*) as count FROM accounts");
+        if (result == null) return false;
+        return ((Number) result.get("count")).intValue() > 0;
     }
 
 }

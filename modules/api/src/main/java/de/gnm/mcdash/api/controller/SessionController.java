@@ -93,4 +93,14 @@ public class SessionController extends BaseController {
         executeUpdate("UPDATE sessions SET lastUsed = CURRENT_TIMESTAMP WHERE token = ?", token);
     }
 
+    /**
+     * Destroy all sessions for a user
+     *
+     * @param userId The user id of the user
+     * @return whether the sessions were destroyed successfully
+     */
+    public boolean destroyAllSessionsForUser(int userId) {
+        return executeUpdate("DELETE FROM sessions WHERE userId = ?", userId) > 0;
+    }
+
 }
