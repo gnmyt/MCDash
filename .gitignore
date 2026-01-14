@@ -5,3 +5,6 @@
 **/.gradle
 **/mcdash.db
 ui/dist
+
+# Dev server
+modules/spigot/run/
