@@ -65,6 +65,10 @@ export function Sidebar() {
                         {sidebar.map((item) => {
                             if (!isFeatureAvailable(item.requiredFeatures)) return null;
 
+                            const visibleSubItems = item.items?.filter(subItem => isFeatureAvailable(subItem.requiredFeatures));
+
+                            if (item.items && (!visibleSubItems || visibleSubItems.length === 0)) return null;
+
                             const isOpen = openItems[item.path] || false;
 
                             return (
@@ -72,7 +76,7 @@ export function Sidebar() {
                                     <SidebarMenuItem>
                                         <SidebarMenuButton
                                             asChild
-                                            isActive={isCurrentRoute(item.path) && !item.items?.length}
+                                            isActive={isCurrentRoute(item.path) && !visibleSubItems?.length}
                                             tooltip={item.name()}
                                             onClick={() => handleNavigationClick(item)}
                                             className="cursor-pointer">
@@ -82,7 +86,7 @@ export function Sidebar() {
                                             </a>
                                         </SidebarMenuButton>
 
-                                        {item.items?.length && (
+                                        {visibleSubItems?.length ? (
                                             <>
                                                 <CollapsibleTrigger asChild>
                                                     <SidebarMenuAction
@@ -94,7 +98,7 @@ export function Sidebar() {
                                                 </CollapsibleTrigger>
                                                 <CollapsibleContent>
                                                     <SidebarMenuSub>
-                                                        {item.items.map((subItem) => (
+                                                        {visibleSubItems.map((subItem) => (
                                                             <SidebarMenuSubItem key={subItem.path}>
                                                                 <SidebarMenuSubButton
                                                                     asChild
@@ -111,7 +115,7 @@ export function Sidebar() {
                                                     </SidebarMenuSub>
                                                 </CollapsibleContent>
                                             </>
-                                        )}
+                                        ) : null}
                                     </SidebarMenuItem>
                                 </Collapsible>
                             );
