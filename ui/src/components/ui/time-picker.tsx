@@ -36,7 +36,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
         };
 
         return (
-            <Popover open={isOpen} onOpenChange={setIsOpen}>
+            <Popover open={isOpen} onOpenChange={setIsOpen} modal={false}>
                 <PopoverTrigger asChild>
                     <Button
                         ref={ref}
@@ -55,7 +55,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
                         </span>
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 rounded-xl" align="start">
+                <PopoverContent className="w-auto p-0 rounded-xl" align="start" disablePortal>
                     <div className="flex">
                         <div className="border-r">
                             <div className="px-3 py-2 text-xs font-medium text-muted-foreground text-center border-b">
@@ -66,6 +66,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
                                     {hours.map((hour) => (
                                         <Button
                                             key={hour}
+                                            type="button"
                                             variant={value.hour === hour ? "default" : "ghost"}
                                             size="sm"
                                             className={cn(
@@ -89,6 +90,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
                                     {minutes.map((minute) => (
                                         <Button
                                             key={minute}
+                                            type="button"
                                             variant={value.minute === minute ? "default" : "ghost"}
                                             size="sm"
                                             className={cn(
@@ -132,7 +134,7 @@ const MinutePicker = React.forwardRef<HTMLButtonElement, MinutePickerProps>(
         };
 
         return (
-            <Popover open={isOpen} onOpenChange={setIsOpen}>
+            <Popover open={isOpen} onOpenChange={setIsOpen} modal={false}>
                 <PopoverTrigger asChild>
                     <Button
                         ref={ref}
@@ -150,7 +152,7 @@ const MinutePicker = React.forwardRef<HTMLButtonElement, MinutePickerProps>(
                         </span>
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 rounded-xl" align="start">
+                <PopoverContent className="w-auto p-0 rounded-xl" align="start" disablePortal>
                     <div className="p-2">
                         <div className="text-xs font-medium text-muted-foreground mb-2 px-1">
                             Quick select
@@ -159,6 +161,7 @@ const MinutePicker = React.forwardRef<HTMLButtonElement, MinutePickerProps>(
                             {quickMinutes.map((minute) => (
                                 <Button
                                     key={minute}
+                                    type="button"
                                     variant={value === minute ? "default" : "ghost"}
                                     size="sm"
                                     className={cn(
@@ -180,6 +183,7 @@ const MinutePicker = React.forwardRef<HTMLButtonElement, MinutePickerProps>(
                                     {minutes.map((minute) => (
                                         <Button
                                             key={minute}
+                                            type="button"
                                             variant={value === minute ? "default" : "ghost"}
                                             size="sm"
                                             className={cn(

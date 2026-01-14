@@ -116,7 +116,9 @@ const FileView = ({
 
     const handleDelete = (file: File) => {
         setSelectedFile(file);
-        setIsDeleteOpen(true);
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => setIsDeleteOpen(true));
+        });
     }
 
     const submitRename = () => {
