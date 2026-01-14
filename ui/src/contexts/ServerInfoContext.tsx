@@ -7,6 +7,7 @@ interface ServerInfo {
     serverVersion?: string;
     serverPort?: number;
     availableFeatures?: string[];
+    isAdmin?: boolean;
 }
 
 interface ServerInfoContextType {
