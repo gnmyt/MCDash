@@ -1,5 +1,6 @@
 import { useState, createContext, useEffect, ReactNode } from "react";
 import { request } from "@/lib/RequestUtil.ts";
+import { ResourceType } from "@/types/resource";
 
 interface ServerInfo {
     accountName?: string;
@@ -7,6 +8,7 @@ interface ServerInfo {
     serverVersion?: string;
     serverPort?: number;
     availableFeatures?: string[];
+    resourceTypes?: ResourceType[];
     isAdmin?: boolean;
 }
 

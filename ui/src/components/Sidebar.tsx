@@ -1,5 +1,6 @@
 import {
-    CaretRightIcon
+    CaretRightIcon,
+    StorefrontIcon
 } from "@phosphor-icons/react";
 
 import {
@@ -16,16 +17,20 @@ import {
     SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible.tsx";
-import {sidebar} from "@/states/Root/routes.tsx";
-import {useContext, useState} from "react";
+import {sidebar, getResourceIcon} from "@/states/Root/routes.tsx";
+import {useContext, useState, useMemo} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
+import {ResourcesContext} from "@/contexts/ResourcesContext.tsx";
 import {UserProfile} from "@/components/UserProfile.tsx";
+import {Badge} from "@/components/ui/badge.tsx";
+import {t} from "i18next";
 import ServerImage from "@/assets/images/logo.png";
 
 export function Sidebar() {
     const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
     const {serverInfo} = useContext(ServerInfoContext)!;
+    const resourcesContext = useContext(ResourcesContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -48,6 +53,51 @@ export function Sidebar() {
         }
     }
 
+    const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+    const resourceSidebarItems = useMemo(() => {
+        if (!resourcesContext || !serverInfo.availableFeatures?.includes("Resources")) {
+            return [];
+        }
+
+        return resourcesContext.resourceTypes.map((resourceType) => {
+            const TypeIcon = getResourceIcon(resourceType.identifier);
+            const resources = resourcesContext.resourcesByType[resourceType.identifier] || [];
+            
+            return {
+                path: `/resources/${resourceType.identifier}`,
+                icon: TypeIcon,
+                requiredFeatures: ["Resources"],
+                name: () => t(`resources.types.${resourceType.identifier}`, capitalize(resourceType.identifier) + "s"),
+                items: [
+                    {
+                        path: `/resources/${resourceType.identifier}/store`,
+                        name: () => t("resources.store"),
+                        icon: StorefrontIcon,
+                        requiredFeatures: ["Resources"],
+                        isWip: true
+                    },
+                    ...resources.map((resource) => ({
+                        path: `/resources/${resourceType.identifier}/${encodeURIComponent(resource.fileName)}`,
+                        name: () => resource.name,
+                        icon: TypeIcon,
+                        requiredFeatures: ["Resources"],
+                        enabled: resource.enabled
+                    }))
+                ]
+            };
+        });
+    }, [resourcesContext?.resourceTypes, resourcesContext?.resourcesByType, serverInfo.availableFeatures]);
+
+    const allSidebarItems = useMemo(() => {
+        const schedulesIndex = sidebar.findIndex(item => item.path === "/schedules");
+        const insertIndex = schedulesIndex !== -1 ? schedulesIndex + 1 : sidebar.length - 1;
+        
+        const result = [...sidebar];
+        result.splice(insertIndex, 0, ...resourceSidebarItems);
+        return result;
+    }, [resourceSidebarItems]);
+
     return (
         <ShadSidebar variant="inset" className="select-none">
             <SidebarHeader>
@@ -62,7 +112,7 @@ export function Sidebar() {
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarMenu>
-                        {sidebar.map((item) => {
+                        {allSidebarItems.map((item) => {
                             if (!isFeatureAvailable(item.requiredFeatures)) return null;
 
                             const visibleSubItems = item.items?.filter(subItem => isFeatureAvailable(subItem.requiredFeatures));
@@ -98,16 +148,21 @@ export function Sidebar() {
                                                 </CollapsibleTrigger>
                                                 <CollapsibleContent>
                                                     <SidebarMenuSub>
-                                                        {visibleSubItems.map((subItem) => (
+                                                        {visibleSubItems.map((subItem: any) => (
                                                             <SidebarMenuSubItem key={subItem.path}>
                                                                 <SidebarMenuSubButton
                                                                     asChild
                                                                     isActive={isCurrentRoute(subItem.path)}
                                                                     onClick={() => handleNavigationClick(subItem)}
-                                                                    className="cursor-pointer">
+                                                                    className={`cursor-pointer ${subItem.enabled === false ? "opacity-50" : ""}`}>
                                                                     <a className="flex items-center gap-3">
                                                                         <subItem.icon weight={isCurrentRoute(subItem.path) ? "fill" : "regular"} />
-                                                                        <span>{subItem.name()}</span>
+                                                                        <span className="flex-1">{subItem.name()}</span>
+                                                                        {subItem.isWip && (
+                                                                            <Badge variant="secondary" className="text-[10px] px-1 py-0">
+                                                                                WIP
+                                                                            </Badge>
+                                                                        )}
                                                                     </a>
                                                                 </SidebarMenuSubButton>
                                                             </SidebarMenuSubItem>

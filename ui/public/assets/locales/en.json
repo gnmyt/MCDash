@@ -41,12 +41,39 @@
     "plugins": "Plugins",
     "backups": "Backups",
     "schedules": "Schedules",
+    "resources": "Resources",
     "settings": {
       "base": "Settings",
       "ssh": "SSH/SFTP Access",
       "server": "Server",
       "users": "Users"
     }
+  },
+  "resources": {
+    "subtitle": "{{count}} resources installed",
+    "store": "Store",
+    "wip": "WIP",
+    "store_coming_soon": "Store Coming Soon",
+    "store_coming_soon_description": "The resource store will allow you to browse and install resources directly from the dashboard. This feature is currently under development.",
+    "types": {
+      "plugin": "Plugins",
+      "datapack": "Datapacks",
+      "mod": "Mods",
+      "extension": "Extensions"
+    },
+    "by": "by",
+    "no_description": "No description available",
+    "no_resources": "No resources found",
+    "no_resources_description": "You don't have any {{type}} installed yet.",
+    "enabled_success": "Resource enabled successfully. Restart may be required.",
+    "disabled_success": "Resource disabled successfully. Restart may be required.",
+    "toggle_failed": "Failed to toggle resource state",
+    "deleted_success": "Resource deleted successfully",
+    "delete_failed": "Failed to delete resource",
+    "delete_title": "Delete Resource",
+    "delete_description": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+    "config_title": "Configuration",
+    "config_coming_soon": "Configuration editor coming soon"
   },
   "users": {
     "title": "User Management",

@@ -1,4 +1,4 @@
-import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon, UsersThreeIcon, CalendarIcon, GlobeHemisphereWestIcon} from "@phosphor-icons/react";
+import {ArchiveIcon, FolderOpenIcon, SquaresFourIcon, WifiHighIcon, HardDrivesIcon, GearSixIcon, TerminalIcon, UsersIcon, UsersThreeIcon, CalendarIcon, GlobeHemisphereWestIcon, PuzzlePieceIcon, PackageIcon} from "@phosphor-icons/react";
 import {t} from "i18next";
 import FileManager from "@/states/Root/pages/FileManager/FileManager.tsx";
 import Overview from "@/states/Root/pages/Overview/Overview.tsx";
@@ -10,6 +10,22 @@ import Players from "@/states/Root/pages/Players/Players.tsx";
 import Users from "@/states/Root/pages/Users/Users.tsx";
 import Schedules from "@/states/Root/pages/Schedules/Schedules.tsx";
 import Worlds from "@/states/Root/pages/Worlds/Worlds.tsx";
+import { Icon } from "@phosphor-icons/react";
+
+export const getResourceIcon = (typeIdentifier: string): Icon => {
+    switch (typeIdentifier) {
+        case "plugin":
+            return PuzzlePieceIcon;
+        case "datapack":
+            return PackageIcon;
+        case "mod":
+            return PuzzlePieceIcon;
+        case "extension":
+            return PuzzlePieceIcon;
+        default:
+            return PackageIcon;
+    }
+};
 
 export const sidebar = [
     {
