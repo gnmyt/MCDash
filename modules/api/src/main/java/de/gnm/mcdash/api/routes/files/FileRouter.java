@@ -271,5 +271,73 @@ public class FileRouter extends BaseRoute {
         }
     }
 
+    @AuthenticatedRoute
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
+    @Path("/files/copy")
+    @Method(POST)
+    public Response copyFile(JSONRequest request) {
+        request.checkFor("sourcePath", "destinationPath");
+        File serverRoot = getServerRoot();
+        String sourcePath = request.get("sourcePath");
+        String destinationPath = request.get("destinationPath");
+
+        try {
+            File sourceFile = FileHelper.getNormalizedPath(serverRoot, sourcePath);
+            File destinationFile = FileHelper.getNormalizedPath(serverRoot, destinationPath);
+
+            if (!sourceFile.exists() || sourceFile.isDirectory()) {
+                return new JSONResponse().error("The source file does not exist");
+            }
+
+            if (sourceFile.getName().equals("mcdash.db")) {
+                return new JSONResponse().error("You are not allowed to copy the database file");
+            }
+
+            if (destinationFile.exists()) {
+                return new JSONResponse().error("A file already exists at the destination path");
+            }
+
+            Files.copy(sourceFile.toPath(), destinationFile.toPath());
+
+            return new JSONResponse().message("File copied successfully");
+        } catch (Exception e) {
+            return new JSONResponse().error("Error copying file: " + e.getMessage());
+        }
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
+    @Path("/files/move")
+    @Method(POST)
+    public Response moveFile(JSONRequest request) {
+        request.checkFor("sourcePath", "destinationPath");
+        File serverRoot = getServerRoot();
+        String sourcePath = request.get("sourcePath");
+        String destinationPath = request.get("destinationPath");
+
+        try {
+            File sourceFile = FileHelper.getNormalizedPath(serverRoot, sourcePath);
+            File destinationFile = FileHelper.getNormalizedPath(serverRoot, destinationPath);
+
+            if (!sourceFile.exists() || sourceFile.isDirectory()) {
+                return new JSONResponse().error("The source file does not exist");
+            }
+
+            if (sourceFile.getName().equals("mcdash.db")) {
+                return new JSONResponse().error("You are not allowed to move the database file");
+            }
+
+            if (destinationFile.exists()) {
+                return new JSONResponse().error("A file already exists at the destination path");
+            }
+
+            Files.move(sourceFile.toPath(), destinationFile.toPath());
+
+            return new JSONResponse().message("File moved successfully");
+        } catch (Exception e) {
+            return new JSONResponse().error("Error moving file: " + e.getMessage());
+        }
+    }
+
 
 }

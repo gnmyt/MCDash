@@ -137,4 +137,72 @@ public class FolderRouter extends BaseRoute {
         }
     }
 
+    @AuthenticatedRoute
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
+    @Path("/folder/copy")
+    @Method(POST)
+    public Response copyFolder(JSONRequest request) {
+        request.checkFor("sourcePath", "destinationPath");
+        File serverRoot = getServerRoot();
+        String sourcePath = request.get("sourcePath");
+        String destinationPath = request.get("destinationPath");
+
+        try {
+            File sourceDirectory = FileHelper.getNormalizedPath(serverRoot, sourcePath);
+            File destinationDirectory = FileHelper.getNormalizedPath(serverRoot, destinationPath);
+
+            if (!sourceDirectory.exists() || !sourceDirectory.isDirectory()) {
+                return new JSONResponse().error("The source directory does not exist");
+            }
+
+            if (sourceDirectory.getCanonicalPath().equals(serverRoot.getCanonicalPath())) {
+                return new JSONResponse().error("Cannot copy the server root directory");
+            }
+
+            if (destinationDirectory.exists()) {
+                return new JSONResponse().error("A directory already exists at the destination path");
+            }
+
+            FileUtils.copyDirectory(sourceDirectory, destinationDirectory);
+
+            return new JSONResponse().message("Directory copied successfully");
+        } catch (Exception e) {
+            return new JSONResponse().error("Error copying directory: " + e.getMessage());
+        }
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(value = Feature.FileManager, level = PermissionLevel.FULL)
+    @Path("/folder/move")
+    @Method(POST)
+    public Response moveFolder(JSONRequest request) {
+        request.checkFor("sourcePath", "destinationPath");
+        File serverRoot = getServerRoot();
+        String sourcePath = request.get("sourcePath");
+        String destinationPath = request.get("destinationPath");
+
+        try {
+            File sourceDirectory = FileHelper.getNormalizedPath(serverRoot, sourcePath);
+            File destinationDirectory = FileHelper.getNormalizedPath(serverRoot, destinationPath);
+
+            if (!sourceDirectory.exists() || !sourceDirectory.isDirectory()) {
+                return new JSONResponse().error("The source directory does not exist");
+            }
+
+            if (sourceDirectory.getCanonicalPath().equals(serverRoot.getCanonicalPath())) {
+                return new JSONResponse().error("Cannot move the server root directory");
+            }
+
+            if (destinationDirectory.exists()) {
+                return new JSONResponse().error("A directory already exists at the destination path");
+            }
+
+            FileUtils.moveDirectory(sourceDirectory, destinationDirectory);
+
+            return new JSONResponse().message("Directory moved successfully");
+        } catch (Exception e) {
+            return new JSONResponse().error("Error moving directory: " + e.getMessage());
+        }
+    }
+
 }

@@ -27,6 +27,7 @@ import {convertSize} from "@/lib/FileUtil.ts";
 import {useState, useRef, useEffect, KeyboardEvent} from "react";
 import {downloadRequest, patchRequest, putRequest} from "@/lib/RequestUtil.ts";
 import DeleteDialog from "@/states/Root/pages/FileManager/components/DeleteDialog.tsx";
+import MoveDialog from "@/states/Root/pages/FileManager/components/MoveDialog.tsx";
 import {toast} from "@/hooks/use-toast.ts";
 import {t} from "i18next";
 
@@ -53,7 +54,9 @@ const FileView = ({
                       setFiles
                   }: FileViewProps) => {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [isMoveOpen, setIsMoveOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [moveOperation, setMoveOperation] = useState<{isCopy: boolean}>({isCopy: false});
     const [editingFile, setEditingFile] = useState<File | null>(null);
     const [editValue, setEditValue] = useState("");
     const [newFolderName, setNewFolderName] = useState("");
@@ -118,6 +121,22 @@ const FileView = ({
         setSelectedFile(file);
         requestAnimationFrame(() => {
             requestAnimationFrame(() => setIsDeleteOpen(true));
+        });
+    }
+
+    const handleCopy = (file: File) => {
+        setSelectedFile(file);
+        setMoveOperation({isCopy: true});
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => setIsMoveOpen(true));
+        });
+    }
+
+    const handleMove = (file: File) => {
+        setSelectedFile(file);
+        setMoveOperation({isCopy: false});
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => setIsMoveOpen(true));
         });
     }
 
@@ -230,6 +249,12 @@ const FileView = ({
             <ContextMenuItem onSelect={() => handleRename(item)} className="rounded-lg h-9 text-sm cursor-pointer">
                 {t("files.rename")}
             </ContextMenuItem>
+            <ContextMenuItem onSelect={() => handleCopy(item)} className="rounded-lg h-9 text-sm cursor-pointer">
+                {t("files.copy")}
+            </ContextMenuItem>
+            <ContextMenuItem onSelect={() => handleMove(item)} className="rounded-lg h-9 text-sm cursor-pointer">
+                {t("files.move")}
+            </ContextMenuItem>
             <ContextMenuItem onSelect={() => handleDownload(item)}
                              className="rounded-lg h-9 text-sm cursor-pointer">
                 {item.is_folder ? t("files.download_folder") : t("files.download")}
@@ -262,6 +287,15 @@ const FileView = ({
         <div className="rounded-xl border flex-grow overflow-hidden bg-card flex flex-col">
             <DeleteDialog path={directory + selectedFile?.name} isOpen={isDeleteOpen} setOpen={setIsDeleteOpen}
                           updateFiles={updateFiles} isFolder={selectedFile?.is_folder ?? false}/>
+            <MoveDialog
+                isOpen={isMoveOpen}
+                setOpen={setIsMoveOpen}
+                sourcePath={directory + (selectedFile?.name ?? "")}
+                fileName={selectedFile?.name ?? ""}
+                isFolder={selectedFile?.is_folder ?? false}
+                isCopy={moveOperation.isCopy}
+                updateFiles={updateFiles}
+            />
 
             <div className="p-3 border-b">
                 <div className="relative">
@@ -391,6 +425,10 @@ const FileView = ({
                                                     onClick={(event) => event.stopPropagation()}>
                                                     <DropdownMenuItem onClick={() => handleRename(item)}
                                                                       className="rounded-lg h-9 text-sm cursor-pointer">{t("files.rename")}</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => handleCopy(item)}
+                                                                      className="rounded-lg h-9 text-sm cursor-pointer">{t("files.copy")}</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => handleMove(item)}
+                                                                      className="rounded-lg h-9 text-sm cursor-pointer">{t("files.move")}</DropdownMenuItem>
                                                     <DropdownMenuItem onClick={() => handleDownload(item)}
                                                                       className="rounded-lg h-9 text-sm cursor-pointer">{item.is_folder ? t("files.download_folder") : t("files.download")}</DropdownMenuItem>
                                                     <DropdownMenuItem onClick={() => handleDelete(item)}
