@@ -78,6 +78,21 @@ public class PlayerRouter extends BaseRoute {
         return new JSONResponse().message("Gamemode changed");
     }
 
+    @AuthenticatedRoute
+    @RequiresFeatures(value = Feature.Players, level = PermissionLevel.FULL)
+    @Path("/players/teleport")
+    @Method(POST)
+    public JSONResponse teleportToWorld(JSONRequest request) {
+        request.checkFor("playerName", "worldName");
+        String playerName = request.get("playerName");
+        String worldName = request.get("worldName");
+
+        OnlinePlayerPipe pipe = getPipe(OnlinePlayerPipe.class);
+        pipe.teleportToWorld(playerName, worldName);
+
+        return new JSONResponse().message("Player teleported");
+    }
+
 
     @AuthenticatedRoute
     @RequiresFeatures(Feature.Players)
