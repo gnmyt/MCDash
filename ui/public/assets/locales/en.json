@@ -44,6 +44,81 @@
       "users": "Users"
     }
   },
+  "users": {
+    "title": "User Management",
+    "subtitle": "Manage users and their permissions",
+    "tabs": {
+      "users": "Users",
+      "permissions": "Permissions"
+    },
+    "table": {
+      "username": "Username",
+      "role": "Role",
+      "actions": "Actions",
+      "user": "User"
+    },
+    "admin": "Admin",
+    "user": "User",
+    "create": "Create User",
+    "create_description": "Create a new user account with access to the dashboard.",
+    "delete": "Delete User",
+    "delete_title": "Delete User",
+    "delete_description": "Are you sure you want to delete the user \"{{username}}\"? This action cannot be undone.",
+    "edit_username": "Edit Username",
+    "edit_username_description": "Change the username for this account.",
+    "change_password": "Change Password",
+    "change_password_description": "Set a new password for {{username}}.",
+    "username": "Username",
+    "username_placeholder": "Enter username",
+    "password": "Password",
+    "password_placeholder": "Enter password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password",
+    "confirm_password_placeholder": "Confirm password",
+    "admin_role": "Administrator",
+    "admin_role_description": "Admins have full access to all features and can manage users.",
+    "created": "User created successfully",
+    "create_failed": "Failed to create user",
+    "deleted": "User deleted successfully",
+    "delete_failed": "Failed to delete user",
+    "password_changed": "Password changed successfully",
+    "password_change_failed": "Failed to change password",
+    "username_changed": "Username changed successfully",
+    "username_change_failed": "Failed to change username",
+    "no_users": "No users found",
+    "no_users_description": "Create a user to get started.",
+    "no_users_permissions": "Create users first to manage their permissions.",
+    "error": {
+      "username_length": "Username must be between 3 and 32 characters",
+      "password_length": "Password must be at least 6 characters",
+      "password_mismatch": "Passwords do not match"
+    },
+    "permission_levels": "Permission levels",
+    "permissions_summary": "Permissions",
+    "full_access": "Full access (Admin)",
+    "no_access": "No access",
+    "edit_permissions": "Edit permissions",
+    "edit_permissions_for": "Permissions for {{username}}",
+    "edit_permissions_description": "Set what this user can access and modify.",
+    "level": {
+      "none": "None",
+      "read": "Read-only",
+      "full": "Full access"
+    },
+    "permission_update_failed": "Failed to update permissions",
+    "admin_granted": "Admin privileges granted",
+    "admin_revoked": "Admin privileges revoked",
+    "admin_note": "Note: Administrators have full access to all features regardless of individual permission settings.",
+    "features": {
+      "FileManager": "Files",
+      "Properties": "Server Config",
+      "SSH": "SSH",
+      "Backups": "Backups",
+      "Console": "Console",
+      "Players": "Players",
+      "UserManagement": "User Management"
+    }
+  },
   "players": {
     "title": "Players",
     "subtitle": "Manage online players, whitelist, and bans",
