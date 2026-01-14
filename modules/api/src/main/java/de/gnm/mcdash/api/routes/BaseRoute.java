@@ -43,6 +43,15 @@ public abstract class BaseRoute {
     }
 
     /**
+     * Gets the loader
+     *
+     * @return The loader
+     */
+    public MCDashLoader getLoader() {
+        return loader;
+    }
+
+    /**
      * Set the server root
      *
      * @return The server root

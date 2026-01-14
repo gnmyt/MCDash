@@ -3,8 +3,10 @@ package de.gnm.mcdash;
 
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.controller.AccountController;
+import de.gnm.mcdash.api.controller.ActionRegistry;
 import de.gnm.mcdash.api.controller.ControllerManager;
 import de.gnm.mcdash.api.controller.PermissionController;
+import de.gnm.mcdash.api.controller.ScheduleController;
 import de.gnm.mcdash.api.controller.SSHController;
 import de.gnm.mcdash.api.controller.SessionController;
 import de.gnm.mcdash.api.entities.Feature;
@@ -12,6 +14,7 @@ import de.gnm.mcdash.api.event.EventDispatcher;
 import de.gnm.mcdash.api.handlers.BaseHandler;
 import de.gnm.mcdash.api.handlers.StaticHandler;
 import de.gnm.mcdash.api.handlers.WebSocketHandler;
+import de.gnm.mcdash.api.helper.ScheduleExecutor;
 import de.gnm.mcdash.api.http.HTTPMethod;
 import de.gnm.mcdash.api.http.RouteMeta;
 import de.gnm.mcdash.api.pipes.BasePipe;
@@ -32,9 +35,11 @@ public class MCDashLoader {
     private final BaseHandler routeHandler = new BaseHandler(this);
     private final WebSocketHandler webSocketHandler = new WebSocketHandler(this);
     private final EventDispatcher eventDispatcher = new EventDispatcher();
+    private final ActionRegistry actionRegistry = new ActionRegistry();
     private String databaseFile = "mcdash.db";
     private File serverRoot = new File(System.getProperty("user.dir"));
     private Undertow httpServer;
+    private ScheduleExecutor scheduleExecutor;
 
     /**
      * Registers a pipe with the given type
@@ -70,7 +75,12 @@ public class MCDashLoader {
         controllerManager.registerController(SSHController.class);
         getController(SSHController.class).initialize(getController(AccountController.class), serverRoot);
 
+        controllerManager.registerController(ScheduleController.class);
+
         registerFeatures(Feature.UserManagement);
+
+        scheduleExecutor = new ScheduleExecutor(this);
+        scheduleExecutor.start();
     }
 
     /**
@@ -125,6 +135,10 @@ public class MCDashLoader {
      * Shuts down the server
      */
     public void shutdown() {
+        if (scheduleExecutor != null) {
+            scheduleExecutor.stop();
+        }
+
         pipes.clear();
 
         if (httpServer != null) {
@@ -160,6 +174,15 @@ public class MCDashLoader {
      */
     public EventDispatcher getEventDispatcher() {
         return eventDispatcher;
+    }
+
+    /**
+     * Gets the action registry for schedule actions
+     *
+     * @return the action registry
+     */
+    public ActionRegistry getActionRegistry() {
+        return actionRegistry;
     }
 
     /**

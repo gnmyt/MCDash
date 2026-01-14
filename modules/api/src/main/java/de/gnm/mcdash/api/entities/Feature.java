@@ -8,7 +8,8 @@ public enum Feature {
     Backups(8),
     Console(16),
     Players(32),
-    UserManagement(64);
+    UserManagement(64),
+    Schedules(128);
 
     private final int permissionBit;
 

@@ -115,6 +115,9 @@ public class BaseHandler implements HttpHandler {
      * @return the matched route, or null if no route was found
      */
     private RouteMeta matchRoute(String relativePath, String requestMethod) {
+        RouteMeta bestMatch = null;
+        int bestScore = -1;
+
         for (RouteMeta route : routes) {
             if (!requestMethod.equals(route.getHttpMethod().toString())) {
                 continue;
@@ -122,10 +125,39 @@ public class BaseHandler implements HttpHandler {
 
             Matcher matcher = createRouteMatcher(route.getPath(), relativePath);
             if (matcher.matches()) {
-                return route;
+                int score = calculateRouteSpecificity(route.getPath());
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMatch = route;
+                }
             }
         }
-        return null;
+        return bestMatch;
+    }
+
+    /**
+     * Calculates the specificity of a route path.
+     * Routes with fewer path parameters are more specific and score higher.
+     *
+     * @param routePath the route path
+     * @return the specificity score (higher = more specific)
+     */
+    private int calculateRouteSpecificity(String routePath) {
+        // Count the number of static segments vs parameter segments
+        String[] segments = routePath.split("/");
+        int score = 0;
+        for (String segment : segments) {
+            if (!segment.isEmpty()) {
+                if (segment.startsWith(":")) {
+                    // Parameter segment - lower priority
+                    score += 1;
+                } else {
+                    // Static segment - higher priority
+                    score += 10;
+                }
+            }
+        }
+        return score;
     }
 
     /**
