@@ -12,6 +12,7 @@ import de.gnm.mcdash.api.pipes.players.BanPipe;
 import de.gnm.mcdash.api.pipes.players.OnlinePlayerPipe;
 import de.gnm.mcdash.api.pipes.players.OperatorPipe;
 import de.gnm.mcdash.api.pipes.players.WhitelistPipe;
+import de.gnm.mcdash.api.pipes.worlds.WorldPipe;
 import de.gnm.mcdash.listener.ConsoleListener;
 import de.gnm.mcdash.pipes.BanPipeImpl;
 import de.gnm.mcdash.pipes.OnlinePlayerPipeImpl;
@@ -19,6 +20,7 @@ import de.gnm.mcdash.pipes.OperatorPipeImpl;
 import de.gnm.mcdash.pipes.QuickActionPipeImpl;
 import de.gnm.mcdash.pipes.ServerInfoPipeImpl;
 import de.gnm.mcdash.pipes.WhitelistPipeImpl;
+import de.gnm.mcdash.pipes.WorldPipeImpl;
 import de.gnm.mcdash.util.BukkitUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;
@@ -98,6 +100,7 @@ public class MCDashSpigot extends JavaPlugin {
         loader.registerPipe(WhitelistPipe.class, new WhitelistPipeImpl());
         loader.registerPipe(OnlinePlayerPipe.class, new OnlinePlayerPipeImpl());
         loader.registerPipe(BanPipe.class, new BanPipeImpl());
+        loader.registerPipe(WorldPipe.class, new WorldPipeImpl());
     }
 
     /**
@@ -190,7 +193,8 @@ public class MCDashSpigot extends JavaPlugin {
                 Feature.Backups,
                 Feature.Console,
                 Feature.Players,
-                Feature.Schedules
+                Feature.Schedules,
+                Feature.Worlds
         );
     }
 
