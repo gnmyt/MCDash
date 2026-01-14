@@ -151,15 +151,15 @@ export const ResourceDetail = () => {
                 <div className="flex items-center justify-center py-16">
                     <div className="text-center">
                         <Icon className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                        <h2 className="text-xl font-semibold">Resource not found</h2>
-                        <p className="text-muted-foreground mt-2">The requested resource could not be found.</p>
+                        <h2 className="text-xl font-semibold">{t("resources.not_found")}</h2>
+                        <p className="text-muted-foreground mt-2">{t("resources.not_found_description")}</p>
                         <Button 
                             variant="outline" 
                             className="mt-4"
                             onClick={() => navigate(`/resources/${type}`)}
                         >
                             <ArrowLeftIcon className="mr-2 h-4 w-4" />
-                            Go Back
+                            {t("resources.go_back")}
                         </Button>
                     </div>
                 </div>
@@ -182,7 +182,7 @@ export const ResourceDetail = () => {
                         <div className="flex items-center gap-2">
                             <h1 className="text-lg font-semibold">{resource.name}</h1>
                             {!resource.enabled && (
-                                <Badge variant="outline" className="text-muted-foreground">Disabled</Badge>
+                                <Badge variant="outline" className="text-muted-foreground">{t("resources.disabled")}</Badge>
                             )}
                         </div>
                     </div>
@@ -190,7 +190,7 @@ export const ResourceDetail = () => {
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
                         <span className="text-sm text-muted-foreground">
-                            {resource.enabled ? "Enabled" : "Disabled"}
+                            {resource.enabled ? t("resources.enabled") : t("resources.disabled")}
                         </span>
                         <Switch
                             checked={resource.enabled}
@@ -219,7 +219,7 @@ export const ResourceDetail = () => {
                         <FileIcon className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <div className="min-w-0">
-                        <p className="text-xs text-muted-foreground">File</p>
+                        <p className="text-xs text-muted-foreground">{t("resources.info.file")}</p>
                         <p className="text-sm font-medium truncate">{resource.fileName}</p>
                     </div>
                 </div>
@@ -229,7 +229,7 @@ export const ResourceDetail = () => {
                         <HardDrivesIcon className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <div className="min-w-0">
-                        <p className="text-xs text-muted-foreground">Size</p>
+                        <p className="text-xs text-muted-foreground">{t("resources.info.size")}</p>
                         <p className="text-sm font-medium">{formatFileSize(resource.fileSize)}</p>
                     </div>
                 </div>
@@ -239,7 +239,7 @@ export const ResourceDetail = () => {
                         <TagIcon className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <div className="min-w-0">
-                        <p className="text-xs text-muted-foreground">Version</p>
+                        <p className="text-xs text-muted-foreground">{t("resources.info.version")}</p>
                         <p className="text-sm font-medium">{resource.version || "—"}</p>
                     </div>
                 </div>
@@ -249,7 +249,7 @@ export const ResourceDetail = () => {
                         <UsersIcon className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <div className="min-w-0">
-                        <p className="text-xs text-muted-foreground">Authors</p>
+                        <p className="text-xs text-muted-foreground">{t("resources.info.authors")}</p>
                         <p className="text-sm font-medium truncate">{resource.authors.length > 0 ? resource.authors.join(", ") : "—"}</p>
                     </div>
                 </div>

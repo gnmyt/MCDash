@@ -72,8 +72,17 @@
     "delete_failed": "Failed to delete resource",
     "delete_title": "Delete Resource",
     "delete_description": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
-    "config_title": "Configuration",
-    "config_coming_soon": "Configuration editor coming soon"
+    "not_found": "Resource not found",
+    "not_found_description": "The requested resource could not be found.",
+    "go_back": "Go Back",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "info": {
+      "file": "File",
+      "size": "Size",
+      "version": "Version",
+      "authors": "Authors"
+    }
   },
   "users": {
     "title": "User Management",
