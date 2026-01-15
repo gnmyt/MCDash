@@ -10,6 +10,7 @@ import de.gnm.mcdash.api.controller.PermissionController;
 import de.gnm.mcdash.api.controller.ScheduleController;
 import de.gnm.mcdash.api.controller.SSHController;
 import de.gnm.mcdash.api.controller.SessionController;
+import de.gnm.mcdash.api.controller.WidgetRegistry;
 import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.event.EventDispatcher;
 import de.gnm.mcdash.api.handlers.BaseHandler;
@@ -37,6 +38,7 @@ public class MCDashLoader {
     private final WebSocketHandler webSocketHandler = new WebSocketHandler(this);
     private final EventDispatcher eventDispatcher = new EventDispatcher();
     private final ActionRegistry actionRegistry = new ActionRegistry();
+    private final WidgetRegistry widgetRegistry = new WidgetRegistry();
     private String databaseFile = "mcdash.db";
     private File serverRoot = new File(System.getProperty("user.dir"));
     private Undertow httpServer;
@@ -186,6 +188,15 @@ public class MCDashLoader {
      */
     public ActionRegistry getActionRegistry() {
         return actionRegistry;
+    }
+
+    /**
+     * Gets the widget registry for dashboard widgets
+     *
+     * @return the widget registry
+     */
+    public WidgetRegistry getWidgetRegistry() {
+        return widgetRegistry;
     }
 
     /**
