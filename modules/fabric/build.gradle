@@ -17,6 +17,12 @@ repositories {
 
 loom {
     splitEnvironmentSourceSets()
+
+    runs {
+        server {
+            runDir "run"
+        }
+    }
 }
 
 dependencies {
@@ -28,7 +34,7 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    compileOnly "de.gnm:mcdash-api:${project.mcdash_version}"
+    implementation "de.gnm:mcdash-api:${project.mcdash_version}"
     shadow "de.gnm:mcdash-api:${project.mcdash_version}"
 }
 
