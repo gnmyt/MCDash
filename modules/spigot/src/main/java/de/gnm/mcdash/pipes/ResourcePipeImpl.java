@@ -63,39 +63,67 @@ public class ResourcePipeImpl implements ResourcePipe {
 
     private List<Resource> getPlugins() {
         List<Resource> resources = new ArrayList<>();
-
+        
+        Map<String, Plugin> loadedPluginsByName = new HashMap<>();
         for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
             if (plugin.getName().equals("MCDash")) continue;
-            File file = getPluginFile(plugin);
-            resources.add(new Resource.Builder()
-                    .name(plugin.getDescription().getName())
-                    .fileName(file != null ? file.getName() : plugin.getName() + ".jar")
-                    .type(ResourceType.PLUGIN)
-                    .version(plugin.getDescription().getVersion())
-                    .description(plugin.getDescription().getDescription())
-                    .authors(plugin.getDescription().getAuthors().toArray(new String[0]))
-                    .enabled(true)
-                    .fileSize(file != null ? file.length() : 0)
-                    .build());
+            loadedPluginsByName.put(plugin.getName().toLowerCase(), plugin);
         }
-
-        File[] disabled = getPluginsFolder().listFiles((d, n) -> n.endsWith(".jar.disabled"));
-        if (disabled != null) {
-            for (File file : disabled) {
-                Resource r = parseDisabledPlugin(file);
-                if (r != null) resources.add(r);
+        
+        File[] jarFiles = getPluginsFolder().listFiles((d, n) -> n.endsWith(".jar"));
+        if (jarFiles != null) {
+            for (File jarFile : jarFiles) {
+                if (jarFile.getName().toLowerCase().contains("mcdash")) continue;
+                
+                PluginDescriptionFile desc = getPluginDescription(jarFile);
+                String pluginName = desc != null ? desc.getName() : jarFile.getName().replace(".jar", "");
+                
+                Plugin loadedPlugin = loadedPluginsByName.get(pluginName.toLowerCase());
+                boolean isEnabled = loadedPlugin != null && loadedPlugin.isEnabled();
+                
+                if (loadedPlugin != null) {
+                    resources.add(new Resource.Builder()
+                            .name(loadedPlugin.getDescription().getName())
+                            .fileName(jarFile.getName())
+                            .type(ResourceType.PLUGIN)
+                            .version(loadedPlugin.getDescription().getVersion())
+                            .description(loadedPlugin.getDescription().getDescription())
+                            .authors(loadedPlugin.getDescription().getAuthors().toArray(new String[0]))
+                            .enabled(isEnabled)
+                            .fileSize(jarFile.length())
+                            .build());
+                } else if (desc != null) {
+                    resources.add(new Resource.Builder()
+                            .name(desc.getName())
+                            .fileName(jarFile.getName())
+                            .type(ResourceType.PLUGIN)
+                            .version(desc.getVersion())
+                            .description(desc.getDescription())
+                            .authors(desc.getAuthors().toArray(new String[0]))
+                            .enabled(false)
+                            .fileSize(jarFile.length())
+                            .build());
+                } else {
+                    resources.add(new Resource.Builder()
+                            .name(jarFile.getName().replace(".jar", ""))
+                            .fileName(jarFile.getName())
+                            .type(ResourceType.PLUGIN)
+                            .enabled(false)
+                            .fileSize(jarFile.length())
+                            .build());
+                }
             }
         }
+        
         return resources;
     }
 
-    private Resource parseDisabledPlugin(File file) {
-        String baseName = file.getName().replace(".disabled", "");
+    private Resource parseUnloadedPlugin(File file) {
         var desc = getPluginDescription(file);
         if (desc == null) {
             return new Resource.Builder()
-                    .name(baseName.replace(".jar", ""))
-                    .fileName(baseName)
+                    .name(file.getName().replace(".jar", ""))
+                    .fileName(file.getName())
                     .type(ResourceType.PLUGIN)
                     .enabled(false)
                     .fileSize(file.length())
@@ -103,7 +131,7 @@ public class ResourcePipeImpl implements ResourcePipe {
         }
         return new Resource.Builder()
                 .name(desc.getName())
-                .fileName(baseName)
+                .fileName(file.getName())
                 .type(ResourceType.PLUGIN)
                 .version(desc.getVersion())
                 .description(desc.getDescription())
@@ -126,56 +154,83 @@ public class ResourcePipeImpl implements ResourcePipe {
         return null;
     }
 
+    /**
+     * Find a loaded plugin by JAR filename.
+     * First tries to match by plugin name from the JAR's plugin.yml,
+     * then falls back to filename matching.
+     */
     private Plugin findPlugin(String fileName) {
-        String clean = fileName.replace(".disabled", "").replace(".jar", "");
+        File jarFile = findPluginFile(fileName);
+        if (jarFile != null) {
+            PluginDescriptionFile desc = getPluginDescription(jarFile);
+            if (desc != null) {
+                Plugin p = Bukkit.getPluginManager().getPlugin(desc.getName());
+                if (p != null) return p;
+            }
+        }
+
+        String clean = fileName.replace(".jar", "");
         for (Plugin p : Bukkit.getPluginManager().getPlugins()) {
+            if (p.getName().equalsIgnoreCase(clean)) return p;
             File f = getPluginFile(p);
-            if ((f != null && f.getName().replace(".jar", "").equalsIgnoreCase(clean)) || p.getName().equalsIgnoreCase(clean))
-                return p;
+            if (f != null && f.getName().replace(".jar", "").equalsIgnoreCase(clean)) return p;
         }
         return null;
     }
 
     private File findPluginFile(String fileName) {
-        Plugin p = findPlugin(fileName);
-        if (p != null) return getPluginFile(p);
-        String clean = fileName.replace(".disabled", "");
         File folder = getPluginsFolder();
-        File disabled = new File(folder, clean + ".disabled");
-        if (disabled.exists()) return disabled;
-        File enabled = new File(folder, clean);
-        return enabled.exists() ? enabled : null;
+        File file = new File(folder, fileName);
+        return file.exists() ? file : null;
     }
 
     private boolean enablePlugin(String fileName) {
-        File file = findPluginFile(fileName);
-        if (file == null || !file.getName().endsWith(".disabled")) return file != null;
-        return file.renameTo(new File(file.getParentFile(), file.getName().replace(".disabled", "")));
+        File jarFile = findPluginFile(fileName);
+        if (jarFile == null) return false;
+        
+        PluginDescriptionFile desc = getPluginDescription(jarFile);
+        if (desc != null) {
+            Plugin existingPlugin = Bukkit.getPluginManager().getPlugin(desc.getName());
+            if (existingPlugin != null) {
+                if (existingPlugin.isEnabled()) {
+                    return true;
+                }
+                BukkitUtil.runOnMainThread(() -> Bukkit.getPluginManager().enablePlugin(existingPlugin));
+                return true;
+            }
+        }
+        
+        Plugin existingPlugin = findPlugin(fileName);
+        if (existingPlugin != null) {
+            if (existingPlugin.isEnabled()) {
+                return true;
+            }
+            BukkitUtil.runOnMainThread(() -> Bukkit.getPluginManager().enablePlugin(existingPlugin));
+            return true;
+        }
+        
+        return loadAndEnablePlugin(jarFile);
     }
 
     private boolean disablePlugin(String fileName) {
         Plugin plugin = findPlugin(fileName);
-        if (plugin != null) {
-            File file = getPluginFile(plugin);
+        if (plugin != null && plugin.isEnabled()) {
             BukkitUtil.runOnMainThread(() -> Bukkit.getPluginManager().disablePlugin(plugin));
-            if (file != null && file.exists())
-                return file.renameTo(new File(file.getParentFile(), file.getName() + ".disabled"));
             return true;
         }
-        File file = findPluginFile(fileName);
-        return file != null && file.getName().endsWith(".disabled");
+        return plugin != null || findPluginFile(fileName) != null;
     }
 
     private boolean deletePlugin(String fileName) {
+        File file = findPluginFile(fileName);
+        if (file == null) return false;
+        
         Plugin plugin = findPlugin(fileName);
-        File file;
         if (plugin != null) {
-            file = getPluginFile(plugin);
             BukkitUtil.runOnMainThread(() -> Bukkit.getPluginManager().disablePlugin(plugin));
-        } else {
-            file = findPluginFile(fileName);
         }
-        return file != null && file.exists() && file.delete();
+        
+        return file.delete();
     }
 
     private File getPluginsFolder() {
@@ -440,7 +495,7 @@ public class ResourcePipeImpl implements ResourcePipe {
     private String getPluginName(String fileName) {
         var desc = getPluginDescription(findPluginFile(fileName));
         if (desc != null) return desc.getName();
-        return fileName.replace(".disabled", "").replace(".jar", "");
+        return fileName.replace(".jar", "");
     }
 
     private PluginDescriptionFile getPluginDescription(File file) {

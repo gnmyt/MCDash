@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { PuzzlePieceIcon, PackageIcon, StorefrontIcon } from "@phosphor-icons/react";
 import { t } from "i18next";
@@ -21,11 +21,13 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/hooks/use-toast";
+import { ResourcesContext } from "@/contexts/ResourcesContext";
 
 export const ResourceList = () => {
     const { type } = useParams<{ type: string }>();
     const navigate = useNavigate();
     const location = useLocation();
+    const resourcesContext = useContext(ResourcesContext);
     const [resources, setResources] = useState<Resource[]>([]);
     const [loading, setLoading] = useState(true);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -87,6 +89,7 @@ export const ResourceList = () => {
                         : t("resources.enabled_success")
                 });
                 await fetchResources();
+                resourcesContext?.refreshResources(type);
             }
         } catch (error) {
             toast({ description: t("resources.toggle_failed"), variant: "destructive" });
@@ -109,6 +112,7 @@ export const ResourceList = () => {
             } else {
                 toast({ description: t("resources.deleted_success") });
                 await fetchResources();
+                resourcesContext?.refreshResources(type);
             }
         } catch (error) {
             toast({ description: t("resources.delete_failed"), variant: "destructive" });
