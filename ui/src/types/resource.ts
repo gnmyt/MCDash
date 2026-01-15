@@ -14,3 +14,11 @@ export interface Resource {
   iconPath: string | null;
   fileSize: number;
 }
+
+export interface ConfigFile {
+  name: string;
+  path: string;
+  size: number;
+}
+
+export type ConfigValue = string | number | boolean | null | ConfigValue[] | { [key: string]: ConfigValue };

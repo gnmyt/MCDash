@@ -82,6 +82,21 @@
       "size": "Size",
       "version": "Version",
       "authors": "Authors"
+    },
+    "config": {
+      "title": "Configuration",
+      "files": "Files",
+      "no_files": "No Configuration Files",
+      "no_files_description": "This resource doesn't have any editable configuration files.",
+      "select_file": "Select a file to edit",
+      "empty_file": "This configuration file is empty",
+      "empty_array": "Empty list",
+      "empty_object": "Empty section",
+      "unsaved": "Unsaved",
+      "saved": "Configuration saved successfully",
+      "save_failed": "Failed to save configuration",
+      "load_failed": "Failed to load configuration",
+      "open_in_files": "Open in File Manager"
     }
   },
   "users": {

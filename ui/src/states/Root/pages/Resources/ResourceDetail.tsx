@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/hooks/use-toast";
 import { ResourcesContext } from "@/contexts/ResourcesContext";
+import { ConfigEditor } from "./ConfigEditor";
 
 export const ResourceDetail = () => {
     const { type, fileName } = useParams<{ type: string; fileName: string }>();
@@ -168,7 +169,7 @@ export const ResourceDetail = () => {
     }
 
     return (
-        <div className="flex flex-col p-6 pt-0 gap-6">
+        <div className="flex flex-col px-6 pb-6 gap-6 flex-1 min-h-0 overflow-hidden">
             <div className="flex items-center justify-between p-4 rounded-xl border bg-card shrink-0">
                 <div className="flex items-center gap-4">
                     <div className={`h-12 w-12 rounded-xl flex items-center justify-center ${
@@ -208,12 +209,12 @@ export const ResourceDetail = () => {
             </div>
 
             {resource.description && (
-                <p className="text-sm text-muted-foreground -mt-2">
+                <p className="text-sm text-muted-foreground -mt-2 shrink-0">
                     {resource.description}
                 </p>
             )}
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 shrink-0">
                 <div className="flex items-center gap-3 p-4 rounded-xl border bg-card">
                     <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
                         <FileIcon className="h-5 w-5 text-muted-foreground" />
@@ -254,6 +255,8 @@ export const ResourceDetail = () => {
                     </div>
                 </div>
             </div>
+
+            <ConfigEditor resourceType={type!} resourceFileName={resource.fileName} resourceName={resource.name} />
 
             <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
                 <AlertDialogContent>
