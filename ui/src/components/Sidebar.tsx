@@ -93,9 +93,9 @@ export function Sidebar() {
         const schedulesIndex = sidebar.findIndex(item => item.path === "/schedules");
         const insertIndex = schedulesIndex !== -1 ? schedulesIndex + 1 : sidebar.length - 1;
         
-        const result = [...sidebar];
+        const result = [...sidebar] as unknown[];
         result.splice(insertIndex, 0, ...resourceSidebarItems);
-        return result;
+        return result as typeof sidebar;
     }, [resourceSidebarItems]);
 
     return (

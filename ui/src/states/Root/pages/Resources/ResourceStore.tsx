@@ -7,7 +7,7 @@ export const ResourceStore = () => {
     const { type } = useParams<{ type: string }>();
 
     const getTypeLabel = () => {
-        return t(`resources.types.${type}`, type?.charAt(0).toUpperCase() + type?.slice(1));
+        return t(`resources.types.${type}`, type ? type.charAt(0).toUpperCase() + type.slice(1) : "Resource");
     };
 
     return (

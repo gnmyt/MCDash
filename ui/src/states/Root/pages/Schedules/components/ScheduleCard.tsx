@@ -27,7 +27,6 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Badge } from "@/components/ui/badge";
 import TaskList from "./TaskList";
 import TaskFormDialog from "./TaskFormDialog";
 import ScheduleFormDialog from "./ScheduleFormDialog";
