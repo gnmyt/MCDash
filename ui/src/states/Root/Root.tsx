@@ -33,7 +33,7 @@ const Root = () => {
                 <ResourcesProvider>
                     <SidebarProvider>
                         <Sidebar/>
-                        <SidebarInset className="flex flex-col h-screen overflow-hidden">
+                        <SidebarInset className="flex flex-col max-h-screen md:max-h-[calc(100vh-1rem)] overflow-hidden">
                             <header className="flex h-16 shrink-0 items-center gap-2">
                                 <div className="flex items-center gap-2 px-4">
                                     <SidebarTrigger className="-ml-1"/>
@@ -51,7 +51,7 @@ const Root = () => {
                                     </Breadcrumb>
                                 </div>
                             </header>
-                            <div className="flex-1 min-h-0 flex flex-col">
+                            <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
                                 <Outlet/>
                             </div>
                         </SidebarInset>
