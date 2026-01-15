@@ -6,8 +6,9 @@ import {
     InstalledStoreResource,
 } from "@/types/store";
 
-export const getStoreProviders = async (): Promise<StoreProvider[]> => {
-    const response = await jsonRequest("store/providers");
+export const getStoreProviders = async (resourceType?: string): Promise<StoreProvider[]> => {
+    const params = resourceType ? `?type=${encodeURIComponent(resourceType)}` : "";
+    const response = await jsonRequest(`store/providers${params}`);
     return response.providers || [];
 };
 

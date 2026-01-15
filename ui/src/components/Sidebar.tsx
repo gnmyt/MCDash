@@ -23,7 +23,6 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {ServerInfoContext} from "@/contexts/ServerInfoContext.tsx";
 import {ResourcesContext} from "@/contexts/ResourcesContext.tsx";
 import {UserProfile} from "@/components/UserProfile.tsx";
-import {Badge} from "@/components/ui/badge.tsx";
 import {t} from "i18next";
 import ServerImage from "@/assets/images/logo.png";
 
@@ -74,8 +73,7 @@ export function Sidebar() {
                         path: `/resources/${resourceType.identifier}/store`,
                         name: () => t("resources.store"),
                         icon: StorefrontIcon,
-                        requiredFeatures: ["Resources"],
-                        isWip: true
+                        requiredFeatures: ["Resources"]
                     },
                     ...resources.map((resource) => ({
                         path: `/resources/${resourceType.identifier}/${encodeURIComponent(resource.fileName)}`,
@@ -158,11 +156,6 @@ export function Sidebar() {
                                                                     <a className="flex items-center gap-3">
                                                                         <subItem.icon weight={isCurrentRoute(subItem.path) ? "fill" : "regular"} />
                                                                         <span className="flex-1">{subItem.name()}</span>
-                                                                        {subItem.isWip && (
-                                                                            <Badge variant="secondary" className="text-[10px] px-1 py-0">
-                                                                                WIP
-                                                                            </Badge>
-                                                                        )}
                                                                     </a>
                                                                 </SidebarMenuSubButton>
                                                             </SidebarMenuSubItem>

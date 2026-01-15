@@ -79,8 +79,9 @@ export const ResourceStore = () => {
 
     useEffect(() => {
         const loadProviders = async () => {
+            if (!type) return;
             try {
-                const data = await getStoreProviders();
+                const data = await getStoreProviders(type);
                 setProviders(data);
                 if (data.length > 0 && !data.find(p => p.id === selectedProvider)) {
                     setSelectedProvider(data[0].id);
@@ -90,7 +91,7 @@ export const ResourceStore = () => {
             }
         };
         loadProviders();
-    }, []);
+    }, [type]);
 
     useEffect(() => {
         const loadInstalled = async () => {
