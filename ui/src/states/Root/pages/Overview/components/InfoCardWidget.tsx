@@ -1,5 +1,17 @@
 import { Widget } from "@/types/widget";
 import { t } from "i18next";
+import { 
+    CubeIcon, 
+    TagIcon, 
+    PlugIcon, 
+    ListNumbersIcon, 
+    GhostIcon, 
+    StackIcon, 
+    CoffeeIcon, 
+    DesktopIcon, 
+    CpuIcon,
+    type Icon
+} from "@phosphor-icons/react";
 
 interface InfoCardWidgetProps {
     widget: Widget;
@@ -20,20 +32,47 @@ const InfoCardWidget = ({ widget }: InfoCardWidgetProps) => {
         processors: "overview.widgets.info.processors",
     };
 
+    const fieldIcons: Record<string, Icon> = {
+        software: CubeIcon,
+        version: TagIcon,
+        port: PlugIcon,
+        count: ListNumbersIcon,
+        entities: GhostIcon,
+        loadedChunks: StackIcon,
+        javaVersion: CoffeeIcon,
+        os: DesktopIcon,
+        processors: CpuIcon,
+    };
+
     const entries = Object.entries(metadata);
 
     return (
-        <div className="flex flex-col justify-center px-1 gap-2">
-            {entries.map(([key, value]) => (
-                <div key={key} className="flex justify-between items-center py-1 border-b border-border/50 last:border-0">
-                    <span className="text-sm text-muted-foreground">
-                        {fieldLabels[key] ? t(fieldLabels[key]) : key}
-                    </span>
-                    <span className="text-sm font-medium truncate ml-2" style={{ color: widget.color }}>
-                        {typeof value === 'number' ? value.toLocaleString() : String(value)}
-                    </span>
-                </div>
-            ))}
+        <div className="flex flex-col flex-1 gap-1 overflow-auto">
+            {entries.map(([key, value]) => {
+                const FieldIcon = fieldIcons[key] || TagIcon;
+                return (
+                    <div 
+                        key={key} 
+                        className="flex items-center justify-between py-1.5 px-2 rounded-lg hover:bg-muted/40 transition-colors"
+                    >
+                        <div className="flex items-center gap-2">
+                            <FieldIcon 
+                                className="h-3.5 w-3.5 text-muted-foreground" 
+                                weight="duotone"
+                            />
+                            <span className="text-xs text-muted-foreground">
+                                {fieldLabels[key] ? t(fieldLabels[key]) : key}
+                            </span>
+                        </div>
+                        <span 
+                            className="text-xs font-medium truncate ml-2" 
+                            style={{ color: widget.color }}
+                        >
+                            {typeof value === 'number' ? value.toLocaleString() : String(value)}
+                        </span>
+                    </div>
+                );
+            })}
         </div>
     );
 };

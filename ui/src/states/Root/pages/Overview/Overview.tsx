@@ -4,8 +4,14 @@ import { jsonRequest } from "@/lib/RequestUtil";
 import { Widget, SavedLayout } from "@/types/widget";
 import WidgetCard from "./components/WidgetCard";
 import { useResizeObserver } from "@/hooks/useResizeObserver";
-import { SquaresFourIcon, ArrowsClockwiseIcon } from "@phosphor-icons/react";
+import { DotsThreeIcon, ArrowsClockwiseIcon, GridFourIcon } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { t } from "i18next";
 import "react-grid-layout/css/styles.css";
 
@@ -154,17 +160,6 @@ const Overview = () => {
     if (isLoading && widgets.length === 0) {
         return (
             <div className="flex flex-col flex-1 p-6 pt-0">
-                <div className="flex items-center justify-between p-4 rounded-xl border bg-card mb-6">
-                    <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                            <SquaresFourIcon className="h-6 w-6 text-primary" weight="fill" />
-                        </div>
-                        <div>
-                            <h1 className="text-lg font-semibold">{t("overview.title")}</h1>
-                            <p className="text-sm text-muted-foreground">{t("overview.loading")}</p>
-                        </div>
-                    </div>
-                </div>
                 <div className="grid grid-cols-3 gap-4">
                     {[1, 2, 3, 4, 5, 6].map((i) => (
                         <div key={i} className="aspect-video rounded-xl bg-muted/50 animate-pulse" />
@@ -176,22 +171,24 @@ const Overview = () => {
 
     return (
         <div className="flex flex-col flex-1 p-6 pt-0">
-            <div className="flex items-center justify-between p-4 rounded-xl border bg-card mb-6">
-                <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                        <SquaresFourIcon className="h-6 w-6 text-primary" weight="fill" />
-                    </div>
-                    <div>
-                        <h1 className="text-lg font-semibold">{t("overview.title")}</h1>
-                        <p className="text-sm text-muted-foreground">
+            <div className="flex items-center justify-end mb-4">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg">
+                            <DotsThreeIcon className="h-5 w-5" weight="bold" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="min-w-[160px]">
+                        <DropdownMenuItem onClick={resetLayout} className="gap-2">
+                            <ArrowsClockwiseIcon className="h-4 w-4" />
+                            {t("overview.reset_layout")}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="gap-2" disabled>
+                            <GridFourIcon className="h-4 w-4" />
                             {t("overview.subtitle", { count: widgets.length })}
-                        </p>
-                    </div>
-                </div>
-                <Button variant="outline" size="sm" onClick={resetLayout}>
-                    <ArrowsClockwiseIcon className="h-4 w-4 mr-2" />
-                    {t("overview.reset_layout")}
-                </Button>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
 
             <div ref={containerRef} className="flex-1 overflow-auto">

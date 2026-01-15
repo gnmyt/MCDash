@@ -20,26 +20,34 @@ const ProgressWidget = ({ widget }: ProgressWidgetProps) => {
     };
 
     return (
-        <div className="flex flex-col justify-center h-full px-2 gap-3">
-            <div className="flex justify-between items-baseline">
-                <span className="text-2xl font-bold" style={{ color: widget.color }}>
-                    {used.toLocaleString()} {widget.unit || 'MB'}
-                </span>
-                <span className="text-sm text-muted-foreground">
-                    / {max.toLocaleString()} {widget.unit || 'MB'}
+        <div className="flex flex-col gap-2">
+            <div className="flex items-baseline justify-between">
+                <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl font-bold tracking-tight" style={{ color: widget.color }}>
+                        {used.toLocaleString()}
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                        / {max.toLocaleString()} {widget.unit || 'MB'}
+                    </span>
+                </div>
+                <span 
+                    className="text-sm font-semibold"
+                    style={{ color: widget.color }}
+                >
+                    {Math.round(percentage)}%
                 </span>
             </div>
             <Progress 
                 value={percentage} 
                 className="h-2"
-                indicatorClassName={getProgressColor()}
+                indicatorClassName={getProgressColor() || undefined}
+                style={!getProgressColor() ? { '--progress-color': widget.color } as React.CSSProperties : undefined}
             />
-            <div className="flex justify-between text-xs text-muted-foreground">
-                <span>{percentage.toFixed(1)}% {t("overview.widgets.used")}</span>
-                {allocated !== undefined && (
-                    <span>{t("overview.widgets.allocated")}: {allocated.toLocaleString()} MB</span>
-                )}
-            </div>
+            {allocated !== undefined && (
+                <span className="text-xs text-muted-foreground">
+                    {t("overview.widgets.allocated")}: {allocated.toLocaleString()} MB
+                </span>
+            )}
         </div>
     );
 };

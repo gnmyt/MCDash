@@ -1,5 +1,4 @@
 import {Widget} from "@/types/widget";
-import {t} from "i18next";
 
 interface StatCardWidgetProps {
     widget: Widget;
@@ -30,31 +29,29 @@ const StatCardWidget = ({widget}: StatCardWidgetProps) => {
 
     if (days !== undefined && hours !== undefined && minutes !== undefined) {
         return (
-            <div className="flex flex-col items-center justify-center h-full">
-                <span className="text-3xl font-bold" style={{color: widget.color}}>
-                    {days > 0 && `${days}d `}
-                    {hours}h {minutes}m
-                </span>
-                <span className="text-sm text-muted-foreground mt-1">
-                    {t("overview.widgets.uptime_label")}
+            <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl font-bold tracking-tight" style={{color: widget.color}}>
+                    {days > 0 && `${days}d `}{hours}h {minutes}m
                 </span>
             </div>
         );
     }
 
     return (
-        <div className="flex flex-col items-center justify-center h-full">
-            <span className={`text-4xl font-bold ${getStatusColor()}`}
-                  style={{color: !status ? widget.color : undefined}}>
+        <div className="flex items-baseline gap-1.5">
+            <span 
+                className={`text-3xl font-bold tracking-tight ${getStatusColor()}`}
+                style={{color: !status ? widget.color : undefined}}
+            >
                 {typeof value === 'number' ? value.toLocaleString() : value}
             </span>
             {max !== undefined && (
-                <span className="text-sm text-muted-foreground mt-1">
+                <span className="text-sm text-muted-foreground">
                     / {max} {widget.unit}
                 </span>
             )}
             {widget.unit && max === undefined && (
-                <span className="text-sm text-muted-foreground mt-1">
+                <span className="text-sm text-muted-foreground">
                     {widget.unit}
                 </span>
             )}
