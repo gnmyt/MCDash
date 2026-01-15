@@ -5,6 +5,7 @@ import de.gnm.mcdash.api.event.console.ConsoleMessageReceivedEvent;
 
 import java.time.LocalTime;
 import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
@@ -30,18 +31,26 @@ public class ConsoleListener extends Handler {
 
         instance = new ConsoleListener(plugin);
 
+        Logger bungeeLogger = plugin.getProxy().getLogger();
+        bungeeLogger.addHandler(instance);
+        
         Logger rootLogger = Logger.getLogger("");
         rootLogger.addHandler(instance);
+        
+        plugin.getLogger().info("Console listener registered");
     }
 
     /**
      * Unregisters the console listener
      */
-    public static void unregister() {
+    public static void unregister(MCDashBungee plugin) {
         if (instance == null) {
             return;
         }
 
+        Logger bungeeLogger = plugin.getProxy().getLogger();
+        bungeeLogger.removeHandler(instance);
+        
         Logger rootLogger = Logger.getLogger("");
         rootLogger.removeHandler(instance);
 
@@ -52,6 +61,10 @@ public class ConsoleListener extends Handler {
     @Override
     public void publish(LogRecord record) {
         if (plugin.getLoader() == null) {
+            return;
+        }
+
+        if (record.getLevel().intValue() < Level.INFO.intValue()) {
             return;
         }
 

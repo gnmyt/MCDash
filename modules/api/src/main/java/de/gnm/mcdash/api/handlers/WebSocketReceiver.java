@@ -71,9 +71,8 @@ public class WebSocketReceiver extends AbstractReceiveListener {
      * @throws IOException If an error occurs while reading the log file
      */
     private void initializeConsoleHistory(WebSocketChannel channel) throws IOException {
-        File logFile = new File("logs/latest.log");
+        File logFile = loader.getLogFile();
         if (!logFile.exists()) {
-            sendErrorMessage(channel, "Log file not found");
             return;
         }
 
@@ -196,7 +195,10 @@ public class WebSocketReceiver extends AbstractReceiveListener {
      * @throws IOException If an error occurs while sending the message
      */
     private void sendErrorMessage(WebSocketChannel channel, String message) throws IOException {
-        WebSockets.sendText(message, channel, null);
+        String jsonMessage = createEventMessage("ERROR", message);
+        if (jsonMessage != null) {
+            WebSockets.sendText(jsonMessage, channel, null);
+        }
     }
 
     /**

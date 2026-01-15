@@ -41,6 +41,7 @@ public class MCDashLoader {
     private final WidgetRegistry widgetRegistry = new WidgetRegistry();
     private String databaseFile = "mcdash.db";
     private File serverRoot = new File(System.getProperty("user.dir"));
+    private File logFile = new File("logs/latest.log");
     private Undertow httpServer;
     private ScheduleExecutor scheduleExecutor;
 
@@ -252,5 +253,23 @@ public class MCDashLoader {
         }
 
         this.serverRoot = serverRoot;
+    }
+
+    /**
+     * Gets the log file path
+     *
+     * @return the log file
+     */
+    public File getLogFile() {
+        return logFile;
+    }
+
+    /**
+     * Sets the log file path for console output
+     *
+     * @param logFile the log file
+     */
+    public void setLogFile(File logFile) {
+        this.logFile = logFile;
     }
 }

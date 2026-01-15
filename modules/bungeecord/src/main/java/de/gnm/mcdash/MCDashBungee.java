@@ -72,7 +72,7 @@ public class MCDashBungee extends Plugin {
 
     @Override
     public void onDisable() {
-        ConsoleListener.unregister();
+        ConsoleListener.unregister(this);
 
         if (widgetProvider != null) {
             widgetProvider.shutdown();
@@ -94,6 +94,8 @@ public class MCDashBungee extends Plugin {
         loader.setServerRoot(serverRoot);
         loader.setDatabaseFile(new File(getDataFolder(), "mcdash.db").getAbsolutePath());
 
+        loader.setLogFile(new File(serverRoot, "proxy.log.0"));
+
         if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();
         }
@@ -108,7 +110,7 @@ public class MCDashBungee extends Plugin {
         getProxy().getPluginManager().registerListener(this, new LoginListener());
         
         loader.registerPipe(ServerInfoPipe.class, new ServerInfoPipeImpl());
-        loader.registerPipe(QuickActionPipe.class, new QuickActionPipeImpl());
+        loader.registerPipe(QuickActionPipe.class, new QuickActionPipeImpl(this));
         loader.registerPipe(OnlinePlayerPipe.class, new OnlinePlayerPipeImpl());
         loader.registerPipe(ResourcePipe.class, new ResourcePipeImpl());
 

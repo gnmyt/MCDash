@@ -1,15 +1,24 @@
 package de.gnm.mcdash.pipes;
 
+import de.gnm.mcdash.MCDashBungee;
 import de.gnm.mcdash.api.pipes.QuickActionPipe;
+import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.plugin.PluginManager;
+
+import java.util.concurrent.TimeUnit;
 
 public class QuickActionPipeImpl implements QuickActionPipe {
 
+    private final MCDashBungee plugin;
+
+    public QuickActionPipeImpl(MCDashBungee plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public void reloadServer() {
-        ProxyServer.getInstance().getPluginManager().dispatchCommand(
-                ProxyServer.getInstance().getConsole(), "greload"
-        );
+        executeCommand("greload");
     }
 
     @Override
@@ -19,9 +28,21 @@ public class QuickActionPipeImpl implements QuickActionPipe {
 
     @Override
     public void sendCommand(String command) {
-        String cleanCommand = command.startsWith("/") ? command.substring(1) : command;
-        ProxyServer.getInstance().getPluginManager().dispatchCommand(
-                ProxyServer.getInstance().getConsole(), cleanCommand
-        );
+        executeCommand(command);
+    }
+
+    private void executeCommand(String command) {
+        String cleanCommand = command.trim();
+        if (cleanCommand.startsWith("/")) {
+            cleanCommand = cleanCommand.substring(1);
+        }
+
+        final String finalCommand = cleanCommand;
+
+        plugin.getProxy().getScheduler().schedule(plugin, () -> {
+            PluginManager pm = plugin.getProxy().getPluginManager();
+            CommandSender console = plugin.getProxy().getConsole();
+            pm.dispatchCommand(console, finalCommand);
+        }, 0, TimeUnit.MILLISECONDS);
     }
 }
