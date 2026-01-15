@@ -21,12 +21,15 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import static de.gnm.mcdash.api.http.HTTPMethod.*;
 
@@ -214,11 +217,25 @@ public class ResourceRouter extends BaseRoute {
     @SuppressWarnings("unchecked")
     private Map<String, Object> readConfigFile(File file) {
         String name = file.getName().toLowerCase();
-        try (FileReader reader = new FileReader(file, StandardCharsets.UTF_8)) {
+        try {
             if (name.endsWith(".json")) {
-                return JSON_MAPPER.readValue(reader, Map.class);
+                try (FileReader reader = new FileReader(file, StandardCharsets.UTF_8)) {
+                    return JSON_MAPPER.readValue(reader, Map.class);
+                }
+            } else if (name.endsWith(".properties")) {
+                Properties props = new Properties();
+                try (FileInputStream fis = new FileInputStream(file)) {
+                    props.load(fis);
+                }
+                Map<String, Object> result = new HashMap<>();
+                for (String key : props.stringPropertyNames()) {
+                    result.put(key, props.getProperty(key));
+                }
+                return result;
             } else {
-                return new Yaml().load(reader);
+                try (FileReader reader = new FileReader(file, StandardCharsets.UTF_8)) {
+                    return new Yaml().load(reader);
+                }
             }
         } catch (Exception e) {
             return null;
@@ -231,6 +248,16 @@ public class ResourceRouter extends BaseRoute {
             if (name.endsWith(".json")) {
                 try (FileWriter writer = new FileWriter(file, StandardCharsets.UTF_8)) {
                     JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValue(writer, content);
+                }
+            } else if (name.endsWith(".properties")) {
+                Properties props = new Properties();
+                for (Map.Entry<String, Object> entry : content.entrySet()) {
+                    if (entry.getValue() != null) {
+                        props.setProperty(entry.getKey(), String.valueOf(entry.getValue()));
+                    }
+                }
+                try (FileOutputStream fos = new FileOutputStream(file)) {
+                    props.store(fos, null);
                 }
             } else {
                 DumperOptions options = new DumperOptions();
