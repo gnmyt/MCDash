@@ -11,6 +11,7 @@ import {ServerInfoProvider} from "@/contexts/ServerInfoContext.tsx";
 import {Toaster} from "@/components/ui/toaster.tsx";
 import {SocketProvider} from "@/contexts/SocketContext.tsx";
 import { ResourceList, ResourceStore, ResourceDetail } from "@/states/Root/pages/Resources";
+import NotFound from "@/states/Root/pages/NotFound/NotFound.tsx";
 
 export const SUPPORT_URL = "https://ko-fi.com/gnmyt";
 
@@ -24,9 +25,11 @@ const App = () => {
         { path: "/resources/:type", element: <ResourceList /> },
     ];
 
+    const notFoundRoute = { path: "*", element: <NotFound /> };
+
     const router = createBrowserRouter([
         {path: "/login", element: <Login />},
-        {path: "/", element: <Root />, children: [...baseRoutes, ...resourceRoutes]}
+        {path: "/", element: <Root />, children: [...baseRoutes, ...resourceRoutes, notFoundRoute]}
     ]);
 
     i18n.on("initialized", () => setTranslationsLoaded(true));
