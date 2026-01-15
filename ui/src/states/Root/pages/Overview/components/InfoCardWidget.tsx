@@ -68,7 +68,7 @@ const InfoCardWidget = ({ widget }: InfoCardWidgetProps) => {
                             className="text-xs font-medium truncate ml-2" 
                             style={{ color: widget.color }}
                         >
-                            {typeof value === 'number' ? value.toLocaleString() : String(value)}
+                            {String(value)}
                         </span>
                     </div>
                 );
