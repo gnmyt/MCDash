@@ -27,6 +27,7 @@ import de.gnm.mcdash.util.BukkitUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import de.gnm.mcdash.widgets.SpigotWidgetProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -38,6 +39,7 @@ public class MCDashSpigot extends JavaPlugin {
     private static MCDashSpigot instance;
     private MCDashLoader loader;
     private BackupHelper backupHelper;
+    private SpigotWidgetProvider widgetProvider;
 
     @Override
     public void onEnable() {
@@ -50,6 +52,7 @@ public class MCDashSpigot extends JavaPlugin {
             registerPipes();
             registerFeatures();
             registerActions();
+            registerWidgets();
             
             loader.startup();
 
@@ -68,6 +71,10 @@ public class MCDashSpigot extends JavaPlugin {
     @Override
     public void onDisable() {
         ConsoleListener.unregister();
+        
+        if (widgetProvider != null) {
+            widgetProvider.shutdown();
+        }
         
         if (loader != null) {
             loader.shutdown();
@@ -200,6 +207,14 @@ public class MCDashSpigot extends JavaPlugin {
                 Feature.Worlds,
                 Feature.Resources
         );
+    }
+
+    /**
+     * Registers all dashboard widgets for Spigot servers
+     */
+    private void registerWidgets() {
+        widgetProvider = new SpigotWidgetProvider(this);
+        widgetProvider.register();
     }
 
     /**
