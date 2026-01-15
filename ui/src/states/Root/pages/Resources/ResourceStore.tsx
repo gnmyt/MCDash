@@ -148,7 +148,7 @@ export const ResourceStore = () => {
         setSelectedVersion("");
 
         try {
-            const {versions} = await getProjectVersions(project.id, selectedProvider);
+            const {versions} = await getProjectVersions(project.id, selectedProvider, type);
             setProjectVersions(versions);
             if (versions.length > 0) {
                 setSelectedVersion(versions[0].id);

@@ -69,11 +69,13 @@ public class ModrinthProvider implements StoreProvider {
                 facetGroups.add("[\"versions:" + gameVersion + "\"]");
             }
             
-            if (loader != null && !loader.isEmpty()) {
+            if (loader != null && !loader.isEmpty() && resourceType != ResourceType.DATAPACK) {
                 facetGroups.add("[\"categories:" + loader + "\"]");
             }
 
-            facetGroups.add("[\"server_side:required\",\"server_side:optional\"]");
+            if (resourceType != ResourceType.DATAPACK) {
+                facetGroups.add("[\"server_side:required\",\"server_side:optional\"]");
+            }
 
             if (!facetGroups.isEmpty()) {
                 String facetsJson = "[" + String.join(",", facetGroups) + "]";

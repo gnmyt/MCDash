@@ -40,12 +40,16 @@ export const searchStore = async (
 
 export const getProjectVersions = async (
     projectId: string,
-    provider: string = "modrinth"
+    provider: string = "modrinth",
+    resourceType?: string
 ): Promise<{ versions: StoreVersion[]; gameVersion: string | null; loader: string | null }> => {
     const params = new URLSearchParams({
         projectId,
         provider
     });
+    if (resourceType) {
+        params.append("type", resourceType);
+    }
 
     const response = await jsonRequest(`store/versions?${params.toString()}`);
     return {
