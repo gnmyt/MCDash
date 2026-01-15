@@ -69,6 +69,10 @@
       "uptime_label": "Server Uptime",
       "worlds": "Worlds",
       "system_info": "System Info",
+      "backend_servers": "Backend Servers",
+      "whitelisted_players": "Whitelisted Players",
+      "banned_players": "Banned Players",
+      "network_stats": "Network Stats",
       "used": "used",
       "allocated": "Allocated",
       "info": {
@@ -80,7 +84,13 @@
         "loaded_chunks": "Loaded Chunks",
         "java_version": "Java Version",
         "os": "Operating System",
-        "processors": "Processors"
+        "processors": "Processors",
+        "servers": "Servers",
+        "total_players": "Total Players",
+        "online_servers": "Active Servers",
+        "whitelisted": "Whitelisted",
+        "banned": "Banned",
+        "whitelist_status": "Whitelist"
       }
     }
   },

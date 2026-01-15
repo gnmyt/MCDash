@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import GridLayout from "react-grid-layout";
 import { jsonRequest } from "@/lib/RequestUtil";
 import { Widget, SavedLayout } from "@/types/widget";
@@ -96,21 +96,49 @@ const Overview = () => {
         };
     }, []);
 
+    const widgetIds = useMemo(() => widgets.map(w => w.id).sort().join(','), [widgets]);
+    const layoutInitialized = useRef(false);
+    const prevWidgetIds = useRef<string>('');
+
     useEffect(() => {
         if (widgets.length === 0) return;
-
-        const savedLayouts = loadSavedLayout(widgets);
-        const savedIds = new Set(savedLayouts.map(l => l.i));
         
-        const newLayouts: LayoutItem[] = [...savedLayouts];
-        widgets.forEach((widget, index) => {
-            if (!savedIds.has(widget.id)) {
-                newLayouts.push(generateDefaultLayout(widget, index, newLayouts));
-            }
-        });
+        const currentWidgetIds = widgets.map(w => w.id).sort().join(',');
+        if (prevWidgetIds.current === currentWidgetIds && layoutInitialized.current) {
+            return;
+        }
+        prevWidgetIds.current = currentWidgetIds;
 
-        setLayout(newLayouts);
-    }, [widgets, loadSavedLayout, generateDefaultLayout]);
+        setLayout(currentLayout => {
+            if (layoutInitialized.current && currentLayout.length > 0) {
+                const currentIds = new Set(currentLayout.map(l => l.i));
+                const newWidgets = widgets.filter(w => !currentIds.has(w.id));
+                
+                if (newWidgets.length === 0) {
+                    return currentLayout;
+                }
+                
+                const newLayouts = [...currentLayout];
+                newWidgets.forEach((widget) => {
+                    newLayouts.push(generateDefaultLayout(widget, widgets.indexOf(widget), newLayouts));
+                });
+                return newLayouts;
+            }
+
+            const savedLayouts = loadSavedLayout(widgets);
+            const savedIds = new Set(savedLayouts.map(l => l.i));
+            
+            const newLayouts: LayoutItem[] = [...savedLayouts];
+            widgets.forEach((widget, index) => {
+                if (!savedIds.has(widget.id)) {
+                    newLayouts.push(generateDefaultLayout(widget, index, newLayouts));
+                }
+            });
+
+            layoutInitialized.current = true;
+            return newLayouts;
+        });
+    }, [widgets, widgetIds, loadSavedLayout, generateDefaultLayout]);
 
     useEffect(() => {
         const loadData = async () => {
@@ -147,12 +175,16 @@ const Overview = () => {
 
     const resetLayout = useCallback(() => {
         localStorage.removeItem(LAYOUT_STORAGE_KEY);
+        layoutInitialized.current = false;
+        prevWidgetIds.current = '';
         const defaultLayouts: LayoutItem[] = [];
         widgets.forEach((widget, index) => {
             defaultLayouts.push(generateDefaultLayout(widget, index, defaultLayouts));
         });
         setLayout(defaultLayouts);
         saveLayout(defaultLayouts);
+        layoutInitialized.current = true;
+        prevWidgetIds.current = widgets.map(w => w.id).sort().join(',');
     }, [widgets, generateDefaultLayout, saveLayout]);
 
     const gridWidth = containerSize.width || 800;
