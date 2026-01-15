@@ -141,8 +141,19 @@ public class StoreRouter extends BaseRoute {
             return new JSONResponse().error("Missing projectId");
         }
 
+        ResourceType resourceType = null;
+        if (request.has("type")) {
+            resourceType = ResourceType.fromIdentifier(request.get("type"));
+        }
+
         String gameVersion = getGameVersion();
-        String loader = getLoader(provider);
+        String loader;
+        
+        if (resourceType == ResourceType.DATAPACK) {
+            loader = "datapack";
+        } else {
+            loader = getLoader(provider);
+        }
 
         if (request.has("gameVersion")) {
             gameVersion = request.get("gameVersion");
