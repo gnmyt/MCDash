@@ -9,6 +9,8 @@ import de.gnm.mcdash.util.BukkitUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.InvalidDescriptionException;
+import org.bukkit.plugin.InvalidPluginException;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.yaml.snakeyaml.Yaml;
 
@@ -268,6 +270,60 @@ public class ResourcePipeImpl implements ResourcePipe {
         File world = Bukkit.getWorlds().isEmpty() ? new File(Bukkit.getWorldContainer(), "world") :
                 Bukkit.getWorlds().get(0).getWorldFolder();
         return new File(world, "datapacks");
+    }
+
+    @Override
+    public File getResourceFolder(ResourceType type) {
+        if (type == ResourceType.PLUGIN) {
+            File folder = getPluginsFolder();
+            if (!folder.exists()) folder.mkdirs();
+            return folder;
+        } else if (type == ResourceType.DATAPACK) {
+            File folder = getDatapacksFolder();
+            if (!folder.exists()) folder.mkdirs();
+            return folder;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean loadAndEnableResource(File file, ResourceType type) {
+        if (type == ResourceType.PLUGIN) {
+            return loadAndEnablePlugin(file);
+        } else if (type == ResourceType.DATAPACK) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean loadAndEnablePlugin(File pluginFile) {
+        try {
+            Plugin[] loaded = new Plugin[1];
+            Exception[] error = new Exception[1];
+            
+            BukkitUtil.runOnMainThread(() -> {
+                try {
+                    loaded[0] = Bukkit.getPluginManager().loadPlugin(pluginFile);
+                    if (loaded[0] != null) {
+                        Bukkit.getPluginManager().enablePlugin(loaded[0]);
+                    }
+                } catch (InvalidPluginException | InvalidDescriptionException e) {
+                    error[0] = e;
+                    MCDashSpigot.getInstance().getLogger().log(Level.WARNING, 
+                        "Failed to load plugin: " + pluginFile.getName(), e);
+                }
+            });
+            
+            if (error[0] != null) {
+                return false;
+            }
+            
+            return loaded[0] != null && loaded[0].isEnabled();
+        } catch (Exception e) {
+            MCDashSpigot.getInstance().getLogger().log(Level.WARNING, 
+                "Failed to load and enable plugin: " + pluginFile.getName(), e);
+            return false;
+        }
     }
 
     private Map<String, Object> readJson(File file) {
