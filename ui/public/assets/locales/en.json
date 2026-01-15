@@ -51,6 +51,39 @@
       "users": "Users"
     }
   },
+  "overview": {
+    "title": "Overview",
+    "subtitle": "{{count}} widgets active",
+    "loading": "Loading dashboard...",
+    "reset_layout": "Reset Layout",
+    "widgets": {
+      "memory_usage": "Memory Usage",
+      "cpu_usage": "CPU Usage",
+      "player_count": "Player Count",
+      "tps": "Server TPS",
+      "server_info": "Server Info",
+      "online_players": "Online Players",
+      "memory_stat": "Memory",
+      "tps_stat": "Current TPS",
+      "uptime": "Uptime",
+      "uptime_label": "Server Uptime",
+      "worlds": "Worlds",
+      "system_info": "System Info",
+      "used": "used",
+      "allocated": "Allocated",
+      "info": {
+        "software": "Software",
+        "version": "Version",
+        "port": "Port",
+        "count": "Count",
+        "entities": "Entities",
+        "loaded_chunks": "Loaded Chunks",
+        "java_version": "Java Version",
+        "os": "Operating System",
+        "processors": "Processors"
+      }
+    }
+  },
   "resources": {
     "subtitle": "{{count}} resources installed",
     "store": "Store",
