@@ -13,9 +13,10 @@ import {
     BracketsCurlyIcon,
     ProhibitIcon,
     GearIcon,
-    FileIcon,
     SpinnerIcon,
-    ArrowSquareOutIcon,
+    FolderOpenIcon,
+    CaretUpDownIcon,
+    CheckIcon,
 } from "@phosphor-icons/react";
 import {jsonRequest, postRequest} from "@/lib/RequestUtil";
 import {ConfigFile, ConfigValue} from "@/types/resource";
@@ -26,6 +27,12 @@ import {ScrollArea} from "@/components/ui/scroll-area";
 import {Skeleton} from "@/components/ui/skeleton";
 import {Badge} from "@/components/ui/badge";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {toast} from "@/hooks/use-toast";
 import {cn} from "@/lib/utils";
 
@@ -34,13 +41,6 @@ interface ConfigEditorProps {
     resourceFileName: string;
     resourceName: string;
 }
-
-const formatFileName = (name: string): string => {
-    return name
-        .replace(/\.(yml|yaml|json)$/i, "")
-        .replace(/[-_]/g, " ")
-        .replace(/\b\w/g, (c) => c.toUpperCase());
-};
 
 const formatKeyName = (key: string): string => {
     if (/^\[\d+\]$/.test(key)) return key;
@@ -51,12 +51,6 @@ const formatKeyName = (key: string): string => {
         .replace(/\b\w/g, (c) => c.toUpperCase())
         .replace(/\s+/g, " ")
         .trim();
-};
-
-const getFileColor = (name: string): string => {
-    if (name.endsWith(".json")) return "text-yellow-500";
-    if (name.endsWith(".yml") || name.endsWith(".yaml")) return "text-blue-500";
-    return "text-muted-foreground";
 };
 
 export const ConfigEditor = ({resourceType, resourceFileName, resourceName}: ConfigEditorProps) => {
@@ -152,6 +146,12 @@ export const ConfigEditor = ({resourceType, resourceFileName, resourceName}: Con
         setConfigContent(newContent);
     };
 
+    const openInFileManager = () => {
+        if (!selectedFile) return;
+        const basePath = resourceType === "plugin" ? "plugins" : "datapacks";
+        navigate(`/files/${basePath}/${resourceName}/${selectedFile.path}`);
+    };
+
     if (loadingFiles) {
         return (
             <div className="rounded-xl border bg-card">
@@ -183,143 +183,116 @@ export const ConfigEditor = ({resourceType, resourceFileName, resourceName}: Con
     return (
         <div className="rounded-xl border bg-card flex flex-col flex-1 min-h-[400px] overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
-                <div className="flex items-center gap-2">
-                    <GearIcon className="h-4 w-4 text-muted-foreground"/>
-                    <h3 className="font-medium text-sm">{t("resources.config.title")}</h3>
+                <div className="flex items-center gap-3">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="h-8 gap-2">
+                                <GearIcon className="h-4 w-4"/>
+                                <span className="font-mono text-xs">{selectedFile?.name}</span>
+                                <CaretUpDownIcon className="h-3.5 w-3.5 text-muted-foreground"/>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start" className="w-64">
+                            {configFiles.map((file) => (
+                                <DropdownMenuItem
+                                    key={file.path}
+                                    onClick={() => setSelectedFile(file)}
+                                    className="gap-2 font-mono text-xs"
+                                >
+                                    <CheckIcon className={cn(
+                                        "h-4 w-4",
+                                        selectedFile?.path === file.path ? "opacity-100" : "opacity-0"
+                                    )}/>
+                                    {file.path}
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
                     {hasChanges && (
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge variant="outline" className="text-xs text-muted-foreground">
                             {t("resources.config.unsaved")}
                         </Badge>
                     )}
                 </div>
-                <Button
-                    size="sm"
-                    onClick={handleSave}
-                    disabled={saving || !hasChanges}
-                    className={cn(!hasChanges && "opacity-50")}
-                >
-                    {saving ? (
-                        <SpinnerIcon className="h-4 w-4 mr-1.5 animate-spin"/>
-                    ) : (
-                        <FloppyDiskIcon className="h-4 w-4 mr-1.5"/>
-                    )}
-                    {t("action.save")}
-                </Button>
+
+                <div className="flex items-center gap-2">
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-8 w-8 p-0"
+                                onClick={openInFileManager}
+                            >
+                                <FolderOpenIcon className="h-4 w-4"/>
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p className="text-xs">{t("resources.config.open_in_files")}</p>
+                        </TooltipContent>
+                    </Tooltip>
+
+                    <Button
+                        variant={hasChanges ? "default" : "secondary"}
+                        size="sm"
+                        className="h-8"
+                        onClick={handleSave}
+                        disabled={saving || !hasChanges}
+                    >
+                        {saving ? (
+                            <SpinnerIcon className="h-4 w-4 mr-1.5 animate-spin"/>
+                        ) : (
+                            <FloppyDiskIcon className="h-4 w-4 mr-1.5"/>
+                        )}
+                        {t("action.save")}
+                    </Button>
+                </div>
             </div>
 
-            <div className="flex flex-1 min-h-0">
-                <div className="w-56 border-r shrink-0 flex flex-col">
-                    <div className="p-2 border-b">
-                        <p className="text-xs font-medium text-muted-foreground px-2">
-                            {t("resources.config.files")} ({configFiles.length})
-                        </p>
-                    </div>
-                    <ScrollArea className="flex-1">
-                        <div className="p-2 space-y-1">
-                            {configFiles.map((file) => (
-                                <Tooltip key={file.path}>
-                                    <TooltipTrigger asChild>
-                                        <button
-                                            onClick={() => setSelectedFile(file)}
-                                            className={cn(
-                                                "w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all",
-                                                selectedFile?.path === file.path
-                                                    ? "bg-primary text-primary-foreground shadow-sm"
-                                                    : "hover:bg-muted text-foreground"
-                                            )}
-                                        >
-                                            <FileIcon
-                                                className={cn(
-                                                    "h-4 w-4 shrink-0",
-                                                    selectedFile?.path === file.path
-                                                        ? "text-primary-foreground"
-                                                        : getFileColor(file.name)
-                                                )}
-                                            />
-                                            <span className="truncate font-medium">
-                                                {formatFileName(file.name)}
-                                            </span>
-                                        </button>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right">
-                                        <p className="font-mono text-xs">{file.path}</p>
-                                    </TooltipContent>
-                                </Tooltip>
+            <ScrollArea className="flex-1">
+                <div className="p-4">
+                    {loadingContent ? (
+                        <div className="space-y-4">
+                            {[...Array(6)].map((_, i) => (
+                                <div key={i} className="flex items-center gap-3">
+                                    <Skeleton className="h-4 w-4 rounded"/>
+                                    <Skeleton className="h-4 w-28"/>
+                                    <Skeleton className="h-9 flex-1"/>
+                                </div>
                             ))}
                         </div>
-                    </ScrollArea>
-                </div>
-
-                <div className="flex-1 min-w-0 flex flex-col">
-                    {selectedFile && (
-                        <div className="flex items-center justify-between px-4 py-2 border-b bg-muted/30 shrink-0">
-                            <p className="text-xs text-muted-foreground font-mono truncate">
-                                {selectedFile.path}
+                    ) : configContent && Object.keys(configContent).length > 0 ? (
+                        <div className="space-y-1">
+                            {Object.entries(configContent).map(([key, val]) => (
+                                <ConfigValueEditor
+                                    key={key}
+                                    value={val}
+                                    path={[key]}
+                                    onChange={updateValue}
+                                    keyName={key}
+                                    isRoot
+                                />
+                            ))}
+                        </div>
+                    ) : configContent ? (
+                        <div className="flex flex-col items-center justify-center py-12 text-center">
+                            <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
+                                <FileTextIcon className="h-5 w-5 text-muted-foreground"/>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                                {t("resources.config.empty_file")}
                             </p>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <button
-                                        onClick={() => {
-                                            const basePath = resourceType === "plugin" ? "plugins" : "datapacks";
-                                            navigate(`/files/${basePath}/${resourceName}/${selectedFile.path}`);
-                                        }}
-                                        className="p-1 rounded hover:bg-muted transition-colors"
-                                    >
-                                        <ArrowSquareOutIcon className="h-4 w-4 text-muted-foreground"/>
-                                    </button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p className="text-xs">{t("resources.config.open_in_files")}</p>
-                                </TooltipContent>
-                            </Tooltip>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center py-12 text-center">
+                            <p className="text-sm text-muted-foreground">
+                                {t("resources.config.select_file")}
+                            </p>
                         </div>
                     )}
-                    <ScrollArea className="flex-1">
-                        <div className="p-4">
-                            {loadingContent ? (
-                                <div className="space-y-4">
-                                    {[...Array(6)].map((_, i) => (
-                                        <div key={i} className="flex items-center gap-3">
-                                            <Skeleton className="h-4 w-4 rounded"/>
-                                            <Skeleton className="h-4 w-28"/>
-                                            <Skeleton className="h-9 flex-1"/>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : configContent && Object.keys(configContent).length > 0 ? (
-                                <div className="space-y-1">
-                                    {Object.entries(configContent).map(([key, val]) => (
-                                        <ConfigValueEditor
-                                            key={key}
-                                            value={val}
-                                            path={[key]}
-                                            onChange={updateValue}
-                                            keyName={key}
-                                            isRoot
-                                        />
-                                    ))}
-                                </div>
-                            ) : configContent ? (
-                                <div className="flex flex-col items-center justify-center py-12 text-center">
-                                    <div
-                                        className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
-                                        <FileTextIcon className="h-5 w-5 text-muted-foreground"/>
-                                    </div>
-                                    <p className="text-sm text-muted-foreground">
-                                        {t("resources.config.empty_file")}
-                                    </p>
-                                </div>
-                            ) : (
-                                <div className="flex flex-col items-center justify-center py-12 text-center">
-                                    <p className="text-sm text-muted-foreground">
-                                        {t("resources.config.select_file")}
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-                    </ScrollArea>
                 </div>
-            </div>
+            </ScrollArea>
         </div>
     );
 };
