@@ -1,26 +1,18 @@
 package de.gnm.mcdash.api.store;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gnm.mcdash.api.entities.ResourceType;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModrinthProvider implements StoreProvider {
+
+public class ModrinthProvider extends AbstractStoreProvider {
     
     private static final String API_BASE = "https://api.modrinth.com/v2";
-    private static final String USER_AGENT = "MCDash/1.0 (https://github.com/gnmyt/MCDash)";
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    private File tempDownloadDir = new File(System.getProperty("java.io.tmpdir"), "mcdash-downloads");
 
     /**
      * Modrinth store provider implementation.
@@ -28,9 +20,7 @@ public class ModrinthProvider implements StoreProvider {
      * @see <a href="https://docs.modrinth.com/api/">Modrinth API Documentation</a>
      */
     public ModrinthProvider() {
-        if (!tempDownloadDir.exists()) {
-            tempDownloadDir.mkdirs();
-        }
+        super();
     }
     
     @Override
@@ -334,61 +324,5 @@ public class ModrinthProvider implements StoreProvider {
             getTextOrNull(node, "date_published"),
             files.toArray(new StoreFile[0])
         );
-    }
-    
-    private JsonNode makeRequest(String urlString) throws Exception {
-        URL url = new URL(urlString);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("User-Agent", USER_AGENT);
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setConnectTimeout(10000);
-        conn.setReadTimeout(10000);
-        
-        int responseCode = conn.getResponseCode();
-        if (responseCode != 200) {
-            return null;
-        }
-        
-        try (InputStream is = conn.getInputStream()) {
-            return MAPPER.readTree(is);
-        }
-    }
-    
-    private void downloadFile(String urlString, File destination) throws Exception {
-        URL url = new URL(urlString);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestProperty("User-Agent", USER_AGENT);
-        conn.setConnectTimeout(30000);
-        conn.setReadTimeout(60000);
-        
-        try (InputStream is = conn.getInputStream();
-             FileOutputStream fos = new FileOutputStream(destination)) {
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            while ((bytesRead = is.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
-            }
-        }
-    }
-    
-    private String getTextOrNull(JsonNode node, String field) {
-        if (node == null || !node.has(field) || node.get(field).isNull()) {
-            return null;
-        }
-        return node.get(field).asText();
-    }
-    
-    private String[] parseStringArray(JsonNode node) {
-        if (node == null || !node.isArray()) {
-            return new String[0];
-        }
-        List<String> result = new ArrayList<>();
-        for (JsonNode item : node) {
-            if (!item.isNull()) {
-                result.add(item.asText());
-            }
-        }
-        return result.toArray(new String[0]);
     }
 }

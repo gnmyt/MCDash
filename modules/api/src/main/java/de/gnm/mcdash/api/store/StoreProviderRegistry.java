@@ -16,6 +16,7 @@ public class StoreProviderRegistry {
     
     private StoreProviderRegistry() {
         registerProvider(new ModrinthProvider());
+        registerProvider(new SpigotProvider());
     }
     
     public static StoreProviderRegistry getInstance() {

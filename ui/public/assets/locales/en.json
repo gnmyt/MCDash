@@ -52,7 +52,6 @@
   "resources": {
     "subtitle": "{{count}} resources installed",
     "store": "Store",
-    "wip": "WIP",
     "store_coming_soon": "Store Coming Soon",
     "store_coming_soon_description": "The resource store will allow you to browse and install resources directly from the dashboard. This feature is currently under development.",
     "types": {

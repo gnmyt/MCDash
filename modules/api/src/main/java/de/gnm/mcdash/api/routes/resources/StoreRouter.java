@@ -30,14 +30,30 @@ public class StoreRouter extends BaseRoute {
     @Path("/store/providers")
     @Method(GET)
     public JSONResponse getProviders(JSONRequest request) {
+        String typeId = request.has("type") ? request.get("type") : null;
+        ResourceType filterType = typeId != null ? ResourceType.fromIdentifier(typeId) : null;
+        
         List<StoreProvider> providers = StoreProviderRegistry.getInstance().getAllProviders();
         ArrayNode array = getMapper().createArrayNode();
 
         for (StoreProvider provider : providers) {
+            if (filterType != null && !provider.supportsResourceType(filterType)) {
+                continue;
+            }
+            
             ObjectNode node = getMapper().createObjectNode();
             node.put("id", provider.getId());
             node.put("name", provider.getDisplayName());
             node.put("logoPath", provider.getLogoPath());
+            
+            ArrayNode supportedTypes = getMapper().createArrayNode();
+            for (ResourceType type : ResourceType.values()) {
+                if (provider.supportsResourceType(type)) {
+                    supportedTypes.add(type.getIdentifier());
+                }
+            }
+            node.set("supportedTypes", supportedTypes);
+            
             array.add(node);
         }
 
