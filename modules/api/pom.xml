@@ -54,6 +54,14 @@
             <version>2.18.2</version>
         </dependency>
 
+        <!-- SnakeYAML (provided by Spigot) -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- HTTP Client API -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>

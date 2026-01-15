@@ -1,11 +1,14 @@
 package de.gnm.mcdash.api.routes.resources;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
 import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
+import de.gnm.mcdash.api.entities.ConfigFile;
 import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.entities.Resource;
@@ -14,61 +17,36 @@ import de.gnm.mcdash.api.http.JSONRequest;
 import de.gnm.mcdash.api.http.JSONResponse;
 import de.gnm.mcdash.api.pipes.resources.ResourcePipe;
 import de.gnm.mcdash.api.routes.BaseRoute;
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.Yaml;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static de.gnm.mcdash.api.http.HTTPMethod.*;
 
 public class ResourceRouter extends BaseRoute {
 
-    @AuthenticatedRoute
-    @RequiresFeatures(Feature.Resources)
-    @Path("/resources/types")
-    @Method(GET)
-    public JSONResponse getSupportedTypes() {
-        ResourcePipe pipe = getPipe(ResourcePipe.class);
-        List<ResourceType> types = pipe.getSupportedResourceTypes();
-
-        ArrayNode typesArray = getMapper().createArrayNode();
-        for (ResourceType type : types) {
-            ObjectNode typeNode = getMapper().createObjectNode();
-            typeNode.put("identifier", type.getIdentifier());
-            typeNode.put("folderName", type.getFolderName());
-            typesArray.add(typeNode);
-        }
-
-        return new JSONResponse().add("types", typesArray);
-    }
+    private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
     @AuthenticatedRoute
     @RequiresFeatures(Feature.Resources)
     @Path("/resources/list")
     @Method(GET)
     public JSONResponse getResources(JSONRequest request) {
-        String typeId = request.has("type") ? request.get("type") : null;
-        if (typeId == null || typeId.isEmpty()) {
-            return new JSONResponse().error("Resource type is required");
-        }
+        ResourceType type = getResourceType(request);
+        if (type == null) return new JSONResponse().error("Invalid or missing resource type");
 
-        ResourceType type = ResourceType.fromIdentifier(typeId);
-        if (type == null) {
-            return new JSONResponse().error("Invalid resource type: " + typeId);
-        }
+        List<Resource> resources = getPipe(ResourcePipe.class).getResources(type);
+        ArrayNode array = getMapper().createArrayNode();
+        resources.forEach(r -> array.add(resourceToJson(r)));
 
-        ResourcePipe pipe = getPipe(ResourcePipe.class);
-
-        if (!pipe.getSupportedResourceTypes().contains(type)) {
-            return new JSONResponse().error("Resource type not supported: " + typeId);
-        }
-
-        List<Resource> resources = pipe.getResources(type);
-        ArrayNode resourcesArray = getMapper().createArrayNode();
-
-        for (Resource resource : resources) {
-            resourcesArray.add(resourceToJson(resource));
-        }
-
-        return new JSONResponse().add("resources", resourcesArray);
+        return new JSONResponse().add("resources", array);
     }
 
     @AuthenticatedRoute
@@ -76,28 +54,12 @@ public class ResourceRouter extends BaseRoute {
     @Path("/resources/get")
     @Method(GET)
     public JSONResponse getResource(JSONRequest request) {
-        String typeId = request.has("type") ? request.get("type") : null;
-        String fileName = request.has("fileName") ? request.get("fileName") : null;
+        ResourceType type = getResourceType(request);
+        String fileName = getFileName(request);
+        if (type == null || fileName == null) return new JSONResponse().error("Invalid or missing type/fileName");
 
-        if (typeId == null || typeId.isEmpty()) {
-            return new JSONResponse().error("Resource type is required");
-        }
-
-        if (fileName == null || fileName.isEmpty()) {
-            return new JSONResponse().error("File name is required");
-        }
-
-        ResourceType type = ResourceType.fromIdentifier(typeId);
-        if (type == null) {
-            return new JSONResponse().error("Invalid resource type: " + typeId);
-        }
-
-        ResourcePipe pipe = getPipe(ResourcePipe.class);
-        Resource resource = pipe.getResource(fileName, type);
-
-        if (resource == null) {
-            return new JSONResponse().error("Resource not found: " + fileName);
-        }
+        Resource resource = getPipe(ResourcePipe.class).getResource(fileName, type);
+        if (resource == null) return new JSONResponse().error("Resource not found: " + fileName);
 
         return new JSONResponse().add("resource", resourceToJson(resource));
     }
@@ -107,24 +69,7 @@ public class ResourceRouter extends BaseRoute {
     @Path("/resources/enable")
     @Method(POST)
     public JSONResponse enableResource(JSONRequest request) {
-        request.checkFor("type", "fileName");
-
-        String typeId = request.get("type");
-        String fileName = request.get("fileName");
-
-        ResourceType type = ResourceType.fromIdentifier(typeId);
-        if (type == null) {
-            return new JSONResponse().error("Invalid resource type: " + typeId);
-        }
-
-        ResourcePipe pipe = getPipe(ResourcePipe.class);
-        boolean success = pipe.enableResource(fileName, type);
-
-        if (success) {
-            return new JSONResponse().message("Resource enabled successfully");
-        } else {
-            return new JSONResponse().error("Failed to enable resource");
-        }
+        return toggleResource(request, true);
     }
 
     @AuthenticatedRoute
@@ -132,24 +77,7 @@ public class ResourceRouter extends BaseRoute {
     @Path("/resources/disable")
     @Method(POST)
     public JSONResponse disableResource(JSONRequest request) {
-        request.checkFor("type", "fileName");
-
-        String typeId = request.get("type");
-        String fileName = request.get("fileName");
-
-        ResourceType type = ResourceType.fromIdentifier(typeId);
-        if (type == null) {
-            return new JSONResponse().error("Invalid resource type: " + typeId);
-        }
-
-        ResourcePipe pipe = getPipe(ResourcePipe.class);
-        boolean success = pipe.disableResource(fileName, type);
-
-        if (success) {
-            return new JSONResponse().message("Resource disabled successfully");
-        } else {
-            return new JSONResponse().error("Failed to disable resource");
-        }
+        return toggleResource(request, false);
     }
 
     @AuthenticatedRoute
@@ -158,23 +86,109 @@ public class ResourceRouter extends BaseRoute {
     @Method(DELETE)
     public JSONResponse deleteResource(JSONRequest request) {
         request.checkFor("type", "fileName");
+        ResourceType type = ResourceType.fromIdentifier(request.get("type"));
+        if (type == null) return new JSONResponse().error("Invalid resource type");
 
-        String typeId = request.get("type");
-        String fileName = request.get("fileName");
+        boolean success = getPipe(ResourcePipe.class).deleteResource(request.get("fileName"), type);
+        return success ? new JSONResponse().message("Resource deleted successfully")
+                       : new JSONResponse().error("Failed to delete resource");
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(Feature.Resources)
+    @Path("/resources/config/list")
+    @Method(GET)
+    public JSONResponse getConfigFiles(JSONRequest request) {
+        ResourceType type = getResourceType(request);
+        String fileName = getFileName(request);
+        if (type == null || fileName == null) return new JSONResponse().error("Invalid or missing type/fileName");
+
+        List<ConfigFile> files = getPipe(ResourcePipe.class).getConfigFiles(fileName, type);
+        ArrayNode array = getMapper().createArrayNode();
+        for (ConfigFile file : files) {
+            ObjectNode node = getMapper().createObjectNode();
+            node.put("name", file.getName());
+            node.put("path", file.getPath());
+            node.put("size", file.getSize());
+            array.add(node);
+        }
+
+        return new JSONResponse().add("files", array);
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(Feature.Resources)
+    @Path("/resources/config/get")
+    @Method(GET)
+    public JSONResponse getConfigContent(JSONRequest request) {
+        ConfigFile configFile = resolveConfigFile(request);
+        if (configFile == null) return new JSONResponse().error("Config file not found");
+
+        Map<String, Object> content = readConfigFile(configFile.getAbsolutePath());
+        if (content == null) return new JSONResponse().error("Failed to read config file");
+
+        return new JSONResponse().add("content", getMapper().valueToTree(content));
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(value = Feature.Resources, level = PermissionLevel.FULL)
+    @Path("/resources/config/save")
+    @Method(POST)
+    public JSONResponse saveConfigContent(JSONRequest request) {
+        request.checkFor("type", "fileName", "configPath", "content");
+
+        ConfigFile configFile = resolveConfigFile(request);
+        if (configFile == null) return new JSONResponse().error("Config file not found");
+
+        Map<String, Object> content = jsonNodeToMap(request.getJson("content"));
+        boolean success = writeConfigFile(configFile.getAbsolutePath(), content);
+
+        return success ? new JSONResponse().message("Config saved successfully")
+                       : new JSONResponse().error("Failed to save config");
+    }
+
+    private ResourceType getResourceType(JSONRequest request) {
+        String typeId = request.has("type") ? request.get("type") : null;
+        if (typeId == null || typeId.isEmpty()) return null;
 
         ResourceType type = ResourceType.fromIdentifier(typeId);
-        if (type == null) {
-            return new JSONResponse().error("Invalid resource type: " + typeId);
-        }
+        if (type == null) return null;
+
+        if (!getPipe(ResourcePipe.class).getSupportedResourceTypes().contains(type)) return null;
+        return type;
+    }
+
+    private String getFileName(JSONRequest request) {
+        String fileName = request.has("fileName") ? request.get("fileName") : null;
+        return (fileName == null || fileName.isEmpty()) ? null : fileName;
+    }
+
+    private JSONResponse toggleResource(JSONRequest request, boolean enable) {
+        request.checkFor("type", "fileName");
+        ResourceType type = ResourceType.fromIdentifier(request.get("type"));
+        if (type == null) return new JSONResponse().error("Invalid resource type");
 
         ResourcePipe pipe = getPipe(ResourcePipe.class);
-        boolean success = pipe.deleteResource(fileName, type);
+        boolean success = enable ? pipe.enableResource(request.get("fileName"), type)
+                                 : pipe.disableResource(request.get("fileName"), type);
 
-        if (success) {
-            return new JSONResponse().message("Resource deleted successfully");
-        } else {
-            return new JSONResponse().error("Failed to delete resource");
+        String action = enable ? "enabled" : "disabled";
+        return success ? new JSONResponse().message("Resource " + action + " successfully")
+                       : new JSONResponse().error("Failed to " + (enable ? "enable" : "disable") + " resource");
+    }
+
+    private ConfigFile resolveConfigFile(JSONRequest request) {
+        ResourceType type = getResourceType(request);
+        String fileName = getFileName(request);
+        String configPath = request.has("configPath") ? request.get("configPath") : null;
+
+        if (type == null || fileName == null || configPath == null) return null;
+
+        List<ConfigFile> files = getPipe(ResourcePipe.class).getConfigFiles(fileName, type);
+        for (ConfigFile file : files) {
+            if (file.getPath().equals(configPath)) return file;
         }
+        return null;
     }
 
     private ObjectNode resourceToJson(Resource resource) {
@@ -195,5 +209,47 @@ public class ResourceRouter extends BaseRoute {
         node.set("authors", authorsArray);
 
         return node;
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> readConfigFile(File file) {
+        String name = file.getName().toLowerCase();
+        try (FileReader reader = new FileReader(file, StandardCharsets.UTF_8)) {
+            if (name.endsWith(".json")) {
+                return JSON_MAPPER.readValue(reader, Map.class);
+            } else {
+                return new Yaml().load(reader);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private boolean writeConfigFile(File file, Map<String, Object> content) {
+        String name = file.getName().toLowerCase();
+        try {
+            if (name.endsWith(".json")) {
+                try (FileWriter writer = new FileWriter(file, StandardCharsets.UTF_8)) {
+                    JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValue(writer, content);
+                }
+            } else {
+                DumperOptions options = new DumperOptions();
+                options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+                options.setPrettyFlow(true);
+                options.setIndent(2);
+                try (FileWriter writer = new FileWriter(file, StandardCharsets.UTF_8)) {
+                    new Yaml(options).dump(content, writer);
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> jsonNodeToMap(JsonNode node) {
+        if (node == null || node.isNull()) return new HashMap<>();
+        return getMapper().convertValue(node, Map.class);
     }
 }

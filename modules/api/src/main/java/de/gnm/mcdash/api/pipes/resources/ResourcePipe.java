@@ -1,5 +1,6 @@
 package de.gnm.mcdash.api.pipes.resources;
 
+import de.gnm.mcdash.api.entities.ConfigFile;
 import de.gnm.mcdash.api.entities.Resource;
 import de.gnm.mcdash.api.entities.ResourceType;
 import de.gnm.mcdash.api.pipes.BasePipe;
@@ -52,4 +53,12 @@ public interface ResourcePipe extends BasePipe {
      * @return true if successful
      */
     boolean deleteResource(String fileName, ResourceType type);
+
+    /**
+     * Gets the list of config files for a resource (max 10 files)
+     * @param fileName the file name of the resource
+     * @param type the type of the resource
+     * @return list of config files with absolute paths for reading/writing
+     */
+    List<ConfigFile> getConfigFiles(String fileName, ResourceType type);
 }
