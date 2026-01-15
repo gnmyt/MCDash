@@ -9,8 +9,6 @@ public class StoreProject {
     private final String author;
     private final String iconUrl;
     private final int downloads;
-    private final int followers;
-    private final String[] categories;
     private final String[] gameVersions;
     private final String projectType;
     private final String dateCreated;
@@ -18,9 +16,8 @@ public class StoreProject {
     private final String latestVersion;
     
     public StoreProject(String id, String slug, String name, String description, String author,
-                        String iconUrl, int downloads, int followers, String[] categories,
-                        String[] gameVersions, String projectType, String dateCreated,
-                        String dateModified, String latestVersion) {
+                        String iconUrl, int downloads, String[] gameVersions, String projectType, 
+                        String dateCreated, String dateModified, String latestVersion) {
         this.id = id;
         this.slug = slug;
         this.name = name;
@@ -28,8 +25,6 @@ public class StoreProject {
         this.author = author;
         this.iconUrl = iconUrl;
         this.downloads = downloads;
-        this.followers = followers;
-        this.categories = categories;
         this.gameVersions = gameVersions;
         this.projectType = projectType;
         this.dateCreated = dateCreated;
@@ -63,14 +58,6 @@ public class StoreProject {
     
     public int getDownloads() {
         return downloads;
-    }
-    
-    public int getFollowers() {
-        return followers;
-    }
-    
-    public String[] getCategories() {
-        return categories;
     }
     
     public String[] getGameVersions() {

@@ -12,8 +12,6 @@ export interface StoreProject {
     author: string;
     iconUrl: string | null;
     downloads: number;
-    followers: number;
-    categories: string[];
     gameVersions: string[];
     projectType: string;
     dateCreated: string;

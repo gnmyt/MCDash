@@ -327,17 +327,10 @@ public class StoreRouter extends BaseRoute {
         node.put("author", project.getAuthor());
         node.put("iconUrl", project.getIconUrl());
         node.put("downloads", project.getDownloads());
-        node.put("followers", project.getFollowers());
         node.put("projectType", project.getProjectType());
         node.put("dateCreated", project.getDateCreated());
         node.put("dateModified", project.getDateModified());
         node.put("latestVersion", project.getLatestVersion());
-
-        ArrayNode categoriesArray = getMapper().createArrayNode();
-        for (String category : project.getCategories()) {
-            categoriesArray.add(category);
-        }
-        node.set("categories", categoriesArray);
 
         ArrayNode versionsArray = getMapper().createArrayNode();
         for (String version : project.getGameVersions()) {

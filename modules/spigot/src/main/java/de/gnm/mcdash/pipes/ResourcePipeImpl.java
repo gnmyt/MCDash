@@ -291,9 +291,22 @@ public class ResourcePipeImpl implements ResourcePipe {
         if (type == ResourceType.PLUGIN) {
             return loadAndEnablePlugin(file);
         } else if (type == ResourceType.DATAPACK) {
-            return true;
+            return loadAndEnableDatapack(file);
         }
         return false;
+    }
+
+    private boolean loadAndEnableDatapack(File datapackFile) {
+        try {
+            String fileName = datapackFile.getName();
+            BukkitUtil.runOnMainThread(() -> 
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "datapack enable \"file/" + fileName + "\""));
+            return true;
+        } catch (Exception e) {
+            MCDashSpigot.getInstance().getLogger().log(Level.WARNING, 
+                "Failed to enable datapack: " + datapackFile.getName(), e);
+            return false;
+        }
     }
 
     private boolean loadAndEnablePlugin(File pluginFile) {

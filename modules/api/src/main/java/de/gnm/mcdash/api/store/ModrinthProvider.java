@@ -272,7 +272,6 @@ public class ModrinthProvider implements StoreProvider {
             author = getTextOrNull(node, "team");
         }
         
-        String[] categories = parseStringArray(node.get("categories"));
         String[] gameVersions = parseStringArray(node.get("versions"));
         if (gameVersions.length == 0) {
             gameVersions = parseStringArray(node.get("game_versions"));
@@ -291,8 +290,6 @@ public class ModrinthProvider implements StoreProvider {
             author,
             getTextOrNull(node, "icon_url"),
             node.has("downloads") ? node.get("downloads").asInt() : 0,
-            node.has("followers") ? node.get("followers").asInt() : 0,
-            categories,
             gameVersions,
             getTextOrNull(node, "project_type"),
             getTextOrNull(node, "date_created"),

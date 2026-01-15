@@ -8,8 +8,7 @@ import {
     CaretRightIcon,
     CheckCircleIcon,
     CircleNotchIcon,
-    ArrowLeftIcon,
-    UsersIcon
+    ArrowLeftIcon
 } from "@phosphor-icons/react";
 import {t} from "i18next";
 
@@ -268,29 +267,10 @@ export const ResourceStore = () => {
                                     <DownloadSimpleIcon className="h-3.5 w-3.5"/>
                                     {formatDownloads(project.downloads)}
                                 </div>
-                                <div className="flex items-center gap-1">
-                                    <UsersIcon className="h-3.5 w-3.5"/>
-                                    {formatDownloads(project.followers)}
-                                </div>
                                 <div>
                                     {t("store.updated")} {formatRelativeTime(project.dateModified)}
                                 </div>
                             </div>
-
-                            {project.categories.length > 0 && (
-                                <div className="flex flex-wrap gap-1 mt-2">
-                                    {project.categories.slice(0, 4).map(cat => (
-                                        <Badge key={cat} variant="outline" className="text-xs">
-                                            {cat}
-                                        </Badge>
-                                    ))}
-                                    {project.categories.length > 4 && (
-                                        <Badge variant="outline" className="text-xs">
-                                            +{project.categories.length - 4}
-                                        </Badge>
-                                    )}
-                                </div>
-                            )}
                         </div>
                     </div>
                 </CardContent>
