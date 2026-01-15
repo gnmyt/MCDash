@@ -19,8 +19,25 @@ const FileManager = () => {
     const [files, setFiles] = useState<File[]>([]);
     const [loading, setLoading] = useState(true);
     const location = useLocation();
-    const [directory, setDirectory] = useState(location.pathname.substring(6));
-    const [currentFile, setCurrentFile] = useState<string | null>(null);
+    
+    const getInitialState = () => {
+        const fullPath = location.pathname.substring(6);
+        const fileExtensions = ['.yml', '.yaml', '.json', '.txt', '.properties', '.conf', '.cfg', '.log', '.md', '.sh', '.bat'];
+        const hasFileExtension = fileExtensions.some(ext => fullPath.toLowerCase().endsWith(ext));
+        
+        if (hasFileExtension) {
+            const lastSlash = fullPath.lastIndexOf('/');
+            const dir = lastSlash > 0 ? fullPath.substring(0, lastSlash + 1) : '/';
+            const file = fullPath.substring(lastSlash + 1);
+            return { dir, file };
+        }
+        
+        return { dir: fullPath || '/', file: null };
+    };
+    
+    const initialState = getInitialState();
+    const [directory, setDirectory] = useState(initialState.dir);
+    const [currentFile, setCurrentFile] = useState<string | null>(initialState.file);
     const [fileContent, setFileContent] = useState<string | undefined>("");
     const [creatingFolder, setCreatingFolder] = useState(false);
 
