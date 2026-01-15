@@ -1,12 +1,14 @@
 package de.gnm.mcdash.pipes;
 
 import de.gnm.mcdash.MCDashSpigot;
+import de.gnm.mcdash.api.entities.ConfigFile;
 import de.gnm.mcdash.api.entities.Resource;
 import de.gnm.mcdash.api.entities.ResourceType;
 import de.gnm.mcdash.api.pipes.resources.ResourcePipe;
 import de.gnm.mcdash.util.BukkitUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.yaml.snakeyaml.Yaml;
 
@@ -87,28 +89,23 @@ public class ResourcePipeImpl implements ResourcePipe {
 
     private Resource parseDisabledPlugin(File file) {
         String baseName = file.getName().replace(".disabled", "");
-        try (JarFile jar = new JarFile(file)) {
-            var entry = jar.getJarEntry("plugin.yml");
-            if (entry == null) entry = jar.getJarEntry("paper-plugin.yml");
-            if (entry != null) {
-                Map<String, Object> data = new Yaml().load(jar.getInputStream(entry));
-                return new Resource.Builder()
-                        .name(getString(data, "name", baseName.replace(".jar", "")))
-                        .fileName(baseName)
-                        .type(ResourceType.PLUGIN)
-                        .version(getString(data, "version", null))
-                        .description(getString(data, "description", null))
-                        .authors(getAuthors(data))
-                        .enabled(false)
-                        .fileSize(file.length())
-                        .build();
-            }
-        } catch (Exception ignored) {
+        var desc = getPluginDescription(file);
+        if (desc == null) {
+            return new Resource.Builder()
+                    .name(baseName.replace(".jar", ""))
+                    .fileName(baseName)
+                    .type(ResourceType.PLUGIN)
+                    .enabled(false)
+                    .fileSize(file.length())
+                    .build();
         }
         return new Resource.Builder()
-                .name(baseName.replace(".jar", ""))
+                .name(desc.getName())
                 .fileName(baseName)
                 .type(ResourceType.PLUGIN)
+                .version(desc.getVersion())
+                .description(desc.getDescription())
+                .authors(desc.getAuthors().toArray(new String[0]))
                 .enabled(false)
                 .fileSize(file.length())
                 .build();
@@ -273,19 +270,6 @@ public class ResourcePipeImpl implements ResourcePipe {
         return new File(world, "datapacks");
     }
 
-    private String getString(Map<String, Object> map, String key, String def) {
-        Object v = map.get(key);
-        return v != null ? v.toString() : def;
-    }
-
-    @SuppressWarnings("unchecked")
-    private String[] getAuthors(Map<String, Object> data) {
-        Object authors = data.get("authors");
-        if (authors instanceof List) return ((List<String>) authors).toArray(new String[0]);
-        Object author = data.get("author");
-        return author != null ? new String[]{author.toString()} : new String[0];
-    }
-
     private Map<String, Object> readJson(File file) {
         try (FileReader r = new FileReader(file)) {
             return new Yaml().load(r);
@@ -320,5 +304,85 @@ public class ResourcePipeImpl implements ResourcePipe {
             else f.delete();
         }
         return dir.delete();
+    }
+
+    private static final int MAX_CONFIG_FILES = 10;
+    private static final String[] CONFIG_EXTENSIONS = {".yml", ".yaml", ".json"};
+
+    @Override
+    public List<ConfigFile> getConfigFiles(String fileName, ResourceType type) {
+        if (type == ResourceType.PLUGIN) {
+            return getPluginConfigFiles(fileName);
+        } else if (type == ResourceType.DATAPACK) {
+            return getDatapackConfigFiles(fileName);
+        }
+        return Collections.emptyList();
+    }
+
+    private List<ConfigFile> getPluginConfigFiles(String fileName) {
+         Plugin plugin = findPlugin(fileName);
+        String pluginName = plugin != null ? plugin.getName() : getPluginName(fileName);
+        File pluginFolder = new File(getPluginsFolder(), pluginName);
+
+        if (!pluginFolder.exists() || !pluginFolder.isDirectory()) {
+            return Collections.emptyList();
+        }
+
+        return scanConfigFiles(pluginFolder, pluginFolder, MAX_CONFIG_FILES);
+    }
+
+    private List<ConfigFile> getDatapackConfigFiles(String fileName) {
+        File datapackFile = findDatapackFile(fileName);
+        if (datapackFile == null || !datapackFile.isDirectory()) {
+            return Collections.emptyList();
+        }
+        return scanConfigFiles(datapackFile, datapackFile, MAX_CONFIG_FILES);
+    }
+
+    private List<ConfigFile> scanConfigFiles(File baseFolder, File folder, int limit) {
+        List<ConfigFile> files = new ArrayList<>();
+        File[] entries = folder.listFiles();
+        if (entries == null) return files;
+
+        Arrays.sort(entries, Comparator.comparing(File::getName));
+
+        for (File entry : entries) {
+            if (files.size() >= limit) break;
+            if (entry.getName().startsWith(".")) continue;
+
+            if (entry.isDirectory()) {
+                files.addAll(scanConfigFiles(baseFolder, entry, limit - files.size()));
+            } else if (isConfigFile(entry.getName())) {
+                String relativePath = baseFolder.toPath().relativize(entry.toPath()).toString();
+                files.add(new ConfigFile(entry.getName(), relativePath, entry.length(), entry));
+            }
+        }
+        return files;
+    }
+
+    private boolean isConfigFile(String name) {
+        String lower = name.toLowerCase();
+        for (String ext : CONFIG_EXTENSIONS) {
+            if (lower.endsWith(ext)) return true;
+        }
+        return false;
+    }
+
+    private String getPluginName(String fileName) {
+        var desc = getPluginDescription(findPluginFile(fileName));
+        if (desc != null) return desc.getName();
+        return fileName.replace(".disabled", "").replace(".jar", "");
+    }
+
+    private PluginDescriptionFile getPluginDescription(File file) {
+        if (file == null || !file.exists()) return null;
+        try (JarFile jar = new JarFile(file)) {
+            var entry = jar.getJarEntry("plugin.yml");
+            if (entry == null) entry = jar.getJarEntry("paper-plugin.yml");
+            if (entry != null) {
+                return new PluginDescriptionFile(jar.getInputStream(entry));
+            }
+        } catch (Exception ignored) {}
+        return null;
     }
 }
