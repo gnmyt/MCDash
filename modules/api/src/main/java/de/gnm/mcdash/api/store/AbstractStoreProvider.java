@@ -32,11 +32,41 @@ public abstract class AbstractStoreProvider implements StoreProvider {
      * @return The parsed JSON response, or null if the request failed
      */
     protected JsonNode makeRequest(String urlString) throws Exception {
+        return makeRequest(urlString, null, null);
+    }
+
+    /**
+     * Make an authenticated GET request using this provider's API key.
+     * Uses the API key header name defined by {@link #getApiKeyHeaderName()}.
+     *
+     * @param urlString The URL to request
+     * @return The parsed JSON response, or null if the request failed or not configured
+     */
+    protected JsonNode makeAuthenticatedRequest(String urlString) throws Exception {
+        String apiKey = getApiKey();
+        if (apiKey == null || apiKey.isEmpty()) {
+            return null;
+        }
+        return makeRequest(urlString, getApiKeyHeaderName(), apiKey);
+    }
+
+    /**
+     * Make a GET request to the given URL with an optional header.
+     *
+     * @param urlString   The URL to request
+     * @param headerName  Optional header name to add
+     * @param headerValue Optional header value to add
+     * @return The parsed JSON response, or null if the request failed
+     */
+    protected JsonNode makeRequest(String urlString, String headerName, String headerValue) throws Exception {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("User-Agent", USER_AGENT);
         conn.setRequestProperty("Accept", "application/json");
+        if (headerName != null && headerValue != null) {
+            conn.setRequestProperty(headerName, headerValue);
+        }
         conn.setConnectTimeout(10000);
         conn.setReadTimeout(10000);
 
@@ -48,6 +78,16 @@ public abstract class AbstractStoreProvider implements StoreProvider {
         try (InputStream is = conn.getInputStream()) {
             return MAPPER.readTree(is);
         }
+    }
+
+    /**
+     * Gets the header name used for API key authentication.
+     * Override this in subclasses to use a different header name.
+     *
+     * @return the API key header name, defaults to "Authorization"
+     */
+    protected String getApiKeyHeaderName() {
+        return "Authorization";
     }
 
     /**

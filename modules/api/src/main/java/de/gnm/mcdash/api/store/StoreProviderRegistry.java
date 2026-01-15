@@ -17,6 +17,7 @@ public class StoreProviderRegistry {
     private StoreProviderRegistry() {
         registerProvider(new ModrinthProvider());
         registerProvider(new SpigotProvider());
+        registerProvider(new CurseForgeProvider());
     }
     
     public static StoreProviderRegistry getInstance() {
