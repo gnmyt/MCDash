@@ -22,7 +22,6 @@ public class ActionRegistry {
             LOG.warning("Action with id '" + action.getId() + "' is already registered. Overwriting.");
         }
         actions.put(action.getId(), action);
-        LOG.info("Registered schedule action: " + action.getId());
     }
 
     /**
