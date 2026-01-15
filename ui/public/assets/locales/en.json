@@ -99,6 +99,30 @@
       "open_in_files": "Open in File Manager"
     }
   },
+  "store": {
+    "search_placeholder": "Search for {{type}}...",
+    "results_count": "{{count}} results found",
+    "no_results": "No results found",
+    "no_results_description": "Try adjusting your search query or filters.",
+    "search_failed": "Search failed. Please try again.",
+    "install": "Install",
+    "installed": "Installed",
+    "installed_disabled": "Installed (Disabled)",
+    "updated": "Updated",
+    "downloads": "downloads",
+    "page_info": "Page {{current}} of {{total}}",
+    "install_title": "Install {{name}}",
+    "install_description": "Select a version to install. The resource will be downloaded and enabled automatically.",
+    "select_version": "Version",
+    "select_version_placeholder": "Select a version...",
+    "no_compatible_versions": "No compatible versions found for your server.",
+    "versions_failed": "Failed to load versions.",
+    "installing": "Installing...",
+    "install_success": "Resource installed successfully. Restart may be required.",
+    "install_success_enabled": "Resource installed and enabled successfully!",
+    "install_success_restart": "Resource installed. Restart required to enable.",
+    "install_failed": "Failed to install resource."
+  },
   "users": {
     "title": "User Management",
     "subtitle": "Manage users and their permissions",

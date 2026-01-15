@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { PuzzlePieceIcon, PackageIcon } from "@phosphor-icons/react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { PuzzlePieceIcon, PackageIcon, StorefrontIcon } from "@phosphor-icons/react";
 import { t } from "i18next";
 import { jsonRequest, postRequest, deleteRequest } from "@/lib/RequestUtil";
 import { Resource } from "@/types/resource";
@@ -24,6 +24,8 @@ import { toast } from "@/hooks/use-toast";
 
 export const ResourceList = () => {
     const { type } = useParams<{ type: string }>();
+    const navigate = useNavigate();
+    const location = useLocation();
     const [resources, setResources] = useState<Resource[]>([]);
     const [loading, setLoading] = useState(true);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -45,7 +47,7 @@ export const ResourceList = () => {
     useEffect(() => {
         setLoading(true);
         fetchResources();
-    }, [type]);
+    }, [type, location.pathname]);
 
     const getIcon = () => {
         switch (type) {
@@ -138,6 +140,10 @@ export const ResourceList = () => {
                         </p>
                     </div>
                 </div>
+                <Button onClick={() => navigate(`/resources/${type}/store`)} className="gap-2">
+                    <StorefrontIcon className="h-4 w-4" weight="fill" />
+                    {t("resources.store")}
+                </Button>
             </div>
 
             <ScrollArea className="flex-1">
