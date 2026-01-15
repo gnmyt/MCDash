@@ -38,12 +38,44 @@ dependencies {
     shadow "de.gnm:mcdash-api:${project.mcdash_version}"
 }
 
+tasks.register('buildWebUI', Exec) {
+    description = 'Builds the web UI using pnpm'
+    workingDir = file("${projectDir}/../../ui")
+    
+    commandLine 'sh', '-c', 'pnpm install && pnpm run build'
+
+    inputs.dir("${projectDir}/../../ui/src")
+    inputs.file("${projectDir}/../../ui/package.json")
+    inputs.file("${projectDir}/../../ui/vite.config.ts")
+    outputs.dir("${projectDir}/../../ui/dist")
+}
+
+tasks.register('copyWebUI', Copy) {
+    description = 'Copies the built web UI to resources'
+    dependsOn 'buildWebUI'
+    
+    from "${projectDir}/../../ui/dist"
+    into "${projectDir}/src/main/resources/webui"
+}
+
+tasks.named('clean') {
+    doLast {
+        delete "${projectDir}/src/main/resources/webui"
+    }
+}
+
 processResources {
+    dependsOn 'copyWebUI'
+    
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
+}
+
+tasks.matching { it.name == 'sourcesJar' }.configureEach {
+    dependsOn 'copyWebUI'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -68,14 +100,19 @@ jar {
 
 tasks.named("shadowJar") {
     configurations = [project.configurations.shadow]
+    archiveClassifier.set("dev-all")
+
+    relocate 'io.undertow', 'de.gnm.mcdash.libs.undertow'
+}
+
+tasks.named("remapJar") {
+    dependsOn("shadowJar")
+    inputFile = tasks.shadowJar.archiveFile
+    archiveClassifier.set("")
 }
 
 tasks.build {
-    dependsOn("shadowJar")
-}
-
-artifacts {
-    archives(tasks.named("shadowJar"))
+    dependsOn("remapJar")
 }
 
 publishing {
