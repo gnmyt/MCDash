@@ -128,3 +128,11 @@ export const formatRelativeTime = (dateString: string): string => {
     if (minutes > 0) return `${minutes}m ago`;
     return "just now";
 };
+
+export const setProviderApiKey = async (provider: string, apiKey: string): Promise<{ success: boolean; error?: string }> => {
+    const response = await postRequest("store/apikey", { provider, apiKey });
+    if (response.error) {
+        return { success: false, error: response.error };
+    }
+    return { success: response.success ?? true };
+};

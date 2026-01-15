@@ -1,5 +1,6 @@
 package de.gnm.mcdash.api.store;
 
+import de.gnm.mcdash.api.controller.ApiKeyController;
 import de.gnm.mcdash.api.entities.ResourceType;
 
 public interface StoreProvider {
@@ -89,4 +90,37 @@ public interface StoreProvider {
      * @return the project type for this provider's API
      */
     String mapResourceTypeToProjectType(ResourceType resourceType);
+
+    /**
+     * Checks if this provider requires an API key
+     *
+     * @return true if an API key is required
+     */
+    default boolean requiresApiKey() {
+        return false;
+    }
+
+    /**
+     * Checks if this provider is configured (has API key if required)
+     *
+     * @return true if the provider can be used
+     */
+    default boolean isConfigured() {
+        if (!requiresApiKey()) {
+            return true;
+        }
+        return ApiKeyController.isInitialized() && ApiKeyController.getInstance().hasApiKey(getId());
+    }
+
+    /**
+     * Gets the API key for this provider, if any
+     *
+     * @return the API key, or null if not set
+     */
+    default String getApiKey() {
+        if (!ApiKeyController.isInitialized()) {
+            return null;
+        }
+        return ApiKeyController.getInstance().getApiKey(getId());
+    }
 }

@@ -6,6 +6,7 @@ import de.gnm.mcdash.api.annotations.AuthenticatedRoute;
 import de.gnm.mcdash.api.annotations.Method;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.annotations.RequiresFeatures;
+import de.gnm.mcdash.api.controller.ApiKeyController;
 import de.gnm.mcdash.api.entities.Feature;
 import de.gnm.mcdash.api.entities.PermissionLevel;
 import de.gnm.mcdash.api.entities.ResourceType;
@@ -45,6 +46,8 @@ public class StoreRouter extends BaseRoute {
             node.put("id", provider.getId());
             node.put("name", provider.getDisplayName());
             node.put("logoPath", provider.getLogoPath());
+            node.put("requiresApiKey", provider.requiresApiKey());
+            node.put("isConfigured", provider.isConfigured());
             
             ArrayNode supportedTypes = getMapper().createArrayNode();
             for (ResourceType type : ResourceType.values()) {
@@ -58,6 +61,55 @@ public class StoreRouter extends BaseRoute {
         }
 
         return new JSONResponse().add("providers", array);
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(Feature.Resources)
+    @Path("/store/apikey")
+    @Method(GET)
+    public JSONResponse getApiKeyStatus(JSONRequest request) {
+        String providerId = request.has("provider") ? request.get("provider") : null;
+        if (providerId == null) {
+            return new JSONResponse().error("Provider ID required");
+        }
+        
+        StoreProvider provider = StoreProviderRegistry.getInstance().getProvider(providerId);
+        if (provider == null) {
+            return new JSONResponse().error("Invalid provider: " + providerId);
+        }
+        
+        return new JSONResponse()
+            .add("requiresApiKey", provider.requiresApiKey())
+            .add("isConfigured", provider.isConfigured());
+    }
+
+    @AuthenticatedRoute
+    @RequiresFeatures(Feature.Resources)
+    @Path("/store/apikey")
+    @Method(POST)
+    public JSONResponse setApiKey(JSONRequest request) {
+        String providerId = request.has("provider") ? request.get("provider") : null;
+        String apiKey = request.has("apiKey") ? request.get("apiKey") : null;
+        
+        if (providerId == null) {
+            return new JSONResponse().error("Provider ID required");
+        }
+        
+        StoreProvider provider = StoreProviderRegistry.getInstance().getProvider(providerId);
+        if (provider == null) {
+            return new JSONResponse().error("Invalid provider: " + providerId);
+        }
+        
+        if (!provider.requiresApiKey()) {
+            return new JSONResponse().error("Provider does not require an API key");
+        }
+        
+        ApiKeyController apiKeyController = getController(ApiKeyController.class);
+        apiKeyController.setApiKey(providerId, apiKey);
+        
+        return new JSONResponse()
+            .add("success", true)
+            .add("isConfigured", provider.isConfigured());
     }
 
     @AuthenticatedRoute

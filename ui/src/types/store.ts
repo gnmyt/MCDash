@@ -2,6 +2,8 @@ export interface StoreProvider {
     id: string;
     name: string;
     logoPath: string;
+    requiresApiKey: boolean;
+    isConfigured: boolean;
 }
 
 export interface StoreProject {

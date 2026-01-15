@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback, useContext} from "react";
+import {useState, useEffect, useCallback, useContext, useMemo} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {
     StorefrontIcon,
@@ -8,7 +8,9 @@ import {
     CaretRightIcon,
     CheckCircleIcon,
     CircleNotchIcon,
-    ArrowLeftIcon
+    ArrowLeftIcon,
+    KeyIcon,
+    GearIcon
 } from "@phosphor-icons/react";
 import {t} from "i18next";
 
@@ -35,6 +37,7 @@ import {
 } from "@/components/ui/dialog";
 import {toast} from "@/hooks/use-toast";
 import {ResourcesContext} from "@/contexts/ResourcesContext";
+import {ApiKeyDialog} from "@/components/store/ApiKeyDialog";
 
 import {
     StoreProvider,
@@ -75,21 +78,32 @@ export const ResourceStore = () => {
     const [loadingVersions, setLoadingVersions] = useState(false);
     const [installing, setInstalling] = useState(false);
 
+    const [apiKeyDialogOpen, setApiKeyDialogOpen] = useState(false);
+
     const pageSize = 20;
 
-    useEffect(() => {
-        const loadProviders = async () => {
-            if (!type) return;
-            try {
-                const data = await getStoreProviders(type);
-                setProviders(data);
-                if (data.length > 0 && !data.find(p => p.id === selectedProvider)) {
-                    setSelectedProvider(data[0].id);
-                }
-            } catch (error) {
-                console.error("Failed to load providers:", error);
+    const currentProvider = useMemo(() => {
+        return providers.find(p => p.id === selectedProvider);
+    }, [providers, selectedProvider]);
+
+    const needsApiKeyConfiguration = useMemo(() => {
+        return currentProvider?.requiresApiKey && !currentProvider?.isConfigured;
+    }, [currentProvider]);
+
+    const loadProviders = useCallback(async () => {
+        if (!type) return;
+        try {
+            const data = await getStoreProviders(type);
+            setProviders(data);
+            if (data.length > 0 && !data.find(p => p.id === selectedProvider)) {
+                setSelectedProvider(data[0].id);
             }
-        };
+        } catch (error) {
+            console.error("Failed to load providers:", error);
+        }
+    }, [type, selectedProvider]);
+
+    useEffect(() => {
         loadProviders();
     }, [type]);
 
@@ -117,6 +131,12 @@ export const ResourceStore = () => {
     const performSearch = useCallback(async () => {
         if (!type) return;
 
+        if (needsApiKeyConfiguration) {
+            setSearchResult(null);
+            setLoading(false);
+            return;
+        }
+
         setLoading(true);
         try {
             const result = await searchStore(type, debouncedQuery, page, pageSize, selectedProvider);
@@ -127,11 +147,15 @@ export const ResourceStore = () => {
         } finally {
             setLoading(false);
         }
-    }, [type, debouncedQuery, page, selectedProvider]);
+    }, [type, debouncedQuery, page, selectedProvider, needsApiKeyConfiguration]);
 
     useEffect(() => {
         performSearch();
     }, [performSearch]);
+
+    const handleApiKeySuccess = () => {
+        loadProviders();
+    };
 
     const isInstalled = (projectId: string): boolean => {
         return installedResources.some(r => r.projectId === projectId);
@@ -327,6 +351,16 @@ export const ResourceStore = () => {
                             ))}
                         </SelectContent>
                     </Select>
+                    {currentProvider?.requiresApiKey && (
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => setApiKeyDialogOpen(true)}
+                            title={t("store.manage_api_key")}
+                        >
+                            <KeyIcon className="h-4 w-4"/>
+                        </Button>
+                    )}
                 </div>
             </div>
 
@@ -342,7 +376,23 @@ export const ResourceStore = () => {
             </div>
 
             <ScrollArea className="flex-1">
-                {loading ? (
+                {needsApiKeyConfiguration ? (
+                    <div className="flex flex-col items-center justify-center py-16 text-center">
+                        <div className="h-20 w-20 rounded-xl bg-muted flex items-center justify-center mb-6">
+                            <KeyIcon className="h-10 w-10 text-muted-foreground"/>
+                        </div>
+                        <h3 className="text-xl font-semibold mb-2">
+                            {t("store.api_key_required_title")}
+                        </h3>
+                        <p className="text-muted-foreground max-w-md mb-6">
+                            {t("store.api_key_required_description", {provider: currentProvider?.name})}
+                        </p>
+                        <Button onClick={() => setApiKeyDialogOpen(true)}>
+                            <GearIcon className="h-4 w-4 mr-2"/>
+                            {t("store.configure_api_key_button")}
+                        </Button>
+                    </div>
+                ) : loading ? (
                     <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
                         {Array.from({length: 6}).map((_, i) => (
                             <Card key={i}>
@@ -504,6 +554,17 @@ export const ResourceStore = () => {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+            {currentProvider && (
+                <ApiKeyDialog
+                    open={apiKeyDialogOpen}
+                    onOpenChange={setApiKeyDialogOpen}
+                    providerId={currentProvider.id}
+                    providerName={currentProvider.name}
+                    isConfigured={currentProvider.isConfigured}
+                    onSuccess={handleApiKeySuccess}
+                />
+            )}
         </div>
     );
 };

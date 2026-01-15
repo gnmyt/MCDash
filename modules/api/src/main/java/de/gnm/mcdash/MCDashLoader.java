@@ -4,6 +4,7 @@ package de.gnm.mcdash;
 import de.gnm.mcdash.api.annotations.Path;
 import de.gnm.mcdash.api.controller.AccountController;
 import de.gnm.mcdash.api.controller.ActionRegistry;
+import de.gnm.mcdash.api.controller.ApiKeyController;
 import de.gnm.mcdash.api.controller.ControllerManager;
 import de.gnm.mcdash.api.controller.PermissionController;
 import de.gnm.mcdash.api.controller.ScheduleController;
@@ -76,6 +77,8 @@ public class MCDashLoader {
         getController(SSHController.class).initialize(getController(AccountController.class), serverRoot);
 
         controllerManager.registerController(ScheduleController.class);
+
+        controllerManager.registerController(ApiKeyController.class);
 
         registerFeatures(Feature.UserManagement);
 
