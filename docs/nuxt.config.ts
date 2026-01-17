@@ -3,4 +3,33 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: ['shadcn-docs-nuxt'],
   compatibilityDate: '2024-07-06',
+
+  site: {
+    url: 'https://mcdash.gnm.dev',
+  },
+
+  ogImage: {
+    enabled: false,
+  },
+
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: [
+        '/',
+        '/getting-started/introduction',
+        '/getting-started/reverse-proxy',
+        '/features/overview',
+        '/features/players',
+        '/features/file_manager',
+        '/features/console',
+        '/features/worlds',
+        '/features/plugins',
+        '/features/backups',
+        '/features/schedules',
+        '/features/configuration',
+      ],
+      failOnError: false,
+    },
+  },
 });
