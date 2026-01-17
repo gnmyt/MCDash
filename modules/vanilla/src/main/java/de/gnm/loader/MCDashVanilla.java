@@ -1,10 +1,9 @@
 package de.gnm.loader;
 
+import de.gnm.loader.helper.PlayerTracker;
 import de.gnm.loader.helper.ServerHelper;
-import de.gnm.loader.pipes.OperatorPipeImpl;
-import de.gnm.loader.pipes.QuickActionPipeImpl;
-import de.gnm.loader.pipes.ServerInfoPipeImpl;
-import de.gnm.loader.pipes.WhitelistPipeImpl;
+import de.gnm.loader.pipes.*;
+import de.gnm.loader.widgets.VanillaWidgetProvider;
 import de.gnm.mcdash.MCDashLoader;
 import de.gnm.mcdash.api.controller.AccountController;
 import de.gnm.mcdash.api.controller.ActionRegistry;
@@ -13,10 +12,15 @@ import de.gnm.mcdash.api.entities.schedule.ActionInputType;
 import de.gnm.mcdash.api.entities.schedule.ScheduleAction;
 import de.gnm.mcdash.api.event.console.ConsoleMessageReceivedEvent;
 import de.gnm.mcdash.api.helper.BackupHelper;
+import de.gnm.mcdash.api.helper.PropertyHelper;
 import de.gnm.mcdash.api.pipes.ServerInfoPipe;
+import de.gnm.mcdash.api.pipes.players.BanPipe;
+import de.gnm.mcdash.api.pipes.players.OnlinePlayerPipe;
 import de.gnm.mcdash.api.pipes.players.OperatorPipe;
 import de.gnm.mcdash.api.pipes.QuickActionPipe;
 import de.gnm.mcdash.api.pipes.players.WhitelistPipe;
+import de.gnm.mcdash.api.pipes.resources.ResourcePipe;
+import de.gnm.mcdash.api.pipes.worlds.WorldPipe;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 
@@ -35,6 +39,8 @@ public class MCDashVanilla {
     private static final BackupHelper backupHelper = new BackupHelper(new File(SERVER_ROOT, "backups"));
 
     private static String serverVersion = null;
+    private static PlayerTracker playerTracker = null;
+    private static VanillaWidgetProvider widgetProvider = null;
 
     /**
      * Main method. Starts the MCDash Vanilla server
@@ -64,9 +70,12 @@ public class MCDashVanilla {
             }
         }
 
+        playerTracker = new PlayerTracker(SERVER_ROOT, loader.getEventDispatcher());
+
         registerPipes();
         registerFeatures();
         registerActions();
+        registerWidgets();
 
         LOG.info("Web interface available at http://localhost:7867");
 
@@ -77,16 +86,59 @@ public class MCDashVanilla {
      * Registers all pipes
      */
     protected static void registerPipes() {
-        loader.registerPipe(OperatorPipe.class, new OperatorPipeImpl(serverHelper.getOutputStream()));
-        loader.registerPipe(WhitelistPipe.class, new WhitelistPipeImpl(serverHelper.getOutputStream()));
-        loader.registerPipe(QuickActionPipe.class, new QuickActionPipeImpl(serverHelper.getOutputStream()));
+        OutputStream outputStream = serverHelper.getOutputStream();
+        File worldFolder = getWorldFolder();
+
+        loader.registerPipe(ServerInfoPipe.class, new ServerInfoPipeImpl(serverVersion != null ? serverVersion : "Unknown"));
+        loader.registerPipe(OperatorPipe.class, new OperatorPipeImpl(outputStream));
+        loader.registerPipe(WhitelistPipe.class, new WhitelistPipeImpl(outputStream));
+        loader.registerPipe(QuickActionPipe.class, new QuickActionPipeImpl(outputStream));
+        loader.registerPipe(OnlinePlayerPipe.class, new OnlinePlayerPipeImpl(outputStream, playerTracker, worldFolder));
+        loader.registerPipe(BanPipe.class, new BanPipeImpl(outputStream));
+        loader.registerPipe(WorldPipe.class, new WorldPipeImpl(outputStream, SERVER_ROOT));
+        loader.registerPipe(ResourcePipe.class, new ResourcePipeImpl(outputStream, SERVER_ROOT));
     }
 
     /**
      * Registers all features for vanilla
      */
     protected static void registerFeatures() {
-        loader.registerFeatures(Feature.FileManager, Feature.Properties, Feature.SSH, Feature.Backups, Feature.Console, Feature.Schedules);
+        loader.registerFeatures(
+                Feature.FileManager,
+                Feature.Properties,
+                Feature.SSH,
+                Feature.Backups,
+                Feature.Console,
+                Feature.Schedules,
+                Feature.Players,
+                Feature.Worlds,
+                Feature.Resources
+        );
+    }
+
+    /**
+     * Registers all dashboard widgets for vanilla servers
+     */
+    protected static void registerWidgets() {
+        ServerInfoPipe serverInfoPipe = loader.getPipe(ServerInfoPipe.class);
+        widgetProvider = new VanillaWidgetProvider(
+                loader.getWidgetRegistry(),
+                serverInfoPipe,
+                playerTracker,
+                SERVER_ROOT
+        );
+        widgetProvider.register();
+    }
+
+    /**
+     * Gets the world folder based on server.properties
+     */
+    private static File getWorldFolder() {
+        String levelName = PropertyHelper.getProperty("level-name");
+        if (levelName == null) {
+            levelName = "world";
+        }
+        return new File(SERVER_ROOT, levelName);
     }
 
     /**
