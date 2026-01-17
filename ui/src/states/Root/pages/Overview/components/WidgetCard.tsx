@@ -18,6 +18,7 @@ import {
     GlobeIcon,
     InfoIcon,
     ChartLineUpIcon,
+    GameControllerIcon,
     type Icon
 } from "@phosphor-icons/react";
 
@@ -29,6 +30,7 @@ const getWidgetIcon = (widgetId: string): Icon => {
     const iconMap: Record<string, Icon> = {
         'online_players': UsersIcon,
         'player_count': UsersIcon,
+        'player_history': UsersIcon,
         'uptime': ClockIcon,
         'tps': GaugeIcon,
         'tps_stat': GaugeIcon,
@@ -40,8 +42,10 @@ const getWidgetIcon = (widgetId: string): Icon => {
         'cpu': CpuIcon,
         'cpu_usage': CpuIcon,
         'worlds': GlobeIcon,
+        'world_info': GlobeIcon,
         'server_info': InfoIcon,
         'system_info': CpuIcon,
+        'game_settings': GameControllerIcon,
     };
     return iconMap[widgetId] || ChartLineUpIcon;
 };

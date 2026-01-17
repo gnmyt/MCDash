@@ -10,6 +10,15 @@ import {
     CoffeeIcon, 
     DesktopIcon, 
     CpuIcon,
+    ClockIcon,
+    SkullIcon,
+    SwordIcon,
+    GameControllerIcon,
+    ShieldCheckIcon,
+    EyeIcon,
+    WarningCircleIcon,
+    CheckCircleIcon,
+    XCircleIcon,
     type Icon
 } from "@phosphor-icons/react";
 
@@ -30,6 +39,13 @@ const InfoCardWidget = ({ widget }: InfoCardWidgetProps) => {
         javaVersion: "overview.widgets.info.java_version",
         os: "overview.widgets.info.os",
         processors: "overview.widgets.info.processors",
+        time: "overview.widgets.info.time",
+        difficulty: "overview.widgets.info.difficulty",
+        hardcore: "overview.widgets.info.hardcore",
+        pvp: "overview.widgets.info.pvp",
+        gamemode: "overview.widgets.info.gamemode",
+        spawnProtection: "overview.widgets.info.spawn_protection",
+        viewDistance: "overview.widgets.info.view_distance",
     };
 
     const fieldIcons: Record<string, Icon> = {
@@ -42,6 +58,30 @@ const InfoCardWidget = ({ widget }: InfoCardWidgetProps) => {
         javaVersion: CoffeeIcon,
         os: DesktopIcon,
         processors: CpuIcon,
+        time: ClockIcon,
+        difficulty: WarningCircleIcon,
+        hardcore: SkullIcon,
+        pvp: SwordIcon,
+        gamemode: GameControllerIcon,
+        spawnProtection: ShieldCheckIcon,
+        viewDistance: EyeIcon,
+    };
+
+    const formatValue = (key: string, value: unknown): string => {
+        if (typeof value === 'boolean') {
+            return value ? t('action.yes', 'Yes') : t('action.no', 'No');
+        }
+        if (value === null || value === undefined) {
+            return '-';
+        }
+        return String(value);
+    };
+
+    const getBooleanIcon = (value: unknown): Icon | null => {
+        if (typeof value === 'boolean') {
+            return value ? CheckCircleIcon : XCircleIcon;
+        }
+        return null;
     };
 
     const entries = Object.entries(metadata);
@@ -50,6 +90,7 @@ const InfoCardWidget = ({ widget }: InfoCardWidgetProps) => {
         <div className="flex flex-col flex-1 gap-1 overflow-auto">
             {entries.map(([key, value]) => {
                 const FieldIcon = fieldIcons[key] || TagIcon;
+                const BoolIcon = getBooleanIcon(value);
                 return (
                     <div 
                         key={key} 
@@ -64,12 +105,20 @@ const InfoCardWidget = ({ widget }: InfoCardWidgetProps) => {
                                 {fieldLabels[key] ? t(fieldLabels[key]) : key}
                             </span>
                         </div>
-                        <span 
-                            className="text-xs font-medium truncate ml-2" 
-                            style={{ color: widget.color }}
-                        >
-                            {String(value)}
-                        </span>
+                        <div className="flex items-center gap-1.5">
+                            {BoolIcon && (
+                                <BoolIcon 
+                                    className={`h-3.5 w-3.5 ${value ? 'text-green-500' : 'text-red-500'}`}
+                                    weight="fill"
+                                />
+                            )}
+                            <span 
+                                className="text-xs font-medium truncate" 
+                                style={{ color: widget.color }}
+                            >
+                                {formatValue(key, value)}
+                            </span>
+                        </div>
                     </div>
                 );
             })}

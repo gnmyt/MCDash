@@ -16,7 +16,9 @@
     "sure": "Are you sure you want to confirm this action?",
     "changes_saved": "Changes saved",
     "copy": "Copy",
-    "move": "Move"
+    "move": "Move",
+    "yes": "Yes",
+    "no": "No"
   },
   "header": {
     "account": "Manage account",
@@ -60,6 +62,7 @@
       "memory_usage": "Memory Usage",
       "cpu_usage": "CPU Usage",
       "player_count": "Player Count",
+      "player_history": "Player History",
       "tps": "Server TPS",
       "server_info": "Server Info",
       "online_players": "Online Players",
@@ -68,7 +71,9 @@
       "uptime": "Uptime",
       "uptime_label": "Server Uptime",
       "worlds": "Worlds",
+      "world_info": "World Info",
       "system_info": "System Info",
+      "game_settings": "Game Settings",
       "backend_servers": "Backend Servers",
       "whitelisted_players": "Whitelisted Players",
       "banned_players": "Banned Players",
@@ -90,7 +95,14 @@
         "online_servers": "Active Servers",
         "whitelisted": "Whitelisted",
         "banned": "Banned",
-        "whitelist_status": "Whitelist"
+        "whitelist_status": "Whitelist",
+        "time": "World Time",
+        "difficulty": "Difficulty",
+        "hardcore": "Hardcore",
+        "pvp": "PvP",
+        "gamemode": "Gamemode",
+        "spawn_protection": "Spawn Protection",
+        "view_distance": "View Distance"
       }
     }
   },
