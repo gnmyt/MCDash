@@ -1,1 +1,0 @@
-export {WeatherDialog as default} from "./WeatherDialog.jsx";

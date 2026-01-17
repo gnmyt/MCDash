@@ -1,82 +1,117 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![Downloads][downloads-shield]][downloads-url]
-[![MIT License][license-shield]][license-url]
-
-<br />
+<h1 align="center"><img src=".github/logo.png" alt="" width="32" height="32" style="vertical-align: middle;"> MCDash</h1>
+<p align="center">A modern, beautiful web dashboard for managing your Minecraft server</p>
 <p align="center">
-  <a href="https://github.com/gnmyt/MCDash">
-    <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://i.imgur.com/bxuP8yC.png">
-        <img alt="MyLinks Banner" src="https://i.imgur.com/aTxlW0Q.png">
-    </picture>
-  </a>
+  <a href="https://github.com/gnmyt/MCDash/stargazers"><img src="https://img.shields.io/github/stars/gnmyt/MCDash?style=flat-square&logo=github&color=f97316" alt="GitHub Stars"></a>
+  <a href="https://github.com/gnmyt/MCDash/network/members"><img src="https://img.shields.io/github/forks/gnmyt/MCDash?style=flat-square&logo=github&color=f97316" alt="GitHub Forks"></a>
+  <a href="https://github.com/gnmyt/MCDash/issues"><img src="https://img.shields.io/github/issues/gnmyt/MCDash?style=flat-square&logo=github" alt="GitHub Issues"></a>
+  <a href="https://github.com/gnmyt/MCDash/releases/latest"><img src="https://img.shields.io/github/downloads/gnmyt/MCDash/total?style=flat-square&logo=github&color=f97316" alt="Downloads"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/gnmyt/MCDash?style=flat-square" alt="License"></a>
+</p>
+<p align="center">
+  <a href="https://mcdash.gnm.dev">📖 Documentation</a> · 
+  <a href="https://github.com/gnmyt/MCDash/issues/new?template=bug_report.md">🐛 Report Bug</a> · 
+  <a href="https://github.com/gnmyt/MCDash/issues/new?template=feature_request.md">✨ Request Feature</a>
 </p>
 
-## About The Project
-MCDash is a simple dashboard for your Minecraft server. It allows you to see the current status of your server, the online players, console and more.
+---
 
 ## Features
-- [x] See the current status of your server
-- [x] See the online players
-- [x] View and edit the files of your server
-- [x] Use your server console
-- [x] Execute commands
-- [x] See the installed plugins & install plugins from spigotmc
-- [x] Schedule tasks daily, monthly, ...
-- [x] Create backups of your server
-- [x] Manage your worlds
-- [x] Update your server properties
+
+MCDash provides everything you need to manage your Minecraft server from a sleek, modern web interface:
+
+| Feature | Description |
+|---------|-------------|
+| **Dashboard** | Real-time server status, player count, memory usage, and TPS monitoring |
+| **Player Management** | View online players, manage whitelist, and moderate your community |
+| **File Manager** | Browse, edit, upload, and manage server files directly in your browser |
+| **Console** | Full server console access with command execution |
+| **World Management** | Manage multiple worlds, change settings, and organize your server |
+| **Plugin Manager** | Install, update, and manage plugins with SpigotMC integration |
+| **Backups** | Create and restore server backups with scheduling support |
+| **Schedules** | Automate tasks with daily, weekly, or monthly schedules |
+| **Configuration** | Edit server.properties and other configuration files easily |
 
 ## Screenshots
 
-### Dashboard
-![Screenshot 1](https://i.imgur.com/PX1QGYw.png)
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src=".github/screenshots/overview.png" alt="Dashboard" width="400">
+        <br><strong>Dashboard</strong>
+      </td>
+      <td align="center">
+        <img src=".github/screenshots/players.png" alt="Players" width="400">
+        <br><strong>Players</strong>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src=".github/screenshots/file_manager.png" alt="File Manager" width="400">
+        <br><strong>File Manager</strong>
+      </td>
+      <td align="center">
+        <img src=".github/screenshots/console.png" alt="Console" width="400">
+        <br><strong>Console</strong>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src=".github/screenshots/plugins.png" alt="Plugins" width="400">
+        <br><strong>Plugins</strong>
+      </td>
+      <td align="center">
+        <img src=".github/screenshots/backups.png" alt="Backups" width="400">
+        <br><strong>Backups</strong>
+      </td>
+    </tr>
+  </table>
+</div>
 
-### Players
-![Screenshot 2](https://i.imgur.com/Jpng0hy.png)
+## Quick Start
 
-### Files
-![Screenshot 3](https://i.imgur.com/Lno1Wl5.png)
+### Requirements
 
-### Console
-![Screenshot 4](https://i.imgur.com/WgBcrbr.png)
+- Java 17 or higher
+- A Minecraft server (Spigot, Paper, Fabric, or Vanilla)
 
-### Worlds
-![Screenshot 5](https://i.imgur.com/uSsnbiV.png)
+### Installation
 
-### Plugins
-![Screenshot 6](https://i.imgur.com/8w2Vuep.png)
+1. **Download** the latest release from the [releases page](https://github.com/gnmyt/MCDash/releases/latest)
 
-### Plugins (Store)
-![Screenshot 7](https://i.imgur.com/Wm8WOxJ.png)
+2. **Install** the plugin/mod on your server:
+   - **Spigot/Paper**: Place the `.jar` file in the `plugins` folder
+   - **Fabric**: Place the `.jar` file in the `mods` folder
+   - **Vanilla**: Run the standalone `.jar` file
 
-### Backups
-![Screenshot 8](https://i.imgur.com/hWFxTlF.png)
+3. **Start** your server and access the dashboard at `http://localhost:7867`
 
-### Schedules
-![Screenshot 9](https://i.imgur.com/SbhZJdc.png)
+4. **Login** with the credentials shown in the console on first start
 
-### Configuration
-![Screenshot 10](https://i.imgur.com/Q58pZAT.png)
+For detailed installation instructions, check out our [documentation](https://mcdash.gnm.dev/getting-started/introduction).
 
-## Installation
-Check out our [installation guide](https://mcdash.gnm.dev/docs/intro/) to install MCDash on your server.
+## Tech Stack
+
+- **Frontend**: React, TypeScript, Vite, Tailwind CSS, shadcn/ui
+- **Backend**: Java, integrated with Minecraft server APIs
+- **Supported Platforms**: Spigot, Paper, Fabric, Vanilla
+
+## Contributing
+
+Contributions are welcome! Feel free to:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
-Distributed under the MIT License. See `LICENSE` for more information.
 
-[contributors-shield]: https://img.shields.io/github/contributors/gnmyt/MCDash.svg?style=for-the-badge
-[contributors-url]: https://github.com/gnmyt/MCDash/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/gnmyt/MCDash.svg?style=for-the-badge
-[forks-url]: https://github.com/gnmyt/MCDash/network/members
-[stars-shield]: https://img.shields.io/github/stars/gnmyt/MCDash.svg?style=for-the-badge
-[stars-url]: https://github.com/gnmyt/MCDash/stargazers
-[issues-shield]: https://img.shields.io/github/issues/gnmyt/MCDash.svg?style=for-the-badge
-[issues-url]: https://github.com/gnmyt/MCDash/issues
-[license-shield]: https://img.shields.io/github/license/gnmyt/MCDash.svg?style=for-the-badge
-[license-url]: https://github.com/gnmyt/MCDash/blob/master/LICENSE.txt
-[downloads-shield]: https://img.shields.io/github/downloads/gnmyt/MCDash/total?style=for-the-badge
-[downloads-url]: https://github.com/gnmyt/MCDash/releases/latest
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ by <a href="https://gnm.dev">GNM</a> and contributors</sub>
+</div>

@@ -1,1 +1,0 @@
-export {FileDropdown as default} from './FileDropdown';

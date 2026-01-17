@@ -1,1 +1,0 @@
-export {WorldItem as default} from "./WorldItem.jsx";

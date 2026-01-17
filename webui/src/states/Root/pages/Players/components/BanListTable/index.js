@@ -1,1 +1,0 @@
-export {BanListTable as default} from "./BanListTable.jsx";

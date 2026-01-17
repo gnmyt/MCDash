@@ -1,1 +1,0 @@
-export {ActionConfirmDialog as default} from "./ActionConfirmDialog.jsx";

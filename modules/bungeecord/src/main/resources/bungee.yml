@@ -1,0 +1,5 @@
+name: MCDash
+version: ${project.version}
+main: de.gnm.mcdash.MCDashBungee
+description: A web-based dashboard for managing your BungeeCord proxy
+author: GNM
