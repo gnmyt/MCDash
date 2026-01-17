@@ -3,18 +3,61 @@ package de.gnm.mcdash.api.store;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.net.ssl.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class AbstractStoreProvider implements StoreProvider {
 
+    private static final Logger LOG = Logger.getLogger(AbstractStoreProvider.class.getName());
     protected static final String USER_AGENT = "MCDash/1.0 (https://github.com/gnmyt/MCDash)";
     protected static final ObjectMapper MAPPER = new ObjectMapper();
+
+    private static SSLSocketFactory sslSocketFactory;
+    private static HostnameVerifier hostnameVerifier;
+
+    static {
+        initializeSSL();
+    }
+
+    /**
+     * Initialize SSL context to trust all certificates.
+     * Only required for java instances without native ssl
+     */
+    private static void initializeSSL() {
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[0];
+                    }
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                    }
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                    }
+                }
+            };
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCerts, new SecureRandom());
+            sslSocketFactory = sslContext.getSocketFactory();
+
+            hostnameVerifier = (hostname, session) -> true;
+    } catch (Exception e) {
+            LOG.log(Level.WARNING, "Failed to initialize SSL context, using defaults", e);
+            sslSocketFactory = null;
+            hostnameVerifier = null;
+        }
+    }
 
     protected final File tempDownloadDir;
 
@@ -22,6 +65,19 @@ public abstract class AbstractStoreProvider implements StoreProvider {
         this.tempDownloadDir = new File(System.getProperty("java.io.tmpdir"), "mcdash-downloads");
         if (!tempDownloadDir.exists()) {
             tempDownloadDir.mkdirs();
+        }
+    }
+
+    /**
+     * Configure SSL for an HTTPS connection
+     */
+    private void configureSSL(HttpURLConnection conn) {
+        if (conn instanceof HttpsURLConnection && sslSocketFactory != null) {
+            HttpsURLConnection httpsConn = (HttpsURLConnection) conn;
+            httpsConn.setSSLSocketFactory(sslSocketFactory);
+            if (hostnameVerifier != null) {
+                httpsConn.setHostnameVerifier(hostnameVerifier);
+            }
         }
     }
 
@@ -61,6 +117,7 @@ public abstract class AbstractStoreProvider implements StoreProvider {
     protected JsonNode makeRequest(String urlString, String headerName, String headerValue) throws Exception {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        configureSSL(conn);
         conn.setRequestMethod("GET");
         conn.setRequestProperty("User-Agent", USER_AGENT);
         conn.setRequestProperty("Accept", "application/json");
@@ -100,6 +157,7 @@ public abstract class AbstractStoreProvider implements StoreProvider {
     protected void downloadFile(String urlString, File destination) throws Exception {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        configureSSL(conn);
         conn.setRequestProperty("User-Agent", USER_AGENT);
         conn.setConnectTimeout(30000);
         conn.setReadTimeout(60000);
@@ -110,6 +168,7 @@ public abstract class AbstractStoreProvider implements StoreProvider {
             String location = conn.getHeaderField("Location");
             if (location != null) {
                 conn = (HttpURLConnection) new URL(location).openConnection();
+                configureSSL(conn);
                 conn.setRequestProperty("User-Agent", USER_AGENT);
                 conn.setConnectTimeout(30000);
                 conn.setReadTimeout(60000);
