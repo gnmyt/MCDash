@@ -1,0 +1,168 @@
+package de.gnm.loader.pipes;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.gnm.loader.helper.NBTHelper;
+import de.gnm.loader.helper.PlayerTracker;
+import de.gnm.mcdash.api.entities.OnlinePlayer;
+import de.gnm.mcdash.api.pipes.players.OnlinePlayerPipe;
+import net.querz.nbt.tag.CompoundTag;
+import org.apache.log4j.Logger;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+
+public class OnlinePlayerPipeImpl implements OnlinePlayerPipe {
+
+    private static final Logger LOG = Logger.getLogger("MCDashVanilla");
+
+    private final BufferedWriter consoleWriter;
+    private final PlayerTracker playerTracker;
+    private final File worldFolder;
+
+    public OnlinePlayerPipeImpl(OutputStream console, PlayerTracker playerTracker, File worldFolder) {
+        this.consoleWriter = new BufferedWriter(new OutputStreamWriter(console));
+        this.playerTracker = playerTracker;
+        this.worldFolder = worldFolder;
+    }
+
+    @Override
+    public ArrayList<OnlinePlayer> getOnlinePlayers() {
+        ArrayList<OnlinePlayer> players = new ArrayList<>();
+
+        triggerWorldSave();
+
+        for (PlayerTracker.TrackedPlayer tracked : playerTracker.getOnlinePlayers()) {
+            CompoundTag playerData = NBTHelper.readPlayerData(worldFolder, tracked.getUuid());
+
+            double health = NBTHelper.getHealth(playerData);
+            int foodLevel = NBTHelper.getFoodLevel(playerData);
+            String gameMode = NBTHelper.getGameMode(playerData);
+            String dimension = NBTHelper.getDimension(playerData);
+
+            String worldName = dimensionToWorldName(dimension);
+
+            boolean isOp = isOperator(tracked.getName());
+
+            long sessionTime = System.currentTimeMillis() - tracked.getJoinTime();
+
+            OnlinePlayer player = new OnlinePlayer(
+                    tracked.getName(),
+                    tracked.getUuid(),
+                    worldName,
+                    tracked.getIpAddress(),
+                    health,
+                    foodLevel,
+                    isOp,
+                    gameMode,
+                    sessionTime
+            );
+
+            players.add(player);
+        }
+
+        return players;
+    }
+
+    @Override
+    public void kickPlayer(String playerName, String reason) {
+        try {
+            String command = "kick " + playerName;
+            if (reason != null && !reason.isEmpty()) {
+                command += " " + reason;
+            }
+            consoleWriter.write(command + System.lineSeparator());
+            consoleWriter.flush();
+        } catch (Exception e) {
+            LOG.error("Failed to kick player " + playerName, e);
+        }
+    }
+
+    @Override
+    public void setGamemode(String playerName, String gamemode) {
+        try {
+            String mode = gamemode.toLowerCase();
+            consoleWriter.write("gamemode " + mode + " " + playerName + System.lineSeparator());
+            consoleWriter.flush();
+        } catch (Exception e) {
+            LOG.error("Failed to set gamemode for " + playerName, e);
+        }
+    }
+
+    @Override
+    public void teleportToWorld(String playerName, String worldName) {
+        try {
+            String dimension = worldNameToDimension(worldName);
+            consoleWriter.write("execute in " + dimension + " run tp " + playerName + " ~ ~ ~" + System.lineSeparator());
+            consoleWriter.flush();
+        } catch (Exception e) {
+            LOG.error("Failed to teleport " + playerName + " to " + worldName, e);
+        }
+    }
+
+    private void triggerWorldSave() {
+        try {
+            consoleWriter.write("save-all" + System.lineSeparator());
+            consoleWriter.flush();
+            Thread.sleep(100);
+        } catch (Exception e) {
+            LOG.debug("Failed to trigger world save", e);
+        }
+    }
+
+    /**
+     * Converts a Minecraft dimension identifier to a friendly world name
+     */
+    private String dimensionToWorldName(String dimension) {
+        if (dimension == null) return "Overworld";
+        return switch (dimension) {
+            case "minecraft:overworld" -> "Overworld";
+            case "minecraft:the_nether" -> "Nether";
+            case "minecraft:the_end" -> "The End";
+            default -> {
+                if (dimension.contains(":")) {
+                    yield dimension.substring(dimension.indexOf(":") + 1);
+                }
+                yield dimension;
+            }
+        };
+    }
+
+    /**
+     * Converts a friendly world name to a Minecraft dimension identifier
+     */
+    private String worldNameToDimension(String worldName) {
+        if (worldName == null) return "minecraft:overworld";
+        return switch (worldName.toLowerCase()) {
+            case "overworld", "world" -> "minecraft:overworld";
+            case "nether", "the_nether", "world_nether" -> "minecraft:the_nether";
+            case "end", "the_end", "world_the_end" -> "minecraft:the_end";
+            default -> worldName.contains(":") ? worldName : "minecraft:" + worldName;
+        };
+    }
+
+    /**
+     * Checks if a player is an operator by reading ops.json
+     */
+    private boolean isOperator(String playerName) {
+        try {
+            File opsFile = new File("ops.json");
+            if (!opsFile.exists()) return false;
+
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode ops = mapper.readTree(opsFile);
+
+            for (JsonNode op : ops) {
+                if (op.has("name") && op.get("name").asText().equalsIgnoreCase(playerName)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            LOG.debug("Failed to check operator status for " + playerName, e);
+        }
+        return false;
+    }
+}
