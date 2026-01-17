@@ -1,8 +1,8 @@
 export default defineAppConfig({
   shadcnDocs: {
     site: {
-      name: 'MCDash',
-      description: 'MCDash is a simple dashboard for your Minecraft server',
+      name: 'VoxelDash',
+      description: 'VoxelDash is a simple dashboard for your Minecraft server',
     },
     theme: {
       customizable: false,
@@ -10,7 +10,7 @@ export default defineAppConfig({
       radius: 0.75,
     },
     header: {
-      title: 'MCDash',
+      title: 'VoxelDash',
       showTitle: true,
       darkModeToggle: true,
       logo: {
@@ -20,7 +20,7 @@ export default defineAppConfig({
       nav: [],
       links: [{
         icon: 'lucide:github',
-        to: 'https://github.com/gnmyt/MCDash',
+        to: 'https://github.com/gnmyt/VoxelDash',
         target: '_blank',
       }],
     },
@@ -36,7 +36,7 @@ export default defineAppConfig({
       credits: 'Copyright © 2025',
       links: [{
         icon: 'lucide:github',
-        to: 'https://github.com/gnmyt/MCDash',
+        to: 'https://github.com/gnmyt/VoxelDash',
         target: '_blank',
       }],
     },
@@ -46,12 +46,12 @@ export default defineAppConfig({
       links: [{
         title: 'Star on GitHub',
         icon: 'lucide:star',
-        to: 'https://github.com/gnmyt/MCDash',
+        to: 'https://github.com/gnmyt/VoxelDash',
         target: '_blank',
       }, {
         title: 'Create Issues',
         icon: 'lucide:circle-dot',
-        to: 'https://github.com/gnmyt/MCDash/issues',
+        to: 'https://github.com/gnmyt/VoxelDash/issues',
         target: '_blank',
       }],
     },

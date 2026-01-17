@@ -1,7 +1,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.gnm</groupId>
-    <artifactId>mcdash-api</artifactId>
+    <artifactId>voxeldash-api</artifactId>
     <version>1.2.0</version>
 
     <dependencies>

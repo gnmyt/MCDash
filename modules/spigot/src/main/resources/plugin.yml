@@ -1,10 +1,10 @@
-name: MCDash
+name: VoxelDash
 version: ${project.version}
-main: de.gnm.mcdash.MCDashSpigot
+main: de.gnm.voxeldash.VoxelDashSpigot
 api-version: '1.21'
 description: A web-based dashboard for managing your Minecraft server
 author: GNM
-website: https://mcdash.gnm.dev/
+website: https://voxeldash.dev/
 load: STARTUP
 
 commands: {}

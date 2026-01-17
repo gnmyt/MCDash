@@ -34,8 +34,8 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    implementation "de.gnm:mcdash-api:${project.mcdash_version}"
-    shadow "de.gnm:mcdash-api:${project.mcdash_version}"
+    implementation "de.gnm:voxeldash-api:${project.voxeldash_version}"
+    shadow "de.gnm:voxeldash-api:${project.voxeldash_version}"
 }
 
 tasks.register('buildWebUI', Exec) {
@@ -102,7 +102,7 @@ tasks.named("shadowJar") {
     configurations = [project.configurations.shadow]
     archiveClassifier.set("dev-all")
 
-    relocate 'io.undertow', 'de.gnm.mcdash.libs.undertow'
+    relocate 'io.undertow', 'de.gnm.voxeldash.libs.undertow'
 }
 
 tasks.named("remapJar") {

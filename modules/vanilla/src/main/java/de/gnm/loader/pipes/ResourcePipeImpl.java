@@ -1,11 +1,11 @@
 package de.gnm.loader.pipes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.gnm.mcdash.api.entities.ConfigFile;
-import de.gnm.mcdash.api.entities.Resource;
-import de.gnm.mcdash.api.entities.ResourceType;
-import de.gnm.mcdash.api.helper.PropertyHelper;
-import de.gnm.mcdash.api.pipes.resources.ResourcePipe;
+import de.gnm.voxeldash.api.entities.ConfigFile;
+import de.gnm.voxeldash.api.entities.Resource;
+import de.gnm.voxeldash.api.entities.ResourceType;
+import de.gnm.voxeldash.api.helper.PropertyHelper;
+import de.gnm.voxeldash.api.pipes.resources.ResourcePipe;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -15,7 +15,7 @@ import java.util.zip.ZipFile;
 
 public class ResourcePipeImpl implements ResourcePipe {
 
-    private static final Logger LOG = Logger.getLogger("MCDashVanilla");
+    private static final Logger LOG = Logger.getLogger("VoxelDashVanilla");
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final List<ResourceType> SUPPORTED_TYPES = Collections.singletonList(ResourceType.DATAPACK);
     private static final int MAX_CONFIG_FILES = 10;

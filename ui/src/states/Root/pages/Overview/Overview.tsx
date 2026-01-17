@@ -25,7 +25,7 @@ interface LayoutItem {
     minH?: number;
 }
 
-const LAYOUT_STORAGE_KEY = "mcdash-overview-layout";
+const LAYOUT_STORAGE_KEY = "voxeldash-overview-layout";
 const LAYOUT_VERSION = 1;
 const GRID_COLS = 6;
 const ROW_HEIGHT = 80;

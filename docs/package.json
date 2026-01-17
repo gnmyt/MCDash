@@ -1,5 +1,5 @@
 {
-  "name": "mcdash-docs",
+  "name": "voxeldash-docs",
   "type": "module",
   "scripts": {
     "build": "nuxt build",

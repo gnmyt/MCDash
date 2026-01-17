@@ -1,9 +1,9 @@
 package de.gnm.loader.pipes;
 
 import de.gnm.loader.helper.NBTHelper;
-import de.gnm.mcdash.api.entities.World;
-import de.gnm.mcdash.api.helper.PropertyHelper;
-import de.gnm.mcdash.api.pipes.worlds.WorldPipe;
+import de.gnm.voxeldash.api.entities.World;
+import de.gnm.voxeldash.api.helper.PropertyHelper;
+import de.gnm.voxeldash.api.pipes.worlds.WorldPipe;
 import net.querz.nbt.tag.CompoundTag;
 import org.apache.log4j.Logger;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class WorldPipeImpl implements WorldPipe {
 
-    private static final Logger LOG = Logger.getLogger("MCDashVanilla");
+    private static final Logger LOG = Logger.getLogger("VoxelDashVanilla");
 
     private final BufferedWriter consoleWriter;
     private final File serverRoot;

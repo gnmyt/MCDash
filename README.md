@@ -1,23 +1,23 @@
-<h1 align="center"><img src=".github/logo.png" alt="" width="32" height="32" style="vertical-align: middle;"> MCDash</h1>
+<h1 align="center"><img src=".github/logo.png" alt="" width="32" height="32" style="vertical-align: middle;"> VoxelDash</h1>
 <p align="center">A modern, beautiful web dashboard for managing your Minecraft server</p>
 <p align="center">
-  <a href="https://github.com/gnmyt/MCDash/stargazers"><img src="https://img.shields.io/github/stars/gnmyt/MCDash?style=flat-square&logo=github&color=f97316" alt="GitHub Stars"></a>
-  <a href="https://github.com/gnmyt/MCDash/network/members"><img src="https://img.shields.io/github/forks/gnmyt/MCDash?style=flat-square&logo=github&color=f97316" alt="GitHub Forks"></a>
-  <a href="https://github.com/gnmyt/MCDash/issues"><img src="https://img.shields.io/github/issues/gnmyt/MCDash?style=flat-square&logo=github" alt="GitHub Issues"></a>
-  <a href="https://github.com/gnmyt/MCDash/releases/latest"><img src="https://img.shields.io/github/downloads/gnmyt/MCDash/total?style=flat-square&logo=github&color=f97316" alt="Downloads"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/gnmyt/MCDash?style=flat-square" alt="License"></a>
+  <a href="https://github.com/gnmyt/VoxelDash/stargazers"><img src="https://img.shields.io/github/stars/gnmyt/VoxelDash?style=flat-square&logo=github&color=f97316" alt="GitHub Stars"></a>
+  <a href="https://github.com/gnmyt/VoxelDash/network/members"><img src="https://img.shields.io/github/forks/gnmyt/VoxelDash?style=flat-square&logo=github&color=f97316" alt="GitHub Forks"></a>
+  <a href="https://github.com/gnmyt/VoxelDash/issues"><img src="https://img.shields.io/github/issues/gnmyt/VoxelDash?style=flat-square&logo=github" alt="GitHub Issues"></a>
+  <a href="https://github.com/gnmyt/VoxelDash/releases/latest"><img src="https://img.shields.io/github/downloads/gnmyt/VoxelDash/total?style=flat-square&logo=github&color=f97316" alt="Downloads"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/gnmyt/VoxelDash?style=flat-square" alt="License"></a>
 </p>
 <p align="center">
-  <a href="https://mcdash.gnm.dev">📖 Documentation</a> · 
-  <a href="https://github.com/gnmyt/MCDash/issues/new?template=bug_report.md">🐛 Report Bug</a> · 
-  <a href="https://github.com/gnmyt/MCDash/issues/new?template=feature_request.md">✨ Request Feature</a>
+  <a href="https://voxeldash.dev">📖 Documentation</a> · 
+  <a href="https://github.com/gnmyt/VoxelDash/issues/new?template=bug_report.md">🐛 Report Bug</a> · 
+  <a href="https://github.com/gnmyt/VoxelDash/issues/new?template=feature_request.md">✨ Request Feature</a>
 </p>
 
 ---
 
 ## Features
 
-MCDash provides everything you need to manage your Minecraft server from a sleek, modern web interface:
+VoxelDash provides everything you need to manage your Minecraft server from a sleek, modern web interface:
 
 | Feature | Description |
 |---------|-------------|
@@ -77,7 +77,7 @@ MCDash provides everything you need to manage your Minecraft server from a sleek
 
 ### Installation
 
-1. **Download** the latest release from the [releases page](https://github.com/gnmyt/MCDash/releases/latest)
+1. **Download** the latest release from the [releases page](https://github.com/gnmyt/VoxelDash/releases/latest)
 
 2. **Install** the plugin/mod on your server:
    - **Spigot/Paper**: Place the `.jar` file in the `plugins` folder
@@ -88,7 +88,7 @@ MCDash provides everything you need to manage your Minecraft server from a sleek
 
 4. **Login** with the credentials shown in the console on first start
 
-For detailed installation instructions, check out our [documentation](https://mcdash.gnm.dev/getting-started/introduction).
+For detailed installation instructions, check out our [documentation](https://voxeldash.dev/getting-started/introduction).
 
 ## Tech Stack
 

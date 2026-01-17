@@ -1,7 +1,7 @@
 package de.gnm.loader.pipes;
 
-import de.gnm.mcdash.api.helper.PropertyHelper;
-import de.gnm.mcdash.api.pipes.ServerInfoPipe;
+import de.gnm.voxeldash.api.helper.PropertyHelper;
+import de.gnm.voxeldash.api.pipes.ServerInfoPipe;
 
 import java.util.Objects;
 

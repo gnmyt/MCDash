@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class NBTHelper {
 
-    private static final Logger LOG = Logger.getLogger("MCDashVanilla");
+    private static final Logger LOG = Logger.getLogger("VoxelDashVanilla");
 
     /**
      * Reads player data from the playerdata folder

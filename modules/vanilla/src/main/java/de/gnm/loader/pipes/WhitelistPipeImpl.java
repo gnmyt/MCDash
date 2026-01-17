@@ -3,8 +3,8 @@ package de.gnm.loader.pipes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import de.gnm.mcdash.api.entities.OfflinePlayer;
-import de.gnm.mcdash.api.pipes.players.WhitelistPipe;
+import de.gnm.voxeldash.api.entities.OfflinePlayer;
+import de.gnm.voxeldash.api.pipes.players.WhitelistPipe;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -17,7 +17,7 @@ import java.util.Properties;
 
 public class WhitelistPipeImpl implements WhitelistPipe {
 
-    private static final Logger LOG = LogManager.getLogger("MCDashVanilla");
+    private static final Logger LOG = LogManager.getLogger("VoxelDashVanilla");
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String WHITELIST_JSON_PATH = "whitelist.json";
 

@@ -2,8 +2,8 @@ package de.gnm.loader.helper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.gnm.mcdash.api.event.EventDispatcher;
-import de.gnm.mcdash.api.event.console.ConsoleMessageReceivedEvent;
+import de.gnm.voxeldash.api.event.EventDispatcher;
+import de.gnm.voxeldash.api.event.console.ConsoleMessageReceivedEvent;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class PlayerTracker {
 
-    private static final Logger LOG = Logger.getLogger("MCDashVanilla");
+    private static final Logger LOG = Logger.getLogger("VoxelDashVanilla");
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private static final Pattern JOIN_PATTERN = Pattern.compile(

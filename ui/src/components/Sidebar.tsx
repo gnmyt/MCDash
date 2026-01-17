@@ -100,9 +100,9 @@ export function Sidebar() {
         <ShadSidebar variant="inset" className="select-none">
             <SidebarHeader>
                 <Link to="/" className="flex items-center gap-3 px-2 py-1 cursor-pointer">
-                    <img src={ServerImage} alt="MCDash Logo" className="h-10 w-10"/>
+                    <img src={ServerImage} alt="VoxelDash Logo" className="h-10 w-10"/>
                     <div className="grid flex-1 text-left leading-tight">
-                        <span className="truncate font-bold text-lg">MCDash</span>
+                        <span className="truncate font-bold text-lg">VoxelDash</span>
                         <span className="truncate text-xs text-muted-foreground">v1.2.0</span>
                     </div>
                 </Link>

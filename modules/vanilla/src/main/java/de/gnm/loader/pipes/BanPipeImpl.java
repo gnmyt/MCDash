@@ -3,8 +3,8 @@ package de.gnm.loader.pipes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import de.gnm.mcdash.api.entities.BannedPlayer;
-import de.gnm.mcdash.api.pipes.players.BanPipe;
+import de.gnm.voxeldash.api.entities.BannedPlayer;
+import de.gnm.voxeldash.api.pipes.players.BanPipe;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedWriter;
@@ -18,7 +18,7 @@ import java.util.UUID;
 
 public class BanPipeImpl implements BanPipe {
 
-    private static final Logger LOG = Logger.getLogger("MCDashVanilla");
+    private static final Logger LOG = Logger.getLogger("VoxelDashVanilla");
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String BANNED_PLAYERS_JSON = "banned-players.json";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");

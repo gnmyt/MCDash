@@ -1,6 +1,6 @@
 package de.gnm.loader.pipes;
 
-import de.gnm.mcdash.api.pipes.QuickActionPipe;
+import de.gnm.voxeldash.api.pipes.QuickActionPipe;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -10,7 +10,7 @@ import java.io.OutputStreamWriter;
 
 public class QuickActionPipeImpl implements QuickActionPipe {
 
-    private static final Logger LOG = LogManager.getLogger("MCDashVanilla");
+    private static final Logger LOG = LogManager.getLogger("VoxelDashVanilla");
 
     private final BufferedWriter consoleWriter;
 

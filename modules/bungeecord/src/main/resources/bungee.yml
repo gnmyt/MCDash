@@ -1,5 +1,5 @@
-name: MCDash
+name: VoxelDash
 version: ${project.version}
-main: de.gnm.mcdash.MCDashBungee
+main: de.gnm.voxeldash.VoxelDashBungee
 description: A web-based dashboard for managing your BungeeCord proxy
 author: GNM

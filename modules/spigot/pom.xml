@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.gnm</groupId>
-    <artifactId>mcdash-spigot</artifactId>
+    <artifactId>voxeldash-spigot</artifactId>
     <version>1.2.0</version>
     <packaging>jar</packaging>
 
@@ -26,7 +26,7 @@
         <!-- Base API Dependency -->
         <dependency>
             <groupId>de.gnm</groupId>
-            <artifactId>mcdash-api</artifactId>
+            <artifactId>voxeldash-api</artifactId>
             <version>1.2.0</version>
             <scope>compile</scope>
         </dependency>
@@ -74,7 +74,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>io.undertow</pattern>
-                                    <shadedPattern>de.gnm.mcdash.libs.undertow</shadedPattern>
+                                    <shadedPattern>de.gnm.voxeldash.libs.undertow</shadedPattern>
                                 </relocation>
                             </relocations>
                             <filters>

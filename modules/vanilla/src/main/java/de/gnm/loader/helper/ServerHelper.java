@@ -2,8 +2,8 @@ package de.gnm.loader.helper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.gnm.mcdash.api.event.EventDispatcher;
-import de.gnm.mcdash.api.event.console.ConsoleMessageReceivedEvent;
+import de.gnm.voxeldash.api.event.EventDispatcher;
+import de.gnm.voxeldash.api.event.console.ConsoleMessageReceivedEvent;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ServerHelper {
 
-    private static final Logger LOG = Logger.getLogger("MCDashVanilla");
+    private static final Logger LOG = Logger.getLogger("VoxelDashVanilla");
     private static final String SERVER_JAR = "server.jar";
     private static final String AIKARS_FLAGS = "-XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled " +
             "-XX:+PerfDisableSharedMem -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1HeapRegionSize=8M " +

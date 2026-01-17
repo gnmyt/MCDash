@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-07-06',
 
   site: {
-    url: 'https://mcdash.gnm.dev',
+    url: 'https://voxeldash.dev',
   },
 
   ogImage: {

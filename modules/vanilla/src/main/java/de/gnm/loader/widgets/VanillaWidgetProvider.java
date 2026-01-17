@@ -1,12 +1,12 @@
 package de.gnm.loader.widgets;
 
 import de.gnm.loader.helper.PlayerTracker;
-import de.gnm.mcdash.api.controller.WidgetRegistry;
-import de.gnm.mcdash.api.entities.widget.Widget;
-import de.gnm.mcdash.api.entities.widget.WidgetSize;
-import de.gnm.mcdash.api.entities.widget.WidgetType;
-import de.gnm.mcdash.api.helper.PropertyHelper;
-import de.gnm.mcdash.api.pipes.ServerInfoPipe;
+import de.gnm.voxeldash.api.controller.WidgetRegistry;
+import de.gnm.voxeldash.api.entities.widget.Widget;
+import de.gnm.voxeldash.api.entities.widget.WidgetSize;
+import de.gnm.voxeldash.api.entities.widget.WidgetType;
+import de.gnm.voxeldash.api.helper.PropertyHelper;
+import de.gnm.voxeldash.api.pipes.ServerInfoPipe;
 
 import java.io.File;
 import java.lang.management.ManagementFactory;

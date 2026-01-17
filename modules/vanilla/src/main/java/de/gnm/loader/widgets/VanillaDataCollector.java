@@ -2,8 +2,8 @@ package de.gnm.loader.widgets;
 
 import de.gnm.loader.helper.NBTHelper;
 import de.gnm.loader.helper.PlayerTracker;
-import de.gnm.mcdash.api.entities.widget.WidgetDataPoint;
-import de.gnm.mcdash.api.helper.PropertyHelper;
+import de.gnm.voxeldash.api.entities.widget.WidgetDataPoint;
+import de.gnm.voxeldash.api.helper.PropertyHelper;
 import net.querz.nbt.tag.CompoundTag;
 
 import java.io.File;

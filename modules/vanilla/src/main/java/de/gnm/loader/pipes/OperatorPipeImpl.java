@@ -3,8 +3,8 @@ package de.gnm.loader.pipes;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import de.gnm.mcdash.api.entities.OfflinePlayer;
-import de.gnm.mcdash.api.pipes.players.OperatorPipe;
+import de.gnm.voxeldash.api.entities.OfflinePlayer;
+import de.gnm.voxeldash.api.pipes.players.OperatorPipe;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class OperatorPipeImpl implements OperatorPipe {
 
-    private static final Logger LOG = LogManager.getLogger("MCDashVanilla");
+    private static final Logger LOG = LogManager.getLogger("VoxelDashVanilla");
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String OPS_JSON_PATH = "ops.json";
 

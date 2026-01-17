@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gnm.loader.helper.NBTHelper;
 import de.gnm.loader.helper.PlayerTracker;
-import de.gnm.mcdash.api.entities.OnlinePlayer;
-import de.gnm.mcdash.api.pipes.players.OnlinePlayerPipe;
+import de.gnm.voxeldash.api.entities.OnlinePlayer;
+import de.gnm.voxeldash.api.pipes.players.OnlinePlayerPipe;
 import net.querz.nbt.tag.CompoundTag;
 import org.apache.log4j.Logger;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class OnlinePlayerPipeImpl implements OnlinePlayerPipe {
 
-    private static final Logger LOG = Logger.getLogger("MCDashVanilla");
+    private static final Logger LOG = Logger.getLogger("VoxelDashVanilla");
 
     private final BufferedWriter consoleWriter;
     private final PlayerTracker playerTracker;
