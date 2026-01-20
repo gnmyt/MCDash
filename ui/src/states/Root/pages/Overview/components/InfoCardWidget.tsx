@@ -67,7 +67,7 @@ const InfoCardWidget = ({ widget }: InfoCardWidgetProps) => {
         viewDistance: EyeIcon,
     };
 
-    const formatValue = (key: string, value: unknown): string => {
+    const formatValue = (_key: string, value: unknown): string => {
         if (typeof value === 'boolean') {
             return value ? t('action.yes', 'Yes') : t('action.no', 'No');
         }
